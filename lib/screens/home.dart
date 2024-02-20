@@ -10,9 +10,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String txtGrupo=""; // texto del grupo seleccionado
-  List<bool> btnGrupos = [false,false, false];  // para tener en cuenta que boton ha sido pulsado
-  List<String> txtGrupos = ["Atención T.","Infancia","Adolescencia"]; // textos correspondientes a los botones
+  String txtGrupo = ""; // texto del grupo seleccionado
+  List<bool> btnGrupos = [
+    false,
+    false,
+    false
+  ]; // para tener en cuenta que boton ha sido pulsado
+  List<String> txtGrupos = [
+    "Atención T.",
+    "Infancia",
+    "Adolescencia"
+  ]; // textos correspondientes a los botones
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +36,14 @@ class _HomeState extends State<Home> {
     double imgWidth = screenSize.width / 5;
     TextEditingController _nombre = TextEditingController();
 
-    void selectGroup(int index){
-      btnGrupos[index]=!btnGrupos[index];
-      if(btnGrupos[index]){
+    void selectGroup(int index) {
+      btnGrupos[index] = !btnGrupos[index];
+      if (btnGrupos[index]) {
         txtGrupo = txtGrupos[index];
-        for(int i=0;i<btnGrupos.length;i++)
-          if(index!=i)
-            btnGrupos[i] = false;
-      }else
-        txtGrupo="";
+        for (int i = 0; i < btnGrupos.length; i++)
+          if (index != i) btnGrupos[i] = false;
+      } else
+        txtGrupo = "";
     }
 
     return MaterialApp(
@@ -100,7 +107,7 @@ class _HomeState extends State<Home> {
                         fontSize: textSize,
                       ),
                     ),
-                    SizedBox(width: espacioAlto+espacioAlto/1.5),
+                    SizedBox(width: espacioAlto + espacioAlto / 1.5),
                     Text(
                       txtGrupo,
                       style: TextStyle(
@@ -129,9 +136,10 @@ class _HomeState extends State<Home> {
                           selectGroup(0);
                         });
                       },
-                      buttonColor: btnGrupos[0] ? Colors.grey : Colors.transparent, // Pasar el color al widget
+                      buttonColor: btnGrupos[0]
+                          ? Colors.grey
+                          : Colors.transparent, // Pasar el color al widget
                     ),
-
                     SizedBox(width: espacioAlto),
                     ImageTextButton(
                       text: Text(
@@ -149,7 +157,9 @@ class _HomeState extends State<Home> {
                           selectGroup(1);
                         });
                       },
-                      buttonColor: btnGrupos[1] ? Colors.grey : Colors.transparent, // Pasar el color al widget
+                      buttonColor: btnGrupos[1]
+                          ? Colors.grey
+                          : Colors.transparent, // Pasar el color al widget
                     ),
                     SizedBox(width: espacioAlto),
                     ImageTextButton(
@@ -168,7 +178,9 @@ class _HomeState extends State<Home> {
                           selectGroup(2);
                         });
                       },
-                      buttonColor: btnGrupos[2] ? Colors.grey : Colors.transparent, // Pasar el color al widget
+                      buttonColor: btnGrupos[2]
+                          ? Colors.grey
+                          : Colors.transparent, // Pasar el color al widget
                     ),
                   ],
                 ),
@@ -206,7 +218,7 @@ class _HomeState extends State<Home> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Ayuda()),
+                          MaterialPageRoute(builder: (context) => Ayuda(origen: 'home')),
                         );
                       },
                     ),
@@ -235,5 +247,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-
