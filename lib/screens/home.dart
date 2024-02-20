@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../db/db.dart';
+import '../db/grupos.dart';
 import '../widgets/ImageTextButton.dart';
 import 'ayuda.dart';
 import 'jugar.dart';
@@ -10,6 +12,24 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<Grupos> gruposList = [];
+  @override
+  void initState() {
+    super.initState();
+    fetchGrupos();
+  }
+
+  Future<void> fetchGrupos() async {
+    try {
+      List<Grupos> grupos = await getGrupos();
+      setState(() {
+        gruposList = grupos;
+      });
+    } catch (e) {
+      print("Error al obtener la lista de grupos: $e");
+    }
+  }
+
   String txtGrupo = ""; // texto del grupo seleccionado
   List<bool> btnGrupos = [
     false,
@@ -118,73 +138,42 @@ class _HomeState extends State<Home> {
                   ],
                 ),
                 SizedBox(height: espacioAlto),
-                Row(
-                  children: [
-                    ImageTextButton(
-                      text: Text(
-                        'Atención T.\n4 - 7 años',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: textSize,
-                          color: Colors.black,
+              Row(
+                children: gruposList.isNotEmpty
+                    ? gruposList.asMap().entries.map((entry) {
+                  int index = entry.key;
+                  Grupos grupo = entry.value;
+                  return Row(
+                    children: [
+                      ImageTextButton(
+                        image: Image.asset(
+                          'assets/img/grupos/' + grupo.name.toLowerCase() + '.png',
+                          width: imgWidth,
+                          height: imgHeight,
                         ),
-                      ),
-                      image: Image.asset('assets/img/grupos/atenciónT.png',
-                          width: imgWidth, height: imgHeight),
-                      onPressed: () {
-                        setState(() {
-                          selectGroup(0);
-                        });
-                      },
-                      buttonColor: btnGrupos[0]
-                          ? Colors.grey
-                          : Colors.transparent, // Pasar el color al widget
-                    ),
-                    SizedBox(width: espacioAlto),
-                    ImageTextButton(
-                      text: Text(
-                        'Infancia\n'
-                        '7 - 11 años',
-                        style: TextStyle(
+                        text: Text(
+                          grupo.name+'\n'+grupo.edades,
+                          style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: textSize,
-                            color: Colors.black),
+                            color: Colors.black,
+                          ),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            selectGroup(index);
+                          });
+                        },
+                        buttonColor: btnGrupos[index] ? Colors.grey : Colors.transparent,
                       ),
-                      image: Image.asset('assets/img/grupos/infancia.png',
-                          width: imgWidth, height: imgHeight),
-                      onPressed: () {
-                        setState(() {
-                          selectGroup(1);
-                        });
-                      },
-                      buttonColor: btnGrupos[1]
-                          ? Colors.grey
-                          : Colors.transparent, // Pasar el color al widget
-                    ),
-                    SizedBox(width: espacioAlto),
-                    ImageTextButton(
-                      text: Text(
-                        'Adolescencia\n'
-                        '12 - 17 años',
-                        style: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: textSize,
-                            color: Colors.black),
-                      ),
-                      image: Image.asset('assets/img/grupos/adolescentes.png',
-                          width: imgWidth, height: imgHeight),
-                      onPressed: () {
-                        setState(() {
-                          selectGroup(2);
-                        });
-                      },
-                      buttonColor: btnGrupos[2]
-                          ? Colors.grey
-                          : Colors.transparent, // Pasar el color al widget
-                    ),
-                  ],
-                ),
-                SizedBox(height: espacioAlto),
+                      if (index < gruposList.length - 1) SizedBox(width: espacioPadding),
+                    ],
+                  );
+                }).toList()
+                    : [Center(child: Text('No hay grupos disponibles'))],
+              ),
+
+              SizedBox(height: espacioAlto),
                 Row(
                   children: [
                     ImageTextButton(
@@ -218,7 +207,8 @@ class _HomeState extends State<Home> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Ayuda(origen: 'home')),
+                          MaterialPageRoute(
+                              builder: (context) => Ayuda(origen: 'home')),
                         );
                       },
                     ),
