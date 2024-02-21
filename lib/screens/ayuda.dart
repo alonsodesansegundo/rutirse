@@ -6,6 +6,7 @@ class Ayuda extends StatelessWidget {
   // string que nos indica si la pantalla de origen es 'home' o 'menu'
   // para dependiendo de eso, mostrar un cuadro de dialogo u otro (exitDialogFromHome o exitDialogFromMenu)
   final String origen;
+
   Ayuda({required this.origen});
 
   @override
@@ -23,54 +24,6 @@ class Ayuda extends StatelessWidget {
 
     // cuadro de dialogo para cuando vengo de home
     ExitDialog exitDialogFromHome = ExitDialog(
-        title: Text(
-            'Aviso',
-            style: TextStyle(
-              fontFamily: 'ComicNeue',
-              fontSize: titleSize,
-            ),
-        ),
-        content: Text(
-            "¿Estás seguro de que quieres volver a la pantalla principal?\n"
-            "Puedes confirmar la salida o seguir viendo la ayuda",
-            style: TextStyle(
-              fontFamily: 'ComicNeue',
-              fontSize: textSize,
-            ),
-        ),
-        leftImageTextButton: ImageTextButton(
-          image: Image.asset('assets/img/botones/ayuda.png',
-              width: imgWidth, height: imgHeight),
-          text: Text(
-            'Seguir viendo la ayuda',
-            style: TextStyle(
-              fontFamily: 'ComicNeue',
-              fontSize: subtextSize,
-                color: Colors.black
-            ),
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        rightImageTextButton: ImageTextButton(
-          image: Image.asset('assets/img/botones/salir.png',
-              width: imgWidth, height: imgHeight),
-          text: Text(
-            'Salir',
-            style: TextStyle(
-              fontFamily: 'ComicNeue',
-              fontSize: subtextSize,
-                color: Colors.black
-            ),
-          ),
-          onPressed: () {
-            Navigator.popUntil(context, (route) => route.isFirst);
-            },
-        ), spaceRight: espacioPadding*2,);
-
-    // cuadro de dialogo para cuando vengo de menu
-    ExitDialog exitDialogFromMenu = ExitDialog(
       title: Text(
         'Aviso',
         style: TextStyle(
@@ -79,8 +32,8 @@ class Ayuda extends StatelessWidget {
         ),
       ),
       content: Text(
-        "¿Estás seguro de que quieres volver al menú principal?\n"
-            "Puedes confirmar la salida o seguir viendo la ayuda",
+        "¿Estás seguro de que quieres volver a la pantalla principal?\n"
+        "Puedes confirmar la salida o seguir viendo la ayuda",
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,
@@ -94,8 +47,7 @@ class Ayuda extends StatelessWidget {
           style: TextStyle(
               fontFamily: 'ComicNeue',
               fontSize: subtextSize,
-              color: Colors.black
-          ),
+              color: Colors.black),
         ),
         onPressed: () {
           Navigator.of(context).pop();
@@ -109,13 +61,60 @@ class Ayuda extends StatelessWidget {
           style: TextStyle(
               fontFamily: 'ComicNeue',
               fontSize: subtextSize,
-              color: Colors.black
-          ),
+              color: Colors.black),
         ),
         onPressed: () {
-
+          Navigator.popUntil(context, (route) => route.isFirst);
         },
-      ), spaceRight: espacioPadding*2,);
+      ),
+      spaceRight: espacioPadding * 2,
+    );
+
+    // cuadro de dialogo para cuando vengo de menu
+    ExitDialog exitDialogFromMenu = ExitDialog(
+      title: Text(
+        'Aviso',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: titleSize,
+        ),
+      ),
+      content: Text(
+        "¿Estás seguro de que quieres volver al menú principal?\n"
+        "Puedes confirmar la salida o seguir viendo la ayuda",
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: textSize,
+        ),
+      ),
+      leftImageTextButton: ImageTextButton(
+        image: Image.asset('assets/img/botones/ayuda.png',
+            width: imgWidth, height: imgHeight),
+        text: Text(
+          'Seguir viendo la ayuda',
+          style: TextStyle(
+              fontFamily: 'ComicNeue',
+              fontSize: subtextSize,
+              color: Colors.black),
+        ),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      ),
+      rightImageTextButton: ImageTextButton(
+        image: Image.asset('assets/img/botones/salir.png',
+            width: imgWidth, height: imgHeight),
+        text: Text(
+          'Salir',
+          style: TextStyle(
+              fontFamily: 'ComicNeue',
+              fontSize: subtextSize,
+              color: Colors.black),
+        ),
+        onPressed: () {},
+      ),
+      spaceRight: espacioPadding * 2,
+    );
 
     // ayuda completada cuando vengo de home
     ExitDialog helpCompletedDialogFromMenu = ExitDialog(
@@ -128,8 +127,8 @@ class Ayuda extends StatelessWidget {
       ),
       content: Text(
         "Has acabado de ver la explicación de cómo jugar al juego 'Rutinas'.\n"
-            "Si ya estás preparado para empezar a jugar, antes debes de indicarnos tu nombre y grupo.\n"
-            "Si todavía no te sientes preparado, no te preocupes, puedes seguir viendo la explicación de como jugar.",
+        "Si ya estás preparado para empezar a jugar, antes debes de indicarnos tu nombre y grupo.\n"
+        "Si todavía no te sientes preparado, no te preocupes, puedes seguir viendo la explicación de como jugar.",
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,
@@ -143,8 +142,7 @@ class Ayuda extends StatelessWidget {
           style: TextStyle(
               fontFamily: 'ComicNeue',
               fontSize: subtextSize,
-              color: Colors.black
-          ),
+              color: Colors.black),
         ),
         onPressed: () {
           Navigator.popUntil(context, (route) => route.isFirst);
@@ -158,13 +156,14 @@ class Ayuda extends StatelessWidget {
           style: TextStyle(
               fontFamily: 'ComicNeue',
               fontSize: subtextSize,
-              color: Colors.black
-          ),
+              color: Colors.black),
         ),
         onPressed: () {
           Navigator.of(context).pop();
         },
-      ), spaceRight: espacioPadding*2,);
+      ),
+      spaceRight: espacioPadding * 2,
+    );
 
     //ayuda completada cuando vengo de home
     ExitDialog helpCompletedDialogFromHome = ExitDialog(
@@ -177,8 +176,8 @@ class Ayuda extends StatelessWidget {
       ),
       content: Text(
         "Has acabado de ver la explicación de cómo jugar al juego 'Rutinas'.\n"
-            "Si ya estás preparado para empezar a jugar, volverás al menú principal.\n"
-            "Si todavía no te sientes preparado, no te preocupes, puedes seguir viendo la explicación de como jugar.",
+        "Si ya estás preparado para empezar a jugar, volverás al menú principal.\n"
+        "Si todavía no te sientes preparado, no te preocupes, puedes seguir viendo la explicación de como jugar.",
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,
@@ -192,8 +191,7 @@ class Ayuda extends StatelessWidget {
           style: TextStyle(
               fontFamily: 'ComicNeue',
               fontSize: subtextSize,
-              color: Colors.black
-          ),
+              color: Colors.black),
         ),
         onPressed: () {
           Navigator.of(context).pop();
@@ -207,14 +205,14 @@ class Ayuda extends StatelessWidget {
           style: TextStyle(
               fontFamily: 'ComicNeue',
               fontSize: subtextSize,
-              color: Colors.black
-          ),
+              color: Colors.black),
         ),
         onPressed: () {
           Navigator.of(context).pop();
         },
-      ), spaceRight: espacioPadding*2,);
-
+      ),
+      spaceRight: espacioPadding * 2,
+    );
 
     return MaterialApp(
       home: Scaffold(
@@ -239,7 +237,7 @@ class Ayuda extends StatelessWidget {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            if(origen=='home')
+                            if (origen == 'home')
                               return exitDialogFromHome;
                             else
                               return exitDialogFromMenu;
@@ -480,7 +478,7 @@ class Ayuda extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        if(origen=='home')
+                        if (origen == 'home')
                           return helpCompletedDialogFromMenu;
                         else
                           return helpCompletedDialogFromHome;

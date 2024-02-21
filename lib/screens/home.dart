@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:rutinas/db/jugador.dart';
 
 import '../db/db.dart';
-import '../db/grupos.dart';
+import '../db/grupo.dart';
 import '../widgets/ImageTextButton.dart';
 import 'ayuda.dart';
 import 'jugar.dart';
@@ -12,13 +13,19 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<Grupo> gruposList = [];
-  @override
-  void initState() {
-    super.initState();
-    fetchGrupos();
-  }
+  List<Grupo> gruposList = []; // lista de grupos obtenidos de la BBDD
+  String txtGrupo = ""; // texto del grupo seleccionado
+  List<bool> btnGruposFlags = [
+    false,
+    false,
+    false
+  ]; // para tener en cuenta que boton ha sido pulsado
 
+  // Datos que se deben de completar para empezar a jugar
+  String nombre = "Introduce tu nombre";
+  int grupoId = -1;
+
+  // Método para obtener la lsita de grupos de la BBDD
   Future<void> fetchGrupos() async {
     try {
       List<Grupo> grupos = await getGrupos();
@@ -30,40 +37,79 @@ class _HomeState extends State<Home> {
     }
   }
 
-  String txtGrupo = ""; // texto del grupo seleccionado
-  List<bool> btnGrupos = [
-    false,
-    false,
-    false
-  ]; // para tener en cuenta que boton ha sido pulsado
-  List<String> txtGrupos = [
-    "Atención T.",
-    "Infancia",
-    "Adolescencia"
-  ]; // textos correspondientes a los botones
+  @override
+  void initState() {
+    super.initState();
+    fetchGrupos();
+  }
 
   @override
   Widget build(BuildContext context) {
+    // Tamaños para fuentes, imagenes...
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
-
     double titleSize = screenSize.width * 0.10;
     double textSize = screenSize.width * 0.03;
-
     double espacioPadding = screenSize.height * 0.03;
     double espacioAlto = screenSize.height * 0.03;
-
     double imgHeight = screenSize.height / 5;
     double imgWidth = screenSize.width / 5;
-    TextEditingController _nombre = TextEditingController();
 
+    // cuadro de dialogo para cuando quiere jugar pero los datos son incompletos
+    AlertDialog dialogoCamposIncompletos = AlertDialog(
+      title: Text(
+        'Aviso',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: titleSize,
+        ),
+      ),
+      content: Text(
+        "Por favor, recuerda indicarnos tu nombre y grupo para poder medir tu progreso. "
+        "Mientras no tengamos esos datos, no podemos dejarte jugar. "
+        "\n¡Lo sentimos!",
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: textSize,
+        ),
+      ),
+      actions: [
+        Row(
+          children: [
+            ImageTextButton(
+                image: Image.asset('assets/img/botones/volver.png',
+                    width: imgWidth, height: imgHeight),
+                text: Text(
+                  'Volver',
+                  style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize,
+                      color: Colors.black),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+          ],
+        ),
+      ],
+    );
+
+    // Método para cuando se selecciona un grupo
     void selectGroup(int index) {
-      btnGrupos[index] = !btnGrupos[index];
-      if (btnGrupos[index]) {
-        txtGrupo = txtGrupos[index];
-        for (int i = 0; i < btnGrupos.length; i++)
-          if (index != i) btnGrupos[i] = false;
-      } else
+      btnGruposFlags[index] =
+          !btnGruposFlags[index]; // se actualiza su pulsación
+      if (btnGruposFlags[index]) {
+        // si está activado
+        txtGrupo = gruposList[index].nombre; // se muestra el nombre
+        grupoId = gruposList[index].id; // se actualiza el id seleccionado
+        for (int i = 0;
+            i < btnGruposFlags.length;
+            i++) // pongo los demás a false
+          if (index != i) btnGruposFlags[i] = false;
+      } else {
+        // si con la pulsación ha sido deseleccionado
         txtGrupo = "";
+        grupoId = -1;
+      }
     }
 
     return MaterialApp(
@@ -74,6 +120,7 @@ class _HomeState extends State<Home> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Título Rutinas
                 Text(
                   'Rutinas',
                   style: TextStyle(
@@ -82,6 +129,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 SizedBox(height: espacioAlto), // Espacio entre los textos
+                // Explicación pantalla
                 Text(
                   'Antes de empezar, ¿puedes decirnos tu nombre y de qué grupo eres? '
                   'Esto nos va a ayudar a seguir tu progreso. '
@@ -92,6 +140,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 SizedBox(height: espacioAlto), // Espacio entre los textos
+                // Fila para el nombre
                 Row(
                   children: [
                     Text(
@@ -104,7 +153,9 @@ class _HomeState extends State<Home> {
                     SizedBox(width: espacioAlto),
                     Expanded(
                       child: TextField(
-                        controller: _nombre,
+                        onChanged: (text) {
+                          this.nombre = text;
+                        },
                         decoration: InputDecoration(
                           hintText: 'Introduce tu nombre',
                           hintStyle: TextStyle(
@@ -118,6 +169,7 @@ class _HomeState extends State<Home> {
                   ],
                 ),
                 SizedBox(height: espacioAlto),
+                // Fila para el grupo
                 Row(
                   children: [
                     Text(
@@ -138,42 +190,48 @@ class _HomeState extends State<Home> {
                   ],
                 ),
                 SizedBox(height: espacioAlto),
-              Row(
-                children: gruposList.isNotEmpty
-                    ? gruposList.asMap().entries.map((entry) {
-                  int index = entry.key;
-                  Grupo grupo = entry.value;
-                  return Row(
-                    children: [
-                      ImageTextButton(
-                        image: Image.asset(
-                          'assets/img/grupos/' + grupo.name.toLowerCase() + '.png',
-                          width: imgWidth,
-                          height: imgHeight,
-                        ),
-                        text: Text(
-                          grupo.name+'\n'+grupo.edades,
-                          style: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: textSize,
-                            color: Colors.black,
-                          ),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            selectGroup(index);
-                          });
-                        },
-                        buttonColor: btnGrupos[index] ? Colors.grey : Colors.transparent,
-                      ),
-                      if (index < gruposList.length - 1) SizedBox(width: espacioPadding),
-                    ],
-                  );
-                }).toList()
-                    : [Center(child: Text('No hay grupos disponibles'))],
-              ),
-
-              SizedBox(height: espacioAlto),
+                // Fila para los botones de seleccionar grupo
+                Row(
+                  children: gruposList.isNotEmpty
+                      ? gruposList.asMap().entries.map((entry) {
+                          int index = entry.key;
+                          Grupo grupo = entry.value;
+                          return Row(
+                            children: [
+                              ImageTextButton(
+                                image: Image.asset(
+                                  'assets/img/grupos/' +
+                                      grupo.nombre.toLowerCase() +
+                                      '.png',
+                                  width: imgWidth,
+                                  height: imgHeight,
+                                ),
+                                text: Text(
+                                  grupo.nombre + '\n' + grupo.edades,
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    selectGroup(index);
+                                  });
+                                },
+                                buttonColor: btnGruposFlags[index]
+                                    ? Colors.grey
+                                    : Colors.transparent,
+                              ),
+                              if (index < gruposList.length - 1)
+                                SizedBox(width: espacioPadding),
+                            ],
+                          );
+                        }).toList()
+                      : [Center(child: Text('No hay grupos disponibles'))],
+                ),
+                SizedBox(height: espacioAlto),
+                // Fila para los botones de Jugar, Ayuda y Terapeuta
                 Row(
                   children: [
                     ImageTextButton(
@@ -187,10 +245,22 @@ class _HomeState extends State<Home> {
                             color: Colors.black),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Jugar()),
-                        );
+                        if (this.nombre != "" && grupoId != -1) {
+                          Jugador jugador = new Jugador(
+                              nombre: nombre.toString(), grupoId: grupoId);
+                          insertJugador(jugador);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Jugar()),
+                          );
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return dialogoCamposIncompletos;
+                            },
+                          );
+                        }
                       },
                     ),
                     SizedBox(width: espacioAlto),
@@ -223,9 +293,7 @@ class _HomeState extends State<Home> {
                             fontSize: textSize,
                             color: Colors.black),
                       ),
-                      onPressed: () {
-                        // Acción al presionar el botón
-                      },
+                      onPressed: () {},
                     ),
                   ],
                 )
