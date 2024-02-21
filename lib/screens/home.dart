@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rutinas/db/jugador.dart';
+import 'package:rutinas/provider/MyProvider.dart';
 
 import '../db/db.dart';
 import '../db/grupo.dart';
@@ -23,7 +25,7 @@ class _HomeState extends State<Home> {
 
   // Datos que se deben de completar para empezar a jugar
   String nombre = "Introduce tu nombre";
-  int grupoId = -1;
+  Grupo? selectedGrupo = null;
 
   // Método para obtener la lsita de grupos de la BBDD
   Future<void> fetchGrupos() async {
@@ -45,6 +47,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    var myProvider = Provider.of<MyProvider>(context);
     // Tamaños para fuentes, imagenes...
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
     double titleSize = screenSize.width * 0.10;
@@ -100,7 +103,7 @@ class _HomeState extends State<Home> {
       if (btnGruposFlags[index]) {
         // si está activado
         txtGrupo = gruposList[index].nombre; // se muestra el nombre
-        grupoId = gruposList[index].id; // se actualiza el id seleccionado
+        selectedGrupo = gruposList[index]; // se actualiza el id seleccionado
         for (int i = 0;
             i < btnGruposFlags.length;
             i++) // pongo los demás a false
@@ -108,7 +111,7 @@ class _HomeState extends State<Home> {
       } else {
         // si con la pulsación ha sido deseleccionado
         txtGrupo = "";
-        grupoId = -1;
+        selectedGrupo = null;
       }
     }
 
@@ -245,10 +248,12 @@ class _HomeState extends State<Home> {
                             color: Colors.black),
                       ),
                       onPressed: () {
-                        if (this.nombre != "" && grupoId != -1) {
+                        if (this.nombre != "" && selectedGrupo != null) {
                           Jugador jugador = new Jugador(
-                              nombre: nombre.toString(), grupoId: grupoId);
+                              nombre: nombre.toString(), grupoId: selectedGrupo!.id);
                           insertJugador(jugador);
+                          myProvider.jugador = jugador;
+                          myProvider.grupo = selectedGrupo!;
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => Jugar()),
