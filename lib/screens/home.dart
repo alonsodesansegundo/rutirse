@@ -12,7 +12,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<Grupos> gruposList = [];
+  List<Grupo> gruposList = [];
   @override
   void initState() {
     super.initState();
@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
 
   Future<void> fetchGrupos() async {
     try {
-      List<Grupos> grupos = await getGrupos();
+      List<Grupo> grupos = await getGrupos();
       setState(() {
         gruposList = grupos;
       });
@@ -142,7 +142,7 @@ class _HomeState extends State<Home> {
                 children: gruposList.isNotEmpty
                     ? gruposList.asMap().entries.map((entry) {
                   int index = entry.key;
-                  Grupos grupo = entry.value;
+                  Grupo grupo = entry.value;
                   return Row(
                     children: [
                       ImageTextButton(
