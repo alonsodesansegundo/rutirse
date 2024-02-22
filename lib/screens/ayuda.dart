@@ -232,8 +232,17 @@ class Ayuda extends StatelessWidget {
                         fontSize: titleSize,
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
+                    ImageTextButton(
+                      image: Image.asset('assets/img/botones/volver.png',
+                          height: imgHeight / 4),
+                      text: Text(
+                        'Volver',
+                        style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: subtextSize * 0.75,
+                            color: Colors.black),
+                      ),
+                      onPressed: () {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -244,11 +253,6 @@ class Ayuda extends StatelessWidget {
                           },
                         );
                       },
-                      child: Image.asset(
-                        'assets/img/botones/volver.png',
-                        height: imgWidth / 3,
-                        width: imgWidth / 3,
-                      ),
                     ),
                   ],
                 ),
