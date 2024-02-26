@@ -50,12 +50,30 @@ class _HomeState extends State<Home> {
     var myProvider = Provider.of<MyProvider>(context);
     // Tamaños para fuentes, imagenes...
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
-    double titleSize = screenSize.width * 0.10;
-    double textSize = screenSize.width * 0.03;
-    double espacioPadding = screenSize.height * 0.03;
-    double espacioAlto = screenSize.height * 0.03;
-    double imgHeight = screenSize.height / 5;
-    double imgWidth = screenSize.width / 5;
+    double titleSize,
+        textSize,
+        espacioPadding,
+        espacioAlto,
+        imgHeight,
+        imgWidth;
+    final isHorizontal =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    if (isHorizontal) {
+      titleSize = screenSize.width * 0.08;
+      textSize = screenSize.width * 0.02;
+      espacioPadding = screenSize.height * 0.02;
+      espacioAlto = screenSize.height * 0.02;
+      imgHeight = screenSize.height / 4;
+      imgWidth = screenSize.width / 4;
+    } else {
+      titleSize = screenSize.width * 0.10;
+      textSize = screenSize.width * 0.03;
+      espacioPadding = screenSize.height * 0.03;
+      espacioAlto = screenSize.height * 0.03;
+      imgHeight = screenSize.height / 5;
+      imgWidth = screenSize.width / 5;
+    }
 
     // cuadro de dialogo para cuando quiere jugar pero los datos son incompletos
     AlertDialog dialogoCamposIncompletos = AlertDialog(
@@ -125,7 +143,7 @@ class _HomeState extends State<Home> {
               children: [
                 // Título Rutinas
                 Text(
-                  'Rutinas',
+                  "Rutinas",
                   style: TextStyle(
                     fontFamily: 'ComicNeue',
                     fontSize: titleSize,
@@ -250,7 +268,8 @@ class _HomeState extends State<Home> {
                       onPressed: () {
                         if (this.nombre != "" && selectedGrupo != null) {
                           Jugador jugador = new Jugador(
-                              nombre: nombre.toString(), grupoId: selectedGrupo!.id);
+                              nombre: nombre.toString(),
+                              grupoId: selectedGrupo!.id);
                           insertJugador(jugador);
                           myProvider.jugador = jugador;
                           myProvider.grupo = selectedGrupo!;

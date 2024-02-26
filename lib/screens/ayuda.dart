@@ -13,14 +13,36 @@ class Ayuda extends StatelessWidget {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
-    double titleSize = screenSize.width * 0.10;
-    double textSize = screenSize.width * 0.04;
-    double subtextSize = screenSize.width * 0.035;
-    double espacioAlto = screenSize.height * 0.03;
+    double titleSize,
+        textSize,
+        subtextSize,
+        espacioPadding,
+        espacioAlto,
+        imgHeight,
+        imgWidth,
+        imgVolverHeight;
+    final isHorizontal =
+        MediaQuery.of(context).orientation == Orientation.landscape;
 
-    double espacioPadding = screenSize.height * 0.03;
-    double imgHeight = screenSize.height * 0.15;
-    double imgWidth = screenSize.width / 5;
+    if (isHorizontal) {
+      titleSize = screenSize.width * 0.08;
+      textSize = screenSize.width * 0.02;
+      subtextSize = screenSize.width * 0.01;
+      espacioPadding = screenSize.height * 0.02;
+      espacioAlto = screenSize.height * 0.04;
+      imgHeight = screenSize.height / 5;
+      imgWidth = screenSize.width / 5;
+      imgVolverHeight = imgHeight / 2;
+    } else {
+      titleSize = screenSize.width * 0.10;
+      textSize = screenSize.width * 0.04;
+      subtextSize = screenSize.width * 0.035;
+      espacioPadding = screenSize.height * 0.03;
+      espacioAlto = screenSize.height * 0.03;
+      imgHeight = screenSize.height * 0.15;
+      imgWidth = screenSize.width / 5;
+      imgVolverHeight = imgHeight / 4;
+    }
 
     // cuadro de dialogo para cuando vengo de home
     ExitDialog exitDialogFromHome = ExitDialog(
@@ -234,7 +256,7 @@ class Ayuda extends StatelessWidget {
                     ),
                     ImageTextButton(
                       image: Image.asset('assets/img/botones/volver.png',
-                          height: imgHeight / 4),
+                          height: imgVolverHeight),
                       text: Text(
                         'Volver',
                         style: TextStyle(
@@ -466,7 +488,7 @@ class Ayuda extends StatelessWidget {
                     fontSize: textSize,
                   ),
                 ),
-                SizedBox(height: espacioAlto),
+                SizedBox(height: espacioAlto * 2),
 
                 ImageTextButton(
                   image: Image.asset('assets/img/botones/fin.png',
