@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../db/accion.dart';
+import '../db/obj/accion.dart';
 
 class CartaAccion {
   final Accion accion;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rutinas/db/jugador.dart';
 import 'package:rutinas/provider/MyProvider.dart';
 
 import '../db/db.dart';
-import '../db/grupo.dart';
+import '../db/obj/grupo.dart';
+import '../db/obj/jugador.dart';
 import '../widgets/ImageTextButton.dart';
 import 'ayuda.dart';
 import 'jugar.dart';

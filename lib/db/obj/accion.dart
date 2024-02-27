@@ -1,3 +1,7 @@
+import 'package:sqflite/sqflite.dart';
+
+import '../db.dart';
+
 class Accion {
   final int id;
   final String texto;
@@ -32,5 +36,27 @@ class Accion {
   @override
   String toString() {
     return 'Accion {id: $id, texto: $texto, orden: $orden, imagenPath: $imagenPath, preguntaId: $preguntaId}';
+  }
+}
+
+Future<void> insertAccion(Database database, String texto, int orden,
+    String imgAccion, int preguntaId) async {
+  await database.transaction((txn) async {
+    await txn.rawInsert(
+      "INSERT INTO accion (texto, orden, imagenPath, preguntaId) VALUES (?, ?, ?, ?)",
+      [texto, orden, pathAcciones + imgAccion, preguntaId],
+    );
+  });
+}
+
+Future<List<Accion>> getAcciones(int preguntaId) async {
+  try {
+    final Database db = await initializeDB();
+    final List<Map<String, dynamic>> accionesMap = await db
+        .query('accion', where: 'preguntaId = ?', whereArgs: [preguntaId]);
+    return accionesMap.map((map) => Accion.accionesFromMap(map)).toList();
+  } catch (e) {
+    print("Error al obtener acciones: $e");
+    return [];
   }
 }
