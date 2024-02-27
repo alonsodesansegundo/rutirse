@@ -11,6 +11,7 @@ class Ayuda extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Variables necesarias para tamaños de fuentes, imagenes ...
     Size screenSize = MediaQuery.of(context).size;
 
     double titleSize,
@@ -21,10 +22,12 @@ class Ayuda extends StatelessWidget {
         imgHeight,
         imgWidth,
         imgVolverHeight;
+
     final isHorizontal =
         MediaQuery.of(context).orientation == Orientation.landscape;
 
     if (isHorizontal) {
+      // si el dispositivo está en horizontal
       titleSize = screenSize.width * 0.08;
       textSize = screenSize.width * 0.02;
       subtextSize = screenSize.width * 0.01;
@@ -34,6 +37,7 @@ class Ayuda extends StatelessWidget {
       imgWidth = screenSize.width / 5;
       imgVolverHeight = imgHeight / 2;
     } else {
+      // si el dispositivo está en vertical
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.04;
       subtextSize = screenSize.width * 0.035;
@@ -44,197 +48,118 @@ class Ayuda extends StatelessWidget {
       imgVolverHeight = imgHeight / 4;
     }
 
-    // cuadro de dialogo para cuando vengo de home
+    // BOTONES DE LOS CUADROS DE DIALOGO
+    // boton para seguir en la pantalla de ayuda
+    ImageTextButton btnSeguirAyuda = ImageTextButton(
+      image: Image.asset('assets/img/botones/ayuda.png',
+          width: imgWidth, height: imgHeight),
+      text: Text(
+        'Seguir viendo la ayuda',
+        style: TextStyle(
+            fontFamily: 'ComicNeue',
+            fontSize: subtextSize,
+            color: Colors.black),
+      ),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+
+    // boton para salir de la pantalla de ayuda desde la pantalla principal
+    ImageTextButton btnSalirAyudaFromHome = ImageTextButton(
+      image: Image.asset('assets/img/botones/salir.png',
+          width: imgWidth, height: imgHeight),
+      text: Text(
+        'Salir',
+        style: TextStyle(
+            fontFamily: 'ComicNeue',
+            fontSize: subtextSize,
+            color: Colors.black),
+      ),
+      onPressed: () {
+        Navigator.popUntil(context, (route) => route.isFirst);
+      },
+    );
+
+    // boton para salir de la pantalla de ayuda desde el menu
+    ImageTextButton btnSalirFromMenu = ImageTextButton(
+      image: Image.asset('assets/img/botones/salir.png',
+          width: imgWidth, height: imgHeight),
+      text: Text(
+        'Salir',
+        style: TextStyle(
+            fontFamily: 'ComicNeue',
+            fontSize: subtextSize,
+            color: Colors.black),
+      ),
+      onPressed: () {},
+    );
+
+    // boton para volver a la pantalla principal (he acabado la ayuda)
+    ImageTextButton btnJugar = ImageTextButton(
+      image: Image.asset('assets/img/botones/jugar.png',
+          width: imgWidth, height: imgHeight),
+      text: Text(
+        '¡Estoy listo!',
+        style: TextStyle(
+            fontFamily: 'ComicNeue',
+            fontSize: subtextSize,
+            color: Colors.black),
+      ),
+      onPressed: () {
+        Navigator.popUntil(context, (route) => route.isFirst);
+      },
+    );
+
+    // CUADROS DE DIALOGO
+    // cuadrdo de dialogo para salir de la pantalla de ayuda desde la pantalla principal
     ExitDialog exitDialogFromHome = ExitDialog(
-      title: Text(
-        'Aviso',
-        style: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: titleSize,
-        ),
-      ),
-      content: Text(
-        "¿Estás seguro de que quieres volver a la pantalla principal?\n"
-        "Puedes confirmar la salida o seguir viendo la ayuda",
-        style: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: textSize,
-        ),
-      ),
-      leftImageTextButton: ImageTextButton(
-        image: Image.asset('assets/img/botones/ayuda.png',
-            width: imgWidth, height: imgHeight),
-        text: Text(
-          'Seguir viendo la ayuda',
-          style: TextStyle(
-              fontFamily: 'ComicNeue',
-              fontSize: subtextSize,
-              color: Colors.black),
-        ),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-      ),
-      rightImageTextButton: ImageTextButton(
-        image: Image.asset('assets/img/botones/salir.png',
-            width: imgWidth, height: imgHeight),
-        text: Text(
-          'Salir',
-          style: TextStyle(
-              fontFamily: 'ComicNeue',
-              fontSize: subtextSize,
-              color: Colors.black),
-        ),
-        onPressed: () {
-          Navigator.popUntil(context, (route) => route.isFirst);
-        },
-      ),
-      spaceRight: espacioPadding * 2,
-    );
+        title: 'Aviso',
+        titleSize: titleSize,
+        content:
+            "¿Estás seguro de que quieres volver a la pantalla principal?\n"
+            "Puedes confirmar la salida o seguir viendo la ayuda",
+        contentSize: textSize,
+        leftImageTextButton: btnSeguirAyuda,
+        rightImageTextButton: btnSalirAyudaFromHome,
+        spaceRight: espacioPadding * 2);
 
-    // cuadro de dialogo para cuando vengo de menu
+    // cuadro de dialogo para salir de la pantalla de ayuda desde el menu
     ExitDialog exitDialogFromMenu = ExitDialog(
-      title: Text(
-        'Aviso',
-        style: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: titleSize,
-        ),
-      ),
-      content: Text(
-        "¿Estás seguro de que quieres volver al menú principal?\n"
-        "Puedes confirmar la salida o seguir viendo la ayuda",
-        style: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: textSize,
-        ),
-      ),
-      leftImageTextButton: ImageTextButton(
-        image: Image.asset('assets/img/botones/ayuda.png',
-            width: imgWidth, height: imgHeight),
-        text: Text(
-          'Seguir viendo la ayuda',
-          style: TextStyle(
-              fontFamily: 'ComicNeue',
-              fontSize: subtextSize,
-              color: Colors.black),
-        ),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-      ),
-      rightImageTextButton: ImageTextButton(
-        image: Image.asset('assets/img/botones/salir.png',
-            width: imgWidth, height: imgHeight),
-        text: Text(
-          'Salir',
-          style: TextStyle(
-              fontFamily: 'ComicNeue',
-              fontSize: subtextSize,
-              color: Colors.black),
-        ),
-        onPressed: () {},
-      ),
-      spaceRight: espacioPadding * 2,
-    );
+        title: 'Aviso',
+        titleSize: titleSize,
+        content: "¿Estás seguro de que quieres volver al menú principal?\n"
+            "Puedes confirmar la salida o seguir viendo la ayuda",
+        contentSize: textSize,
+        leftImageTextButton: btnSeguirAyuda,
+        rightImageTextButton: btnSalirFromMenu,
+        spaceRight: espacioPadding * 2);
 
-    // ayuda completada cuando vengo de home
-    ExitDialog helpCompletedDialogFromMenu = ExitDialog(
-      title: Text(
-        '¡Genial!',
-        style: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: titleSize,
-        ),
-      ),
-      content: Text(
-        "Has acabado de ver la explicación de cómo jugar al juego 'Rutinas'.\n"
-        "Si ya estás preparado para empezar a jugar, antes debes de indicarnos tu nombre y grupo.\n"
-        "Si todavía no te sientes preparado, no te preocupes, puedes seguir viendo la explicación de como jugar.",
-        style: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: textSize,
-        ),
-      ),
-      leftImageTextButton: ImageTextButton(
-        image: Image.asset('assets/img/botones/jugar.png',
-            width: imgWidth, height: imgHeight),
-        text: Text(
-          '¡Estoy listo!',
-          style: TextStyle(
-              fontFamily: 'ComicNeue',
-              fontSize: subtextSize,
-              color: Colors.black),
-        ),
-        onPressed: () {
-          Navigator.popUntil(context, (route) => route.isFirst);
-        },
-      ),
-      rightImageTextButton: ImageTextButton(
-        image: Image.asset('assets/img/botones/ayuda.png',
-            width: imgWidth, height: imgHeight),
-        text: Text(
-          'Seguir viendo la ayuda',
-          style: TextStyle(
-              fontFamily: 'ComicNeue',
-              fontSize: subtextSize,
-              color: Colors.black),
-        ),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-      ),
-      spaceRight: espacioPadding * 2,
-    );
-
-    //ayuda completada cuando vengo de home
+    // cuadro de dialogo de he completado la ayuda desde la pantalla principal
     ExitDialog helpCompletedDialogFromHome = ExitDialog(
-      title: Text(
-        '¡Genial!',
-        style: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: titleSize,
-        ),
-      ),
-      content: Text(
-        "Has acabado de ver la explicación de cómo jugar al juego 'Rutinas'.\n"
-        "Si ya estás preparado para empezar a jugar, volverás al menú principal.\n"
-        "Si todavía no te sientes preparado, no te preocupes, puedes seguir viendo la explicación de como jugar.",
-        style: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: textSize,
-        ),
-      ),
-      leftImageTextButton: ImageTextButton(
-        image: Image.asset('assets/img/botones/volver.png',
-            width: imgWidth, height: imgHeight),
-        text: Text(
-          'Volver al menú principal',
-          style: TextStyle(
-              fontFamily: 'ComicNeue',
-              fontSize: subtextSize,
-              color: Colors.black),
-        ),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-      ),
-      rightImageTextButton: ImageTextButton(
-        image: Image.asset('assets/img/botones/ayuda.png',
-            width: imgWidth, height: imgHeight),
-        text: Text(
-          'Seguir viendo la ayuda',
-          style: TextStyle(
-              fontFamily: 'ComicNeue',
-              fontSize: subtextSize,
-              color: Colors.black),
-        ),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-      ),
-      spaceRight: espacioPadding * 2,
-    );
+        title: '¡Genial!',
+        titleSize: titleSize,
+        content:
+            "Has acabado de ver la explicación de cómo jugar al juego 'Rutinas'.\n"
+            "Si ya estás preparado para empezar a jugar, volverás al menú principal.\n"
+            "Si todavía no te sientes preparado, no te preocupes, puedes seguir viendo la explicación de como jugar.",
+        contentSize: textSize,
+        leftImageTextButton: btnSeguirAyuda,
+        rightImageTextButton: btnSalirAyudaFromHome,
+        spaceRight: espacioPadding * 2);
+
+    // cuadro de dialogo de he completado la ayuda desde el menu
+    ExitDialog helpCompletedDialogFromMenu = ExitDialog(
+        title: '¡Genial!',
+        titleSize: titleSize,
+        content:
+            "Has acabado de ver la explicación de cómo jugar al juego 'Rutinas'.\n"
+            "Si ya estás preparado para empezar a jugar, antes debes de indicarnos tu nombre y grupo.\n"
+            "Si todavía no te sientes preparado, no te preocupes, puedes seguir viendo la explicación de como jugar.",
+        contentSize: textSize,
+        leftImageTextButton: btnJugar,
+        rightImageTextButton: btnSeguirAyuda,
+        spaceRight: espacioPadding * 2);
 
     return MaterialApp(
       home: Scaffold(
