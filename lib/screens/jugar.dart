@@ -2,11 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rutinas/db/db.dart';
 import 'package:rutinas/obj/CartaAccion.dart';
 
-import '../db/accion.dart';
-import '../db/pregunta.dart';
+import '../db/obj/accion.dart';
+import '../db/obj/pregunta.dart';
 import '../provider/MyProvider.dart';
 import '../widgets/ExitDialog.dart';
 import '../widgets/ImageTextButton.dart';
@@ -42,12 +41,12 @@ class _Jugar extends State<Jugar> {
 
     double titleSize,
         textSize,
-        subtextSize,
         espacioPadding,
         espacioAlto,
         imgHeight,
         imgWidth,
         personajeHeight,
+        imgCartaHeight,
         imgVolverHeight,
         espacioCartas,
         ancho;
@@ -60,12 +59,12 @@ class _Jugar extends State<Jugar> {
       ancho = screenSize.width;
       titleSize = screenSize.width * 0.08;
       textSize = screenSize.width * 0.02;
-      subtextSize = screenSize.width * 0.010;
       espacioPadding = screenSize.height * 0.02;
       espacioAlto = screenSize.height * 0.04;
-      imgHeight = screenSize.height / 3;
+      imgHeight = screenSize.height / 7;
       imgWidth = screenSize.width / 3;
       personajeHeight = screenSize.height / 6;
+      imgCartaHeight = screenSize.height / 4;
       imgVolverHeight = screenSize.height / 10;
       espacioCartas = screenSize.height * 0.02;
     } else {
@@ -74,13 +73,13 @@ class _Jugar extends State<Jugar> {
       ancho = screenSize.width;
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
-      subtextSize = screenSize.width * 0.025;
       espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.03;
       espacioCartas = screenSize.height * 0.02;
       imgHeight = screenSize.height / 8;
       imgWidth = screenSize.width / 5;
       personajeHeight = screenSize.height / 7;
+      imgCartaHeight = screenSize.height / 6;
       imgVolverHeight = imgHeight / 4;
     }
 
@@ -229,7 +228,7 @@ class _Jugar extends State<Jugar> {
                       'Volver',
                       style: TextStyle(
                           fontFamily: 'ComicNeue',
-                          fontSize: subtextSize,
+                          fontSize: textSize,
                           color: Colors.black),
                     ),
                     onPressed: () {
@@ -277,6 +276,7 @@ class _Jugar extends State<Jugar> {
                     crossAxisCount: cartasFila,
                     crossAxisSpacing: espacioCartas,
                     mainAxisSpacing: espacioCartas,
+                    childAspectRatio: (1 / 1.5),
                   ),
                   itemCount: cartasAcciones.length,
                   itemBuilder: (context, index) {
@@ -291,28 +291,29 @@ class _Jugar extends State<Jugar> {
                             width: 2.0,
                           ),
                           borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Container(
                           color: cartasAcciones[index].backgroundColor,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                cartasAcciones[index].accion.imagenPath,
-                                height: imgHeight * 0.5,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              cartasAcciones[index].accion.imagenPath,
+                              height: imgCartaHeight,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: cartasAcciones[index].backgroundColor,
                               ),
-                              Container(
-                                padding: EdgeInsets.all(espacioPadding / 3),
-                                child: Text(
-                                  cartasAcciones[index].accion.texto,
-                                  style: TextStyle(
-                                    fontFamily: 'ComicNeue',
-                                    fontSize: subtextSize,
-                                  ),
+                              padding: EdgeInsets.all(espacioPadding / 3),
+                              child: Text(
+                                cartasAcciones[index].accion.texto,
+                                style: TextStyle(
+                                  fontFamily: 'ComicNeue',
+                                  fontSize: textSize,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     );
@@ -321,7 +322,7 @@ class _Jugar extends State<Jugar> {
               ),
               ImageTextButton(
                 image: Image.asset('assets/img/botones/fin.png',
-                    width: imgWidth, height: imgHeight),
+                    height: imgHeight),
                 text: Text(
                   'Confirmar',
                   style: TextStyle(
@@ -443,13 +444,16 @@ class _Jugar extends State<Jugar> {
   // metodo para calcular la altura del gridview
   double _calcularAltura(double ancho, int cartasFila, double espacioPadding,
       double espacioCartas, int filas) {
-    double espacios = (cartasFila - 1) * espacioCartas;
-    double espacios2 = espacioPadding * 2;
-    double aux = ancho - (espacios + espacios2);
-    aux = aux / cartasFila;
-    aux = aux + espacioPadding * 2;
-    aux = aux * filas;
-    return aux;
+    double sol = 0;
+    double aux = espacioPadding * 2;
+    double aux2 = espacioCartas * (cartasFila - 1);
+    double anchoTotal = ancho - aux - aux2;
+    double anchoCarta = anchoTotal / cartasFila;
+    double altoCarta = anchoCarta / (1 / 1.5);
+
+    sol = altoCarta * filas + espacioCartas * 5;
+
+    return sol;
   }
 
   // metodo para cuando pulso una carta, y de ser necesario, intercambiar

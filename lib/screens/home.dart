@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rutinas/provider/MyProvider.dart';
 
-import '../db/db.dart';
 import '../db/obj/grupo.dart';
 import '../db/obj/jugador.dart';
 import '../widgets/ImageTextButton.dart';
