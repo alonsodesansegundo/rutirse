@@ -7,8 +7,9 @@ class ExitDialog extends StatefulWidget {
   final String content;
   final double contentSize;
   final ImageTextButton leftImageTextButton;
-  final ImageTextButton rightImageTextButton;
-  final double spaceRight;
+  final ImageTextButton? rightImageTextButton; // Cambiado a tipo opcional
+  final double? spaceRight; // Cambiado a tipo opcional
+  final Image? optionalImage;
 
   ExitDialog({
     required this.title,
@@ -16,8 +17,9 @@ class ExitDialog extends StatefulWidget {
     required this.content,
     required this.contentSize,
     required this.leftImageTextButton,
-    required this.rightImageTextButton,
-    required this.spaceRight,
+    this.rightImageTextButton, // Cambiado a tipo opcional
+    this.spaceRight, // Cambiado a tipo opcional
+    this.optionalImage, // Parámetro opcional
   });
 
   @override
@@ -35,20 +37,36 @@ class _ExitDialogState extends State<ExitDialog> {
           fontSize: widget.titleSize,
         ),
       ),
-      content: Text(
-        widget.content,
-        style: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: widget.contentSize,
-        ),
+      content: Row(
+        children: [
+          Expanded(
+            child: Text(
+              widget.content,
+              style: TextStyle(
+                fontFamily: 'ComicNeue',
+                fontSize: widget.contentSize,
+              ),
+            ),
+          ),
+          if (widget.optionalImage != null)
+            Padding(
+              padding: EdgeInsets.only(left: 8.0),
+              child: widget.optionalImage,
+            ),
+          if (widget.optionalImage != null && widget.spaceRight != null)
+            SizedBox(width: widget.spaceRight),
+        ],
       ),
       actions: [
         Row(
           children: [
             widget.leftImageTextButton,
-            Spacer(), // Añade un espacio para empujar el siguiente elemento hacia la derecha
-            widget.rightImageTextButton,
-            SizedBox(width: widget.spaceRight),
+            Spacer(),
+            if (widget.rightImageTextButton != null)
+              widget.rightImageTextButton!,
+            if (widget.rightImageTextButton != null &&
+                widget.spaceRight != null)
+              SizedBox(width: widget.spaceRight!),
           ],
         ),
       ],
