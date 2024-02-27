@@ -48,7 +48,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     var myProvider = Provider.of<MyProvider>(context);
-    // Tamaños para fuentes, imagenes...
+
+    // Variables necesarias para tamaños de fuentes, imagenes ...
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
     double titleSize,
         textSize,
@@ -56,10 +57,12 @@ class _HomeState extends State<Home> {
         espacioAlto,
         imgHeight,
         imgWidth;
+
     final isHorizontal =
         MediaQuery.of(context).orientation == Orientation.landscape;
 
     if (isHorizontal) {
+      // si el dispositivo esta en horizontal
       titleSize = screenSize.width * 0.08;
       textSize = screenSize.width * 0.02;
       espacioPadding = screenSize.height * 0.02;
@@ -67,6 +70,7 @@ class _HomeState extends State<Home> {
       imgHeight = screenSize.height / 4;
       imgWidth = screenSize.width / 4;
     } else {
+      // si el dispositivo esta en vertical
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
       espacioPadding = screenSize.height * 0.03;
@@ -75,6 +79,7 @@ class _HomeState extends State<Home> {
       imgWidth = screenSize.width / 5;
     }
 
+    // CUADROS DE DIALOGO
     // cuadro de dialogo para cuando quiere jugar pero los datos son incompletos
     AlertDialog dialogoCamposIncompletos = AlertDialog(
       title: Text(
@@ -266,7 +271,9 @@ class _HomeState extends State<Home> {
                             color: Colors.black),
                       ),
                       onPressed: () {
-                        if (this.nombre != "" && selectedGrupo != null) {
+                        if (this.nombre.trim() != "" &&
+                            this.nombre != "Introduce tu nombre" &&
+                            selectedGrupo != null) {
                           Jugador jugador = new Jugador(
                               nombre: nombre.toString(),
                               grupoId: selectedGrupo!.id);
