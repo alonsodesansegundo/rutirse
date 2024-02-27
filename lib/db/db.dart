@@ -98,6 +98,8 @@ void insertGrupos(Database database) async {
 
 void insertPreguntas(Database database) {
   insertPreguntasAccionesAtencionT(database);
+  insertPreguntasAccionesInfancia(database);
+  insertPreguntasAccionesAdolescencia(database);
 }
 
 // PREGUNTAS RUTINAS PARA EL GRUPO DE ATENCIÓN T.
@@ -149,8 +151,8 @@ void insertPreguntasAccionesAtencionT(Database database) async {
       grupoAtencionT);
   insertAccion(
       database, 'Poner calcetines', 0, '15.PonerCalcetines.png', id_P4);
-  insertAccion(database, 'Poner calzado', 0, '16.PonerCalzado.png', id_P4);
-  insertAccion(database, 'Atar cordones', 0, '17.AtarCalzado.png', id_P4);
+  insertAccion(database, 'Poner calzado', 1, '16.PonerCalzado.png', id_P4);
+  insertAccion(database, 'Atar cordones', 2, '17.AtarCalzado.png', id_P4);
 }
 
 // PREGUNTAS RUTINAS PARA EL GRUPO DE LA INFANCIA
@@ -173,7 +175,7 @@ void insertPreguntasAccionesInfancia(Database database) async {
 
 // PREGUNTAS RUTINAS PARA EL GRUPO DE ADOLESCENTES
 void insertPreguntasAccionesAdolescencia(Database database) async {
-  int grupoAdolescencia = 2;
+  int grupoAdolescencia = 3;
 
   // LAVAR DIENTES
   int id_P1 = await insertPregunta(

@@ -4,15 +4,17 @@ class PreguntaWidget extends StatelessWidget {
   final String enunciado;
   final bool isLoading;
   final double subtextSize;
-  final double imgWidth;
-  final String personajeName;
+  final double imgHeight;
+  final String personajePath;
+  final double rightSpace;
 
   PreguntaWidget({
     required this.enunciado,
     required this.isLoading,
     required this.subtextSize,
-    required this.imgWidth,
-    required this.personajeName,
+    required this.imgHeight,
+    required this.personajePath,
+    required this.rightSpace,
   });
 
   @override
@@ -34,10 +36,11 @@ class PreguntaWidget extends StatelessWidget {
           ),
           Container(
             child: Image.asset(
-              'assets/img/personajes/' + this.personajeName + '.png',
-              width: imgWidth,
+              personajePath,
+              height: imgHeight,
             ),
           ),
+          SizedBox(width: rightSpace),
         ],
       ),
     );
