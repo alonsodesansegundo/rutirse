@@ -14,128 +14,39 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<Grupo> gruposList = []; // lista de grupos obtenidos de la BBDD
-  String txtGrupo = ""; // texto del grupo seleccionado
-  List<bool> btnGruposFlags = [
-    false,
-    false,
-    false
-  ]; // para tener en cuenta que boton ha sido pulsado
+  late List<Grupo> gruposList; // lista de grupos obtenidos de la BBDD
+  late String txtGrupo; // texto del grupo seleccionado
+  late List<bool>
+      btnGruposFlags; // para tener en cuenta que boton ha sido pulsado
+
+  double titleSize = 0.0,
+      textSize = 0.0,
+      espacioPadding = 0.0,
+      espacioAlto = 0.0,
+      imgHeight = 0.0,
+      imgWidth = 0.0;
 
   // Datos que se deben de completar para empezar a jugar
   String nombre = "Introduce tu nombre";
   Grupo? selectedGrupo = null;
 
-  // Método para obtener la lsita de grupos de la BBDD
-  Future<void> fetchGrupos() async {
-    try {
-      List<Grupo> grupos = await getGrupos();
-      setState(() {
-        gruposList = grupos;
-      });
-    } catch (e) {
-      print("Error al obtener la lista de grupos: $e");
-    }
-  }
+  late AlertDialog dialogoCamposIncompletos;
 
   @override
   void initState() {
     super.initState();
-    fetchGrupos();
+    _getGrupos();
+    gruposList = [];
+    txtGrupo = "";
+    btnGruposFlags = [false, false, false];
   }
 
   @override
   Widget build(BuildContext context) {
+    _updateVariablesSize();
+    _createDialogs();
+
     var myProvider = Provider.of<MyProvider>(context);
-
-    // Variables necesarias para tamaños de fuentes, imagenes ...
-    Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
-    double titleSize,
-        textSize,
-        espacioPadding,
-        espacioAlto,
-        imgHeight,
-        imgWidth;
-
-    final isHorizontal =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
-    if (isHorizontal) {
-      // si el dispositivo esta en horizontal
-      titleSize = screenSize.width * 0.08;
-      textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.02;
-      espacioAlto = screenSize.height * 0.02;
-      imgHeight = screenSize.height / 4;
-      imgWidth = screenSize.width / 4;
-    } else {
-      // si el dispositivo esta en vertical
-      titleSize = screenSize.width * 0.10;
-      textSize = screenSize.width * 0.03;
-      espacioPadding = screenSize.height * 0.03;
-      espacioAlto = screenSize.height * 0.03;
-      imgHeight = screenSize.height / 5;
-      imgWidth = screenSize.width / 5;
-    }
-
-    // CUADROS DE DIALOGO
-    // cuadro de dialogo para cuando quiere jugar pero los datos son incompletos
-    AlertDialog dialogoCamposIncompletos = AlertDialog(
-      title: Text(
-        'Aviso',
-        style: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: titleSize,
-        ),
-      ),
-      content: Text(
-        "Por favor, recuerda indicarnos tu nombre y grupo para poder medir tu progreso. "
-        "Mientras no tengamos esos datos, no podemos dejarte jugar. "
-        "\n¡Lo sentimos!",
-        style: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: textSize,
-        ),
-      ),
-      actions: [
-        Row(
-          children: [
-            ImageTextButton(
-                image: Image.asset('assets/img/botones/volver.png',
-                    width: imgWidth, height: imgHeight),
-                text: Text(
-                  'Volver',
-                  style: TextStyle(
-                      fontFamily: 'ComicNeue',
-                      fontSize: textSize,
-                      color: Colors.black),
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
-          ],
-        ),
-      ],
-    );
-
-    // Método para cuando se selecciona un grupo
-    void selectGroup(int index) {
-      btnGruposFlags[index] =
-          !btnGruposFlags[index]; // se actualiza su pulsación
-      if (btnGruposFlags[index]) {
-        // si está activado
-        txtGrupo = gruposList[index].nombre; // se muestra el nombre
-        selectedGrupo = gruposList[index]; // se actualiza el id seleccionado
-        for (int i = 0;
-            i < btnGruposFlags.length;
-            i++) // pongo los demás a false
-          if (index != i) btnGruposFlags[i] = false;
-      } else {
-        // si con la pulsación ha sido deseleccionado
-        txtGrupo = "";
-        selectedGrupo = null;
-      }
-    }
 
     return MaterialApp(
       home: Scaffold(
@@ -241,7 +152,7 @@ class _HomeState extends State<Home> {
                                 ),
                                 onPressed: () {
                                   setState(() {
-                                    selectGroup(index);
+                                    _selectGroup(index);
                                   });
                                 },
                                 buttonColor: btnGruposFlags[index]
@@ -333,5 +244,100 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+
+  // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  void _updateVariablesSize() {
+    Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
+
+    final isHorizontal =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    if (isHorizontal) {
+      titleSize = screenSize.width * 0.08;
+      textSize = screenSize.width * 0.02;
+      espacioPadding = screenSize.height * 0.02;
+      espacioAlto = screenSize.height * 0.02;
+      imgHeight = screenSize.height / 4;
+      imgWidth = screenSize.width / 4;
+    } else {
+      titleSize = screenSize.width * 0.10;
+      textSize = screenSize.width * 0.03;
+      espacioPadding = screenSize.height * 0.03;
+      espacioAlto = screenSize.height * 0.03;
+      imgHeight = screenSize.height / 5;
+      imgWidth = screenSize.width / 5;
+    }
+  }
+
+  // metodo para crear los cuadro de dialogos
+  void _createDialogs() {
+    // CUADROS DE DIALOGO
+    // cuadro de dialogo para cuando quiere jugar pero los datos son incompletos
+    dialogoCamposIncompletos = AlertDialog(
+      title: Text(
+        'Aviso',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: titleSize,
+        ),
+      ),
+      content: Text(
+        "Por favor, recuerda indicarnos tu nombre y grupo para poder medir tu progreso. "
+        "Mientras no tengamos esos datos, no podemos dejarte jugar. "
+        "\n¡Lo sentimos!",
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: textSize,
+        ),
+      ),
+      actions: [
+        Row(
+          children: [
+            ImageTextButton(
+                image: Image.asset('assets/img/botones/volver.png',
+                    width: imgWidth, height: imgHeight),
+                text: Text(
+                  'Volver',
+                  style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize,
+                      color: Colors.black),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+          ],
+        ),
+      ],
+    );
+  }
+
+  // Método para obtener la lsita de grupos de la BBDD
+  Future<void> _getGrupos() async {
+    try {
+      List<Grupo> grupos = await getGrupos();
+      setState(() {
+        gruposList = grupos;
+      });
+    } catch (e) {
+      print("Error al obtener la lista de grupos: $e");
+    }
+  }
+
+  // Método para cuando se selecciona un grupo
+  void _selectGroup(int index) {
+    btnGruposFlags[index] = !btnGruposFlags[index]; // se actualiza su pulsación
+    if (btnGruposFlags[index]) {
+      // si está activado
+      txtGrupo = gruposList[index].nombre; // se muestra el nombre
+      selectedGrupo = gruposList[index]; // se actualiza el id seleccionado
+      for (int i = 0; i < btnGruposFlags.length; i++) // pongo los demás a false
+        if (index != i) btnGruposFlags[i] = false;
+    } else {
+      // si con la pulsación ha sido deseleccionado
+      txtGrupo = "";
+      selectedGrupo = null;
+    }
   }
 }

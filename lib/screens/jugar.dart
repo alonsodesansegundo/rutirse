@@ -22,186 +22,51 @@ class Jugar extends StatefulWidget {
 }
 
 class _Jugar extends State<Jugar> {
-  FlutterTts flutterTts = FlutterTts();
+  late FlutterTts flutterTts; // para reproducir audio
 
-  bool flag = false; // bandera para cargar las preguntas solo 1 vez
+  late bool flag; // bandera para cargar las preguntas solo 1 vez
 
-  List<Pregunta> preguntasList = []; // lista de preguntas
+  late List<Pregunta> preguntasList; // lista de preguntas
 
-  List<CartaAccion> cartasAcciones = []; // acciones de la pregunta actual
+  late List<CartaAccion> cartasAcciones; // acciones de la pregunta actual
 
-  int indiceActual = -1; // índice de la pregunta actual
+  late int indiceActual; // índice de la pregunta actual
 
-  late ExitDialog endGameDialog;
+  late double titleSize,
+      textSize,
+      espacioPadding,
+      espacioAlto,
+      imgHeight,
+      personajeHeight,
+      imgCartaHeight,
+      imgVolverHeight,
+      espacioCartas,
+      ancho;
 
-  Future<void> _speak(String texto) async {
-    await flutterTts.setLanguage("es-ES"); // Establecer el idioma a español
-    await flutterTts.speak(texto);
+  late int cartasFila; // numero de cartas por fila
+
+  late ImageTextButton btnSeguirJugando,
+      btnSeguirJugandoCambiaPregunta,
+      btnSalir,
+      btnMenu;
+
+  late ExitDialog exitDialog, incorrectDialog, correctDialog, endGameDialog;
+
+  @override
+  void initState() {
+    super.initState();
+    flutterTts = FlutterTts();
+    flag = false;
+    preguntasList = [];
+    cartasAcciones = [];
+    indiceActual = -1;
   }
 
   @override
   Widget build(BuildContext context) {
-    // Variables necesarias para tamaños de fuentes, imagenes ...
-    Size screenSize = MediaQuery.of(context).size;
-
-    final isHorizontal =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
-    double titleSize,
-        textSize,
-        espacioPadding,
-        espacioAlto,
-        imgHeight,
-        personajeHeight,
-        imgCartaHeight,
-        imgVolverHeight,
-        espacioCartas,
-        ancho;
-
-    int cartasFila; // numero de cartas por fila
-
-    if (isHorizontal) {
-      // si el dispositivo esta en horizontal
-      cartasFila = 6;
-      ancho = screenSize.width;
-      titleSize = screenSize.width * 0.08;
-      textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.02;
-      espacioAlto = screenSize.height * 0.04;
-      imgHeight = screenSize.height / 7;
-      personajeHeight = screenSize.height / 6;
-      imgCartaHeight = screenSize.height / 4;
-      imgVolverHeight = screenSize.height / 10;
-      espacioCartas = screenSize.height * 0.02;
-    } else {
-      // si el dispositivo esta en vertical
-      cartasFila = 3;
-      ancho = screenSize.width;
-      titleSize = screenSize.width * 0.10;
-      textSize = screenSize.width * 0.03;
-      espacioPadding = screenSize.height * 0.03;
-      espacioAlto = screenSize.height * 0.03;
-      espacioCartas = screenSize.height * 0.02;
-      imgHeight = screenSize.height / 8;
-      personajeHeight = screenSize.height / 7;
-      imgCartaHeight = screenSize.height / 6;
-      imgVolverHeight = imgHeight / 4;
-    }
-
-    // BOTONES DE LOS CUADROS DE DIALOGO
-    // boton para seguir jugando
-    ImageTextButton btnSeguirJugando = ImageTextButton(
-      image: Image.asset('assets/img/botones/jugar.png', height: imgHeight),
-      text: Text(
-        'Seguir jugando',
-        style: TextStyle(
-            fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
-      ),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
-
-    ImageTextButton btnSeguirJugandoCambiaPregunta = ImageTextButton(
-      image: Image.asset('assets/img/botones/jugar.png', height: imgHeight),
-      text: Text(
-        'Seguir jugando',
-        style: TextStyle(
-            fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
-      ),
-      onPressed: () {
-        Navigator.of(context).pop();
-        _cambiarPregunta();
-      },
-    );
-
-    // boton para salir del juego
-    ImageTextButton btnSalir = ImageTextButton(
-      image: Image.asset('assets/img/botones/salir.png', height: imgHeight),
-      text: Text(
-        'Salir',
-        style: TextStyle(
-            fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
-      ),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Home()),
-        );
-      },
-    );
-
-    ImageTextButton btnMenu = ImageTextButton(
-      image: Image.asset('assets/img/botones/salir.png', height: imgHeight),
-      text: Text(
-        'Ir al menú',
-        style: TextStyle(
-            fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
-      ),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Menu()),
-        );
-      },
-    );
-
-    // CUADROS DE DIALOGO
-    // cuadro de dialogo para salir del juego o no
-    ExitDialog exitDialog = ExitDialog(
-        title: 'Aviso',
-        titleSize: titleSize,
-        content:
-            "¿Estás seguro de que quieres salir del juego? Si lo haces, irás al menú principal.\n"
-            "Puedes confirmar la salida o seguir disfrutando del juego.",
-        contentSize: textSize,
-        leftImageTextButton: btnSeguirJugando,
-        rightImageTextButton: btnSalir,
-        spaceRight: espacioPadding * 2);
-
-    // cuadro de dialogo para cuando hay alguna respuesta incorrecta
-    ExitDialog incorrectDialog = ExitDialog(
-        title: '¡Oops!',
-        titleSize: titleSize,
-        content:
-            "Hay algunas respuestas incorrectas, ¡pero sigue intentándolo!\n"
-            "Te animamos a que lo intentes de nuevo y mejorar.\n"
-            "¡Ánimo, tú puedes!\n\n"
-            "PISTA: fíjate en los colores de las cartas...",
-        contentSize: textSize,
-        leftImageTextButton: btnSeguirJugando,
-        rightImageTextButton: btnSalir,
-        spaceRight: espacioPadding * 2,
-        optionalImage:
-            Image.asset('assets/img/medallas/bronce.png', height: imgHeight));
-
-    // cuadro de dialogo para cuando todas las respuestas son correctas
-    ExitDialog correctDialog = ExitDialog(
-        title: '¡Fantástico!',
-        titleSize: titleSize,
-        content:
-            "Lo has hecho excelente. Has ordenado todas las acciones de manera perfecta.\n"
-            "¡Gran trabajo!",
-        contentSize: textSize,
-        leftImageTextButton: btnSeguirJugandoCambiaPregunta,
-        rightImageTextButton: btnSalir,
-        spaceRight: espacioPadding * 2,
-        optionalImage:
-            Image.asset('assets/img/medallas/oro.png', height: imgHeight));
-
-    // cuadro de dialogo cuando hemos completado todas las preguntas del juego
-    endGameDialog = ExitDialog(
-        title: '¡Enhorabuena!',
-        titleSize: titleSize,
-        content:
-            "¡Qué gran trabajo, bravo! Has superado todas las fases del juego.\n"
-            "Espero que hayas disfrutado y aprendido con esta experiencia.\n"
-            "¡Sigue trabajando para mejorar tu tiempo!",
-        contentSize: textSize,
-        leftImageTextButton: btnMenu,
-        spaceRight: espacioPadding * 2,
-        optionalImage:
-            Image.asset('assets/img/medallas/trofeo.png', height: imgHeight));
+    _updateVariablesSize();
+    _createButtonsFromDialogs();
+    _createDialogs();
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -357,6 +222,159 @@ class _Jugar extends State<Jugar> {
     );
   }
 
+  // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  void _updateVariablesSize() {
+    Size screenSize = MediaQuery.of(context).size;
+
+    final isHorizontal =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    if (isHorizontal) {
+      cartasFila = 6;
+      ancho = screenSize.width;
+      titleSize = screenSize.width * 0.08;
+      textSize = screenSize.width * 0.02;
+      espacioPadding = screenSize.height * 0.02;
+      espacioAlto = screenSize.height * 0.04;
+      imgHeight = screenSize.height / 7;
+      personajeHeight = screenSize.height / 6;
+      imgCartaHeight = screenSize.height / 4;
+      imgVolverHeight = screenSize.height / 10;
+      espacioCartas = screenSize.height * 0.02;
+    } else {
+      cartasFila = 3;
+      ancho = screenSize.width;
+      titleSize = screenSize.width * 0.10;
+      textSize = screenSize.width * 0.03;
+      espacioPadding = screenSize.height * 0.03;
+      espacioAlto = screenSize.height * 0.03;
+      espacioCartas = screenSize.height * 0.02;
+      imgHeight = screenSize.height / 8;
+      personajeHeight = screenSize.height / 7;
+      imgCartaHeight = screenSize.height / 6;
+      imgVolverHeight = imgHeight / 4;
+    }
+  }
+
+  // metodo para crear los botones necesarios en los cuadros de dialogos
+  void _createButtonsFromDialogs() {
+    // boton para seguir jugando
+    btnSeguirJugando = ImageTextButton(
+      image: Image.asset('assets/img/botones/jugar.png', height: imgHeight),
+      text: Text(
+        'Seguir jugando',
+        style: TextStyle(
+            fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
+      ),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+
+    btnSeguirJugandoCambiaPregunta = ImageTextButton(
+      image: Image.asset('assets/img/botones/jugar.png', height: imgHeight),
+      text: Text(
+        'Seguir jugando',
+        style: TextStyle(
+            fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
+      ),
+      onPressed: () {
+        Navigator.of(context).pop();
+        _cambiarPregunta();
+      },
+    );
+
+    // boton para salir del juego
+    btnSalir = ImageTextButton(
+      image: Image.asset('assets/img/botones/salir.png', height: imgHeight),
+      text: Text(
+        'Salir',
+        style: TextStyle(
+            fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
+      ),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Home()),
+        );
+      },
+    );
+
+    btnMenu = ImageTextButton(
+      image: Image.asset('assets/img/botones/salir.png', height: imgHeight),
+      text: Text(
+        'Ir al menú',
+        style: TextStyle(
+            fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
+      ),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Menu()),
+        );
+      },
+    );
+  }
+
+  // metodo para crear los cuadros de dialogos
+  void _createDialogs() {
+    // cuadro de dialogo para salir del juego o no
+    exitDialog = ExitDialog(
+        title: 'Aviso',
+        titleSize: titleSize,
+        content:
+            "¿Estás seguro de que quieres salir del juego? Si lo haces, irás al menú principal.\n"
+            "Puedes confirmar la salida o seguir disfrutando del juego.",
+        contentSize: textSize,
+        leftImageTextButton: btnSeguirJugando,
+        rightImageTextButton: btnSalir,
+        spaceRight: espacioPadding * 2);
+
+    // cuadro de dialogo para cuando hay alguna respuesta incorrecta
+    incorrectDialog = ExitDialog(
+        title: '¡Oops!',
+        titleSize: titleSize,
+        content:
+            "Hay algunas respuestas incorrectas, ¡pero sigue intentándolo!\n"
+            "Te animamos a que lo intentes de nuevo y mejorar.\n"
+            "¡Ánimo, tú puedes!\n\n"
+            "PISTA: fíjate en los colores de las cartas...",
+        contentSize: textSize,
+        leftImageTextButton: btnSeguirJugando,
+        rightImageTextButton: btnSalir,
+        spaceRight: espacioPadding * 2,
+        optionalImage:
+            Image.asset('assets/img/medallas/bronce.png', height: imgHeight));
+
+    // cuadro de dialogo para cuando todas las respuestas son correctas
+    correctDialog = ExitDialog(
+        title: '¡Fantástico!',
+        titleSize: titleSize,
+        content:
+            "Lo has hecho excelente. Has ordenado todas las acciones de manera perfecta.\n"
+            "¡Gran trabajo!",
+        contentSize: textSize,
+        leftImageTextButton: btnSeguirJugandoCambiaPregunta,
+        rightImageTextButton: btnSalir,
+        spaceRight: espacioPadding * 2,
+        optionalImage:
+            Image.asset('assets/img/medallas/oro.png', height: imgHeight));
+
+    // cuadro de dialogo cuando hemos completado todas las preguntas del juego
+    endGameDialog = ExitDialog(
+        title: '¡Enhorabuena!',
+        titleSize: titleSize,
+        content:
+            "¡Qué gran trabajo, bravo! Has superado todas las fases del juego.\n"
+            "Espero que hayas disfrutado y aprendido con esta experiencia.\n"
+            "¡Sigue trabajando para mejorar tu tiempo!",
+        contentSize: textSize,
+        leftImageTextButton: btnMenu,
+        spaceRight: espacioPadding * 2,
+        optionalImage:
+            Image.asset('assets/img/medallas/trofeo.png', height: imgHeight));
+  }
+
   // metodo para cargar todas las preguntas
   Future<void> _cargarPreguntas() async {
     if (!flag) {
@@ -400,6 +418,7 @@ class _Jugar extends State<Jugar> {
     }
   }
 
+  // método para comprobar si el orden de las acciones es el correcto o no
   bool _comprobarRespuestas() {
     bool correcto = true;
     setState(() {
@@ -490,5 +509,11 @@ class _Jugar extends State<Jugar> {
         cartasAccion.backgroundColor = Colors.transparent;
       }
     });
+  }
+
+  // método para reproducir un texto por audio
+  Future<void> _speak(String texto) async {
+    await flutterTts.setLanguage("es-ES"); // Establecer el idioma a español
+    await flutterTts.speak(texto);
   }
 }
