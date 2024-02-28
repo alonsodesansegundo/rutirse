@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:provider/provider.dart';
 import 'package:rutinas/obj/CartaAccion.dart';
 
@@ -21,6 +22,8 @@ class Jugar extends StatefulWidget {
 }
 
 class _Jugar extends State<Jugar> {
+  FlutterTts flutterTts = FlutterTts();
+
   bool flag = false; // bandera para cargar las preguntas solo 1 vez
 
   List<Pregunta> preguntasList = []; // lista de preguntas
@@ -30,6 +33,11 @@ class _Jugar extends State<Jugar> {
   int indiceActual = -1; // índice de la pregunta actual
 
   late ExitDialog endGameDialog;
+
+  Future<void> _speak(String texto) async {
+    await flutterTts.setLanguage("es-ES"); // Establecer el idioma a español
+    await flutterTts.speak(texto);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -362,6 +370,7 @@ class _Jugar extends State<Jugar> {
           preguntasList = preguntas; // actualizo la lista
           indiceActual =
               random.nextInt(preguntasList.length); // pregunta aleatoria
+          _speak(preguntasList[indiceActual].enunciado);
           _cargarAcciones(); // cargo las acciones de la pregunta actual
         });
       } catch (e) {
@@ -418,6 +427,7 @@ class _Jugar extends State<Jugar> {
           // Elimino la pregunta actual de la lista
           preguntasList.removeAt(indiceActual);
           indiceActual = random.nextInt(preguntasList.length);
+          _speak(preguntasList[indiceActual].enunciado);
           _cargarAcciones();
         }
       }
