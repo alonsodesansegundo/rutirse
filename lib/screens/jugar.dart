@@ -86,8 +86,7 @@ class _Jugar extends State<Jugar> {
     // BOTONES DE LOS CUADROS DE DIALOGO
     // boton para seguir jugando
     ImageTextButton btnSeguirJugando = ImageTextButton(
-      image: Image.asset('assets/img/botones/jugar.png',
-          width: imgWidth, height: imgHeight),
+      image: Image.asset('assets/img/botones/jugar.png', height: imgHeight),
       text: Text(
         'Seguir jugando',
         style: TextStyle(
@@ -99,8 +98,7 @@ class _Jugar extends State<Jugar> {
     );
 
     ImageTextButton btnSeguirJugandoCambiaPregunta = ImageTextButton(
-      image: Image.asset('assets/img/botones/jugar.png',
-          width: imgWidth, height: imgHeight),
+      image: Image.asset('assets/img/botones/jugar.png', height: imgHeight),
       text: Text(
         'Seguir jugando',
         style: TextStyle(
@@ -114,8 +112,7 @@ class _Jugar extends State<Jugar> {
 
     // boton para salir del juego
     ImageTextButton btnSalir = ImageTextButton(
-      image: Image.asset('assets/img/botones/salir.png',
-          width: imgWidth, height: imgHeight),
+      image: Image.asset('assets/img/botones/salir.png', height: imgHeight),
       text: Text(
         'Salir',
         style: TextStyle(
@@ -130,8 +127,7 @@ class _Jugar extends State<Jugar> {
     );
 
     ImageTextButton btnMenu = ImageTextButton(
-      image: Image.asset('assets/img/botones/salir.png',
-          width: imgWidth, height: imgHeight),
+      image: Image.asset('assets/img/botones/salir.png', height: imgHeight),
       text: Text(
         'Ir al menú',
         style: TextStyle(
@@ -171,8 +167,8 @@ class _Jugar extends State<Jugar> {
         leftImageTextButton: btnSeguirJugando,
         rightImageTextButton: btnSalir,
         spaceRight: espacioPadding * 2,
-        optionalImage: Image.asset('assets/img/medallas/bronce.png',
-            width: imgWidth, height: imgHeight));
+        optionalImage:
+            Image.asset('assets/img/medallas/bronce.png', height: imgHeight));
 
     // cuadro de dialogo para cuando todas las respuestas son correctas
     ExitDialog correctDialog = ExitDialog(
@@ -185,8 +181,8 @@ class _Jugar extends State<Jugar> {
         leftImageTextButton: btnSeguirJugandoCambiaPregunta,
         rightImageTextButton: btnSalir,
         spaceRight: espacioPadding * 2,
-        optionalImage: Image.asset('assets/img/medallas/oro.png',
-            width: imgWidth, height: imgHeight));
+        optionalImage:
+            Image.asset('assets/img/medallas/oro.png', height: imgHeight));
 
     // cuadro de dialogo cuando hemos completado todas las preguntas del juego
     endGameDialog = ExitDialog(
@@ -199,8 +195,8 @@ class _Jugar extends State<Jugar> {
         contentSize: textSize,
         leftImageTextButton: btnMenu,
         spaceRight: espacioPadding * 2,
-        optionalImage: Image.asset('assets/img/medallas/trofeo.png',
-            width: imgWidth, height: imgHeight));
+        optionalImage:
+            Image.asset('assets/img/medallas/trofeo.png', height: imgHeight));
 
     return Scaffold(
       body: SingleChildScrollView(
