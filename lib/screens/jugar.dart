@@ -44,7 +44,6 @@ class _Jugar extends State<Jugar> {
         espacioPadding,
         espacioAlto,
         imgHeight,
-        imgWidth,
         personajeHeight,
         imgCartaHeight,
         imgVolverHeight,
@@ -62,7 +61,6 @@ class _Jugar extends State<Jugar> {
       espacioPadding = screenSize.height * 0.02;
       espacioAlto = screenSize.height * 0.04;
       imgHeight = screenSize.height / 7;
-      imgWidth = screenSize.width / 3;
       personajeHeight = screenSize.height / 6;
       imgCartaHeight = screenSize.height / 4;
       imgVolverHeight = screenSize.height / 10;
@@ -77,7 +75,6 @@ class _Jugar extends State<Jugar> {
       espacioAlto = screenSize.height * 0.03;
       espacioCartas = screenSize.height * 0.02;
       imgHeight = screenSize.height / 8;
-      imgWidth = screenSize.width / 5;
       personajeHeight = screenSize.height / 7;
       imgCartaHeight = screenSize.height / 6;
       imgVolverHeight = imgHeight / 4;
