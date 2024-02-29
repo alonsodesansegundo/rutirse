@@ -128,7 +128,7 @@ void insertPreguntasAccionesAdolescencia(Database database) async {
   insertAccion(database, '', 0,
       pathRutinas + "vestimenta/ponerParteAbajo/5.BajarPantalon.png", id_P8);
   insertAccion(database, '', 1,
-      pathRutinas + "vestimenta/ponerParteAbajo/2.BajarRopa.png", id_P8);
+      pathRutinas + "vestimenta/ponerParteAbajo/6.BajarRopa.png", id_P8);
   insertAccion(database, '', 2,
       pathRutinas + "vestimenta/ponerParteArriba/6.GuardarRopa.png", id_P8);
 
@@ -139,9 +139,9 @@ void insertPreguntasAccionesAdolescencia(Database database) async {
       'chica.png',
       grupoAdolescencia);
   insertAccion(database, '', 0,
-      pathRutinas + "vidaSocial/hacerCompra/2.HacerLists.png", id_P9);
+      pathRutinas + "vidaSocial/hacerCompra/2.HacerLista.png", id_P9);
   insertAccion(database, '', 1,
-      pathRutinas + "vidaSocial/hacerCompra/2.HacerLists.png", id_P9);
+      pathRutinas + "vidaSocial/hacerCompra/9.Supermercado.png", id_P9);
   insertAccion(database, '', 2,
       pathRutinas + "vidaSocial/hacerCompra/1.CogerCestaCarro.png", id_P9);
   insertAccion(database, '', 3,
