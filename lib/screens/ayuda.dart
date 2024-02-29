@@ -132,7 +132,7 @@ class _AyudaState extends State<Ayuda> {
                     Column(
                       children: [
                         Image.asset(
-                          'assets/img/acciones/2.LavarDientes.png',
+                          'assets/img/rutinas/higiene/lavarDientes/2.LavarDientes.png',
                           height: imgHeight,
                           width: imgWidth,
                         ),
@@ -161,7 +161,7 @@ class _AyudaState extends State<Ayuda> {
                       child: Column(
                         children: [
                           Image.asset(
-                            'assets/img/acciones/1.LavarDientes.png',
+                            'assets/img/rutinas/higiene/lavarDientes/1.LavarDientes.png',
                             height: imgHeight,
                             width: imgWidth,
                           ),
@@ -204,7 +204,7 @@ class _AyudaState extends State<Ayuda> {
                       child: Column(
                         children: [
                           Image.asset(
-                            'assets/img/acciones/2.LavarDientes.png',
+                            'assets/img/rutinas/higiene/lavarDientes/2.LavarDientes.png',
                             height: imgHeight,
                             width: imgWidth,
                           ),
@@ -224,7 +224,7 @@ class _AyudaState extends State<Ayuda> {
                     Column(
                       children: [
                         Image.asset(
-                          'assets/img/acciones/1.LavarDientes.png',
+                          'assets/img/rutinas/higiene/lavarDientes/1.LavarDientes.png',
                           height: imgHeight,
                           width: imgWidth,
                         ),
@@ -259,7 +259,7 @@ class _AyudaState extends State<Ayuda> {
                     Column(
                       children: [
                         Image.asset(
-                          'assets/img/acciones/2.LavarDientes.png',
+                          'assets/img/rutinas/higiene/lavarDientes/2.LavarDientes.png',
                           height: imgHeight,
                           width: imgWidth,
                         ),
@@ -278,7 +278,7 @@ class _AyudaState extends State<Ayuda> {
                     Column(
                       children: [
                         Image.asset(
-                          'assets/img/acciones/1.LavarDientes.png',
+                          'assets/img/rutinas/higiene/lavarDientes/1.LavarDientes.png',
                           height: imgHeight,
                           width: imgWidth,
                         ),
@@ -367,7 +367,7 @@ class _AyudaState extends State<Ayuda> {
     btnSeguirAyuda = ImageTextButton(
       image: Image.asset('assets/img/botones/ayuda.png', height: imgHeight),
       text: Text(
-        'Seguir viendo la ayuda',
+        'Seguir en ayuda',
         style: TextStyle(
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),

@@ -65,7 +65,14 @@ flutter:
     - assets/img/grupos/
     - assets/img/botones/
     - assets/img/personajes/
-    - assets/img/acciones/
+    - assets/img/rutinas/higiene/lavarDientes/
+    - assets/img/rutinas/higiene/lavarCara/
+    - assets/img/rutinas/higiene/peinarse/
+    - assets/img/rutinas/vestimenta/calzarse/
+    - assets/img/rutinas/vestimenta/ponerParteArriba/
+    - assets/img/rutinas/vestimenta/ponerParteAbajo/
+    - assets/img/rutinas/vidaSocial/hacerCompra/
+    - assets/img/rutinas/vidaSocial/parque/
     - assets/img/medallas/
   #   - images/a_dot_ham.jpeg
 

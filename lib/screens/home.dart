@@ -166,7 +166,14 @@ class _HomeState extends State<Home> {
                         }).toList()
                       : [Center(child: Text('No hay grupos disponibles'))],
                 ),
-                SizedBox(height: espacioAlto),
+                SizedBox(height: espacioAlto * 2),
+                Text(
+                  '¿Qué quieres hacer?',
+                  style: TextStyle(
+                    fontFamily: 'ComicNeue',
+                    fontSize: textSize,
+                  ),
+                ),
                 // Fila para los botones de Jugar, Ayuda y Terapeuta
                 Row(
                   children: [
@@ -209,7 +216,7 @@ class _HomeState extends State<Home> {
                       image: Image.asset('assets/img/botones/ayuda.png',
                           width: imgWidth, height: imgHeight),
                       text: Text(
-                        'Ayuda',
+                        'Ir a ayuda',
                         style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: textSize,
@@ -228,7 +235,7 @@ class _HomeState extends State<Home> {
                       image: Image.asset('assets/img/botones/terapeuta.png',
                           width: imgWidth, height: imgHeight),
                       text: Text(
-                        'Terapeuta',
+                        'Soy terapeuta',
                         style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: textSize,

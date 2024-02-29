@@ -44,7 +44,7 @@ Future<void> insertAccion(Database database, String texto, int orden,
   await database.transaction((txn) async {
     await txn.rawInsert(
       "INSERT INTO accion (texto, orden, imagenPath, preguntaId) VALUES (?, ?, ?, ?)",
-      [texto, orden, pathAcciones + imgAccion, preguntaId],
+      [texto, orden, imgAccion, preguntaId],
     );
   });
 }

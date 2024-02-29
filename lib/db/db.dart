@@ -5,7 +5,6 @@ import 'obj/grupo.dart';
 import 'obj/pregunta.dart';
 
 String pathPersonajes = "assets/img/personajes/";
-String pathAcciones = "assets/img/acciones/";
 
 Future<Database> initializeDB() async {
   String path = await getDatabasesPath();
@@ -68,7 +67,7 @@ void createTableAccion(Database database) {
   database.execute("""
     CREATE TABLE accion (
       id INTEGER PRIMARY KEY AUTOINCREMENT, 
-      texto TEXT NOT NULL,
+      texto TEXT,
       orden INTEGER NOT NULL,
       imagenPath TEXT NOT NULL,
       preguntaId INTEGER,
