@@ -73,7 +73,7 @@ class _AyudaState extends State<Ayuda> {
                         'Volver',
                         style: TextStyle(
                             fontFamily: 'ComicNeue',
-                            fontSize: textSize * 0.75,
+                            fontSize: textSize,
                             color: Colors.black),
                       ),
                       onPressed: () {
@@ -124,6 +124,7 @@ class _AyudaState extends State<Ayuda> {
                     ),
                   ],
                 ),
+                SizedBox(height: espacioAlto * 2), // Espacio entre los textos
                 // AYUDA 1
                 Row(
                   children: [
@@ -150,6 +151,7 @@ class _AyudaState extends State<Ayuda> {
                     Container(
                       padding: EdgeInsets.all(8.0),
                       decoration: BoxDecoration(
+                        color: Colors.grey,
                         border: Border.all(
                           color: Colors.black,
                           width: 2.0,
@@ -192,6 +194,7 @@ class _AyudaState extends State<Ayuda> {
                     Container(
                       padding: EdgeInsets.all(8.0),
                       decoration: BoxDecoration(
+                        color: Colors.grey,
                         border: Border.all(
                           color: Colors.black,
                           width: 2.0,
@@ -346,15 +349,15 @@ class _AyudaState extends State<Ayuda> {
       espacioAlto = screenSize.height * 0.04;
       imgHeight = screenSize.height / 5;
       imgWidth = screenSize.width / 5;
-      imgVolverHeight = imgHeight / 2;
+      imgVolverHeight = screenSize.height / 10;
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.04;
       espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.03;
-      imgHeight = screenSize.height * 0.15;
+      imgHeight = screenSize.height / 10;
       imgWidth = screenSize.width / 5;
-      imgVolverHeight = imgHeight / 4;
+      imgVolverHeight = screenSize.height / 32;
     }
   }
 

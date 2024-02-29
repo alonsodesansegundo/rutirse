@@ -24,7 +24,7 @@ class Jugar extends StatefulWidget {
 class _Jugar extends State<Jugar> {
   late FlutterTts flutterTts; // para reproducir audio
 
-  late bool flag; // bandera para cargar las preguntas solo 1 vez
+  late bool flag, isSpeaking; // bandera para cargar las preguntas solo 1 vez
 
   late List<Pregunta> preguntasList; // lista de preguntas
 
@@ -201,13 +201,20 @@ class _Jugar extends State<Jugar> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return correctDialog;
+                        if (preguntasList.length != 1) {
+                          _speak('Fantástico');
+                          return correctDialog;
+                        } else {
+                          _speak("¡Enhorabuena!");
+                          return this.endGameDialog;
+                        }
                       },
                     );
                   } else {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
+                        _speak('¡Oops!');
                         return incorrectDialog;
                       },
                     );
@@ -293,6 +300,7 @@ class _Jugar extends State<Jugar> {
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
       onPressed: () {
+        _stopSpeaking();
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => Home()),
@@ -308,6 +316,7 @@ class _Jugar extends State<Jugar> {
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
       onPressed: () {
+        _stopSpeaking();
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => Menu()),
@@ -343,8 +352,8 @@ class _Jugar extends State<Jugar> {
         leftImageTextButton: btnSeguirJugando,
         rightImageTextButton: btnSalir,
         spaceRight: espacioPadding * 2,
-        optionalImage:
-            Image.asset('assets/img/medallas/bronce.png', height: imgHeight));
+        optionalImage: Image.asset('assets/img/medallas/incorrecto.png',
+            height: imgHeight));
 
     // cuadro de dialogo para cuando todas las respuestas son correctas
     correctDialog = ExitDialog(
@@ -358,7 +367,7 @@ class _Jugar extends State<Jugar> {
         rightImageTextButton: btnSalir,
         spaceRight: espacioPadding * 2,
         optionalImage:
-            Image.asset('assets/img/medallas/oro.png', height: imgHeight));
+            Image.asset('assets/img/medallas/correcto.png', height: imgHeight));
 
     // cuadro de dialogo cuando hemos completado todas las preguntas del juego
     endGameDialog = ExitDialog(
@@ -382,7 +391,6 @@ class _Jugar extends State<Jugar> {
       try {
         var myProvider = Provider.of<MyProvider>(context);
         // obtengo las preguntas del grupo correspondiente
-        print("ID --> " + myProvider.grupo.id.toString());
         List<Pregunta> preguntas = await getPreguntas(myProvider.grupo.id);
         setState(() {
           preguntasList = preguntas; // actualizo la lista
@@ -439,28 +447,13 @@ class _Jugar extends State<Jugar> {
     setState(() {
       if (preguntasList.isNotEmpty) {
         // si hay preguntas
-        if (preguntasList.length == 1) {
-          // es la ultima
-          _mostrarDialogoFinPreguntas();
-        } else {
-          // Elimino la pregunta actual de la lista
-          preguntasList.removeAt(indiceActual);
-          indiceActual = random.nextInt(preguntasList.length);
-          _speak(preguntasList[indiceActual].enunciado);
-          _cargarAcciones();
-        }
+        // Elimino la pregunta actual de la lista
+        preguntasList.removeAt(indiceActual);
+        indiceActual = random.nextInt(preguntasList.length);
+        _speak(preguntasList[indiceActual].enunciado);
+        _cargarAcciones();
       }
     });
-  }
-
-  // método para mostrar un cuadro de dialogo cuando hemos completado la ultima pregunta
-  Future<void> _mostrarDialogoFinPreguntas() async {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return this.endGameDialog;
-      },
-    );
   }
 
   // metodo para calcular la altura del gridview
@@ -512,8 +505,31 @@ class _Jugar extends State<Jugar> {
   }
 
   // método para reproducir un texto por audio
+// método para reproducir un texto por audio
   Future<void> _speak(String texto) async {
     await flutterTts.setLanguage("es-ES"); // Establecer el idioma a español
     await flutterTts.speak(texto);
+
+    // Establecer el estado como reproduciendo
+    setState(() {
+      isSpeaking = true;
+    });
+
+    // Escuchar los cambios de estado para detectar la finalización de la reproducción
+    flutterTts.setCompletionHandler(() {
+      // Limpiar el estado cuando la reproducción ha terminado
+      setState(() {
+        isSpeaking = false;
+      });
+    });
+  }
+
+  Future<void> _stopSpeaking() async {
+    if (isSpeaking) {
+      await flutterTts.stop();
+      setState(() {
+        isSpeaking = false;
+      });
+    }
   }
 }
