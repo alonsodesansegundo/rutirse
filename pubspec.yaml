@@ -71,7 +71,10 @@ flutter:
     - assets/img/rutinas/vestimenta/calzarse/
     - assets/img/rutinas/vestimenta/ponerParteArriba/
     - assets/img/rutinas/vestimenta/ponerParteAbajo/
+    - assets/img/rutinas/vidaDiaria/irBaño/
+    - assets/img/rutinas/vidaDiaria/mochilaCole/
     - assets/img/rutinas/vidaSocial/hacerCompra/
+    - assets/img/rutinas/vidaSocial/medico/
     - assets/img/rutinas/vidaSocial/parque/
     - assets/img/medallas/
   #   - images/a_dot_ham.jpeg
