@@ -52,7 +52,7 @@ class _MenuState extends State<Menu> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Menú (rutinas)',
+                    'Menú',
                     style: TextStyle(
                       fontFamily: 'ComicNeue',
                       fontSize: titleSize,

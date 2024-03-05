@@ -73,7 +73,7 @@ class _OpcionesState extends State<Opciones> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Opciones (rutinas)',
+                    'Opciones',
                     style: TextStyle(
                       fontFamily: 'ComicNeue',
                       fontSize: titleSize,
