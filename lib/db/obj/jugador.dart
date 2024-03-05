@@ -25,16 +25,29 @@ class Jugador {
   }
 }
 
-Future<void> insertJugador(Jugador jugador) async {
+// metodo para insertar un jugador en la BBDD
+Future<Jugador> insertJugador(Jugador jugador) async {
   Database database = await initializeDB();
+  Jugador sol;
+  // si el jugador aun no existe en la base de datos
   if (!await existeJugador(jugador, database)) {
-    database.insert("jugador", jugador.jugadoresToMap());
-    print("jugador añadido");
-    return;
+    int id = await database.insert("jugador", jugador.jugadoresToMap());
+    print("Jugador añadido, ID: $id");
+
+    sol = Jugador(id: id, nombre: jugador.nombre, grupoId: jugador.grupoId);
+  } else {
+    // el jugador ya existe en la base de datos
+    List<Map<String, dynamic>> result = await database.query(
+      'jugador',
+      where: 'nombre = ? AND grupoId = ?',
+      whereArgs: [jugador.nombre, jugador.grupoId],
+    );
+    sol = Jugador.jugadoresFromMap(result.first);
   }
-  print("jugador repetido");
+  return sol;
 }
 
+// metodo para ver si un jugador (nombre y grupo) ya existe en la BBDD
 Future<bool> existeJugador(Jugador jugador, Database database) async {
   List<Map<String, dynamic>> result = await database.query(
     'jugador',

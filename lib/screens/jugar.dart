@@ -2,10 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:rutinas/db/obj/partida.dart';
 import 'package:rutinas/obj/CartaAccion.dart';
 
 import '../db/obj/accion.dart';
+import '../db/obj/jugador.dart';
 import '../db/obj/pregunta.dart';
 import '../provider/MyProvider.dart';
 import '../widgets/ExitDialog.dart';
@@ -51,14 +54,26 @@ class _Jugar extends State<Jugar> {
 
   late ExitDialog exitDialog, incorrectDialog, correctDialog, endGameDialog;
 
+  late int aciertos, fallos;
+
+  late DateTime timeInicio, timeFin;
+
+  late bool loadProvider;
+
+  late Jugador jugadorActual;
+
   @override
   void initState() {
     super.initState();
     flutterTts = FlutterTts();
+    timeInicio = DateTime.now();
     flag = false;
     preguntasList = [];
     cartasAcciones = [];
     indiceActual = -1;
+    aciertos = 0;
+    fallos = 0;
+    loadProvider = false;
   }
 
   @override
@@ -66,6 +81,11 @@ class _Jugar extends State<Jugar> {
     _updateVariablesSize();
     _createButtonsFromDialogs();
     _createDialogs();
+    if (!loadProvider) {
+      var myProvider = Provider.of<MyProvider>(context);
+      jugadorActual = myProvider.jugador;
+      loadProvider = true;
+    }
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -300,6 +320,7 @@ class _Jugar extends State<Jugar> {
       ),
       onPressed: () {
         _stopSpeaking();
+        saveProgreso();
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => Menu()),
@@ -316,6 +337,7 @@ class _Jugar extends State<Jugar> {
       ),
       onPressed: () {
         _stopSpeaking();
+        saveProgreso();
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => Menu()),
@@ -438,6 +460,10 @@ class _Jugar extends State<Jugar> {
           cartasAcciones[i].backgroundColor = Colors.green;
       }
     });
+    if (correcto)
+      aciertos += 1;
+    else
+      fallos += 1;
     return correcto;
   }
 
@@ -504,7 +530,6 @@ class _Jugar extends State<Jugar> {
   }
 
   // método para reproducir un texto por audio
-// método para reproducir un texto por audio
   Future<void> _speak(String texto) async {
     await flutterTts.setLanguage("es-ES"); // Establecer el idioma a español
     await flutterTts.speak(texto);
@@ -530,5 +555,24 @@ class _Jugar extends State<Jugar> {
         isSpeaking = false;
       });
     }
+  }
+
+  // metodo para guardar el progreso o partida
+  void saveProgreso() {
+    timeFin = DateTime.now();
+    Duration duracion = timeFin.difference(timeInicio);
+
+    // Formatear la fecha en el formato deseado
+    String formattedFechaFin =
+        DateFormat('dd/MM/yyyy HH:mm:ss').format(timeFin);
+
+    Partida partida = new Partida(
+        fechaFin: formattedFechaFin,
+        duracionSegundos: duracion.inSeconds,
+        aciertos: aciertos,
+        fallos: fallos,
+        jugadorId: jugadorActual.id!);
+
+    insertPartida(partida);
   }
 }

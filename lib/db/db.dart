@@ -45,8 +45,8 @@ void createTablePartida(Database database) {
   database.execute("""
     CREATE TABLE partida (
       id INTEGER PRIMARY KEY AUTOINCREMENT, 
-      fechaInicio DATE NOT NULL,
-      fechaFin DATE NOT NULL,
+      fechaFin TEXT NOT NULL,
+      duracionSegundos INTEGER NOT NULL,
       aciertos INTEGER NOT NULL,
       fallos INTEGER NOT NULL,
       jugadorId INTEGER,

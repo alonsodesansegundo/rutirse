@@ -187,15 +187,15 @@ class _HomeState extends State<Home> {
                             fontSize: textSize,
                             color: Colors.black),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         if (this.nombre.trim() != "" &&
                             this.nombre != "Introduce tu nombre" &&
                             selectedGrupo != null) {
                           Jugador jugador = new Jugador(
                               nombre: nombre.toString(),
                               grupoId: selectedGrupo!.id);
-                          insertJugador(jugador);
-                          myProvider.jugador = jugador;
+
+                          myProvider.jugador = (await insertJugador(jugador))!;
                           myProvider.grupo = selectedGrupo!;
                           Navigator.push(
                             context,
