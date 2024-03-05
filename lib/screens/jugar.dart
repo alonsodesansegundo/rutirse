@@ -11,7 +11,6 @@ import '../provider/MyProvider.dart';
 import '../widgets/ExitDialog.dart';
 import '../widgets/ImageTextButton.dart';
 import '../widgets/PreguntaWidget.dart';
-import 'home.dart';
 import 'menu.dart';
 
 Random random = Random(); // para generar numeros aleatorios
@@ -303,7 +302,7 @@ class _Jugar extends State<Jugar> {
         _stopSpeaking();
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Home()),
+          MaterialPageRoute(builder: (context) => Menu()),
         );
       },
     );

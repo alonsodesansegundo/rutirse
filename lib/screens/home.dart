@@ -320,7 +320,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // Método para obtener la lsita de grupos de la BBDD
+  // Método para obtener la lista de grupos de la BBDD
   Future<void> _getGrupos() async {
     try {
       List<Grupo> grupos = await getGrupos();

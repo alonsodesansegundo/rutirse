@@ -385,7 +385,8 @@ class _AyudaState extends State<Ayuda> {
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
       onPressed: () {
-        Navigator.popUntil(context, (route) => route.isFirst);
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
       },
     );
 
@@ -397,7 +398,10 @@ class _AyudaState extends State<Ayuda> {
         style: TextStyle(
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+      },
     );
 
     // boton para volver a la pantalla principal (he acabado la ayuda)
