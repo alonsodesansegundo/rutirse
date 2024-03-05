@@ -195,7 +195,7 @@ class _HomeState extends State<Home> {
                               nombre: nombre.toString(),
                               grupoId: selectedGrupo!.id);
 
-                          myProvider.jugador = (await insertJugador(jugador))!;
+                          myProvider.jugador = await insertJugador(jugador);
                           myProvider.grupo = selectedGrupo!;
                           Navigator.push(
                             context,
