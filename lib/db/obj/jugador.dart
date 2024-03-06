@@ -32,8 +32,6 @@ Future<Jugador> insertJugador(Jugador jugador) async {
   // si el jugador aun no existe en la base de datos
   if (!await existeJugador(jugador, database)) {
     int id = await database.insert("jugador", jugador.jugadoresToMap());
-    print("Jugador añadido, ID: $id");
-
     sol = Jugador(id: id, nombre: jugador.nombre, grupoId: jugador.grupoId);
   } else {
     // el jugador ya existe en la base de datos

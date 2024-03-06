@@ -31,10 +31,10 @@ class _OpcionesState extends State<Opciones> {
       imgVolverHeight = 0.0;
 
   // botones
-  late ImageTextButton btnSeguir, btnSalir, btnConfirmar, btnAceptar;
+  late ImageTextButton btnSeguir, btnSalir, btnConfirmar, btnAceptar, btnVolver;
 
   // cuadros de dialogo
-  late ExitDialog exitDialog, confirmDialog;
+  late ExitDialog exitDialog, confirmDialog, incompletDialog;
 
   @override
   void initState() {
@@ -270,6 +270,17 @@ class _OpcionesState extends State<Opciones> {
             "¡Muchas gracias por tu interés y colaboración!",
         contentSize: textSize,
         leftImageTextButton: btnAceptar);
+
+    // cuadro de dialogo para cuando los campos son incompletos
+    incompletDialog = ExitDialog(
+        title: "Aviso",
+        titleSize: titleSize,
+        content:
+            "Por favor, recuerda indicarnos tu nombre y grupo para poder medir tu progreso. "
+            "Mientras no tengamos esos datos, no podemos dejarte salir de este menú de opciones. "
+            "\n¡Lo sentimos!",
+        contentSize: textSize,
+        leftImageTextButton: btnVolver);
   }
 
   // metodo para crear los botones necesarios
@@ -311,17 +322,36 @@ class _OpcionesState extends State<Opciones> {
         style: TextStyle(
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
-      onPressed: () {
+      onPressed: () async {
+        // si hay un grupo seleccionado
+        if (selectedGrupo != null) {
+          Jugador jugador = Jugador(
+            nombre: nombre.toString(),
+            grupoId: selectedGrupo!.id,
+          );
+
+          // inserto el jugador si no existe
+          jugador = await insertJugador(jugador);
+
+          //actualizo el provider
+          var myProvider = Provider.of<MyProvider>(context, listen: false);
+          myProvider.jugador = jugador;
+          myProvider.grupo = selectedGrupo!;
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              // cuadro de dialogo opciones actualizadas
+              return confirmDialog;
+            },
+          );
+          return;
+        }
+        // cuadro de dialogo opciones incompletas
         showDialog(
           context: context,
           builder: (BuildContext context) {
-            var myProvider = Provider.of<MyProvider>(context);
-            Jugador jugador = new Jugador(
-                nombre: nombre.toString(), grupoId: selectedGrupo!.id);
-            insertJugador(jugador);
-            myProvider.jugador = jugador;
-            myProvider.grupo = selectedGrupo!;
-            return confirmDialog;
+            // cuadro de dialogo
+            return incompletDialog;
           },
         );
       },
@@ -340,6 +370,19 @@ class _OpcionesState extends State<Opciones> {
         Navigator.of(context).pop();
       },
     );
+
+    // boton para salir del cuadro de dialogo y seguir en opciones
+    btnVolver = ImageTextButton(
+        image: Image.asset('assets/img/botones/volver.png',
+            width: imgWidth, height: imgHeight),
+        text: Text(
+          'Volver',
+          style: TextStyle(
+              fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+        });
   }
 
   // Método para obtener la lista de grupos de la BBDD
