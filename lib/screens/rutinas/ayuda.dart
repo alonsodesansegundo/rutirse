@@ -413,7 +413,8 @@ class _AyudaState extends State<Ayuda> {
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
       onPressed: () {
-        Navigator.popUntil(context, (route) => route.isFirst);
+        Navigator.pop(context);
+        Navigator.pop(context);
       },
     );
   }

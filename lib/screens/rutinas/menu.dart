@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:rutinas/screens/opciones.dart';
-import 'package:rutinas/screens/userProgress.dart';
+import 'package:rutinas/screens/rutinas/userProgress.dart';
 
-import '../widgets/ExitDialog.dart';
-import '../widgets/ImageTextButton.dart';
+import '../../widgets/ExitDialog.dart';
+import '../../widgets/ImageTextButton.dart';
 import 'ayuda.dart';
-import 'home.dart';
 import 'jugar.dart';
+import 'opciones.dart';
 
 class Menu extends StatefulWidget {
   @override
@@ -167,7 +166,7 @@ class _MenuState extends State<Menu> {
         titleSize: titleSize,
         content:
             "¿Estás seguro de que deseas salir del menú del juego 'Rutinas'? "
-            "De esta manera volverás a la pantalla principal.",
+            "De esta manera volverás a la pantalla principal de la aplicación.",
         contentSize: textSize,
         leftImageTextButton: btnSeguir,
         rightImageTextButton: btnSalir,
@@ -265,10 +264,7 @@ class _MenuState extends State<Menu> {
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Home()),
-        );
+        Navigator.popUntil(context, (route) => route.isFirst);
       },
     );
   }

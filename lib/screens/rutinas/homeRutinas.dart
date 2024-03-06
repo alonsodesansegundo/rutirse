@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rutinas/provider/MyProvider.dart';
 
-import '../db/obj/grupo.dart';
-import '../db/obj/jugador.dart';
-import '../widgets/ImageTextButton.dart';
+import '../../db/obj/grupo.dart';
+import '../../db/obj/jugador.dart';
+import '../../widgets/ImageTextButton.dart';
 import 'ayuda.dart';
 import 'jugar.dart';
 
-class Home extends StatefulWidget {
+class HomeRutinas extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _HomeRutinasState createState() => _HomeRutinasState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeRutinasState extends State<HomeRutinas> {
   late List<Grupo> gruposList; // lista de grupos obtenidos de la BBDD
   late String txtGrupo; // texto del grupo seleccionado
   late List<bool>
@@ -25,7 +25,8 @@ class _HomeState extends State<Home> {
       espacioAlto = 0.0,
       espacioJugar = 0.0,
       imgHeight = 0.0,
-      imgWidth = 0.0;
+      imgWidth = 0.0,
+      imgVolverHeight = 0.0;
 
   // Datos que se deben de completar para empezar a jugar
   String nombre = "Introduce tu nombre";
@@ -57,13 +58,33 @@ class _HomeState extends State<Home> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Título Rutinas
-                Text(
-                  "Rutinas",
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: titleSize,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Título Rutinas
+                    Text(
+                      "Rutinas",
+                      style: TextStyle(
+                        fontFamily: 'ComicNeue',
+                        fontSize: titleSize,
+                      ),
+                    ),
+
+                    ImageTextButton(
+                      image: Image.asset('assets/img/botones/home.png',
+                          height: imgVolverHeight),
+                      text: Text(
+                        'Volver',
+                        style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
+                            color: Colors.black),
+                      ),
+                      onPressed: () {
+                        Navigator.popUntil(context, (route) => route.isFirst);
+                      },
+                    ),
+                  ],
                 ),
                 SizedBox(height: espacioAlto), // Espacio entre los textos
                 // Explicación pantalla
@@ -272,6 +293,7 @@ class _HomeState extends State<Home> {
       espacioJugar = screenSize.height * 0.02;
       imgHeight = screenSize.height / 4;
       imgWidth = screenSize.width / 4;
+      imgVolverHeight = screenSize.height / 10;
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
@@ -280,6 +302,7 @@ class _HomeState extends State<Home> {
       espacioJugar = 0;
       imgHeight = screenSize.height / 5;
       imgWidth = screenSize.width / 5;
+      imgVolverHeight = screenSize.height / 32;
     }
   }
 

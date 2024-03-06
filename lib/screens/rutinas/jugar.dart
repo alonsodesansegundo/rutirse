@@ -7,13 +7,13 @@ import 'package:provider/provider.dart';
 import 'package:rutinas/db/obj/partida.dart';
 import 'package:rutinas/obj/CartaAccion.dart';
 
-import '../db/obj/accion.dart';
-import '../db/obj/jugador.dart';
-import '../db/obj/pregunta.dart';
-import '../provider/MyProvider.dart';
-import '../widgets/ExitDialog.dart';
-import '../widgets/ImageTextButton.dart';
-import '../widgets/PreguntaWidget.dart';
+import '../../db/obj/accion.dart';
+import '../../db/obj/jugador.dart';
+import '../../db/obj/pregunta.dart';
+import '../../provider/MyProvider.dart';
+import '../../widgets/ExitDialog.dart';
+import '../../widgets/ImageTextButton.dart';
+import '../../widgets/PreguntaWidget.dart';
 import 'menu.dart';
 
 Random random = Random(); // para generar numeros aleatorios

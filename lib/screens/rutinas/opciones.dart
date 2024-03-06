@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../db/obj/grupo.dart';
-import '../db/obj/jugador.dart';
-import '../provider/MyProvider.dart';
-import '../widgets/ExitDialog.dart';
-import '../widgets/ImageTextButton.dart';
+import '../../db/obj/grupo.dart';
+import '../../db/obj/jugador.dart';
+import '../../provider/MyProvider.dart';
+import '../../widgets/ExitDialog.dart';
+import '../../widgets/ImageTextButton.dart';
 
 class Opciones extends StatefulWidget {
   @override
