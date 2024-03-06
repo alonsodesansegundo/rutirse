@@ -49,3 +49,20 @@ Future<int> insertPartida(Partida partida) async {
   int id = await database.insert("partida", partida.partidasToMap());
   return id;
 }
+
+// Método para obtener las partidas de un jugador dado su userId
+Future<List<Partida>> getPartidasByUserId(int jugadorId) async {
+  Database database = await initializeDB();
+  List<Map<String, dynamic>> result = await database.query(
+    'partida',
+    where: 'jugadorId = ?',
+    whereArgs: [jugadorId],
+    orderBy: 'id DESC', // Ordenar por id en orden descendente
+  );
+
+  // Mapear los resultados a objetos Partida
+  List<Partida> partidas =
+      result.map((item) => Partida.partidasFromMap(item)).toList();
+
+  return partidas;
+}

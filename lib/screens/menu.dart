@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rutinas/screens/opciones.dart';
+import 'package:rutinas/screens/userProgress.dart';
 
 import '../widgets/ExitDialog.dart';
 import '../widgets/ImageTextButton.dart';
@@ -194,12 +195,10 @@ class _MenuState extends State<Menu> {
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
       onPressed: () {
-        /*
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Jugar()),
+          MaterialPageRoute(builder: (context) => UserProgress()),
         );
-         */
       },
     );
 
