@@ -31,6 +31,7 @@ class _UserProgressState extends State<UserProgress> {
       cabeceraAciertos,
       cabeceraFallos,
       cabeceraDuracion;
+
   @override
   void initState() {
     super.initState();
@@ -96,14 +97,14 @@ class _UserProgressState extends State<UserProgress> {
                 ],
               ),
               SizedBox(height: espacioAlto), // Espacio entre los textos
-              FutureBuilder<List<Partida>>(
+              FutureBuilder<void>(
                 future: _cargarPartidas(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return CircularProgressIndicator();
                   } else if (snapshot.hasError) {
                     return Text("Error: ${snapshot.error}");
-                  } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                  } else if (partidas != null && partidas!.isNotEmpty) {
                     return DataTable(
                       headingRowHeight: imgHeight / 1.2,
                       columns: [
@@ -112,7 +113,7 @@ class _UserProgressState extends State<UserProgress> {
                         cabeceraFallos,
                         cabeceraDuracion,
                       ],
-                      rows: snapshot.data!.map((Partida partida) {
+                      rows: partidas!.map((Partida partida) {
                         return DataRow(cells: [
                           DataCell(Text(
                             _getFecha(partida.fechaFin),
@@ -151,7 +152,8 @@ class _UserProgressState extends State<UserProgress> {
                     );
                   } else {
                     return Text(
-                      "Todavía no hay partidas, por lo que no tenemos datos para mostrarte.\n¡Te animamos a jugar!",
+                      "Todavía no hay partidas, por lo que no tenemos datos para mostrarte.\n"
+                      "¡Te animamos a jugar!",
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: textSize,
@@ -177,7 +179,7 @@ class _UserProgressState extends State<UserProgress> {
     if (isHorizontal) {
       titleSize = screenSize.width * 0.08;
       textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.02;
+      espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.02;
       imgHeight = screenSize.height / 4;
       imgVolverHeight = screenSize.height / 10;
@@ -213,7 +215,7 @@ class _UserProgressState extends State<UserProgress> {
             Image.asset('assets/img/calendario.png', height: imgHeight / 2),
             SizedBox(height: 8),
             Text(
-              'Fecha',
+              'Fecha de \nla partida',
               style: TextStyle(
                 fontFamily: 'ComicNeue',
                 fontSize: textSize,
@@ -232,7 +234,7 @@ class _UserProgressState extends State<UserProgress> {
               height: imgHeight / 2),
           SizedBox(height: 8),
           Text(
-            'Aciertos',
+            'Rutinas\ncompletadas',
             style: TextStyle(
                 fontFamily: 'ComicNeue',
                 fontSize: textSize,
@@ -249,7 +251,7 @@ class _UserProgressState extends State<UserProgress> {
               height: imgHeight / 2),
           SizedBox(height: 8),
           Text(
-            'Fallos',
+            'Intentos\nfallidos',
             style: TextStyle(
                 fontFamily: 'ComicNeue',
                 fontSize: textSize,
@@ -265,7 +267,7 @@ class _UserProgressState extends State<UserProgress> {
           Image.asset('assets/img/duracion.png', height: imgHeight / 2),
           SizedBox(height: 8),
           Text(
-            'Duracion',
+            'Duración de\nla partida',
             style: TextStyle(
                 fontFamily: 'ComicNeue',
                 fontSize: textSize,
@@ -276,18 +278,22 @@ class _UserProgressState extends State<UserProgress> {
     );
   }
 
-  Future<List<Partida>> _cargarPartidas() async {
+  Future<void> _cargarPartidas() async {
     if (!loadPartidas) {
       loadPartidas = true;
       try {
         var myProvider = Provider.of<MyProvider>(context);
-        return await getPartidasByUserId(myProvider.jugador.id!);
+        // obtengo las partidas del jugador correspondiente
+        List<Partida> partidasList =
+            await getPartidasByUserId(myProvider.jugador.id!);
+        setState(() {
+          partidas = partidasList; // actualizo la lista
+        });
       } catch (e) {
-        print("Error al obtener la lista de partidas: $e");
-        return [];
+        // no se debe de producir ningún error al ser una BBDD local
+        print("Error al obtener la lista de preguntas: $e"); //
       }
     }
-    return partidas ?? [];
   }
 
   String _getFecha(String fecha) {

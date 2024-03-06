@@ -107,10 +107,10 @@ class _Jugar extends State<Jugar> {
                     ),
                   ),
                   ImageTextButton(
-                    image: Image.asset('assets/img/botones/volver.png',
-                        height: imgVolverHeight),
+                    image: Image.asset('assets/img/botones/salir.png',
+                        height: imgVolverHeight * 1.5),
                     text: Text(
-                      'Volver',
+                      'Salir',
                       style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: textSize,
@@ -260,13 +260,13 @@ class _Jugar extends State<Jugar> {
       ancho = screenSize.width;
       titleSize = screenSize.width * 0.08;
       textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.02;
+      espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.04;
       imgHeight = screenSize.height / 7;
       personajeHeight = screenSize.height / 6;
       imgCartaHeight = screenSize.height / 4;
       imgVolverHeight = screenSize.height / 10;
-      espacioCartas = screenSize.height * 0.02;
+      espacioCartas = screenSize.height * 0.015;
     } else {
       cartasFila = 3;
       ancho = screenSize.width;

@@ -345,7 +345,7 @@ class _AyudaState extends State<Ayuda> {
     if (isHorizontal) {
       titleSize = screenSize.width * 0.08;
       textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.02;
+      espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.04;
       imgHeight = screenSize.height / 5;
       imgWidth = screenSize.width / 5;

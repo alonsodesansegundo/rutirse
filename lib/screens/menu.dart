@@ -17,6 +17,7 @@ class _MenuState extends State<Menu> {
   double titleSize = 0.0,
       textSize = 0.0,
       espacioPadding = 0.0,
+      espacioBotones = 0.0,
       espacioAlto = 0.0,
       imgHeight = 0.0,
       imgWidth = 0.0,
@@ -101,19 +102,22 @@ class _MenuState extends State<Menu> {
               ),
               SizedBox(height: espacioAlto), // Espacio
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     children: [
                       btnJugar,
-                      SizedBox(height: espacioAlto),
+                      SizedBox(height: espacioAlto * 2),
                       btnOpciones
                     ],
+                  ),
+                  SizedBox(
+                    width: espacioBotones,
                   ),
                   Column(
                     children: [
                       btnProgresos,
-                      SizedBox(height: espacioAlto),
+                      SizedBox(height: espacioAlto * 2),
                       btnAyuda
                     ],
                   )
@@ -136,8 +140,9 @@ class _MenuState extends State<Menu> {
     if (isHorizontal) {
       titleSize = screenSize.width * 0.08;
       textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.02;
-      espacioAlto = screenSize.height * 0.02;
+      espacioPadding = screenSize.height * 0.03;
+      espacioBotones = screenSize.height * 0.3;
+      espacioAlto = screenSize.height * 0.03;
       imgHeight = screenSize.height / 7;
       imgWidth = screenSize.width / 4;
       imgVolverHeight = screenSize.height / 10;
@@ -145,6 +150,7 @@ class _MenuState extends State<Menu> {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
       espacioPadding = screenSize.height * 0.03;
+      espacioBotones = screenSize.height * 0.09;
       espacioAlto = screenSize.height * 0.03;
       imgHeight = screenSize.height / 8;
       imgWidth = screenSize.width / 5;

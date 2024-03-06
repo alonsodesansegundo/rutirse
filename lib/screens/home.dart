@@ -23,6 +23,7 @@ class _HomeState extends State<Home> {
       textSize = 0.0,
       espacioPadding = 0.0,
       espacioAlto = 0.0,
+      espacioJugar = 0.0,
       imgHeight = 0.0,
       imgWidth = 0.0;
 
@@ -174,6 +175,9 @@ class _HomeState extends State<Home> {
                     fontSize: textSize,
                   ),
                 ),
+                SizedBox(
+                  height: espacioJugar,
+                ),
                 // Fila para los botones de Jugar, Ayuda y Terapeuta
                 Row(
                   children: [
@@ -263,8 +267,9 @@ class _HomeState extends State<Home> {
     if (isHorizontal) {
       titleSize = screenSize.width * 0.08;
       textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.02;
+      espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.02;
+      espacioJugar = screenSize.height * 0.02;
       imgHeight = screenSize.height / 4;
       imgWidth = screenSize.width / 4;
     } else {
@@ -272,6 +277,7 @@ class _HomeState extends State<Home> {
       textSize = screenSize.width * 0.03;
       espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.03;
+      espacioJugar = 0;
       imgHeight = screenSize.height / 5;
       imgWidth = screenSize.width / 5;
     }
