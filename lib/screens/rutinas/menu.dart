@@ -1,5 +1,5 @@
+import 'package:TresEnUno/screens/rutinas/userProgress.dart';
 import 'package:flutter/material.dart';
-import 'package:rutinas/screens/rutinas/userProgress.dart';
 
 import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';

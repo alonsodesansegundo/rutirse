@@ -1,8 +1,10 @@
+import 'package:TresEnUno/screens/rutinas/homeRutinas.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rutinas/provider/MyProvider.dart';
-import 'package:rutinas/screens/rutinas/homeRutinas.dart';
-import 'package:rutinas/widgets/ImageTextButton.dart';
+
+import '../provider/MyProvider.dart';
+import '../widgets/ImageTextButton.dart';
+import 'informacion.dart';
 
 void main() {
   runApp(
@@ -59,13 +61,33 @@ class _MainState extends State<Main> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Título Rutinas
-                Text(
-                  "Apperger",
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: titleSize,
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'TresEnUno',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize,
+                          ),
+                        ),
+                        Image.asset(
+                          'assets/img/icon.png',
+                          height: imgHeight,
+                        ),
+                      ],
+                    ),
+                    Text(
+                      'Juegos de Habilidad Social',
+                      style: TextStyle(
+                        fontFamily: 'ComicNeue',
+                        fontSize: titleSize / 2,
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: espacioAlto), // Espacio entre los textos
                 // Explicación pantalla
@@ -188,7 +210,12 @@ class _MainState extends State<Main> {
         style: TextStyle(
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Informacion()),
+        );
+      },
     );
   }
 }

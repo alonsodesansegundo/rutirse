@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:rutinas/db/obj/partida.dart';
-import 'package:rutinas/obj/CartaAccion.dart';
 
 import '../../db/obj/accion.dart';
 import '../../db/obj/jugador.dart';
+import '../../db/obj/partida.dart';
 import '../../db/obj/pregunta.dart';
+import '../../obj/CartaAccion.dart';
 import '../../provider/MyProvider.dart';
 import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';

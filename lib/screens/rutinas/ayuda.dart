@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rutinas/widgets/ExitDialog.dart';
-import 'package:rutinas/widgets/ImageTextButton.dart';
+
+import '../../widgets/ExitDialog.dart';
+import '../../widgets/ImageTextButton.dart';
 
 class Ayuda extends StatefulWidget {
   // string que nos indica si la pantalla de origen es 'home' o 'menu'

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rutinas/widgets/ImageTextButton.dart';
+
+import 'ImageTextButton.dart';
 
 class ExitDialog extends StatefulWidget {
   final String title;

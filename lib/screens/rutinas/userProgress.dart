@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rutinas/db/obj/partida.dart';
 
+import '../../db/obj/partida.dart';
 import '../../provider/MyProvider.dart';
 import '../../widgets/ImageTextButton.dart';
 
