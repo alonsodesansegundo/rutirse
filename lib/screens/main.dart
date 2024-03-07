@@ -115,6 +115,15 @@ class _MainState extends State<Main> {
                 ),
 
                 SizedBox(height: espacioAcercaDe),
+                Text(
+                  'Otras opciones:',
+                  style: TextStyle(
+                    fontFamily: 'ComicNeue',
+                    fontSize: textSize,
+                  ),
+                ),
+                SizedBox(height: espacioAlto), // Espacio entre los textos
+
                 Row(
                   children: [
                     SizedBox(
