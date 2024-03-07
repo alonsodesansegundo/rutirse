@@ -14,7 +14,7 @@ import '../../provider/MyProvider.dart';
 import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
 import '../../widgets/PreguntaWidget.dart';
-import 'menu.dart';
+import 'menuJugador.dart';
 
 Random random = Random(); // para generar numeros aleatorios
 
@@ -336,7 +336,7 @@ class _Jugar extends State<Jugar> {
         saveProgreso();
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Menu()),
+          MaterialPageRoute(builder: (context) => MenuJugador()),
         );
       },
     );
@@ -353,7 +353,7 @@ class _Jugar extends State<Jugar> {
         saveProgreso();
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Menu()),
+          MaterialPageRoute(builder: (context) => MenuJugador()),
         );
       },
     );

@@ -7,6 +7,7 @@ import '../../provider/MyProvider.dart';
 import '../../widgets/ImageTextButton.dart';
 import 'ayuda.dart';
 import 'jugar.dart';
+import 'menuTerapeuta.dart';
 
 class HomeRutinas extends StatefulWidget {
   @override
@@ -267,7 +268,13 @@ class _HomeRutinasState extends State<HomeRutinas> {
                             fontSize: textSize,
                             color: Colors.black),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MenuTerapeuta()),
+                        );
+                      },
                     ),
                   ],
                 )

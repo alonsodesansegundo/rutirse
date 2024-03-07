@@ -7,12 +7,12 @@ import 'ayuda.dart';
 import 'jugar.dart';
 import 'opciones.dart';
 
-class Menu extends StatefulWidget {
+class MenuJugador extends StatefulWidget {
   @override
-  _MenuState createState() => _MenuState();
+  _MenuJugadorState createState() => _MenuJugadorState();
 }
 
-class _MenuState extends State<Menu> {
+class _MenuJugadorState extends State<MenuJugador> {
   double titleSize = 0.0,
       textSize = 0.0,
       espacioPadding = 0.0,
