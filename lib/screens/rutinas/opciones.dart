@@ -27,8 +27,11 @@ class _OpcionesState extends State<Opciones> {
       espacioPadding = 0.0,
       espacioAlto = 0.0,
       imgHeight = 0.0,
+      imgBtnDialogo = 0.0,
       imgWidth = 0.0,
-      imgVolverHeight = 0.0;
+      imgVolverHeight = 0.0,
+      espacioConfirmar = 0.0,
+      imgConfirmarHeight = 0.0;
 
   // botones
   late ImageTextButton btnSeguir, btnSalir, btnConfirmar, btnAceptar, btnVolver;
@@ -72,12 +75,25 @@ class _OpcionesState extends State<Opciones> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Opciones',
-                    style: TextStyle(
-                      fontFamily: 'ComicNeue',
-                      fontSize: titleSize,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment
+                        .start, // Alinea los elementos a la izquierda
+                    children: [
+                      Text(
+                        'Rutinas',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: titleSize,
+                        ),
+                      ),
+                      Text(
+                        'Opciones',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: titleSize / 2,
+                        ),
+                      ),
+                    ],
                   ),
                   ImageTextButton(
                     image: Image.asset(
@@ -210,7 +226,7 @@ class _OpcionesState extends State<Opciones> {
                       }).toList()
                     : [Center(child: Text('No hay grupos disponibles'))],
               ),
-              SizedBox(height: espacioAlto),
+              SizedBox(height: espacioConfirmar),
               btnConfirmar,
             ],
           ),
@@ -232,16 +248,22 @@ class _OpcionesState extends State<Opciones> {
       espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.02;
       imgHeight = screenSize.height / 4;
+      imgBtnDialogo = screenSize.height / 5;
       imgWidth = screenSize.width / 4;
       imgVolverHeight = screenSize.height / 10;
+      imgConfirmarHeight = screenSize.height / 5;
+      espacioConfirmar = espacioAlto * 3;
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
       espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.03;
       imgHeight = screenSize.height / 5;
+      imgBtnDialogo = screenSize.height / 10;
       imgWidth = screenSize.width / 5;
       imgVolverHeight = screenSize.height / 32;
+      imgConfirmarHeight = screenSize.height / 10;
+      espacioConfirmar = espacioAlto * 2;
     }
   }
 
@@ -253,7 +275,7 @@ class _OpcionesState extends State<Opciones> {
         title: 'Aviso',
         titleSize: titleSize,
         content:
-            "¿Estás seguro de que deseas salir de las opciones del juego 'Rutinas'? "
+            "¿Estás seguro de que deseas salir de las opciones del juego 'Rutinas'?\n"
             "De esta manera los posibles cambios que hayas realizado no se guardarán "
             "y volverás al menú del juego \'Rutinas\'.",
         contentSize: textSize,
@@ -288,7 +310,8 @@ class _OpcionesState extends State<Opciones> {
   void _createButtons() {
     // boton para seguir en opciones
     btnSeguir = ImageTextButton(
-      image: Image.asset('assets/img/botones/opciones.png', width: imgWidth),
+      image:
+          Image.asset('assets/img/botones/opciones.png', height: imgBtnDialogo),
       text: Text(
         'Seguir en opciones',
         style: TextStyle(
@@ -301,7 +324,7 @@ class _OpcionesState extends State<Opciones> {
 
     // boton para salir de opciones
     btnSalir = ImageTextButton(
-      image: Image.asset('assets/img/botones/salir.png', width: imgWidth),
+      image: Image.asset('assets/img/botones/salir.png', height: imgBtnDialogo),
       text: Text(
         'Salir',
         style: TextStyle(
@@ -316,9 +339,9 @@ class _OpcionesState extends State<Opciones> {
     // boton para confirmar los cambios
     btnConfirmar = ImageTextButton(
       image: Image.asset('assets/img/botones/fin.png',
-          width: imgWidth, height: imgHeight),
+          width: imgWidth, height: imgConfirmarHeight),
       text: Text(
-        'Confirmar cambios',
+        'Confirmar',
         style: TextStyle(
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
@@ -359,7 +382,7 @@ class _OpcionesState extends State<Opciones> {
 
     // boton para aceptar que se han actualizado las opciones
     btnAceptar = ImageTextButton(
-      image: Image.asset('assets/img/botones/aceptar.png', width: imgWidth),
+      image: Image.asset('assets/img/botones/aceptar.png', height: imgHeight),
       text: Text(
         'Aceptar',
         style: TextStyle(
@@ -373,8 +396,8 @@ class _OpcionesState extends State<Opciones> {
 
     // boton para salir del cuadro de dialogo y seguir en opciones
     btnVolver = ImageTextButton(
-        image: Image.asset('assets/img/botones/volver.png',
-            width: imgWidth, height: imgHeight),
+        image:
+            Image.asset('assets/img/botones/volver.png', height: imgHeight / 2),
         text: Text(
           'Volver',
           style: TextStyle(

@@ -37,7 +37,7 @@ class _MainState extends State<Main> {
       espacioAlto = 0.0,
       espacioJugar = 0.0,
       imgHeight = 0.0,
-      imgWidth = 0.0;
+      espacioAcercaDe = 0.0;
 
   late ImageTextButton btnRutinas, btnIronias, btnAnimo, btnInfo;
 
@@ -80,17 +80,27 @@ class _MainState extends State<Main> {
                   ),
                 ),
                 SizedBox(height: espacioAlto), // Espacio entre los textos
+                Text(
+                  '¿A qué te apetece jugar?',
+                  style: TextStyle(
+                    fontFamily: 'ComicNeue',
+                    fontSize: textSize,
+                  ),
+                ),
+                SizedBox(height: espacioAlto), // Espacio entre los textos
+                Row(
+                  children: [btnRutinas, btnAnimo, btnIronias],
+                ),
+
+                SizedBox(height: espacioAcercaDe),
                 Row(
                   children: [
-                    btnRutinas,
-                    SizedBox(width: espacioPadding),
-                    btnAnimo,
-                    SizedBox(width: espacioPadding),
-                    btnIronias
+                    SizedBox(
+                      width: espacioPadding,
+                    ),
+                    btnInfo
                   ],
-                ),
-                SizedBox(height: imgHeight + espacioAlto * 4),
-                btnInfo,
+                )
               ],
             ),
           ),
@@ -112,22 +122,25 @@ class _MainState extends State<Main> {
       espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.02;
       espacioJugar = screenSize.height * 0.02;
-      imgHeight = screenSize.height / 6;
-      imgWidth = screenSize.width / 4;
+      imgHeight = screenSize.height / 4;
+      espacioAcercaDe = espacioAlto * 4;
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
       espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.03;
       espacioJugar = 0;
-      imgHeight = screenSize.height / 8;
-      imgWidth = screenSize.width / 5;
+      imgHeight = screenSize.height / 10;
+      espacioAcercaDe = espacioAlto * 2;
     }
   }
 
   void _createButtons() {
     btnRutinas = ImageTextButton(
-      image: Image.asset('assets/img/botones/rutinas.png', height: imgHeight),
+      image: Image.asset(
+        'assets/img/botones/rutinas.png',
+        height: imgHeight,
+      ),
       text: Text(
         'Rutinas',
         style: TextStyle(
@@ -141,8 +154,10 @@ class _MainState extends State<Main> {
       },
     );
     btnAnimo = ImageTextButton(
-        image: Image.asset('assets/img/botones/sentimientos.png',
-            height: imgHeight),
+        image: Image.asset(
+          'assets/img/botones/sentimientos.png',
+          height: imgHeight,
+        ),
         text: Text(
           '¿Cómo me siento?',
           style: TextStyle(
@@ -151,7 +166,10 @@ class _MainState extends State<Main> {
         onPressed: () {});
 
     btnIronias = ImageTextButton(
-      image: Image.asset('assets/img/botones/ironias.png', height: imgHeight),
+      image: Image.asset(
+        'assets/img/botones/ironias.png',
+        height: imgHeight,
+      ),
       text: Text(
         'Ironías',
         style: TextStyle(
@@ -161,7 +179,10 @@ class _MainState extends State<Main> {
     );
 
     btnInfo = ImageTextButton(
-      image: Image.asset('assets/img/botones/info.png', height: imgHeight),
+      image: Image.asset(
+        'assets/img/botones/info.png',
+        height: imgHeight / 2,
+      ),
       text: Text(
         'Acerca de',
         style: TextStyle(

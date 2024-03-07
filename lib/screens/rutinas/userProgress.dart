@@ -18,6 +18,7 @@ class _UserProgressState extends State<UserProgress> {
       espacioPadding = 0.0,
       espacioAlto = 0.0,
       imgHeight = 0.0,
+      textHeaderSize = 0.0,
       imgVolverHeight = 0.0;
 
   // botones
@@ -54,12 +55,25 @@ class _UserProgressState extends State<UserProgress> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Mis progresos',
-                    style: TextStyle(
-                      fontFamily: 'ComicNeue',
-                      fontSize: titleSize,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment
+                        .start, // Alinea los elementos a la izquierda
+                    children: [
+                      Text(
+                        'Rutinas',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: titleSize,
+                        ),
+                      ),
+                      Text(
+                        'Mis progresos',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: titleSize / 2,
+                        ),
+                      ),
+                    ],
                   ),
                   ImageTextButton(
                     image: Image.asset(
@@ -106,7 +120,7 @@ class _UserProgressState extends State<UserProgress> {
                     return Text("Error: ${snapshot.error}");
                   } else if (partidas != null && partidas!.isNotEmpty) {
                     return DataTable(
-                      headingRowHeight: imgHeight / 1.2,
+                      headingRowHeight: imgHeight + 8 + textHeaderSize * 2,
                       columns: [
                         cabeceraFecha,
                         cabeceraAciertos,
@@ -119,7 +133,7 @@ class _UserProgressState extends State<UserProgress> {
                             _getFecha(partida.fechaFin),
                             style: TextStyle(
                               fontFamily: 'ComicNeue',
-                              fontSize: textSize,
+                              fontSize: textSize * 0.8,
                               color: Colors.black,
                             ),
                           )),
@@ -127,7 +141,7 @@ class _UserProgressState extends State<UserProgress> {
                             partida.aciertos.toString(),
                             style: TextStyle(
                               fontFamily: 'ComicNeue',
-                              fontSize: textSize,
+                              fontSize: textSize * 0.8,
                               color: Colors.black,
                             ),
                           )),
@@ -135,7 +149,7 @@ class _UserProgressState extends State<UserProgress> {
                             partida.fallos.toString(),
                             style: TextStyle(
                               fontFamily: 'ComicNeue',
-                              fontSize: textSize,
+                              fontSize: textSize * 0.8,
                               color: Colors.black,
                             ),
                           )),
@@ -143,7 +157,7 @@ class _UserProgressState extends State<UserProgress> {
                             _getTime(partida.duracionSegundos),
                             style: TextStyle(
                               fontFamily: 'ComicNeue',
-                              fontSize: textSize,
+                              fontSize: textSize * 0.8,
                               color: Colors.black,
                             ),
                           )),
@@ -183,13 +197,15 @@ class _UserProgressState extends State<UserProgress> {
       espacioAlto = screenSize.height * 0.02;
       imgHeight = screenSize.height / 4;
       imgVolverHeight = screenSize.height / 10;
+      textHeaderSize = screenSize.width * 0.015;
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
       espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.03;
-      imgHeight = screenSize.height / 5;
+      imgHeight = screenSize.width / 5;
       imgVolverHeight = screenSize.height / 32;
+      textHeaderSize = screenSize.width * 0.02;
     }
   }
 
@@ -212,13 +228,13 @@ class _UserProgressState extends State<UserProgress> {
       label: Container(
         child: Column(
           children: [
-            Image.asset('assets/img/calendario.png', height: imgHeight / 2),
+            Image.asset('assets/img/calendario.png', height: imgHeight * 0.75),
             SizedBox(height: 8),
             Text(
               'Fecha de \nla partida',
               style: TextStyle(
                 fontFamily: 'ComicNeue',
-                fontSize: textSize,
+                fontSize: textHeaderSize,
                 color: Colors.black,
               ),
             ),
@@ -231,13 +247,13 @@ class _UserProgressState extends State<UserProgress> {
       label: Column(
         children: [
           Image.asset('assets/img/medallas/correcto.png',
-              height: imgHeight / 2),
+              height: imgHeight * 0.75),
           SizedBox(height: 8),
           Text(
             'Rutinas\ncompletadas',
             style: TextStyle(
                 fontFamily: 'ComicNeue',
-                fontSize: textSize,
+                fontSize: textHeaderSize,
                 color: Colors.black),
           ),
         ],
@@ -248,13 +264,13 @@ class _UserProgressState extends State<UserProgress> {
       label: Column(
         children: [
           Image.asset('assets/img/medallas/incorrecto.png',
-              height: imgHeight / 2),
+              height: imgHeight * 0.75),
           SizedBox(height: 8),
           Text(
             'Intentos\nfallidos',
             style: TextStyle(
                 fontFamily: 'ComicNeue',
-                fontSize: textSize,
+                fontSize: textHeaderSize,
                 color: Colors.black),
           ),
         ],
@@ -264,13 +280,13 @@ class _UserProgressState extends State<UserProgress> {
     cabeceraDuracion = DataColumn(
       label: Column(
         children: [
-          Image.asset('assets/img/duracion.png', height: imgHeight / 2),
+          Image.asset('assets/img/duracion.png', height: imgHeight * 0.75),
           SizedBox(height: 8),
           Text(
             'Duración de\nla partida',
             style: TextStyle(
                 fontFamily: 'ComicNeue',
-                fontSize: textSize,
+                fontSize: textHeaderSize,
                 color: Colors.black),
           ),
         ],

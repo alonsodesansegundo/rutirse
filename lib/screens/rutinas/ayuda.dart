@@ -59,12 +59,25 @@ class _AyudaState extends State<Ayuda> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Ayuda',
-                      style: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: titleSize,
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment
+                          .start, // Alinea los elementos a la izquierda
+                      children: [
+                        Text(
+                          'Rutinas',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize,
+                          ),
+                        ),
+                        Text(
+                          'Ayuda',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize / 2,
+                          ),
+                        ),
+                      ],
                     ),
                     ImageTextButton(
                       image: Image.asset('assets/img/botones/volver.png',

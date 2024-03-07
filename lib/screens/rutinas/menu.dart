@@ -52,12 +52,25 @@ class _MenuState extends State<Menu> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Menú',
-                    style: TextStyle(
-                      fontFamily: 'ComicNeue',
-                      fontSize: titleSize,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment
+                        .start, // Alinea los elementos a la izquierda
+                    children: [
+                      Text(
+                        'Rutinas',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: titleSize,
+                        ),
+                      ),
+                      Text(
+                        'Menú',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: titleSize / 2,
+                        ),
+                      ),
+                    ],
                   ),
                   ImageTextButton(
                     image: Image.asset(
@@ -151,7 +164,7 @@ class _MenuState extends State<Menu> {
       espacioPadding = screenSize.height * 0.03;
       espacioBotones = screenSize.height * 0.09;
       espacioAlto = screenSize.height * 0.03;
-      imgHeight = screenSize.height / 8;
+      imgHeight = screenSize.height / 9;
       imgWidth = screenSize.width / 5;
       imgVolverHeight = screenSize.height / 32;
     }

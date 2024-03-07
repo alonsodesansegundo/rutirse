@@ -99,12 +99,25 @@ class _Jugar extends State<Jugar> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Rutinas',
-                    style: TextStyle(
-                      fontFamily: 'ComicNeue',
-                      fontSize: titleSize,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment
+                        .start, // Alinea los elementos a la izquierda
+                    children: [
+                      Text(
+                        'Rutinas',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: titleSize,
+                        ),
+                      ),
+                      Text(
+                        'Juego',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: titleSize / 2,
+                        ),
+                      ),
+                    ],
                   ),
                   ImageTextButton(
                     image: Image.asset('assets/img/botones/salir.png',
@@ -161,7 +174,7 @@ class _Jugar extends State<Jugar> {
                     crossAxisCount: cartasFila,
                     crossAxisSpacing: espacioCartas,
                     mainAxisSpacing: espacioCartas,
-                    childAspectRatio: (1 / 1.5),
+                    childAspectRatio: (1 / 1.6),
                   ),
                   itemCount: cartasAcciones.length,
                   itemBuilder: (context, index) {
@@ -353,7 +366,7 @@ class _Jugar extends State<Jugar> {
         title: 'Aviso',
         titleSize: titleSize,
         content:
-            "¿Estás seguro de que quieres salir del juego? Si lo haces, irás al menú principal.\n"
+            "¿Estás seguro de que quieres salir del juego? \nSi lo haces, irás al menú principal.\n"
             "Puedes confirmar la salida o seguir disfrutando del juego.",
         contentSize: textSize,
         leftImageTextButton: btnSeguirJugando,
@@ -380,8 +393,8 @@ class _Jugar extends State<Jugar> {
     correctDialog = ExitDialog(
         title: '¡Fantástico!',
         titleSize: titleSize,
-        content:
-            "Lo has hecho excelente. Has ordenado todas las acciones de manera perfecta.\n"
+        content: "¡Enhorabuena, lo has hecho excelente! "
+            "\nHas ordenado todas las acciones de manera perfecta.\n"
             "¡Gran trabajo!",
         contentSize: textSize,
         leftImageTextButton: btnSeguirJugandoCambiaPregunta,
@@ -489,7 +502,7 @@ class _Jugar extends State<Jugar> {
     double aux2 = espacioCartas * (cartasFila - 1);
     double anchoTotal = ancho - aux - aux2;
     double anchoCarta = anchoTotal / cartasFila;
-    double altoCarta = anchoCarta / (1 / 1.5);
+    double altoCarta = anchoCarta / (1 / 1.6);
 
     sol = altoCarta * filas + espacioCartas * 5;
 

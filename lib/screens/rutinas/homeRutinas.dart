@@ -26,6 +26,7 @@ class _HomeRutinasState extends State<HomeRutinas> {
       espacioJugar = 0.0,
       imgHeight = 0.0,
       imgWidth = 0.0,
+      imgVolverHomeHeight = 0.0,
       imgVolverHeight = 0.0;
 
   // Datos que se deben de completar para empezar a jugar
@@ -72,7 +73,7 @@ class _HomeRutinasState extends State<HomeRutinas> {
 
                     ImageTextButton(
                       image: Image.asset('assets/img/botones/home.png',
-                          height: imgVolverHeight),
+                          height: imgVolverHomeHeight),
                       text: Text(
                         'Volver',
                         style: TextStyle(
@@ -293,7 +294,8 @@ class _HomeRutinasState extends State<HomeRutinas> {
       espacioJugar = screenSize.height * 0.02;
       imgHeight = screenSize.height / 4;
       imgWidth = screenSize.width / 4;
-      imgVolverHeight = screenSize.height / 10;
+      imgVolverHeight = screenSize.height / 5;
+      imgVolverHomeHeight = screenSize.height / 10;
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
@@ -302,7 +304,8 @@ class _HomeRutinasState extends State<HomeRutinas> {
       espacioJugar = 0;
       imgHeight = screenSize.height / 5;
       imgWidth = screenSize.width / 5;
-      imgVolverHeight = screenSize.height / 32;
+      imgVolverHeight = screenSize.height / 10;
+      imgVolverHomeHeight = screenSize.height / 32;
     }
   }
 
@@ -319,7 +322,7 @@ class _HomeRutinasState extends State<HomeRutinas> {
         ),
       ),
       content: Text(
-        "Por favor, recuerda indicarnos tu nombre y grupo para poder medir tu progreso. "
+        "Por favor, recuerda indicarnos tu nombre y grupo para poder medir tu progreso.\n"
         "Mientras no tengamos esos datos, no podemos dejarte jugar. "
         "\n¡Lo sentimos!",
         style: TextStyle(
@@ -332,7 +335,7 @@ class _HomeRutinasState extends State<HomeRutinas> {
           children: [
             ImageTextButton(
                 image: Image.asset('assets/img/botones/volver.png',
-                    width: imgWidth, height: imgHeight),
+                    height: imgVolverHeight),
                 text: Text(
                   'Volver',
                   style: TextStyle(
