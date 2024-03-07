@@ -178,7 +178,7 @@ class _MenuState extends State<Menu> {
         title: 'Aviso',
         titleSize: titleSize,
         content:
-            "¿Estás seguro de que deseas salir del menú del juego 'Rutinas'? "
+            "¿Estás seguro de que deseas salir del menú del juego 'Rutinas'?\n"
             "De esta manera volverás a la pantalla principal de la aplicación.",
         contentSize: textSize,
         leftImageTextButton: btnSeguir,

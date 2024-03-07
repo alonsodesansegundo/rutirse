@@ -90,7 +90,7 @@ class _HomeRutinasState extends State<HomeRutinas> {
                 SizedBox(height: espacioAlto), // Espacio entre los textos
                 // Explicación pantalla
                 Text(
-                  'Antes de empezar, ¿puedes decirnos tu nombre y de qué grupo eres? '
+                  'Antes de empezar, ¿puedes decirnos tu nombre y a qué grupo perteneces? '
                   'Esto nos va a ayudar a seguir tu progreso. '
                   '¡Muchas gracias!',
                   style: TextStyle(

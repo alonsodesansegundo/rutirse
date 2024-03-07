@@ -70,10 +70,10 @@ class _MainState extends State<Main> {
                 SizedBox(height: espacioAlto), // Espacio entre los textos
                 // Explicación pantalla
                 Text(
-                  '¡Hola! A continuación puedes elegir entre una serie de juegos, con '
-                  'ellos tenemos como objetivo ayudarte a mejorar '
-                  'en diferentes situaciones que puedes encontrarte en tu día a día.\n'
-                  '¡Esperamos haberlo logrado y que puedas disfrutar de esta experiencia!',
+                  '¡Hola! A continuación, puedes elegir entre una serie de juegos. '
+                  'Con ellos, tenemos como objetivo ayudarte a mejorar en diferentes '
+                  'situaciones que puedes encontrarte en tu día a día.\n¡Esperamos haberlo '
+                  'logrado y que disfrutes de esta experiencia!',
                   style: TextStyle(
                     fontFamily: 'ComicNeue',
                     fontSize: textSize,

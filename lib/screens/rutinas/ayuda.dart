@@ -108,8 +108,8 @@ class _AyudaState extends State<Ayuda> {
                   children: [
                     Expanded(
                       child: Text(
-                        'Aquí descubrirás como jugar a \'Rutinas\', '
-                        'juego que consiste en ordenar las acciones. '
+                        'Aquí descubrirás cómo jugar a \'Rutinas\', '
+                        'un juego que consiste en ordenar las acciones. '
                         '\nAquí tienes un ejemplo:',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
@@ -119,6 +119,7 @@ class _AyudaState extends State<Ayuda> {
                     )
                   ],
                 ),
+                SizedBox(height: espacioAlto),
                 Row(
                   children: [
                     Expanded(
@@ -150,7 +151,7 @@ class _AyudaState extends State<Ayuda> {
                           width: imgWidth,
                         ),
                         Text(
-                          'Echar pasta \nde dientes.',
+                          'Echar pasta \nde dientes',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'ComicNeue',
@@ -179,7 +180,7 @@ class _AyudaState extends State<Ayuda> {
                             width: imgWidth,
                           ),
                           Text(
-                            'Coger cepillo.',
+                            'Coger cepillo',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: 'ComicNeue',
@@ -258,7 +259,7 @@ class _AyudaState extends State<Ayuda> {
                 Text(
                   'Después de elegir la acción \'Coger cepillo\', '
                   'pulsamos en su posición correcta, '
-                  'que en este caso es la acción \'Echar pasta de dientes\'.',
+                  'que en este caso es la que ocupa la acción \'Echar pasta de dientes\'.',
                   style: TextStyle(
                     fontFamily: 'ComicNeue',
                     fontSize: textSize,
@@ -309,8 +310,15 @@ class _AyudaState extends State<Ayuda> {
                 ),
                 SizedBox(height: espacioAlto / 2), // Espacio entre los textos
                 Text(
-                  'Ahora las acciones están en el orden correcto.'
-                  '\n¡Muchas gracias por tu atención!',
+                  'Después de intercambiar las acciones de posición, ahora se encuentran en el orden correcto.',
+                  style: TextStyle(
+                    fontFamily: 'ComicNeue',
+                    fontSize: textSize,
+                  ),
+                ),
+                SizedBox(height: espacioAlto),
+                Text(
+                  'Esperamos que esta ayuda te haya sido de utlidad.\n¡Muchas gracias por tu atención!',
                   style: TextStyle(
                     fontFamily: 'ComicNeue',
                     fontSize: textSize,
@@ -462,9 +470,8 @@ class _AyudaState extends State<Ayuda> {
         title: '¡Genial!',
         titleSize: titleSize,
         content:
-            "Has acabado de ver la explicación de cómo jugar al juego 'Rutinas'.\n"
-            "Si ya estás preparado para empezar a jugar, volverás al menú principal.\n"
-            "Si todavía no te sientes preparado, no te preocupes, puedes seguir viendo la explicación de como jugar.",
+            "Si ya estás preparado para empezar a jugar, volverás al menú principal de \'Rutinas\'.\n"
+            "Si todavía no te sientes preparado, no te preocupes, puedes seguir viendo la explicación de cómo jugar.",
         contentSize: textSize,
         leftImageTextButton: btnSeguirAyuda,
         rightImageTextButton: btnSalirAyudaFromHome,
@@ -475,9 +482,8 @@ class _AyudaState extends State<Ayuda> {
         title: '¡Genial!',
         titleSize: titleSize,
         content:
-            "Has acabado de ver la explicación de cómo jugar al juego 'Rutinas'.\n"
             "Si ya estás preparado para empezar a jugar, antes debes de indicarnos tu nombre y grupo.\n"
-            "Si todavía no te sientes preparado, no te preocupes, puedes seguir viendo la explicación de como jugar.",
+            "Si todavía no te sientes preparado, no te preocupes, puedes seguir viendo la explicación de cómo jugar.",
         contentSize: textSize,
         leftImageTextButton: btnJugar,
         rightImageTextButton: btnSeguirAyuda,
