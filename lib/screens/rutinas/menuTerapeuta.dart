@@ -1,3 +1,4 @@
+import 'package:TresEnUno/screens/rutinas/addRutina.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/ImageTextButton.dart';
@@ -133,10 +134,6 @@ class _MenuTerapeutaState extends State<MenuTerapeuta> {
     btnAddRutina = ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: Size(btnWidth, btnHeight), // Ajusta el tamaño del botón
-        textStyle: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: textSize,
-        ),
       ),
       child: Text(
         'Añadir rutina',
@@ -145,15 +142,18 @@ class _MenuTerapeutaState extends State<MenuTerapeuta> {
           fontSize: textSize,
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AddRutina()),
+        );
+      },
     );
 
     // boton para dar la opcion de añadir una nueva rutina
     btnListRutinas = ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: Size(btnWidth, btnHeight),
-        textStyle: TextStyle(
-            fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.blue),
       ),
       child: Text(
         'Rutinas añadidas',
@@ -169,10 +169,6 @@ class _MenuTerapeutaState extends State<MenuTerapeuta> {
     btnProgresos = ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: Size(btnWidth, btnHeight),
-        textStyle: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: textSize,
-        ),
       ),
       child: Text(
         'Ver los progresos',
