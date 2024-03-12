@@ -54,17 +54,6 @@ Future<List<Accion>> getAcciones(int preguntaId) async {
     final Database db = await initializeDB();
     final List<Map<String, dynamic>> accionesMap = await db
         .query('accion', where: 'preguntaId = ?', whereArgs: [preguntaId]);
-
-    // Verificar si hay valores nulos en el mapa
-    accionesMap.forEach((map) {
-      map.forEach((key, value) {
-        if (value == null) {
-          print("Valor nulo encontrado para la clave '$key'");
-        }
-      });
-    });
-
-    // Mapear datos a objetos Accion
     return accionesMap.map((map) => Accion.accionesFromMap(map)).toList();
   } catch (e) {
     print("Error al obtener acciones: $e");
