@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ElementAccion extends StatefulWidget {
+  String text1;
   int numberAccion;
   double textSize;
   double espacioPadding;
@@ -17,6 +18,7 @@ class ElementAccion extends StatefulWidget {
   final TextEditingController accionTextController = TextEditingController();
 
   ElementAccion({
+    required this.text1,
     required this.numberAccion,
     required this.textSize,
     required this.espacioPadding,
@@ -45,14 +47,16 @@ class _ElementAccionState extends State<ElementAccion> {
           crossAxisAlignment: CrossAxisAlignment.baseline,
           textBaseline: TextBaseline.alphabetic,
           children: [
-            Text(
-              'Acción ' + widget.numberAccion.toString() + "*:",
-              style: TextStyle(
-                fontFamily: 'ComicNeue',
-                fontSize: widget.textSize,
+            Container(
+              width: widget.espacioPadding * 4,
+              child: Text(
+                widget.text1,
+                style: TextStyle(
+                  fontFamily: 'ComicNeue',
+                  fontSize: widget.textSize,
+                ),
               ),
             ),
-            SizedBox(width: widget.espacioPadding),
             Container(
               width: widget.btnWidth,
               height: widget.textSize * 4.5,
@@ -74,14 +78,16 @@ class _ElementAccionState extends State<ElementAccion> {
           crossAxisAlignment: CrossAxisAlignment.baseline,
           textBaseline: TextBaseline.alphabetic,
           children: [
-            Text(
-              'Imagen \nacción ' + widget.numberAccion.toString() + "*:",
-              style: TextStyle(
-                fontFamily: 'ComicNeue',
-                fontSize: widget.textSize,
+            Container(
+              width: widget.espacioPadding * 4,
+              child: Text(
+                'Imagen \nacción ' + widget.numberAccion.toString() + "*:",
+                style: TextStyle(
+                  fontFamily: 'ComicNeue',
+                  fontSize: widget.textSize,
+                ),
               ),
             ),
-            SizedBox(width: widget.espacioPadding),
             Column(
               children: [
                 ElevatedButton(

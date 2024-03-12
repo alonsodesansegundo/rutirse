@@ -108,7 +108,7 @@ class _MenuTerapeutaState extends State<MenuTerapeuta> {
     if (isHorizontal) {
       titleSize = screenSize.width * 0.08;
       textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.03;
+      espacioPadding = screenSize.height * 0.06;
       espacioAlto = screenSize.height * 0.03;
       imgHeight = screenSize.height / 7;
       imgVolverHeight = screenSize.height / 10;

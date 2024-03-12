@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 
 class PreguntaWidget extends StatelessWidget {
@@ -5,7 +7,8 @@ class PreguntaWidget extends StatelessWidget {
   final bool isLoading;
   final double subtextSize;
   final double imgHeight;
-  final String personajePath;
+  final String? personajePath;
+  final Uint8List? personajeImg;
   final double rightSpace;
 
   PreguntaWidget({
@@ -13,7 +16,8 @@ class PreguntaWidget extends StatelessWidget {
     required this.isLoading,
     required this.subtextSize,
     required this.imgHeight,
-    required this.personajePath,
+    this.personajePath,
+    this.personajeImg,
     required this.rightSpace,
   });
 
@@ -34,12 +38,18 @@ class PreguntaWidget extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            child: Image.asset(
-              personajePath,
+          if (personajePath != null)
+            Container(
+              child: Image.asset(
+                personajePath!,
+                height: imgHeight,
+              ),
+            ),
+          if (personajeImg != null)
+            Container(
+              child: Image.memory(personajeImg!),
               height: imgHeight,
             ),
-          ),
           SizedBox(width: rightSpace),
         ],
       ),

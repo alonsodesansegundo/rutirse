@@ -152,7 +152,7 @@ class _MenuJugadorState extends State<MenuJugador> {
     if (isHorizontal) {
       titleSize = screenSize.width * 0.08;
       textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.03;
+      espacioPadding = screenSize.height * 0.06;
       espacioBotones = screenSize.height * 0.3;
       espacioAlto = screenSize.height * 0.03;
       imgHeight = screenSize.height / 7;

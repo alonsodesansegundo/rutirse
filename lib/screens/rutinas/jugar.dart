@@ -156,6 +156,8 @@ class _Jugar extends State<Jugar> {
                           imgHeight: personajeHeight,
                           personajePath:
                               preguntasList[indiceActual].personajePath,
+                          personajeImg:
+                              preguntasList[indiceActual].personajeImg,
                           rightSpace: espacioPadding,
                         ),
                       ],
@@ -194,10 +196,17 @@ class _Jugar extends State<Jugar> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset(
-                              cartasAcciones[index].accion.imagenPath,
-                              height: imgCartaHeight,
-                            ),
+                            if (cartasAcciones[index].accion.imagenPath != null)
+                              Image.asset(
+                                cartasAcciones[index].accion.imagenPath!,
+                                height: imgCartaHeight,
+                              ),
+                            if (cartasAcciones[index].accion.imagen != null)
+                              Container(
+                                child: Image.memory(
+                                    cartasAcciones[index].accion.imagen!),
+                                height: imgHeight,
+                              ),
                             Container(
                               decoration: BoxDecoration(
                                 color: cartasAcciones[index].backgroundColor,
@@ -273,7 +282,7 @@ class _Jugar extends State<Jugar> {
       ancho = screenSize.width;
       titleSize = screenSize.width * 0.08;
       textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.03;
+      espacioPadding = screenSize.height * 0.06;
       espacioAlto = screenSize.height * 0.04;
       imgHeight = screenSize.height / 7;
       personajeHeight = screenSize.height / 6;
@@ -444,7 +453,9 @@ class _Jugar extends State<Jugar> {
   Future<void> _cargarAcciones() async {
     try {
       // obtengo las acciones de la pregunta actual
-      List<Accion> acciones = await getAcciones(preguntasList[indiceActual].id);
+      print("PREGUNTA ID: " + preguntasList[indiceActual].id.toString());
+      List<Accion> acciones =
+          await getAcciones(preguntasList[indiceActual].id ?? -1);
       setState(() {
         acciones.shuffle(); // desordenar acciones
         // creo las cartas
@@ -454,6 +465,8 @@ class _Jugar extends State<Jugar> {
           );
         }).toList();
       });
+      print("LONGITUD: " + cartasAcciones.length.toString());
+      print("ACCION 1: " + cartasAcciones[0].toString());
     } catch (e) {
       // no se debe de producir ningún error al ser una BBDD local
       print("Error al obtener la lista de acciones: $e");

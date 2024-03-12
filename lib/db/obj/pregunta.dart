@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:sqflite/sqflite.dart';
 
 import '../db.dart';
@@ -6,35 +8,34 @@ import '../preguntasScripts/atenciont.dart';
 import '../preguntasScripts/infancia.dart';
 
 class Pregunta {
-  final int id;
+  final int? id;
   final String enunciado;
-  final String personajePath;
+  final String? personajePath;
+  final Uint8List? personajeImg;
   final int grupoId;
 
   Pregunta(
-      {required this.id,
+      {this.id,
       required this.enunciado,
-      required this.personajePath,
+      this.personajePath,
+      this.personajeImg,
       required this.grupoId});
 
   Pregunta.preguntasFromMap(Map<String, dynamic> item)
       : id = item["id"],
         enunciado = item["enunciado"],
         personajePath = item["personajePath"],
+        personajeImg = item["personajeImg"],
         grupoId = item["grupoId"];
 
   Map<String, Object> preguntasToMap() {
-    return {
-      'id': id,
-      'enunciado': enunciado,
-      'personajePath': personajePath,
-      'grupoId': grupoId
-    };
+    return {'enunciado': enunciado, 'grupoId': grupoId};
   }
 
   @override
   String toString() {
-    return 'Pregunta {id: $id, enunciado: $enunciado, personajePath: $personajePath, '
+    return 'Pregunta {id: $id, enunciado: $enunciado, personajePath: $personajePath,'
+        ' personajeImg: $personajeImg, '
         'grupoId: $grupoId}';
   }
 }

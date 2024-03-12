@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:sqflite/sqflite.dart';
 
 import '../db.dart';
@@ -6,14 +8,16 @@ class Accion {
   final int id;
   final String texto;
   final int orden;
-  final String imagenPath;
+  final String? imagenPath;
+  final Uint8List? imagen;
   final int preguntaId;
 
   Accion(
       {required this.id,
       required this.texto,
       required this.orden,
-      required this.imagenPath,
+      this.imagenPath,
+      this.imagen,
       required this.preguntaId});
 
   Accion.accionesFromMap(Map<String, dynamic> item)
@@ -21,21 +25,17 @@ class Accion {
         texto = item["texto"],
         orden = item["orden"],
         imagenPath = item["imagenPath"],
+        imagen = item["imagen"],
         preguntaId = item["preguntaId"];
 
   Map<String, Object> accionesToMap() {
-    return {
-      'id': id,
-      'texto': texto,
-      'orden': orden,
-      'imagenPath': imagenPath,
-      'preguntaId': preguntaId
-    };
+    return {'id': id, 'texto': texto, 'orden': orden, 'preguntaId': preguntaId};
   }
 
   @override
   String toString() {
-    return 'Accion {id: $id, texto: $texto, orden: $orden, imagenPath: $imagenPath, preguntaId: $preguntaId}';
+    return 'Accion {id: $id, texto: $texto, orden: $orden, '
+        'imagenPath: $imagenPath, imagen: $imagen, preguntaId: $preguntaId}';
   }
 }
 
@@ -54,6 +54,17 @@ Future<List<Accion>> getAcciones(int preguntaId) async {
     final Database db = await initializeDB();
     final List<Map<String, dynamic>> accionesMap = await db
         .query('accion', where: 'preguntaId = ?', whereArgs: [preguntaId]);
+
+    // Verificar si hay valores nulos en el mapa
+    accionesMap.forEach((map) {
+      map.forEach((key, value) {
+        if (value == null) {
+          print("Valor nulo encontrado para la clave '$key'");
+        }
+      });
+    });
+
+    // Mapear datos a objetos Accion
     return accionesMap.map((map) => Accion.accionesFromMap(map)).toList();
   } catch (e) {
     print("Error al obtener acciones: $e");

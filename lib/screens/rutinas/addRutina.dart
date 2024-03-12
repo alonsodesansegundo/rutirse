@@ -6,7 +6,9 @@ import 'package:TresEnUno/widgets/ElementAccion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sqflite/sqflite.dart';
 
+import '../../db/obj/accion.dart';
 import '../../widgets/ImageTextButton.dart';
 
 class AddRutina extends StatefulWidget {
@@ -83,6 +85,7 @@ class _AddRutinaState extends State<AddRutina> {
       firstLoad = true;
       acciones = [
         ElementAccion(
+          text1: 'Acción 1*:',
           numberAccion: 1,
           textSize: textSize,
           espacioPadding: espacioPadding,
@@ -94,6 +97,7 @@ class _AddRutinaState extends State<AddRutina> {
           textSituacionWidth: textSituacionWidth * 0.75,
         ),
         ElementAccion(
+          text1: 'Acción 2*:',
           numberAccion: 2,
           textSize: textSize,
           espacioPadding: espacioPadding,
@@ -234,14 +238,16 @@ class _AddRutinaState extends State<AddRutina> {
                 crossAxisAlignment: CrossAxisAlignment.baseline,
                 textBaseline: TextBaseline.alphabetic,
                 children: [
-                  Text(
-                    'Personaje:',
-                    style: TextStyle(
-                      fontFamily: 'ComicNeue',
-                      fontSize: textSize,
+                  Container(
+                    width: espacioPadding * 4.2,
+                    child: Text(
+                      'Personaje:',
+                      style: TextStyle(
+                        fontFamily: 'ComicNeue',
+                        fontSize: textSize,
+                      ),
                     ),
                   ),
-                  SizedBox(width: espacioPadding),
                   Column(
                     children: [
                       btnPersonajeExistente,
@@ -266,7 +272,6 @@ class _AddRutinaState extends State<AddRutina> {
                         child: Image.file(
                           File(personajeImage!.path),
                           width: imgWidth,
-                          height: imgWidth + imgWidth / 2,
                         ),
                       ),
                     ),
@@ -356,6 +361,8 @@ class _AddRutinaState extends State<AddRutina> {
                             return incompletedParamsDialog;
                           },
                         );
+                      } else {
+                        _addRutina();
                       }
                     },
                     child: Text("Añadir rutina"),
@@ -372,7 +379,14 @@ class _AddRutinaState extends State<AddRutina> {
   // método para añadir un nuevo ElementAccion
   void _addAccion() {
     setState(() {
+      String accionText = 'Acción ' + (acciones.length + 1).toString();
+      if (selectedGrupo != null && selectedGrupo!.nombre == "Adolescencia")
+        accionText += ": ";
+      else
+        accionText += "*:";
+
       acciones.add(ElementAccion(
+        text1: accionText,
         numberAccion: acciones.length + 1,
         textSize: textSize,
         espacioPadding: espacioPadding,
@@ -403,7 +417,7 @@ class _AddRutinaState extends State<AddRutina> {
     if (isHorizontal) {
       titleSize = screenSize.width * 0.08;
       textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.03;
+      espacioPadding = screenSize.height * 0.06;
       espacioAlto = screenSize.height * 0.03;
       imgVolverHeight = screenSize.height / 10;
       textSituacionWidth = screenSize.width - espacioPadding * 2;
@@ -430,7 +444,14 @@ class _AddRutinaState extends State<AddRutina> {
   // Método para actualizar los tamaños de los ElementAccion
   void _updateSizeAcciones() {
     for (int i = 0; i < acciones.length; i++) {
+      String accionText = 'Acción ' + (i + 1).toString();
+      if (selectedGrupo != null && selectedGrupo!.nombre == "Adolescencia")
+        accionText += ":";
+      else
+        accionText += "*:";
+      print(selectedGrupo != null);
       ElementAccion updatedAccion = ElementAccion(
+        text1: accionText,
         textSize: textSize,
         espacioPadding: espacioPadding,
         espacioAlto: espacioAlto,
@@ -444,7 +465,6 @@ class _AddRutinaState extends State<AddRutina> {
         color: acciones[i].color,
         accionText: acciones[i].accionText,
       );
-      print("HOLA HOLA " + acciones[i].accionText.toString());
       acciones[i] = updatedAccion;
     }
   }
@@ -757,10 +777,9 @@ class _AddRutinaState extends State<AddRutina> {
       colorSituacion = Colors.transparent;
 
     for (int i = 0; i < acciones.length; i++) {
-      if (acciones[i].accionImage == null || acciones[i].accionText.isEmpty) {
-        print("IMAGEN " + acciones[i].accionImage.toString());
-        print("TEXT " + acciones[i].accionText.toString());
-
+      if (acciones[i].accionImage == null ||
+          (acciones[i].accionText.isEmpty &&
+              selectedGrupo!.nombre != "Adolescencia")) {
         correct = false;
         setState(() {
           acciones[i].color = Colors.redAccent;
@@ -769,5 +788,50 @@ class _AddRutinaState extends State<AddRutina> {
         acciones[i].color = Colors.transparent;
     }
     return correct;
+  }
+
+  // Método para añadir una pregunta y sus acciones
+  Future<void> _addRutina() async {
+    int preguntaId = await _addPregunta();
+    _addAcciones(preguntaId);
+  }
+
+  // Método para añadir una pregunta a la BBDD
+  Future<int> _addPregunta() async {
+    int preguntaId;
+    Database db = await openDatabase('rutinas.db');
+
+    if (personajePath != "") {
+      preguntaId = await db.rawInsert(
+          'INSERT INTO pregunta (enunciado, personajePath, grupoId) VALUES (?,?,?)',
+          [situacionText, personajePath, selectedGrupo!.id]);
+    } else if (personajeImage != null) {
+      // Obtén los bytes de la imagen
+      List<int> bytes = await personajeImage!.readAsBytes();
+      preguntaId = await db.rawInsert(
+        'INSERT INTO pregunta (enunciado, personajeImg, grupoId) VALUES (?,?,?)',
+        [situacionText, Uint8List.fromList(bytes), selectedGrupo!.id],
+      );
+    } else {
+      preguntaId = await db.rawInsert(
+        'INSERT INTO pregunta (enunciado, grupoId) VALUES (?,?)',
+        [situacionText, selectedGrupo!.id],
+      );
+    }
+    return preguntaId;
+  }
+
+  Future<void> _addAcciones(int preguntaId) async {
+    Database db = await openDatabase('rutinas.db');
+    for (int i = 0; i < acciones.length; i++) {
+      List<int> bytes = await acciones[i].accionImage!.readAsBytes();
+      await db.rawInsert(
+        'INSERT INTO accion (texto, orden, imagen, preguntaId) VALUES (?,?,?,?)',
+        [acciones[i].accionText, i, Uint8List.fromList(bytes), preguntaId],
+      );
+    }
+
+    List<Accion> aux = await getAcciones(preguntaId);
+    print(aux[0].toString());
   }
 }

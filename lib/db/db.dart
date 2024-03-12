@@ -1,6 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'obj/accion.dart';
 import 'obj/grupo.dart';
 import 'obj/pregunta.dart';
 
@@ -17,9 +18,9 @@ Future<Database> initializeDB() async {
 
       // inserción de datos iniciales (grupos, preguntas...)
       insertGrupos(database);
-      insertPreguntas(database);
+      //insertPreguntas(database);
     },
-    version: 1,
+    version: 2,
   );
 }
 
@@ -58,8 +59,9 @@ void createTablePregunta(Database database) {
     CREATE TABLE pregunta (
       id INTEGER PRIMARY KEY AUTOINCREMENT, 
       enunciado TEXT NOT NULL,
-      personajePath TEXT NOT NULL,
-      grupoId INTEGER,
+      personajePath TEXT,
+      personajeImg BLOB,
+      grupoId INTEGER NOT NULL,
       FOREIGN KEY (grupoId) REFERENCES grupo(id))""");
 }
 
@@ -69,8 +71,9 @@ void createTableAccion(Database database) {
       id INTEGER PRIMARY KEY AUTOINCREMENT, 
       texto TEXT,
       orden INTEGER NOT NULL,
-      imagenPath TEXT NOT NULL,
-      preguntaId INTEGER,
+      imagenPath TEXT,
+      imagen BLOB,
+      preguntaId INTEGER NOT NULL,
       FOREIGN KEY (preguntaId) REFERENCES pregunta(id))""");
 }
 
@@ -80,4 +83,11 @@ void createTables(Database database) {
   createTablePartida(database);
   createTablePregunta(database);
   createTableAccion(database);
+}
+
+Future<void> addRutina(Pregunta pregunta, List<Accion> acciones) async {
+  Database database = await initializeDB();
+  await database.insert("pregunta", pregunta.preguntasToMap());
+  for (int i = 0; i < acciones.length; i++)
+    await database.insert("accion", acciones[i].accionesToMap());
 }
