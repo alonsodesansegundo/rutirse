@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import '../obj/Pictograma.dart';
 import '../obj/PictogramasPaginacion.dart';
 
-class ArasaacDialog extends StatefulWidget {
+class ArasaacPersonajeDialog extends StatefulWidget {
   double espacioAlto;
   double espacioPadding;
   double btnWidth;
@@ -14,7 +14,7 @@ class ArasaacDialog extends StatefulWidget {
   double imgWidth;
   final Function(String) onPersonajeArasaacChanged; // Nuevo Callback
 
-  ArasaacDialog({
+  ArasaacPersonajeDialog({
     required this.espacioAlto,
     required this.espacioPadding,
     required this.btnWidth,
@@ -24,10 +24,10 @@ class ArasaacDialog extends StatefulWidget {
   });
 
   @override
-  _ArasaacDialogState createState() => _ArasaacDialogState();
+  _ArasaacPersonajeDialogState createState() => _ArasaacPersonajeDialogState();
 }
 
-class _ArasaacDialogState extends State<ArasaacDialog> {
+class _ArasaacPersonajeDialogState extends State<ArasaacPersonajeDialog> {
   PictogramasPaginacion pictogramas =
       PictogramasPaginacion(listaPictogramas: [], elementosPorPagina: 15);
   String keywords = '';
