@@ -2,13 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:TresEnUno/db/obj/grupo.dart';
+import 'package:TresEnUno/widgets/ArasaacPersonajeDialog.dart';
 import 'package:TresEnUno/widgets/ElementAccion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../db/obj/accion.dart';
 import '../../widgets/ImageTextButton.dart';
 
 class AddRutina extends StatefulWidget {
@@ -35,26 +36,30 @@ class _AddRutinaState extends State<AddRutina> {
 
   Grupo? selectedGrupo; // Variable para almacenar el grupo seleccionado
 
-  late String situacionText;
+  late String situacionText, keywords;
 
   late ElevatedButton btnPersonajeExistente,
       btnGaleria,
       btnArasaac,
+      btnEliminarPersonaje,
       btnGaleriaAccion,
       btnArasaacAccion;
 
   late Dialog existPersonajeDialog;
+
+  late ArasaacDialog arasaacPersonajeDialog;
+
   late AlertDialog incompletedParamsDialog;
 
   late List<String> personajes;
 
-  late String personajePath;
+  late String personajePath, personajeArasaac;
 
   late List<ElementAccion> acciones;
 
   late bool firstLoad;
 
-  XFile? personajeImage;
+  XFile? personajeImageGallery;
 
   late Color colorSituacion, colorGrupo;
 
@@ -66,10 +71,12 @@ class _AddRutinaState extends State<AddRutina> {
     loadGrupos = false;
     situacionText = "";
     personajePath = "";
+    personajeArasaac = "";
+    keywords = "";
     personajes = [];
     getExistsPersonajes('assets/img/personajes/');
     firstLoad = false;
-    personajeImage = null;
+    personajeImageGallery = null;
     acciones = [];
     selectedGrupo = null;
     colorSituacion = Colors.transparent;
@@ -225,8 +232,7 @@ class _AddRutinaState extends State<AddRutina> {
                   onChanged: (text) {
                     this.situacionText = text;
                   },
-                  maxLines:
-                      5, // Permite que el widget crezca según sea necesario
+                  maxLines: 5,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                   ),
@@ -255,6 +261,15 @@ class _AddRutinaState extends State<AddRutina> {
                       btnGaleria,
                       SizedBox(height: espacioAlto / 3),
                       btnArasaac,
+                      if (personajePath != "" ||
+                          personajeImageGallery != null ||
+                          personajeArasaac != "")
+                        Column(
+                          children: [
+                            SizedBox(height: espacioAlto / 3),
+                            btnEliminarPersonaje,
+                          ],
+                        )
                     ],
                   ),
                   SizedBox(width: espacioPadding),
@@ -265,15 +280,21 @@ class _AddRutinaState extends State<AddRutina> {
                         child: Image.asset(personajePath, width: imgWidth),
                       ),
                     ),
-                  if (personajeImage != null)
+                  if (personajeImageGallery != null)
                     Container(
                       child: Align(
                         alignment: Alignment.center,
                         child: Image.file(
-                          File(personajeImage!.path),
+                          File(personajeImageGallery!.path),
                           width: imgWidth,
                         ),
                       ),
+                    ),
+                  if (personajeArasaac != "")
+                    Image.network(
+                      personajeArasaac,
+                      width: imgWidth,
+                      fit: BoxFit.cover,
                     ),
                 ],
               ),
@@ -357,7 +378,6 @@ class _AddRutinaState extends State<AddRutina> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            // cuadro de dialogo opciones actualizadas
                             return incompletedParamsDialog;
                           },
                         );
@@ -449,7 +469,6 @@ class _AddRutinaState extends State<AddRutina> {
         accionText += ":";
       else
         accionText += "*:";
-      print(selectedGrupo != null);
       ElementAccion updatedAccion = ElementAccion(
         text1: accionText,
         textSize: textSize,
@@ -515,11 +534,6 @@ class _AddRutinaState extends State<AddRutina> {
     btnGaleria = ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: Size(btnWidth, btnHeight),
-        textStyle: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: textSize,
-          color: Colors.blue,
-        ),
       ),
       child: Text(
         'Nuevo personaje\n'
@@ -537,11 +551,6 @@ class _AddRutinaState extends State<AddRutina> {
     btnArasaac = ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: Size(btnWidth, btnHeight),
-        textStyle: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: textSize,
-          color: Colors.blue,
-        ),
       ),
       child: Text(
         'Nuevo personaje\n'
@@ -551,7 +560,35 @@ class _AddRutinaState extends State<AddRutina> {
           fontSize: textSize,
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        //getPictogramas();
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return arasaacPersonajeDialog;
+          },
+        );
+      },
+    );
+
+    btnEliminarPersonaje = ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        minimumSize: Size(btnWidth, btnHeight / 2),
+      ),
+      child: Text(
+        'Eliminar personaje',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: textSize * 0.75,
+        ),
+      ),
+      onPressed: () {
+        setState(() {
+          personajeArasaac = "";
+          personajeImageGallery = null;
+          personajePath = "";
+        });
+      },
     );
 
     btnGaleriaAccion = ElevatedButton(
@@ -619,8 +656,8 @@ class _AddRutinaState extends State<AddRutina> {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 5,
-                    crossAxisSpacing: espacioAlto,
+                    crossAxisCount: 4,
+                    crossAxisSpacing: espacioAlto * 2,
                     mainAxisSpacing: espacioAlto * 2,
                   ),
                   itemCount: personajes.length,
@@ -638,6 +675,7 @@ class _AddRutinaState extends State<AddRutina> {
               ],
             ),
           ),
+          SizedBox(height: espacioAlto),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               minimumSize: Size(btnWidth / 2, btnHeight),
@@ -653,9 +691,25 @@ class _AddRutinaState extends State<AddRutina> {
               Navigator.of(context).pop();
             },
           ),
-          SizedBox(height: espacioAlto * 2),
+          SizedBox(height: espacioAlto),
         ],
       ),
+    );
+
+    // cuadro de dialogo para escoger un personaje ya existente
+    arasaacPersonajeDialog = ArasaacDialog(
+      espacioAlto: espacioAlto,
+      espacioPadding: espacioPadding,
+      btnWidth: btnWidth,
+      btnHeigth: btnHeight,
+      imgWidth: imgWidth,
+      onPersonajeArasaacChanged: (newValue) {
+        setState(() {
+          personajeArasaac = newValue;
+          personajePath = "";
+          personajeImageGallery = null;
+        });
+      },
     );
 
     // cuadro de dialogo para cuando no se han completado todos los campos obligatorios
@@ -679,7 +733,7 @@ class _AddRutinaState extends State<AddRutina> {
         Center(
           child: ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
+              Navigator.of(context).pop();
             },
             child: Text(
               'Aceptar',
@@ -700,7 +754,8 @@ class _AddRutinaState extends State<AddRutina> {
   void _selectExistPersonaje(BuildContext context, String imagePath) {
     setState(() {
       personajePath = imagePath;
-      personajeImage = null;
+      personajeImageGallery = null;
+      personajeArasaac = "";
     });
     Navigator.of(context).pop();
   }
@@ -711,8 +766,9 @@ class _AddRutinaState extends State<AddRutina> {
     final image = await picker.pickImage(source: ImageSource.gallery);
 
     setState(() {
-      personajeImage = image;
+      personajeImageGallery = image;
       personajePath = "";
+      personajeArasaac = "";
     });
   }
 
@@ -805,9 +861,16 @@ class _AddRutinaState extends State<AddRutina> {
       preguntaId = await db.rawInsert(
           'INSERT INTO pregunta (enunciado, personajePath, grupoId) VALUES (?,?,?)',
           [situacionText, personajePath, selectedGrupo!.id]);
-    } else if (personajeImage != null) {
+    } else if (personajeImageGallery != null) {
       // Obtén los bytes de la imagen
-      List<int> bytes = await personajeImage!.readAsBytes();
+      List<int> bytes = await personajeImageGallery!.readAsBytes();
+      preguntaId = await db.rawInsert(
+        'INSERT INTO pregunta (enunciado, personajeImg, grupoId) VALUES (?,?,?)',
+        [situacionText, Uint8List.fromList(bytes), selectedGrupo!.id],
+      );
+    } else if (personajeArasaac != "") {
+      final response = await http.get(Uri.parse(personajeArasaac));
+      List<int> bytes = response.bodyBytes;
       preguntaId = await db.rawInsert(
         'INSERT INTO pregunta (enunciado, personajeImg, grupoId) VALUES (?,?,?)',
         [situacionText, Uint8List.fromList(bytes), selectedGrupo!.id],
@@ -830,8 +893,5 @@ class _AddRutinaState extends State<AddRutina> {
         [acciones[i].accionText, i, Uint8List.fromList(bytes), preguntaId],
       );
     }
-
-    List<Accion> aux = await getAcciones(preguntaId);
-    print(aux[0].toString());
   }
 }
