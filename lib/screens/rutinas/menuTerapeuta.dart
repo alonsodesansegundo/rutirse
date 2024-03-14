@@ -133,7 +133,8 @@ class _MenuTerapeutaState extends State<MenuTerapeuta> {
     // boton para dar la opcion de añadir una nueva rutina
     btnAddRutina = ElevatedButton(
       style: ElevatedButton.styleFrom(
-        minimumSize: Size(btnWidth, btnHeight), // Ajusta el tamaño del botón
+        minimumSize: Size(btnWidth, btnHeight),
+        backgroundColor: Colors.cyan,
       ),
       child: Text(
         'Añadir rutina',
@@ -154,6 +155,7 @@ class _MenuTerapeutaState extends State<MenuTerapeuta> {
     btnListRutinas = ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: Size(btnWidth, btnHeight),
+        backgroundColor: Colors.cyan,
       ),
       child: Text(
         'Rutinas añadidas',
@@ -169,6 +171,7 @@ class _MenuTerapeutaState extends State<MenuTerapeuta> {
     btnProgresos = ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: Size(btnWidth, btnHeight),
+        backgroundColor: Colors.cyan,
       ),
       child: Text(
         'Ver los progresos',

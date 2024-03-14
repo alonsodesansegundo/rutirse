@@ -206,6 +206,25 @@ class _AddRutinaState extends State<AddRutina> {
                           onChanged: (Grupo? grupo) {
                             setState(() {
                               selectedGrupo = grupo;
+                              acciones = acciones.map((accion) {
+                                return ElementAccion(
+                                  text1: accion.text1,
+                                  numberAccion: accion.numberAccion,
+                                  textSize: accion.textSize,
+                                  espacioPadding: accion.espacioPadding,
+                                  espacioAlto: accion.espacioAlto,
+                                  btnWidth: accion.btnWidth,
+                                  btnHeight: accion.btnHeight,
+                                  textSituacionWidth: accion.textSituacionWidth,
+                                  onPressedGaleria: accion.onPressedGaleria,
+                                  onPressedArasaac: accion.onPressedArasaac,
+                                  accionText: accion.accionText,
+                                  accionImage: accion.accionImage,
+                                  color: accion.color,
+                                  flagAdolescencia:
+                                      selectedGrupo?.nombre == "Adolescencia",
+                                );
+                              }).toList();
                             });
                           },
                         ),
@@ -325,10 +344,10 @@ class _AddRutinaState extends State<AddRutina> {
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
                       textStyle: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: textSize,
-                        color: Colors.blue,
                       ),
                     ),
                     onPressed: _addAccion,
@@ -338,6 +357,7 @@ class _AddRutinaState extends State<AddRutina> {
                   if (acciones.length > 2)
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
                         textStyle: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: textSize,
@@ -468,6 +488,7 @@ class _AddRutinaState extends State<AddRutina> {
     btnPersonajeExistente = ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: Size(btnWidth, btnHeight),
+        backgroundColor: Colors.blueGrey,
         textStyle: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,
@@ -495,6 +516,7 @@ class _AddRutinaState extends State<AddRutina> {
     btnGaleria = ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: Size(btnWidth, btnHeight),
+        backgroundColor: Colors.deepOrangeAccent,
       ),
       child: Text(
         'Nuevo personaje\n'
@@ -512,6 +534,7 @@ class _AddRutinaState extends State<AddRutina> {
     btnArasaac = ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: Size(btnWidth, btnHeight),
+        backgroundColor: Colors.lightGreen,
       ),
       child: Text(
         'Nuevo personaje\n'
@@ -545,6 +568,7 @@ class _AddRutinaState extends State<AddRutina> {
     btnEliminarPersonaje = ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: Size(btnWidth, btnHeight / 2),
+        backgroundColor: Colors.redAccent,
       ),
       child: Text(
         'Eliminar personaje',
@@ -651,8 +675,10 @@ class _AddRutinaState extends State<AddRutina> {
         ),
       ),
       content: Text(
-        'No has completado todos los campos obligatorios para poder añadir una '
-        'nueva rutina, revísalo e inténtalo de nuevo.',
+        'La rutina no se ha podido añadir, revisa que has completado todos los campos obligatorios'
+        ' y recuerda que la descripción de una acción no puede'
+        ' tener una longitud mayor a 24 caracteres.\n\n'
+        'Por favor, revisa todos los campos e inténtalo de nuevo.',
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,
@@ -859,7 +885,7 @@ class _AddRutinaState extends State<AddRutina> {
     if (selectedGrupo == null) {
       correct = false;
       setState(() {
-        colorGrupo = Colors.redAccent;
+        colorGrupo = Colors.red;
       });
     } else
       colorGrupo = Colors.transparent;
@@ -867,7 +893,7 @@ class _AddRutinaState extends State<AddRutina> {
     if (situacionText.isEmpty) {
       correct = false;
       setState(() {
-        colorSituacion = Colors.redAccent;
+        colorSituacion = Colors.red;
       });
     } else
       colorSituacion = Colors.transparent;
@@ -879,7 +905,7 @@ class _AddRutinaState extends State<AddRutina> {
           acciones[i].accionText.characters.length > 24) {
         correct = false;
         setState(() {
-          acciones[i].color = Colors.redAccent;
+          acciones[i].color = Colors.red;
         });
       } else
         acciones[i].color = Colors.transparent;
@@ -914,7 +940,6 @@ class _AddRutinaState extends State<AddRutina> {
   }
 
   Future<void> _addAcciones(int preguntaId) async {
-    print("GRUPO --> " + selectedGrupo!.nombre);
     Database db = await openDatabase('rutinas.db');
     for (int i = 0; i < acciones.length; i++) {
       if (selectedGrupo!.nombre != "Adolescencia")

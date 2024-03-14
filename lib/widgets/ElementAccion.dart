@@ -15,6 +15,7 @@ class ElementAccion extends StatefulWidget {
   List<int> accionImage;
   Color color;
   final TextEditingController accionTextController = TextEditingController();
+  bool flagAdolescencia;
 
   ElementAccion({
     required this.text1,
@@ -30,6 +31,7 @@ class ElementAccion extends StatefulWidget {
     this.accionText = "",
     this.accionImage = const [],
     this.color = Colors.transparent,
+    this.flagAdolescencia = false,
   });
 
   @override
@@ -48,44 +50,50 @@ class _ElementAccionState extends State<ElementAccion> {
           crossAxisAlignment: CrossAxisAlignment.baseline,
           textBaseline: TextBaseline.alphabetic,
           children: [
-            Column(
-              children: [
-                Container(
-                  width: widget.espacioPadding * 4,
-                  child: Text(
-                    widget.text1,
-                    style: TextStyle(
-                      fontFamily: 'ComicNeue',
-                      fontSize: widget.textSize,
+            if (!widget.flagAdolescencia)
+              Row(
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        width: widget.espacioPadding * 4,
+                        child: Text(
+                          widget.text1,
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: widget.textSize,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: widget.espacioPadding * 4,
+                        child: Text(
+                          "(máx. 24 caracteres)",
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: widget.textSize * 0.5,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    width: widget.btnWidth,
+                    height: widget.textSize * 4.5,
+                    child: TextField(
+                      controller:
+                          TextEditingController(text: widget.accionText),
+                      onChanged: (text) {
+                        widget.accionText = text;
+                      },
+                      maxLines: 2,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  width: widget.espacioPadding * 4,
-                  child: Text(
-                    "(máx. 24 caracteres)",
-                    style: TextStyle(
-                      fontFamily: 'ComicNeue',
-                      fontSize: widget.textSize * 0.5,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              width: widget.btnWidth,
-              height: widget.textSize * 4.5,
-              child: TextField(
-                controller: TextEditingController(text: widget.accionText),
-                onChanged: (text) {
-                  widget.accionText = text;
-                },
-                maxLines: 2,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
+                ],
               ),
-            ),
           ],
         ),
         SizedBox(height: widget.espacioAlto / 2),
@@ -108,11 +116,7 @@ class _ElementAccionState extends State<ElementAccion> {
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(widget.btnWidth, widget.btnHeight),
-                    textStyle: TextStyle(
-                      fontFamily: 'ComicNeue',
-                      fontSize: widget.textSize,
-                      color: Colors.blue,
-                    ),
+                    backgroundColor: Colors.deepOrangeAccent,
                   ),
                   child: Text(
                     'Acción\n(desde galería)',
@@ -126,12 +130,8 @@ class _ElementAccionState extends State<ElementAccion> {
                 SizedBox(height: widget.espacioAlto / 3),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.lightGreen,
                     minimumSize: Size(widget.btnWidth, widget.btnHeight),
-                    textStyle: TextStyle(
-                      fontFamily: 'ComicNeue',
-                      fontSize: widget.textSize,
-                      color: Colors.blue,
-                    ),
                   ),
                   child: Text(
                     'Acción\n(desde ARASAAC)',
