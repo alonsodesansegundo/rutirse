@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:TresEnUno/db/obj/grupo.dart';
+import 'package:TresEnUno/widgets/ArasaacAccionDialog.dart';
 import 'package:TresEnUno/widgets/ArasaacPersonajeDialog.dart';
 import 'package:TresEnUno/widgets/ElementAccion.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -41,25 +43,25 @@ class _AddRutinaState extends State<AddRutina> {
   late ElevatedButton btnPersonajeExistente,
       btnGaleria,
       btnArasaac,
-      btnEliminarPersonaje,
-      btnGaleriaAccion,
-      btnArasaacAccion;
+      btnEliminarPersonaje;
 
   late Dialog existPersonajeDialog;
 
-  late ArasaacDialog arasaacPersonajeDialog;
+  late ArasaacPersonajeDialog arasaacPersonajeDialog;
 
-  late AlertDialog incompletedParamsDialog;
+  late ArasaacAccionDialog arasaacAccionDialog;
+
+  late AlertDialog incompletedParamsDialog,
+      completedParamsDialog,
+      noInternetDialog;
 
   late List<String> personajes;
-
-  late String personajePath, personajeArasaac;
 
   late List<ElementAccion> acciones;
 
   late bool firstLoad;
 
-  XFile? personajeImageGallery;
+  late List<int> personajeImage;
 
   late Color colorSituacion, colorGrupo;
 
@@ -70,13 +72,11 @@ class _AddRutinaState extends State<AddRutina> {
     _getGrupos();
     loadGrupos = false;
     situacionText = "";
-    personajePath = "";
-    personajeArasaac = "";
     keywords = "";
     personajes = [];
-    getExistsPersonajes('assets/img/personajes/');
+    _getExistsPersonajes('assets/img/personajes/');
     firstLoad = false;
-    personajeImageGallery = null;
+    personajeImage = [];
     acciones = [];
     selectedGrupo = null;
     colorSituacion = Colors.transparent;
@@ -261,9 +261,7 @@ class _AddRutinaState extends State<AddRutina> {
                       btnGaleria,
                       SizedBox(height: espacioAlto / 3),
                       btnArasaac,
-                      if (personajePath != "" ||
-                          personajeImageGallery != null ||
-                          personajeArasaac != "")
+                      if (personajeImage.isNotEmpty)
                         Column(
                           children: [
                             SizedBox(height: espacioAlto / 3),
@@ -273,28 +271,14 @@ class _AddRutinaState extends State<AddRutina> {
                     ],
                   ),
                   SizedBox(width: espacioPadding),
-                  if (personajePath != "")
+                  if (personajeImage.isNotEmpty)
                     Container(
                       child: Align(
-                        alignment: Alignment.center,
-                        child: Image.asset(personajePath, width: imgWidth),
-                      ),
-                    ),
-                  if (personajeImageGallery != null)
-                    Container(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Image.file(
-                          File(personajeImageGallery!.path),
-                          width: imgWidth,
-                        ),
-                      ),
-                    ),
-                  if (personajeArasaac != "")
-                    Image.network(
-                      personajeArasaac,
-                      width: imgWidth,
-                      fit: BoxFit.cover,
+                          alignment: Alignment.center,
+                          child: Image.memory(
+                            Uint8List.fromList(personajeImage),
+                            width: imgWidth,
+                          )),
                     ),
                 ],
               ),
@@ -314,13 +298,18 @@ class _AddRutinaState extends State<AddRutina> {
                         child: Row(
                           children: [
                             acciones[index],
-                            if (acciones[index].accionImage != null)
+                            if (acciones[index].accionImage.isNotEmpty)
                               Row(
                                 children: [
                                   SizedBox(width: espacioPadding),
-                                  Image.file(
-                                    File(acciones[index].accionImage!.path),
-                                    width: acciones[index].btnWidth * 0.8,
+                                  Container(
+                                    child: Align(
+                                        alignment: Alignment.center,
+                                        child: Image.memory(
+                                          Uint8List.fromList(
+                                              acciones[index].accionImage),
+                                          width: imgWidth,
+                                        )),
                                   ),
                                 ],
                               ),
@@ -383,6 +372,12 @@ class _AddRutinaState extends State<AddRutina> {
                         );
                       } else {
                         _addRutina();
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return completedParamsDialog;
+                          },
+                        );
                       }
                     },
                     child: Text("Añadir rutina"),
@@ -396,35 +391,32 @@ class _AddRutinaState extends State<AddRutina> {
     );
   }
 
-  // método para añadir un nuevo ElementAccion
-  void _addAccion() {
-    setState(() {
-      String accionText = 'Acción ' + (acciones.length + 1).toString();
-      if (selectedGrupo != null && selectedGrupo!.nombre == "Adolescencia")
-        accionText += ": ";
-      else
-        accionText += "*:";
-
-      acciones.add(ElementAccion(
-        text1: accionText,
-        numberAccion: acciones.length + 1,
-        textSize: textSize,
-        espacioPadding: espacioPadding,
-        espacioAlto: espacioAlto,
-        btnWidth: btnWidth,
-        btnHeight: btnHeight,
-        textSituacionWidth: textSituacionWidth,
-        onPressedGaleria: () => _selectNewActionGallery(acciones.length),
-        onPressedArasaac: () => _selectNewActionArasaac(acciones.length),
-      ));
-    });
+  // Método para obtener la lista de grupos de la BBDD
+  Future<void> _getGrupos() async {
+    try {
+      List<Grupo> gruposList = await getGrupos();
+      setState(() {
+        grupos = gruposList;
+      });
+    } catch (e) {
+      print("Error al obtener la lista de grupos: $e");
+    }
   }
 
-  // método para eliminar el ultimo ElementAccion
-  void _removeAccion() {
+  // Método para obtener todos los path de los personajes
+  Future<List<String>> _getExistsPersonajes(String folderPath) async {
+    final manifestContent = await rootBundle.loadString('AssetManifest.json');
+    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
+
+    final List<String> imagePaths = manifestMap.keys
+        .where((String key) => key.startsWith(folderPath))
+        .toList();
+
     setState(() {
-      acciones.removeLast();
+      personajes = imagePaths;
     });
+
+    return imagePaths;
   }
 
   // Método para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
@@ -444,8 +436,6 @@ class _AddRutinaState extends State<AddRutina> {
       btnWidth = screenSize.width / 4;
       btnHeight = screenSize.height / 10;
       imgWidth = screenSize.width / 4;
-
-      _updateSizeAcciones();
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
@@ -456,35 +446,6 @@ class _AddRutinaState extends State<AddRutina> {
       btnWidth = screenSize.width / 3;
       btnHeight = screenSize.height / 15;
       imgWidth = screenSize.width / 4;
-
-      _updateSizeAcciones();
-    }
-  }
-
-  // Método para actualizar los tamaños de los ElementAccion
-  void _updateSizeAcciones() {
-    for (int i = 0; i < acciones.length; i++) {
-      String accionText = 'Acción ' + (i + 1).toString();
-      if (selectedGrupo != null && selectedGrupo!.nombre == "Adolescencia")
-        accionText += ":";
-      else
-        accionText += "*:";
-      ElementAccion updatedAccion = ElementAccion(
-        text1: accionText,
-        textSize: textSize,
-        espacioPadding: espacioPadding,
-        espacioAlto: espacioAlto,
-        btnHeight: btnHeight,
-        btnWidth: btnWidth,
-        numberAccion: acciones[i].numberAccion,
-        textSituacionWidth: acciones[i].textSituacionWidth,
-        onPressedGaleria: acciones[i].onPressedGaleria,
-        onPressedArasaac: acciones[i].onPressedArasaac,
-        accionImage: acciones[i].accionImage,
-        color: acciones[i].color,
-        accionText: acciones[i].accionText,
-      );
-      acciones[i] = updatedAccion;
     }
   }
 
@@ -560,14 +521,24 @@ class _AddRutinaState extends State<AddRutina> {
           fontSize: textSize,
         ),
       ),
-      onPressed: () {
-        //getPictogramas();
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return arasaacPersonajeDialog;
-          },
-        );
+      onPressed: () async {
+        var connectivityResult = await (Connectivity().checkConnectivity());
+        if (connectivityResult == ConnectivityResult.none) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return noInternetDialog;
+            },
+          );
+        } else if (connectivityResult == ConnectivityResult.mobile ||
+            connectivityResult == ConnectivityResult.wifi) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return arasaacPersonajeDialog;
+            },
+          );
+        }
       },
     );
 
@@ -584,51 +555,9 @@ class _AddRutinaState extends State<AddRutina> {
       ),
       onPressed: () {
         setState(() {
-          personajeArasaac = "";
-          personajeImageGallery = null;
-          personajePath = "";
+          personajeImage = [];
         });
       },
-    );
-
-    btnGaleriaAccion = ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        minimumSize: Size(btnWidth, btnHeight),
-        textStyle: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: textSize,
-          color: Colors.blue,
-        ),
-      ),
-      child: Text(
-        'Nueva acción\n'
-        '(desde galería)',
-        style: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: textSize,
-        ),
-      ),
-      onPressed: () {},
-    );
-
-    btnArasaacAccion = ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        minimumSize: Size(btnWidth, btnHeight),
-        textStyle: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: textSize,
-          color: Colors.blue,
-        ),
-      ),
-      child: Text(
-        'Nueva acción\n'
-        '(desde ARASAAC)',
-        style: TextStyle(
-          fontFamily: 'ComicNeue',
-          fontSize: textSize,
-        ),
-      ),
-      onPressed: () {},
     );
   }
 
@@ -696,18 +625,18 @@ class _AddRutinaState extends State<AddRutina> {
       ),
     );
 
-    // cuadro de dialogo para escoger un personaje ya existente
-    arasaacPersonajeDialog = ArasaacDialog(
+    // cuadro de dialogo para escoger un personaje de arasaac
+    arasaacPersonajeDialog = ArasaacPersonajeDialog(
       espacioAlto: espacioAlto,
       espacioPadding: espacioPadding,
       btnWidth: btnWidth,
       btnHeigth: btnHeight,
       imgWidth: imgWidth,
-      onPersonajeArasaacChanged: (newValue) {
+      onPersonajeArasaacChanged: (newValue) async {
+        final response = await http.get(Uri.parse(newValue));
+        List<int> bytes = response.bodyBytes;
         setState(() {
-          personajeArasaac = newValue;
-          personajePath = "";
-          personajeImageGallery = null;
+          personajeImage = bytes;
         });
       },
     );
@@ -748,14 +677,83 @@ class _AddRutinaState extends State<AddRutina> {
     );
 
     // cuadro de dialogo para cuando rutina añadida con éxito
+    completedParamsDialog = AlertDialog(
+      title: Text(
+        '¡Fántastico!',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: titleSize * 0.75,
+        ),
+      ),
+      content: Text(
+        'La rutina se ha sido añadida con éxito. Agradecemos tu colaboración, y los jugadores seguro que todavía más!',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: textSize,
+        ),
+      ),
+      actions: [
+        Center(
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              'Aceptar',
+              style: TextStyle(
+                fontFamily: 'ComicNeue',
+                fontSize: textSize,
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+
+    // cuadro de diálogo para cuando no hay conexión a internet
+    noInternetDialog = AlertDialog(
+      title: Text(
+        'Problema',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: titleSize * 0.75,
+        ),
+      ),
+      content: Text(
+        'Hemos detectado que no tienes conexión a internet, y para realizar esta acción es necesario.\nPor favor, inténtalo de nuevo o más tarde.',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: textSize,
+        ),
+      ),
+      actions: [
+        Center(
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              'Aceptar',
+              style: TextStyle(
+                fontFamily: 'ComicNeue',
+                fontSize: textSize,
+              ),
+            ),
+          ),
+        )
+      ],
+    );
   }
 
   // Método para cuando selecciono un personaje ya existente
-  void _selectExistPersonaje(BuildContext context, String imagePath) {
+  Future<void> _selectExistPersonaje(
+      BuildContext context, String imagePath) async {
+    ByteData imageData = await rootBundle.load(imagePath);
+    List<int> bytes = imageData.buffer.asUint8List();
+
     setState(() {
-      personajePath = imagePath;
-      personajeImageGallery = null;
-      personajeArasaac = "";
+      personajeImage = bytes;
     });
     Navigator.of(context).pop();
   }
@@ -764,52 +762,94 @@ class _AddRutinaState extends State<AddRutina> {
   Future<void> _selectNewPersonajeGallery() async {
     final picker = ImagePicker();
     final image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      File imageFile = File(image!.path);
+      List<int> bytes = await imageFile.readAsBytes();
 
-    setState(() {
-      personajeImageGallery = image;
-      personajePath = "";
-      personajeArasaac = "";
-    });
+      setState(() {
+        personajeImage = bytes;
+      });
+    }
   }
 
   // Método para seleccionar una nueva imagen de accion desde la galeria
   Future<void> _selectNewActionGallery(int index) async {
     final picker = ImagePicker();
     final image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      File imageFile = File(image!.path);
+      List<int> bytes = await imageFile.readAsBytes();
 
-    setState(() {
-      acciones[index].accionImage = image;
-    });
-  }
-
-  void _selectNewActionArasaac(int index) {}
-
-  // Método para obtener la lista de grupos de la BBDD
-  Future<void> _getGrupos() async {
-    try {
-      List<Grupo> gruposList = await getGrupos();
       setState(() {
-        grupos = gruposList;
+        acciones[index].accionImage = bytes;
       });
-    } catch (e) {
-      print("Error al obtener la lista de grupos: $e");
     }
   }
 
-  // Método para obtener todos los path de los personajes
-  Future<List<String>> getExistsPersonajes(String folderPath) async {
-    final manifestContent = await rootBundle.loadString('AssetManifest.json');
-    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
+  // Método para seleccionar una nueva imagen de accion desde ARASAAC
+  Future<void> _selectNewActionArasaac(int index) async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.none) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return noInternetDialog;
+        },
+      );
+    } else if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      ArasaacAccionDialog aux = ArasaacAccionDialog(
+        espacioAlto: espacioAlto,
+        espacioPadding: espacioPadding,
+        btnWidth: btnWidth,
+        btnHeigth: btnHeight,
+        imgWidth: imgWidth,
+        onAccionArasaacChanged: (newValue) async {
+          final response = await http.get(Uri.parse(newValue));
+          List<int> bytes = response.bodyBytes;
+          setState(() {
+            acciones[index].accionImage = bytes;
+          });
+        },
+      );
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return aux;
+        },
+      );
+    }
+  }
 
-    final List<String> imagePaths = manifestMap.keys
-        .where((String key) => key.startsWith(folderPath))
-        .toList();
-
+  // método para añadir un nuevo ElementAccion
+  void _addAccion() {
     setState(() {
-      personajes = imagePaths;
-    });
+      String accionText = 'Acción ' + (acciones.length + 1).toString();
+      if (selectedGrupo != null && selectedGrupo!.nombre == "Adolescencia")
+        accionText += ": ";
+      else
+        accionText += "*:";
 
-    return imagePaths;
+      acciones.add(ElementAccion(
+        text1: accionText,
+        numberAccion: acciones.length + 1,
+        textSize: textSize,
+        espacioPadding: espacioPadding,
+        espacioAlto: espacioAlto,
+        btnWidth: btnWidth,
+        btnHeight: btnHeight,
+        textSituacionWidth: textSituacionWidth,
+        onPressedGaleria: () => _selectNewActionGallery(acciones.length),
+        onPressedArasaac: () => _selectNewActionArasaac(acciones.length),
+      ));
+    });
+  }
+
+  // método para eliminar el ultimo ElementAccion
+  void _removeAccion() {
+    setState(() {
+      acciones.removeLast();
+    });
   }
 
   // Método para comprobar que los parametros obligatorios están completos
@@ -833,9 +873,10 @@ class _AddRutinaState extends State<AddRutina> {
       colorSituacion = Colors.transparent;
 
     for (int i = 0; i < acciones.length; i++) {
-      if (acciones[i].accionImage == null ||
+      if (acciones[i].accionImage.isEmpty ||
           (acciones[i].accionText.isEmpty &&
-              selectedGrupo!.nombre != "Adolescencia")) {
+              selectedGrupo?.nombre != "Adolescencia") ||
+          acciones[i].accionText.characters.length > 24) {
         correct = false;
         setState(() {
           acciones[i].color = Colors.redAccent;
@@ -857,23 +898,11 @@ class _AddRutinaState extends State<AddRutina> {
     int preguntaId;
     Database db = await openDatabase('rutinas.db');
 
-    if (personajePath != "") {
-      preguntaId = await db.rawInsert(
-          'INSERT INTO pregunta (enunciado, personajePath, grupoId) VALUES (?,?,?)',
-          [situacionText, personajePath, selectedGrupo!.id]);
-    } else if (personajeImageGallery != null) {
+    if (personajeImage.isNotEmpty) {
       // Obtén los bytes de la imagen
-      List<int> bytes = await personajeImageGallery!.readAsBytes();
       preguntaId = await db.rawInsert(
         'INSERT INTO pregunta (enunciado, personajeImg, grupoId) VALUES (?,?,?)',
-        [situacionText, Uint8List.fromList(bytes), selectedGrupo!.id],
-      );
-    } else if (personajeArasaac != "") {
-      final response = await http.get(Uri.parse(personajeArasaac));
-      List<int> bytes = response.bodyBytes;
-      preguntaId = await db.rawInsert(
-        'INSERT INTO pregunta (enunciado, personajeImg, grupoId) VALUES (?,?,?)',
-        [situacionText, Uint8List.fromList(bytes), selectedGrupo!.id],
+        [situacionText, Uint8List.fromList(personajeImage), selectedGrupo!.id],
       );
     } else {
       preguntaId = await db.rawInsert(
@@ -885,13 +914,24 @@ class _AddRutinaState extends State<AddRutina> {
   }
 
   Future<void> _addAcciones(int preguntaId) async {
+    print("GRUPO --> " + selectedGrupo!.nombre);
     Database db = await openDatabase('rutinas.db');
     for (int i = 0; i < acciones.length; i++) {
-      List<int> bytes = await acciones[i].accionImage!.readAsBytes();
-      await db.rawInsert(
-        'INSERT INTO accion (texto, orden, imagen, preguntaId) VALUES (?,?,?,?)',
-        [acciones[i].accionText, i, Uint8List.fromList(bytes), preguntaId],
-      );
+      if (selectedGrupo!.nombre != "Adolescencia")
+        await db.rawInsert(
+          'INSERT INTO accion (texto, orden, imagen, preguntaId) VALUES (?,?,?,?)',
+          [
+            acciones[i].accionText,
+            i,
+            Uint8List.fromList(acciones[i].accionImage),
+            preguntaId
+          ],
+        );
+      else
+        await db.rawInsert(
+          'INSERT INTO accion (texto, orden, imagen, preguntaId) VALUES (?,?,?,?)',
+          ["", i, Uint8List.fromList(acciones[i].accionImage), preguntaId],
+        );
     }
   }
 }

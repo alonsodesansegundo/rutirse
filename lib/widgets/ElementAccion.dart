@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ElementAccion extends StatefulWidget {
   String text1;
@@ -13,7 +12,7 @@ class ElementAccion extends StatefulWidget {
   final Function() onPressedGaleria;
   final Function() onPressedArasaac;
   String accionText;
-  XFile? accionImage;
+  List<int> accionImage;
   Color color;
   final TextEditingController accionTextController = TextEditingController();
 
@@ -28,8 +27,8 @@ class ElementAccion extends StatefulWidget {
     required this.textSituacionWidth,
     required this.onPressedGaleria,
     required this.onPressedArasaac,
-    this.accionImage = null,
     this.accionText = "",
+    this.accionImage = const [],
     this.color = Colors.transparent,
   });
 
@@ -40,6 +39,8 @@ class ElementAccion extends StatefulWidget {
 class _ElementAccionState extends State<ElementAccion> {
   @override
   Widget build(BuildContext context) {
+    _updateVariablesSize();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -47,15 +48,29 @@ class _ElementAccionState extends State<ElementAccion> {
           crossAxisAlignment: CrossAxisAlignment.baseline,
           textBaseline: TextBaseline.alphabetic,
           children: [
-            Container(
-              width: widget.espacioPadding * 4,
-              child: Text(
-                widget.text1,
-                style: TextStyle(
-                  fontFamily: 'ComicNeue',
-                  fontSize: widget.textSize,
+            Column(
+              children: [
+                Container(
+                  width: widget.espacioPadding * 4,
+                  child: Text(
+                    widget.text1,
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: widget.textSize,
+                    ),
+                  ),
                 ),
-              ),
+                Container(
+                  width: widget.espacioPadding * 4,
+                  child: Text(
+                    "(máx. 24 caracteres)",
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: widget.textSize * 0.5,
+                    ),
+                  ),
+                ),
+              ],
             ),
             Container(
               width: widget.btnWidth,
@@ -133,5 +148,30 @@ class _ElementAccionState extends State<ElementAccion> {
         ),
       ],
     );
+  }
+
+  void _updateVariablesSize() {
+    Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
+
+    final isHorizontal =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    if (isHorizontal) {
+      widget.textSize = screenSize.width * 0.02;
+      widget.espacioPadding = screenSize.height * 0.06;
+      widget.espacioAlto = screenSize.height * 0.03;
+      widget.textSituacionWidth = screenSize.width - widget.espacioPadding * 2;
+      widget.btnWidth = screenSize.width / 4;
+      widget.btnHeight = screenSize.height / 10;
+
+      //_updateSizeAcciones();
+    } else {
+      widget.textSize = screenSize.width * 0.03;
+      widget.espacioPadding = screenSize.height * 0.03;
+      widget.espacioAlto = screenSize.height * 0.03;
+      widget.textSituacionWidth = screenSize.width - widget.espacioPadding * 2;
+      widget.btnWidth = screenSize.width / 3;
+      widget.btnHeight = screenSize.height / 15;
+    }
   }
 }

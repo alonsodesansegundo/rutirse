@@ -6,28 +6,28 @@ import 'package:http/http.dart' as http;
 import '../obj/Pictograma.dart';
 import '../obj/PictogramasPaginacion.dart';
 
-class ArasaacPersonajeDialog extends StatefulWidget {
+class ArasaacAccionDialog extends StatefulWidget {
   double espacioAlto;
   double espacioPadding;
   double btnWidth;
   double btnHeigth;
   double imgWidth;
-  final Function(String) onPersonajeArasaacChanged; // Nuevo Callback
+  final Function(String) onAccionArasaacChanged; // Nuevo Callback
 
-  ArasaacPersonajeDialog({
+  ArasaacAccionDialog({
     required this.espacioAlto,
     required this.espacioPadding,
     required this.btnWidth,
     required this.btnHeigth,
     required this.imgWidth,
-    required this.onPersonajeArasaacChanged, // Incluir el nuevo callback
+    required this.onAccionArasaacChanged,
   });
 
   @override
-  _ArasaacPersonajeDialogState createState() => _ArasaacPersonajeDialogState();
+  _ArasaacDialogState createState() => _ArasaacDialogState();
 }
 
-class _ArasaacPersonajeDialogState extends State<ArasaacPersonajeDialog> {
+class _ArasaacDialogState extends State<ArasaacAccionDialog> {
   PictogramasPaginacion pictogramas =
       PictogramasPaginacion(listaPictogramas: [], elementosPorPagina: 15);
   String keywords = '';
@@ -51,7 +51,7 @@ class _ArasaacPersonajeDialogState extends State<ArasaacPersonajeDialog> {
             SizedBox(height: widget.espacioAlto),
             const Center(
               child: Text(
-                'Busca un personaje desde ARASAAC',
+                'Busca una acción desde ARASAAC',
                 style: TextStyle(
                   fontFamily: 'ComicNeue',
                   fontSize: 20,
@@ -125,7 +125,7 @@ class _ArasaacPersonajeDialogState extends State<ArasaacPersonajeDialog> {
                       return GestureDetector(
                         onTap: () {
                           // Llamar al callback para notificar cambios
-                          widget.onPersonajeArasaacChanged(pictograma.imagen);
+                          widget.onAccionArasaacChanged(pictograma.imagen);
                           Navigator.of(context).pop();
                         },
                         child: Image.network(

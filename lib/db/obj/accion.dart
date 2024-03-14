@@ -1,5 +1,4 @@
-import 'dart:typed_data';
-
+import 'package:flutter/services.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../db.dart';
@@ -8,7 +7,6 @@ class Accion {
   final int id;
   final String texto;
   final int orden;
-  final String? imagenPath;
   final Uint8List? imagen;
   final int preguntaId;
 
@@ -16,7 +14,6 @@ class Accion {
       {required this.id,
       required this.texto,
       required this.orden,
-      this.imagenPath,
       this.imagen,
       required this.preguntaId});
 
@@ -24,7 +21,6 @@ class Accion {
       : id = item["id"],
         texto = item["texto"],
         orden = item["orden"],
-        imagenPath = item["imagenPath"],
         imagen = item["imagen"],
         preguntaId = item["preguntaId"];
 
@@ -35,16 +31,28 @@ class Accion {
   @override
   String toString() {
     return 'Accion {id: $id, texto: $texto, orden: $orden, '
-        'imagenPath: $imagenPath, imagen: $imagen, preguntaId: $preguntaId}';
+        'imagen: $imagen, preguntaId: $preguntaId}';
   }
 }
 
 Future<void> insertAccion(Database database, String texto, int orden,
-    String imgAccion, int preguntaId) async {
+    List<int> imgAccion, int preguntaId) async {
   await database.transaction((txn) async {
     await txn.rawInsert(
-      "INSERT INTO accion (texto, orden, imagenPath, preguntaId) VALUES (?, ?, ?, ?)",
+      "INSERT INTO accion (texto, orden, imagen, preguntaId) VALUES (?, ?, ?, ?)",
       [texto, orden, imgAccion, preguntaId],
+    );
+  });
+}
+
+Future<void> insertAccionInitialData(Database database, String texto, int orden,
+    String pathImg, int preguntaId) async {
+  ByteData imageData = await rootBundle.load(pathImg);
+  List<int> bytes = imageData.buffer.asUint8List();
+  await database.transaction((txn) async {
+    await txn.rawInsert(
+      "INSERT INTO accion (texto, orden, imagen, preguntaId) VALUES (?, ?, ?, ?)",
+      [texto, orden, bytes, preguntaId],
     );
   });
 }

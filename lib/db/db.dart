@@ -18,7 +18,7 @@ Future<Database> initializeDB() async {
 
       // inserción de datos iniciales (grupos, preguntas...)
       insertGrupos(database);
-      //insertPreguntas(database);
+      insertPreguntas(database);
     },
     version: 2,
   );
@@ -59,7 +59,6 @@ void createTablePregunta(Database database) {
     CREATE TABLE pregunta (
       id INTEGER PRIMARY KEY AUTOINCREMENT, 
       enunciado TEXT NOT NULL,
-      personajePath TEXT,
       personajeImg BLOB,
       grupoId INTEGER NOT NULL,
       FOREIGN KEY (grupoId) REFERENCES grupo(id))""");
@@ -71,7 +70,6 @@ void createTableAccion(Database database) {
       id INTEGER PRIMARY KEY AUTOINCREMENT, 
       texto TEXT,
       orden INTEGER NOT NULL,
-      imagenPath TEXT,
       imagen BLOB,
       preguntaId INTEGER NOT NULL,
       FOREIGN KEY (preguntaId) REFERENCES pregunta(id))""");

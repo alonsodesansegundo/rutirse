@@ -7,7 +7,6 @@ class PreguntaWidget extends StatelessWidget {
   final bool isLoading;
   final double subtextSize;
   final double imgHeight;
-  final String? personajePath;
   final Uint8List? personajeImg;
   final double rightSpace;
 
@@ -16,7 +15,6 @@ class PreguntaWidget extends StatelessWidget {
     required this.isLoading,
     required this.subtextSize,
     required this.imgHeight,
-    this.personajePath,
     this.personajeImg,
     required this.rightSpace,
   });
@@ -38,13 +36,6 @@ class PreguntaWidget extends StatelessWidget {
               ),
             ),
           ),
-          if (personajePath != null)
-            Container(
-              child: Image.asset(
-                personajePath!,
-                height: imgHeight,
-              ),
-            ),
           if (personajeImg != null)
             Container(
               child: Image.memory(personajeImg!),
