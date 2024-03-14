@@ -4,6 +4,7 @@ import 'package:sqflite/sqflite.dart';
 import '../db.dart';
 import '../preguntasScripts/adolescencia.dart';
 import '../preguntasScripts/atenciont.dart';
+import '../preguntasScripts/infancia.dart';
 
 class Pregunta {
   final int? id;
@@ -77,6 +78,6 @@ Future<int> insertPreguntaInitialData(
 
 void insertPreguntas(Database database) {
   insertPreguntaInitialDataAtencionT(database);
-  //insertPreguntaInitialDataInfancia(database);
+  insertPreguntaInitialDataInfancia(database);
   insertPreguntaInitialDataAdolescencia(database);
 }
