@@ -66,7 +66,9 @@ void createTablePregunta(Database database) {
       grupoId INTEGER NOT NULL,
       fecha TEXT NOT NULL,
       byTerapeuta INTEGER DEFAULT 0 NOT NULL,
-      FOREIGN KEY (grupoId) REFERENCES grupo(id))""");
+      FOREIGN KEY (grupoId) REFERENCES grupo(id)
+      ON DELETE CASCADE 
+    )""");
 }
 
 void createTableAccion(Database database) {
@@ -77,7 +79,9 @@ void createTableAccion(Database database) {
       orden INTEGER NOT NULL,
       imagen BLOB NOT NULL,
       preguntaId INTEGER NOT NULL,
-      FOREIGN KEY (preguntaId) REFERENCES pregunta(id))""");
+      FOREIGN KEY (preguntaId) REFERENCES pregunta(id)
+      ON DELETE CASCADE 
+    )""");
 }
 
 void createTables(Database database) {

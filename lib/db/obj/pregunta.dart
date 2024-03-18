@@ -160,6 +160,20 @@ Future<int> insertPreguntaInitialDataTerapeutaTest(
   return id;
 }
 
+Future<void> removePregunta(int preguntaId) async {
+  try {
+    final Database db = await initializeDB();
+    await db.delete(
+      'pregunta',
+      where: 'id = ?',
+      whereArgs: [preguntaId],
+    );
+    print('Pregunta eliminada con éxito');
+  } catch (e) {
+    print('Error al eliminar la pregunta: $e');
+  }
+}
+
 void insertPreguntas(Database database) {
   insertPreguntaInitialDataAtencionT(database);
   insertPreguntaInitialDataInfancia(database);

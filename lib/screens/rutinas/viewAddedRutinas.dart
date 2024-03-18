@@ -44,6 +44,8 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
 
   late String txtBuscar, txtBuscarAux;
 
+  late AlertDialog removePreguntaOk;
+
   @override
   void initState() {
     super.initState();
@@ -324,8 +326,104 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                                                     IconButton(
                                                       icon: Icon(Icons.delete),
                                                       onPressed: () {
-                                                        print(
-                                                            'Eliminar pregunta con ID: ${pregunta.id}');
+                                                        AlertDialog aux =
+                                                            AlertDialog(
+                                                          title: Text(
+                                                            'Aviso',
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'ComicNeue',
+                                                              fontSize:
+                                                                  titleSize *
+                                                                      0.75,
+                                                            ),
+                                                          ),
+                                                          content: Text(
+                                                            'Estás a punto de eliminar la siguiente pregunta del grupo ${grupo.nombre}:\n'
+                                                            '${pregunta.enunciado}\n'
+                                                            '¿Estás seguro de ello?',
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'ComicNeue',
+                                                              fontSize:
+                                                                  textSize,
+                                                            ),
+                                                          ),
+                                                          actions: [
+                                                            Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                ElevatedButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    _removePreguntaSelected(
+                                                                        pregunta
+                                                                            .id!);
+                                                                    setState(
+                                                                        () {
+                                                                      _loadPreguntas();
+                                                                    });
+
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                    showDialog(
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (BuildContext
+                                                                              context) {
+                                                                        return removePreguntaOk;
+                                                                      },
+                                                                    );
+                                                                  },
+                                                                  child: Text(
+                                                                    'Sí, eliminar',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontFamily:
+                                                                          'ComicNeue',
+                                                                      fontSize:
+                                                                          textSize,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  width:
+                                                                      espacioPadding,
+                                                                ),
+                                                                ElevatedButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                  },
+                                                                  child: Text(
+                                                                    'Cancelar',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontFamily:
+                                                                          'ComicNeue',
+                                                                      fontSize:
+                                                                          textSize,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        );
+
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext
+                                                              context) {
+                                                            return aux;
+                                                          },
+                                                        );
                                                       },
                                                     ),
                                                   ],
@@ -461,7 +559,44 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
   }
 
   // Metodo para crear los cuadros de dialogo necesarios
-  void _createDialogs() {}
+  void _createDialogs() {
+    removePreguntaOk = AlertDialog(
+      title: Text(
+        'Éxito',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: titleSize * 0.75,
+        ),
+      ),
+      content: Text(
+        'La pregunta ha sido eliminada correctamente.\n'
+        '¡Muchas gracias por tu colaboración!',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: textSize,
+        ),
+      ),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Aceptar',
+                style: TextStyle(
+                  fontFamily: 'ComicNeue',
+                  fontSize: textSize,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 
   // Método para obtener la lista de grupos de la BBDD
   Future<void> _getGrupos() async {
@@ -499,5 +634,9 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
       paginaActual++;
     });
     _loadPreguntas();
+  }
+
+  void _removePreguntaSelected(int preguntaId) {
+    removePregunta(preguntaId);
   }
 }
