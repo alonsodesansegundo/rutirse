@@ -110,7 +110,7 @@ class _UserProgressState extends State<UserProgress> {
                   ),
                 ],
               ),
-              SizedBox(height: espacioAlto), // Espacio entre los textos
+              SizedBox(height: espacioAlto),
               FutureBuilder<void>(
                 future: _cargarPartidas(),
                 builder: (context, snapshot) {

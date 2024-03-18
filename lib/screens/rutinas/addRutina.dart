@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:TresEnUno/db/obj/grupo.dart';
+import 'package:TresEnUno/db/obj/pregunta.dart';
 import 'package:TresEnUno/widgets/ArasaacAccionDialog.dart';
 import 'package:TresEnUno/widgets/ArasaacPersonajeDialog.dart';
 import 'package:TresEnUno/widgets/ElementAccion.dart';
@@ -924,18 +925,8 @@ class _AddRutinaState extends State<AddRutina> {
     int preguntaId;
     Database db = await openDatabase('rutinas.db');
 
-    if (personajeImage.isNotEmpty) {
-      // Obtén los bytes de la imagen
-      preguntaId = await db.rawInsert(
-        'INSERT INTO pregunta (enunciado, personajeImg, grupoId) VALUES (?,?,?)',
-        [situacionText, Uint8List.fromList(personajeImage), selectedGrupo!.id],
-      );
-    } else {
-      preguntaId = await db.rawInsert(
-        'INSERT INTO pregunta (enunciado, grupoId) VALUES (?,?)',
-        [situacionText, selectedGrupo!.id],
-      );
-    }
+    preguntaId = await insertPregunta(db, situacionText,
+        Uint8List.fromList(personajeImage), selectedGrupo!.id);
     return preguntaId;
   }
 

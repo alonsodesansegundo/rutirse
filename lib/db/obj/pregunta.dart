@@ -1,6 +1,8 @@
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../obj/PreguntasPaginacion.dart';
 import '../db.dart';
 import '../preguntasScripts/adolescencia.dart';
 import '../preguntasScripts/atenciont.dart';
@@ -11,28 +13,41 @@ class Pregunta {
   final String enunciado;
   final Uint8List? personajeImg;
   final int grupoId;
+  final String fecha;
+  final int byTerapeuta;
 
   Pregunta(
       {this.id,
       required this.enunciado,
       this.personajeImg,
-      required this.grupoId});
+      required this.grupoId,
+      required this.fecha,
+      required this.byTerapeuta});
 
   Pregunta.preguntasFromMap(Map<String, dynamic> item)
       : id = item["id"],
         enunciado = item["enunciado"],
         personajeImg = item["personajeImg"],
-        grupoId = item["grupoId"];
+        grupoId = item["grupoId"],
+        fecha = item["fecha"],
+        byTerapeuta = item["byTerapeuta"];
 
   Map<String, Object> preguntasToMap() {
-    return {'enunciado': enunciado, 'grupoId': grupoId};
+    return {
+      'enunciado': enunciado,
+      'grupoId': grupoId,
+      'fecha': fecha,
+      'byTerapeuta': byTerapeuta
+    };
   }
 
   @override
   String toString() {
     return 'Pregunta {id: $id, enunciado: $enunciado,'
         ' personajeImg: $personajeImg, '
-        'grupoId: $grupoId}';
+        'grupoId: $grupoId}, '
+        'fecha: $fecha}, '
+        'byTerapeuta: $byTerapeuta, ';
   }
 }
 
@@ -48,13 +63,46 @@ Future<List<Pregunta>> getPreguntas(int grupoId) async {
   }
 }
 
+Future<PreguntasPaginacion> getPreguntasCreatedByTerapeuta(
+    int pageNumber, int pageSize) async {
+  try {
+    final Database db = await initializeDB();
+    int offset = (pageNumber - 1) * pageSize;
+    final List<Map<String, dynamic>> preguntasMap = await db.query(
+      'pregunta',
+      where: 'byTerapeuta = 1',
+      orderBy: 'id DESC',
+      limit: pageSize,
+      offset: offset,
+    );
+    final List<Pregunta> preguntas =
+        preguntasMap.map((map) => Pregunta.preguntasFromMap(map)).toList();
+
+    // Comprobar si hay más preguntas disponibles
+    final List<Map<String, dynamic>> totalPreguntasMap =
+        await db.query('pregunta', where: 'byTerapeuta = 1');
+    final bool hayMasPreguntas = (offset + pageSize) < totalPreguntasMap.length;
+
+    return PreguntasPaginacion(preguntas, hayMasPreguntas);
+  } catch (e) {
+    print("Error al obtener preguntas: $e");
+    return PreguntasPaginacion([], false);
+  }
+}
+
 Future<int> insertPregunta(Database database, String enunciado,
     List<int> imgPersonaje, int grupoId) async {
   int id = -1;
   await database.transaction((txn) async {
     id = await txn.rawInsert(
-      "INSERT INTO pregunta (enunciado, personajeImg, grupoId) VALUES (?, ?, ?)",
-      [enunciado, imgPersonaje, grupoId],
+      "INSERT INTO pregunta (enunciado, personajeImg, grupoId, byTerapeuta, fecha) VALUES (?, ?, ?, ?, ?)",
+      [
+        enunciado,
+        imgPersonaje,
+        grupoId,
+        1,
+        DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
+      ],
     );
   });
 
@@ -68,8 +116,33 @@ Future<int> insertPreguntaInitialData(
   List<int> bytes = imageData.buffer.asUint8List();
   await database.transaction((txn) async {
     id = await txn.rawInsert(
-      "INSERT INTO pregunta (enunciado, personajeImg, grupoId) VALUES (?, ?, ?)",
-      [enunciado, bytes, grupoId],
+      "INSERT INTO pregunta (enunciado, personajeImg, grupoId, fecha) VALUES (?, ?, ?, ?)",
+      [
+        enunciado,
+        bytes,
+        grupoId,
+        DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
+      ],
+    );
+  });
+
+  return id;
+}
+
+Future<int> insertPreguntaInitialDataTerapeutaTest(
+    Database database, String enunciado, String pathImg, int grupoId) async {
+  int id = -1;
+  ByteData imageData = await rootBundle.load(pathImg);
+  List<int> bytes = imageData.buffer.asUint8List();
+  await database.transaction((txn) async {
+    id = await txn.rawInsert(
+      "INSERT INTO pregunta (enunciado, personajeImg, grupoId, fecha,byTerapeuta) VALUES (?, ?, ?, ?, 1)",
+      [
+        enunciado,
+        bytes,
+        grupoId,
+        DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
+      ],
     );
   });
 

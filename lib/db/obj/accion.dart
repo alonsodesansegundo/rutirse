@@ -57,6 +57,18 @@ Future<void> insertAccionInitialData(Database database, String texto, int orden,
   });
 }
 
+Future<void> insertAccionInitialDataTerapeutaTest(Database database,
+    String texto, int orden, String pathImg, int preguntaId) async {
+  ByteData imageData = await rootBundle.load(pathImg);
+  List<int> bytes = imageData.buffer.asUint8List();
+  await database.transaction((txn) async {
+    await txn.rawInsert(
+      "INSERT INTO accion (texto, orden, imagen, preguntaId) VALUES (?, ?, ?, ?)",
+      [texto, orden, bytes, preguntaId],
+    );
+  });
+}
+
 Future<List<Accion>> getAcciones(int preguntaId) async {
   try {
     final Database db = await initializeDB();

@@ -35,6 +35,21 @@ Future<List<Grupo>> getGrupos() async {
   }
 }
 
+Future<Grupo> getGrupoById(int groupId) async {
+  final Database db = await initializeDB();
+  final List<Map<String, dynamic>> grupoMap = await db.query(
+    'grupo',
+    where: 'id = ?',
+    whereArgs: [groupId],
+  );
+  if (grupoMap.isNotEmpty) {
+    return Grupo.gruposFromMap(grupoMap.first);
+  } else {
+    throw Exception(
+        'No se encontró ningún grupo con el ID especificado: $groupId');
+  }
+}
+
 void insertGrupos(Database database) async {
   await database.transaction((txn) async {
     txn.rawInsert(
