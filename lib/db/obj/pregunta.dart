@@ -7,6 +7,7 @@ import '../db.dart';
 import '../preguntasScripts/adolescencia.dart';
 import '../preguntasScripts/atenciont.dart';
 import '../preguntasScripts/infancia.dart';
+import 'grupo.dart';
 
 class Pregunta {
   final int? id;
@@ -64,13 +65,23 @@ Future<List<Pregunta>> getPreguntas(int grupoId) async {
 }
 
 Future<PreguntasPaginacion> getPreguntasCreatedByTerapeuta(
-    int pageNumber, int pageSize) async {
+    int pageNumber, int pageSize, String txtBuscar, Grupo? grupo) async {
   try {
     final Database db = await initializeDB();
     int offset = (pageNumber - 1) * pageSize;
+    String whereClause = 'byTerapeuta = 1';
+
+    // Agregar condiciones de búsqueda por enunciado y grupo
+    if (txtBuscar.isNotEmpty) {
+      whereClause += " AND enunciado LIKE '%$txtBuscar%'";
+    }
+    if (grupo != null) {
+      whereClause += " AND grupoId = ${grupo.id}";
+    }
+
     final List<Map<String, dynamic>> preguntasMap = await db.query(
       'pregunta',
-      where: 'byTerapeuta = 1',
+      where: whereClause,
       orderBy: 'id DESC',
       limit: pageSize,
       offset: offset,
@@ -80,7 +91,7 @@ Future<PreguntasPaginacion> getPreguntasCreatedByTerapeuta(
 
     // Comprobar si hay más preguntas disponibles
     final List<Map<String, dynamic>> totalPreguntasMap =
-        await db.query('pregunta', where: 'byTerapeuta = 1');
+        await db.query('pregunta', where: whereClause);
     final bool hayMasPreguntas = (offset + pageSize) < totalPreguntasMap.length;
 
     return PreguntasPaginacion(preguntas, hayMasPreguntas);

@@ -33,8 +33,6 @@ class _AddRutinaState extends State<AddRutina> {
 
   late ImageTextButton btnVolver;
 
-  late bool loadGrupos;
-
   late List<Grupo> grupos;
 
   Grupo? selectedGrupo; // Variable para almacenar el grupo seleccionado
@@ -71,7 +69,6 @@ class _AddRutinaState extends State<AddRutina> {
     super.initState();
     grupos = [];
     _getGrupos();
-    loadGrupos = false;
     situacionText = "";
     keywords = "";
     personajes = [];
@@ -183,7 +180,9 @@ class _AddRutinaState extends State<AddRutina> {
                           color: colorGrupo,
                         ),
                         child: DropdownButton<Grupo>(
-                          padding: EdgeInsets.only(left: 15, right: 15),
+                          padding: EdgeInsets.only(
+                            left: espacioPadding,
+                          ),
                           hint: Text(
                             'Selecciona el grupo',
                             style: TextStyle(

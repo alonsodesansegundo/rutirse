@@ -28,13 +28,21 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
 
   late ImageTextButton btnVolver;
 
-  late ElevatedButton btnAnterior, btnSiguiente;
+  late ElevatedButton btnAnterior, btnSiguiente, btnBuscar;
 
   late int paginaActual, preguntasPagina;
 
   late List<Pregunta> preguntas;
 
   late bool hayMasPreguntas;
+
+  late bool loadGrupos;
+
+  late List<Grupo> grupos;
+
+  Grupo? selectedGrupo, selectedGrupoAux;
+
+  late String txtBuscar, txtBuscarAux;
 
   @override
   void initState() {
@@ -44,6 +52,12 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
     preguntas = [];
     hayMasPreguntas = false;
     _loadPreguntas();
+    selectedGrupo = null;
+    selectedGrupoAux = null;
+    txtBuscar = "";
+    txtBuscarAux = "";
+    grupos = [];
+    _getGrupos();
   }
 
   @override
@@ -106,6 +120,93 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                 SizedBox(height: espacioAlto),
                 Row(
                   children: [
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: espacioPadding / 2),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          color: Colors.grey[200],
+                        ),
+                        child: TextField(
+                          onChanged: (text) {
+                            this.txtBuscarAux = text;
+                          },
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText:
+                                'Introduce el texto por el que quieres buscar...',
+                            hintStyle: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: textSize * 0.75,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: espacioPadding),
+                    btnBuscar
+                  ],
+                ),
+                SizedBox(height: espacioAlto / 2),
+                Row(
+                  children: [
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: espacioPadding / 2),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.0),
+                        color: Colors.grey[200],
+                      ),
+                      child: DropdownButton<Grupo>(
+                        hint: Text(
+                          'Grupo',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize * 0.75,
+                          ),
+                        ),
+                        value: selectedGrupoAux,
+                        items: [
+                          DropdownMenuItem(
+                            child: Text(
+                              'Grupo',
+                              style: TextStyle(
+                                fontFamily: 'ComicNeue',
+                                fontSize: textSize * 0.75,
+                              ),
+                            ),
+                          ),
+                          ...grupos.map((Grupo grupo) {
+                            return DropdownMenuItem<Grupo>(
+                              value: grupo,
+                              child: Text(
+                                grupo.nombre,
+                                style: TextStyle(
+                                  fontFamily: 'ComicNeue',
+                                  fontSize: textSize * 0.75,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ],
+                        onChanged: (Grupo? grupo) {
+                          setState(() {
+                            if (grupo?.nombre == 'Grupo')
+                              selectedGrupoAux = null;
+                            else
+                              selectedGrupoAux = grupo;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+
+                SizedBox(height: espacioAlto),
+
+                Row(
+                  children: [
                     Text(
                       'Grupo',
                       style: TextStyle(
@@ -130,7 +231,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                 ),
                 FutureBuilder<PreguntasPaginacion>(
                   future: getPreguntasCreatedByTerapeuta(
-                      paginaActual, preguntasPagina),
+                      paginaActual, preguntasPagina, txtBuscar, selectedGrupo),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
@@ -326,23 +427,57 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
       onPressed: () {
         _previousPage();
       },
-      child: Text('Anterior'),
+      child: Text(
+        'Anterior',
+        style: TextStyle(
+            fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.white),
+      ),
     );
 
     btnSiguiente = ElevatedButton(
       onPressed: () {
         _nextPage();
       },
-      child: Text('Siguiente'),
+      child: Text(
+        'Siguiente',
+        style: TextStyle(
+            fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.white),
+      ),
+    );
+
+    btnBuscar = ElevatedButton(
+      onPressed: () {
+        paginaActual = 1;
+        selectedGrupo = selectedGrupoAux;
+        txtBuscar = txtBuscarAux;
+        _loadPreguntas();
+      },
+      child: Text(
+        'Buscar',
+        style: TextStyle(
+            fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.white),
+      ),
     );
   }
 
   // Metodo para crear los cuadros de dialogo necesarios
   void _createDialogs() {}
 
+  // Método para obtener la lista de grupos de la BBDD
+  Future<void> _getGrupos() async {
+    try {
+      List<Grupo> gruposList = await getGrupos();
+      setState(() {
+        grupos = gruposList;
+      });
+    } catch (e) {
+      print("Error al obtener la lista de grupos: $e");
+    }
+  }
+
   Future<void> _loadPreguntas() async {
-    PreguntasPaginacion aux =
-        await getPreguntasCreatedByTerapeuta(paginaActual, preguntasPagina);
+    PreguntasPaginacion aux = await getPreguntasCreatedByTerapeuta(
+        paginaActual, preguntasPagina, txtBuscar, selectedGrupo);
 
     setState(() {
       this.preguntas = aux.preguntas;
