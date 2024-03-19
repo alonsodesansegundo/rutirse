@@ -1,4 +1,5 @@
 import 'package:TresEnUno/screens/rutinas/addRutina.dart';
+import 'package:TresEnUno/screens/rutinas/allProgress.dart';
 import 'package:TresEnUno/screens/rutinas/viewAddedRutinas.dart';
 import 'package:flutter/material.dart';
 
@@ -186,7 +187,12 @@ class _MenuTerapeutaState extends State<MenuTerapeuta> {
           fontSize: textSize,
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AllProgress()),
+        );
+      },
     );
 
     // boton para dar volver a la pantalla principal de rutinas
