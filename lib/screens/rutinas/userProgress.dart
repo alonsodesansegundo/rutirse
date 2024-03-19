@@ -235,6 +235,7 @@ class _UserProgressState extends State<UserProgress> {
               style: TextStyle(
                 fontFamily: 'ComicNeue',
                 fontSize: textHeaderSize,
+                fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
             ),
@@ -254,6 +255,7 @@ class _UserProgressState extends State<UserProgress> {
             style: TextStyle(
                 fontFamily: 'ComicNeue',
                 fontSize: textHeaderSize,
+                fontWeight: FontWeight.bold,
                 color: Colors.black),
           ),
         ],
@@ -271,6 +273,7 @@ class _UserProgressState extends State<UserProgress> {
             style: TextStyle(
                 fontFamily: 'ComicNeue',
                 fontSize: textHeaderSize,
+                fontWeight: FontWeight.bold,
                 color: Colors.black),
           ),
         ],
@@ -287,6 +290,7 @@ class _UserProgressState extends State<UserProgress> {
             style: TextStyle(
                 fontFamily: 'ComicNeue',
                 fontSize: textHeaderSize,
+                fontWeight: FontWeight.bold,
                 color: Colors.black),
           ),
         ],

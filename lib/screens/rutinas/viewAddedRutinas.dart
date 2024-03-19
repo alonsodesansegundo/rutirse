@@ -215,6 +215,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: columnText,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(width: grupoWidth * 0.5),
@@ -223,6 +224,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: columnText,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
