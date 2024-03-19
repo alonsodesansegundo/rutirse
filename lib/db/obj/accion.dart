@@ -80,3 +80,16 @@ Future<List<Accion>> getAcciones(int preguntaId) async {
     return [];
   }
 }
+
+void deleteAccion(Database database, int accionId) async {
+  try {
+    await database.delete(
+      'accion',
+      where: 'id = ?',
+      whereArgs: [accionId],
+    );
+    print('Instancia de accion con ID $accionId borrada correctamente.');
+  } catch (e) {
+    print('Error al borrar la instancia de accion: $e');
+  }
+}

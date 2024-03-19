@@ -174,6 +174,21 @@ Future<void> removePregunta(int preguntaId) async {
   }
 }
 
+Future<void> updatePregunta(Database database, int id, String enunciado,
+    List<int> imgPersonaje, int grupoId) async {
+  await database.update(
+    'pregunta',
+    {
+      'enunciado': enunciado,
+      'personajeImg': imgPersonaje,
+      'grupoId': grupoId,
+      'fecha': DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
+    },
+    where: 'id = ?',
+    whereArgs: [id],
+  );
+}
+
 void insertPreguntas(Database database) {
   insertPreguntaInitialDataAtencionT(database);
   insertPreguntaInitialDataInfancia(database);

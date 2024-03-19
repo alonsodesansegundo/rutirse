@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ElementAccion extends StatefulWidget {
+  int? id;
   String text1;
   int numberAccion;
   double textSize;
@@ -18,6 +19,7 @@ class ElementAccion extends StatefulWidget {
   bool flagAdolescencia;
 
   ElementAccion({
+    this.id = -1,
     required this.text1,
     required this.numberAccion,
     required this.textSize,
@@ -68,7 +70,7 @@ class _ElementAccionState extends State<ElementAccion> {
                       Container(
                         width: widget.espacioPadding * 4,
                         child: Text(
-                          "(máx. 24 caracteres)",
+                          "(máx. 30 caracteres)",
                           style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: widget.textSize * 0.5,
@@ -163,8 +165,6 @@ class _ElementAccionState extends State<ElementAccion> {
       widget.textSituacionWidth = screenSize.width - widget.espacioPadding * 2;
       widget.btnWidth = screenSize.width / 4;
       widget.btnHeight = screenSize.height / 10;
-
-      //_updateSizeAcciones();
     } else {
       widget.textSize = screenSize.width * 0.03;
       widget.espacioPadding = screenSize.height * 0.03;

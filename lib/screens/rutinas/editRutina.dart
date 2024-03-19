@@ -1,11 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:TresEnUno/db/obj/grupo.dart';
-import 'package:TresEnUno/db/obj/pregunta.dart';
-import 'package:TresEnUno/widgets/ArasaacAccionDialog.dart';
-import 'package:TresEnUno/widgets/ArasaacPersonajeDialog.dart';
-import 'package:TresEnUno/widgets/ElementAccion.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,36 +8,56 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../db/obj/accion.dart';
+import '../../db/obj/grupo.dart';
+import '../../db/obj/pregunta.dart';
+import '../../widgets/ArasaacAccionDialog.dart';
+import '../../widgets/ArasaacPersonajeDialog.dart';
+import '../../widgets/ElementAccion.dart';
 import '../../widgets/ImageTextButton.dart';
 
-class AddRutina extends StatefulWidget {
+class EditRutina extends StatefulWidget {
+  Pregunta pregunta;
+  Grupo grupo;
+
+  EditRutina({required this.pregunta, required this.grupo});
+
   @override
-  _AddRutinaState createState() => _AddRutinaState();
+  _EditRutinaState createState() => _EditRutinaState();
 }
 
-class _AddRutinaState extends State<AddRutina> {
+class _EditRutinaState extends State<EditRutina> {
+  late ImageTextButton btnVolver;
+
+  late Color colorSituacion, colorGrupo;
+
   double titleSize = 0.0,
       textSize = 0.0,
       espacioPadding = 0.0,
       espacioAlto = 0.0,
-      imgVolverHeight = 0.0,
+      imgHeight = 0.0,
+      imgWidth = 0.0,
       textSituacionWidth = 0.0,
       btnWidth = 0.0,
       btnHeight = 0.0,
-      imgWidth = 0.0;
-
-  late ImageTextButton btnVolver;
-
-  late List<Grupo> grupos;
-
-  Grupo? selectedGrupo; // Variable para almacenar el grupo seleccionado
-
-  late String situacionText, keywords;
+      imgVolverHeight = 0.0;
 
   late ElevatedButton btnPersonajeExistente,
       btnGaleria,
       btnArasaac,
       btnEliminarPersonaje;
+
+  late List<Grupo> grupos;
+
+  late List<ElementAccion> acciones, accionesToDelete;
+
+  late Grupo? selectedGrupo;
+
+  late String situacionText;
+
+  late List<String> personajes;
+
+  late List<int> personajeImage;
 
   late Dialog existPersonajeDialog;
 
@@ -52,33 +67,37 @@ class _AddRutinaState extends State<AddRutina> {
 
   late AlertDialog incompletedParamsDialog,
       completedParamsDialog,
-      noInternetDialog;
+      noInternetDialog,
+      removePreguntaOk;
 
-  late List<String> personajes;
-
-  late List<ElementAccion> acciones;
-
-  late bool firstLoad;
-
-  late List<int> personajeImage;
-
-  late Color colorSituacion, colorGrupo;
+  late bool firstLoad = true, changeGrupo;
 
   @override
   void initState() {
     super.initState();
     grupos = [];
-    _getGrupos();
-    situacionText = "";
-    keywords = "";
+    acciones = [];
+    accionesToDelete = [];
     personajes = [];
     _getExistsPersonajes('assets/img/personajes/');
-    firstLoad = false;
-    personajeImage = [];
-    acciones = [];
     selectedGrupo = null;
     colorSituacion = Colors.transparent;
     colorGrupo = Colors.transparent;
+    changeGrupo = false;
+
+    if (firstLoad) {
+      firstLoad = false;
+      _getGrupos();
+      situacionText = widget.pregunta.enunciado;
+      if (widget.pregunta.personajeImg != null) {
+        setState(() {
+          personajeImage = widget.pregunta.personajeImg!;
+        });
+      } else
+        personajeImage = [];
+
+      _loadAcciones();
+    }
   }
 
   @override
@@ -86,35 +105,6 @@ class _AddRutinaState extends State<AddRutina> {
     _updateVariablesSize();
     _createButtons();
     _createDialogs();
-    if (!firstLoad) {
-      firstLoad = true;
-      acciones = [
-        ElementAccion(
-          text1: 'Acción 1*:',
-          numberAccion: 1,
-          textSize: textSize,
-          espacioPadding: espacioPadding,
-          espacioAlto: espacioAlto,
-          btnWidth: btnWidth,
-          btnHeight: btnHeight,
-          onPressedGaleria: () => _selectNewActionGallery(0),
-          onPressedArasaac: () => _selectNewActionArasaac(0),
-          textSituacionWidth: textSituacionWidth * 0.75,
-        ),
-        ElementAccion(
-          text1: 'Acción 2*:',
-          numberAccion: 2,
-          textSize: textSize,
-          espacioPadding: espacioPadding,
-          espacioAlto: espacioAlto,
-          btnWidth: btnWidth,
-          btnHeight: btnHeight,
-          onPressedGaleria: () => _selectNewActionGallery(1),
-          onPressedArasaac: () => _selectNewActionArasaac(1),
-          textSituacionWidth: textSituacionWidth * 0.75,
-        ),
-      ];
-    }
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -137,7 +127,7 @@ class _AddRutinaState extends State<AddRutina> {
                         ),
                       ),
                       Text(
-                        'Añadir rutina',
+                        'Editar pregunta',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: titleSize / 2,
@@ -153,7 +143,7 @@ class _AddRutinaState extends State<AddRutina> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Aquí puedes crear nuevas rutinas para el juego.',
+                      'Aquí tienes la posibilidad de editar la pregunta sobre la rutina y sus opciones o acciones, incluso el grupo al que pertenece.',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: textSize,
@@ -184,7 +174,7 @@ class _AddRutinaState extends State<AddRutina> {
                             left: espacioPadding,
                           ),
                           hint: Text(
-                            'Selecciona el grupo',
+                            widget.grupo.nombre,
                             style: TextStyle(
                               fontFamily: 'ComicNeue',
                               fontSize: textSize,
@@ -205,6 +195,7 @@ class _AddRutinaState extends State<AddRutina> {
                           }).toList(),
                           onChanged: (Grupo? grupo) {
                             setState(() {
+                              changeGrupo = true;
                               selectedGrupo = grupo;
                               acciones = acciones.map((accion) {
                                 return ElementAccion(
@@ -222,7 +213,7 @@ class _AddRutinaState extends State<AddRutina> {
                                   accionImage: accion.accionImage,
                                   color: accion.color,
                                   flagAdolescencia:
-                                      selectedGrupo?.nombre == "Adolescencia",
+                                      selectedGrupo!.nombre == "Adolescencia",
                                 );
                               }).toList();
                             });
@@ -248,6 +239,7 @@ class _AddRutinaState extends State<AddRutina> {
                   color: colorSituacion,
                 ),
                 child: TextField(
+                  controller: TextEditingController(text: this.situacionText),
                   onChanged: (text) {
                     this.situacionText = text;
                   },
@@ -257,7 +249,6 @@ class _AddRutinaState extends State<AddRutina> {
                   ),
                 ),
               ),
-
               SizedBox(height: espacioAlto), // Espacio entre los textos
               Row(
                 crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -293,11 +284,12 @@ class _AddRutinaState extends State<AddRutina> {
                   if (personajeImage.isNotEmpty)
                     Container(
                       child: Align(
-                          alignment: Alignment.center,
-                          child: Image.memory(
-                            Uint8List.fromList(personajeImage),
-                            width: imgWidth,
-                          )),
+                        alignment: Alignment.center,
+                        child: Image.memory(
+                          Uint8List.fromList(personajeImage),
+                          width: imgWidth,
+                        ),
+                      ),
                     ),
                 ],
               ),
@@ -379,7 +371,6 @@ class _AddRutinaState extends State<AddRutina> {
                       textStyle: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: textSize,
-                        color: Colors.blue,
                       ),
                     ),
                     onPressed: () {
@@ -391,7 +382,7 @@ class _AddRutinaState extends State<AddRutina> {
                           },
                         );
                       } else {
-                        _addRutina();
+                        _editRutina();
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -400,7 +391,92 @@ class _AddRutinaState extends State<AddRutina> {
                         );
                       }
                     },
-                    child: Text("Añadir rutina"),
+                    child: Text("Editar rutina"),
+                  ),
+                ],
+              ),
+              SizedBox(height: espacioAlto / 3),
+              Row(
+                children: [
+                  const Spacer(), // Agrega un espacio flexible
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(btnWidth, btnHeight / 2),
+                      backgroundColor: Colors.red,
+                      textStyle: TextStyle(
+                        fontFamily: 'ComicNeue',
+                        fontSize: textSize,
+                      ),
+                    ),
+                    onPressed: () {
+                      AlertDialog aux = AlertDialog(
+                        title: Text(
+                          'Aviso',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize * 0.75,
+                          ),
+                        ),
+                        content: Text(
+                          'Estás a punto de eliminar la siguiente pregunta del grupo ${widget.grupo.nombre}:\n'
+                          '${widget.pregunta.enunciado}\n'
+                          '¿Estás seguro de ello?',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
+                          ),
+                        ),
+                        actions: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  _removePregunta(widget.pregunta.id!);
+                                  Navigator.of(context).pop();
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return removePreguntaOk;
+                                    },
+                                  );
+                                },
+                                child: Text(
+                                  'Sí, eliminar',
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: espacioPadding,
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text(
+                                  'Cancelar',
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return aux;
+                        },
+                      );
+                    },
+                    child: Text("Eliminar rutina"),
                   ),
                 ],
               ),
@@ -411,35 +487,7 @@ class _AddRutinaState extends State<AddRutina> {
     );
   }
 
-  // Método para obtener la lista de grupos de la BBDD
-  Future<void> _getGrupos() async {
-    try {
-      List<Grupo> gruposList = await getGrupos();
-      setState(() {
-        grupos = gruposList;
-      });
-    } catch (e) {
-      print("Error al obtener la lista de grupos: $e");
-    }
-  }
-
-  // Método para obtener todos los path de los personajes
-  Future<List<String>> _getExistsPersonajes(String folderPath) async {
-    final manifestContent = await rootBundle.loadString('AssetManifest.json');
-    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
-
-    final List<String> imagePaths = manifestMap.keys
-        .where((String key) => key.startsWith(folderPath))
-        .toList();
-
-    setState(() {
-      personajes = imagePaths;
-    });
-
-    return imagePaths;
-  }
-
-  // Método para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
   void _updateVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
@@ -451,6 +499,7 @@ class _AddRutinaState extends State<AddRutina> {
       textSize = screenSize.width * 0.02;
       espacioPadding = screenSize.height * 0.06;
       espacioAlto = screenSize.height * 0.03;
+      imgHeight = screenSize.height / 7;
       imgVolverHeight = screenSize.height / 10;
       textSituacionWidth = screenSize.width - espacioPadding * 2;
       btnWidth = screenSize.width / 4;
@@ -461,6 +510,7 @@ class _AddRutinaState extends State<AddRutina> {
       textSize = screenSize.width * 0.03;
       espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.03;
+      imgHeight = screenSize.height / 9;
       imgVolverHeight = screenSize.height / 32;
       textSituacionWidth = screenSize.width - espacioPadding * 2;
       btnWidth = screenSize.width / 3;
@@ -675,7 +725,7 @@ class _AddRutinaState extends State<AddRutina> {
         ),
       ),
       content: Text(
-        'La rutina no se ha podido añadir, revisa que has completado todos los campos obligatorios'
+        'La rutina no se ha podido editar, revisa que has completado todos los campos obligatorios'
         ' y recuerda que la descripción de una acción no puede'
         ' tener una longitud mayor a 30 caracteres.\n\n'
         'Por favor, revisa todos los campos e inténtalo de nuevo.',
@@ -712,7 +762,7 @@ class _AddRutinaState extends State<AddRutina> {
         ),
       ),
       content: Text(
-        'La rutina se ha añadido con éxito. Agradecemos tu colaboración, y los jugadores seguro que todavía más!',
+        'La rutina se ha editado con éxito. Agradecemos tu colaboración, y los jugadores seguro que todavía más!',
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,
@@ -770,18 +820,44 @@ class _AddRutinaState extends State<AddRutina> {
         )
       ],
     );
-  }
 
-  // Método para cuando selecciono un personaje ya existente
-  Future<void> _selectExistPersonaje(
-      BuildContext context, String imagePath) async {
-    ByteData imageData = await rootBundle.load(imagePath);
-    List<int> bytes = imageData.buffer.asUint8List();
-
-    setState(() {
-      personajeImage = bytes;
-    });
-    Navigator.of(context).pop();
+    removePreguntaOk = AlertDialog(
+      title: Text(
+        'Éxito',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: titleSize * 0.75,
+        ),
+      ),
+      content: Text(
+        'La pregunta ha sido eliminada correctamente.\n'
+        '¡Muchas gracias por tu colaboración!',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: textSize,
+        ),
+      ),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Aceptar',
+                style: TextStyle(
+                  fontFamily: 'ComicNeue',
+                  fontSize: textSize,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 
   // Método para seleccionar un nuevo personaje desde la galería
@@ -847,6 +923,18 @@ class _AddRutinaState extends State<AddRutina> {
     }
   }
 
+  // Método para cuando selecciono un personaje ya existente
+  Future<void> _selectExistPersonaje(
+      BuildContext context, String imagePath) async {
+    ByteData imageData = await rootBundle.load(imagePath);
+    List<int> bytes = imageData.buffer.asUint8List();
+
+    setState(() {
+      personajeImage = bytes;
+    });
+    Navigator.of(context).pop();
+  }
+
   // método para añadir un nuevo ElementAccion
   void _addAccion() {
     setState(() {
@@ -872,8 +960,9 @@ class _AddRutinaState extends State<AddRutina> {
   }
 
   // método para eliminar el ultimo ElementAccion
-  void _removeAccion() {
+  Future<void> _removeAccion() async {
     setState(() {
+      accionesToDelete.add(acciones[acciones.length - 1]);
       acciones.removeLast();
     });
   }
@@ -881,14 +970,6 @@ class _AddRutinaState extends State<AddRutina> {
   // Método para comprobar que los parametros obligatorios están completos
   bool _completedParams() {
     bool correct = true;
-    // compruebo que todos los parametros obligatorios están completos
-    if (selectedGrupo == null) {
-      correct = false;
-      setState(() {
-        colorGrupo = Colors.red;
-      });
-    } else
-      colorGrupo = Colors.transparent;
 
     if (situacionText.trim().isEmpty) {
       correct = false;
@@ -913,40 +994,117 @@ class _AddRutinaState extends State<AddRutina> {
     return correct;
   }
 
-  // Método para añadir una pregunta y sus acciones
-  Future<void> _addRutina() async {
-    int preguntaId = await _addPregunta();
-    _addAcciones(preguntaId);
+  // Método para editar una pregunta y sus acciones
+  Future<void> _editRutina() async {
+    _editPregunta();
+    _editAcciones();
   }
 
-  // Método para añadir una pregunta a la BBDD
-  Future<int> _addPregunta() async {
-    int preguntaId;
+  // Método para editar una pregunta de la BBDD
+  Future<void> _editPregunta() async {
     Database db = await openDatabase('rutinas.db');
-
-    preguntaId = await insertPregunta(db, situacionText,
+    if (!changeGrupo) {
+      selectedGrupo = widget.grupo;
+    }
+    await updatePregunta(db, widget.pregunta.id!, situacionText,
         Uint8List.fromList(personajeImage), selectedGrupo!.id);
-    return preguntaId;
   }
 
-  Future<void> _addAcciones(int preguntaId) async {
+  // Método para editar acciones de la BBDD
+  Future<void> _editAcciones() async {
     Database db = await openDatabase('rutinas.db');
     for (int i = 0; i < acciones.length; i++) {
       if (selectedGrupo!.nombre != "Adolescencia")
-        await db.rawInsert(
-          'INSERT INTO accion (texto, orden, imagen, preguntaId) VALUES (?,?,?,?)',
-          [
-            acciones[i].accionText,
-            i,
-            Uint8List.fromList(acciones[i].accionImage),
-            preguntaId
-          ],
+        await db.update(
+          'accion',
+          {
+            'texto': acciones[i].accionText,
+            'orden': i,
+            'imagen': acciones[i].accionImage,
+            'preguntaId': widget.pregunta.id,
+          },
+          where: 'id = ?',
+          whereArgs: [acciones[i].id],
         );
       else
-        await db.rawInsert(
-          'INSERT INTO accion (texto, orden, imagen, preguntaId) VALUES (?,?,?,?)',
-          ["", i, Uint8List.fromList(acciones[i].accionImage), preguntaId],
+        await db.update(
+          'accion',
+          {
+            'texto': "",
+            'orden': i,
+            'imagen': acciones[i].accionImage,
+            'preguntaId': widget.pregunta.id,
+          },
+          where: 'id = ?',
+          whereArgs: [acciones[i].id],
         );
     }
+    for (int i = 0; i < accionesToDelete.length; i++)
+      deleteAccion(db, accionesToDelete[i].id!);
+  }
+
+  // Método para obtener la lista de grupos de la BBDD
+  Future<void> _getGrupos() async {
+    try {
+      List<Grupo> gruposList = await getGrupos();
+      setState(() {
+        grupos = gruposList;
+      });
+    } catch (e) {
+      print("Error al obtener la lista de grupos: $e");
+    }
+  }
+
+  // Método para cargar las acciones de la pregunta seleccionada
+  void _loadAcciones() async {
+    List<Accion> aux = await getAcciones(widget.pregunta.id!);
+
+    for (int i = 0; i < aux.length; i++) {
+      String txt;
+      if (i == 0 || i == 1)
+        txt = "Acción ${i + 1}*:";
+      else
+        txt = "Acción ${i + 1}:";
+
+      ElementAccion elementAccion = new ElementAccion(
+        id: aux[i].id,
+        text1: txt,
+        numberAccion: i + 1,
+        textSize: textSize,
+        espacioPadding: espacioPadding,
+        espacioAlto: espacioAlto,
+        btnWidth: btnWidth,
+        btnHeight: btnHeight,
+        textSituacionWidth: textSituacionWidth,
+        onPressedGaleria: () => _selectNewActionGallery(i),
+        onPressedArasaac: () => _selectNewActionArasaac(i),
+        accionText: aux[i].texto,
+        flagAdolescencia: widget.grupo.nombre == "Adolescencia",
+        accionImage: aux[i].imagen!.toList(),
+      );
+      setState(() {
+        this.acciones.add(elementAccion);
+      });
+    }
+  }
+
+  void _removePregunta(int preguntaId) {
+    removePregunta(preguntaId);
+  }
+
+  // Método para obtener todos los path de los personajes
+  Future<List<String>> _getExistsPersonajes(String folderPath) async {
+    final manifestContent = await rootBundle.loadString('AssetManifest.json');
+    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
+
+    final List<String> imagePaths = manifestMap.keys
+        .where((String key) => key.startsWith(folderPath))
+        .toList();
+
+    setState(() {
+      personajes = imagePaths;
+    });
+
+    return imagePaths;
   }
 }

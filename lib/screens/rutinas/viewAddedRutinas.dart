@@ -4,6 +4,7 @@ import '../../db/obj/grupo.dart';
 import '../../db/obj/pregunta.dart';
 import '../../obj/PreguntasPaginacion.dart';
 import '../../widgets/ImageTextButton.dart';
+import 'editRutina.dart';
 
 class ViewAddedRutinas extends StatefulWidget {
   @override
@@ -266,8 +267,16 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                                         final grupo = snapshot.data;
                                         return GestureDetector(
                                           onTap: () {
-                                            print(
-                                                'Pregunta ID: ${pregunta.id}');
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    EditRutina(
+                                                  pregunta: pregunta,
+                                                  grupo: grupo,
+                                                ),
+                                              ),
+                                            ).then((value) => _loadPreguntas());
                                           },
                                           child: Container(
                                             child: Row(
@@ -319,8 +328,18 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                                                     IconButton(
                                                       icon: Icon(Icons.edit),
                                                       onPressed: () {
-                                                        print(
-                                                            'Editar pregunta con ID: ${pregunta.id}');
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    EditRutina(
+                                                              pregunta:
+                                                                  pregunta,
+                                                              grupo: grupo,
+                                                            ),
+                                                          ),
+                                                        );
                                                       },
                                                     ),
                                                     IconButton(
