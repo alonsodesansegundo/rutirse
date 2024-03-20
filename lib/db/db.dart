@@ -3,6 +3,8 @@ import 'package:sqflite/sqflite.dart';
 
 import 'obj/accion.dart';
 import 'obj/grupo.dart';
+import 'obj/jugador.dart';
+import 'obj/partida.dart';
 import 'obj/pregunta.dart';
 
 String pathPersonajes = "assets/img/personajes/";
@@ -22,8 +24,9 @@ Future<Database> initializeDB() async {
 
       // INSERCCIONES DE RUTINAS POR TERAPEUTA PARA PRUEBAS
       insertDataTerapeutaTest();
+      insertDefaultJugadoresPartidasTest();
     },
-    version: 2,
+    version: 1,
   );
 }
 
@@ -207,4 +210,102 @@ Future<void> insertDataTerapeutaTest() async {
       pathRutinas + "higiene/peinarse/4.LimpiarPeine.png", id_P6);
   insertAccionInitialDataTerapeutaTest(database, 'Guardar el peine', 3,
       pathRutinas + "higiene/peinarse/3.GuardarPeine.png", id_P6);
+}
+
+Future<void> insertDefaultJugadoresPartidasTest() async {
+  Database database = await initializeDB();
+  print("Hola 3");
+
+  Jugador j1 = new Jugador(nombre: "Jugador 1", grupoId: 1);
+  Jugador j2 = new Jugador(nombre: "Jugador 2", grupoId: 2);
+  Jugador j3 = new Jugador(nombre: "Jugador 3", grupoId: 3);
+  print("Hola 4");
+
+  j1 = await insertJugadorDefault(database, j1);
+  print("Hola 5");
+
+  j2 = await insertJugadorDefault(database, j2);
+  print("Hola 6");
+  j3 = await insertJugadorDefault(database, j3);
+
+  Partida p1 = new Partida(
+      fechaFin: "10/01/2024",
+      duracionSegundos: 180,
+      aciertos: 5,
+      fallos: 5,
+      jugadorId: j1.id!);
+
+  insertPartidaDefault(database, p1);
+
+  Partida p2 = new Partida(
+      fechaFin: "11/01/2024",
+      duracionSegundos: 190,
+      aciertos: 7,
+      fallos: 3,
+      jugadorId: j2.id!);
+
+  insertPartidaDefault(database, p2);
+
+  Partida p3 = new Partida(
+      fechaFin: "12/01/2024",
+      duracionSegundos: 200,
+      aciertos: 4,
+      fallos: 6,
+      jugadorId: j3.id!);
+
+  insertPartidaDefault(database, p3);
+
+  Partida p4 = new Partida(
+      fechaFin: "10/02/2024",
+      duracionSegundos: 243,
+      aciertos: 8,
+      fallos: 2,
+      jugadorId: j1.id!);
+
+  insertPartidaDefault(database, p4);
+
+  Partida p5 = new Partida(
+      fechaFin: "11/02/2024",
+      duracionSegundos: 222,
+      aciertos: 10,
+      fallos: 3,
+      jugadorId: j2.id!);
+
+  insertPartidaDefault(database, p5);
+
+  Partida p6 = new Partida(
+      fechaFin: "12/02/2024",
+      duracionSegundos: 233,
+      aciertos: 6,
+      fallos: 3,
+      jugadorId: j3.id!);
+
+  insertPartidaDefault(database, p6);
+
+  Partida p7 = new Partida(
+      fechaFin: "10/03/2024",
+      duracionSegundos: 223,
+      aciertos: 10,
+      fallos: 2,
+      jugadorId: j1.id!);
+
+  insertPartidaDefault(database, p7);
+
+  Partida p8 = new Partida(
+      fechaFin: "11/03/2024",
+      duracionSegundos: 232,
+      aciertos: 12,
+      fallos: 1,
+      jugadorId: j2.id!);
+
+  insertPartidaDefault(database, p8);
+
+  Partida p9 = new Partida(
+      fechaFin: "12/02/2024",
+      duracionSegundos: 303,
+      aciertos: 10,
+      fallos: 0,
+      jugadorId: j3.id!);
+
+  insertPartidaDefault(database, p9);
 }

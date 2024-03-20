@@ -50,6 +50,21 @@ Future<int> insertPartida(Partida partida) async {
   return id;
 }
 
+Future<void> insertPartidaDefault(Database database, Partida partida) async {
+  await database.transaction((txn) async {
+    int id = await txn.rawInsert(
+      "INSERT INTO partida (aciertos, fallos, fechaFin, duracionSegundos, jugadorId) VALUES (?, ?, ?, ?, ?)",
+      [
+        partida.aciertos,
+        partida.fallos,
+        partida.fechaFin,
+        partida.duracionSegundos,
+        partida.jugadorId
+      ],
+    );
+  });
+}
+
 // Método para obtener las partidas de un jugador dado su userId
 Future<List<Partida>> getPartidasByUserId(int jugadorId) async {
   Database database = await initializeDB();

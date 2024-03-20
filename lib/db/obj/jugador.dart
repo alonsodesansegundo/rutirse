@@ -54,3 +54,18 @@ Future<bool> existeJugador(Jugador jugador, Database database) async {
   );
   return result.isNotEmpty;
 }
+
+Future<Jugador> insertJugadorDefault(Database database, Jugador jugador) async {
+  Jugador sol = jugador;
+  await database.transaction((txn) async {
+    int id = await txn.rawInsert(
+      "INSERT INTO jugador (nombre, grupoId) VALUES (?, ?)",
+      [
+        jugador.nombre,
+        jugador.grupoId,
+      ],
+    );
+    sol = Jugador(id: id, nombre: jugador.nombre, grupoId: jugador.grupoId);
+  });
+  return sol;
+}
