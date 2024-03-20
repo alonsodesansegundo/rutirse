@@ -20,9 +20,6 @@ class _AllProgressState extends State<AllProgress> {
       imgHeight = 0.0,
       textHeaderSize = 0.0,
       imgVolverHeight = 0.0,
-      espacio1 = 0.0,
-      espacio2 = 0.0,
-      espacio3 = 0.0,
       widthFecha = 0.0,
       widthJugador = 0.0,
       widthAciertos = 0.0,
@@ -72,8 +69,6 @@ class _AllProgressState extends State<AllProgress> {
   Widget build(BuildContext context) {
     _updateVariablesSize();
     _createButtons();
-    _createCabecerasTabla();
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -227,40 +222,49 @@ class _AllProgressState extends State<AllProgress> {
               Row(
                 children: [
                   SizedBox(width: espacioPadding / 2),
-                  Text(
-                    'Fecha',
-                    style: TextStyle(
-                      fontFamily: 'ComicNeue',
-                      fontSize: textHeaderSize,
-                      fontWeight: FontWeight.bold,
+                  Container(
+                    width: widthFecha,
+                    child: Text(
+                      'Fecha',
+                      style: TextStyle(
+                        fontFamily: 'ComicNeue',
+                        fontSize: textHeaderSize,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  SizedBox(width: espacio1),
-                  Text(
-                    'Jugador\n(grupo)',
-                    style: TextStyle(
-                      fontFamily: 'ComicNeue',
-                      fontSize: textHeaderSize,
-                      fontWeight: FontWeight.bold,
+                  Container(
+                    width: widthJugador,
+                    child: Text(
+                      'Jugador\n(grupo)',
+                      style: TextStyle(
+                        fontFamily: 'ComicNeue',
+                        fontSize: textHeaderSize,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  SizedBox(width: espacio2),
-                  Text(
-                    'Aciertos\n'
-                    '(de X intentos)',
-                    style: TextStyle(
-                      fontFamily: 'ComicNeue',
-                      fontSize: textHeaderSize,
-                      fontWeight: FontWeight.bold,
+                  Container(
+                    width: widthAciertos,
+                    child: Text(
+                      'Aciertos\n'
+                      '(de X intentos)',
+                      style: TextStyle(
+                        fontFamily: 'ComicNeue',
+                        fontSize: textHeaderSize,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  SizedBox(width: espacio3),
-                  Text(
-                    'Duración',
-                    style: TextStyle(
-                      fontFamily: 'ComicNeue',
-                      fontSize: textHeaderSize,
-                      fontWeight: FontWeight.bold,
+                  Container(
+                    width: widthDuracion,
+                    child: Text(
+                      'Duración',
+                      style: TextStyle(
+                        fontFamily: 'ComicNeue',
+                        fontSize: textHeaderSize,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],
@@ -289,78 +293,56 @@ class _AllProgressState extends State<AllProgress> {
                           margin: EdgeInsets.only(bottom: espacioAlto),
                           child: Row(
                             children: [
+                              SizedBox(width: espacioPadding / 2),
                               Container(
                                 width: widthFecha,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      _getFecha(partida.fechaFin),
-                                      style: TextStyle(
-                                        fontFamily: 'ComicNeue',
-                                        fontSize: textSize * 0.6,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ],
+                                child: Text(
+                                  _getFecha(partida.fechaFin),
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize * 0.6,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
-                              SizedBox(width: espacioPadding),
                               Container(
                                 width: widthJugador,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      partida.jugadorName +
-                                          "\n(" +
-                                          partida.grupoName +
-                                          ")",
-                                      style: TextStyle(
-                                        fontFamily: 'ComicNeue',
-                                        fontSize: textSize * 0.6,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ],
+                                child: Text(
+                                  partida.jugadorName +
+                                      "\n(" +
+                                      partida.grupoName +
+                                      ")",
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize * 0.6,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
-                              SizedBox(width: espacioPadding),
                               Container(
                                 width: widthAciertos,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      partida.aciertos.toString() +
-                                          " (de " +
-                                          (partida.fallos + partida.aciertos)
-                                              .toString() +
-                                          ")",
-                                      style: TextStyle(
-                                        fontFamily: 'ComicNeue',
-                                        fontSize: textSize * 0.6,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ],
+                                child: Text(
+                                  partida.aciertos.toString() +
+                                      " (de " +
+                                      (partida.fallos + partida.aciertos)
+                                          .toString() +
+                                      ")",
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize * 0.6,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
-                              SizedBox(width: espacioPadding),
                               Container(
                                 width: widthFecha,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      _getTime(partida.duracionSegundos),
-                                      style: TextStyle(
-                                        fontFamily: 'ComicNeue',
-                                        fontSize: textSize * 0.6,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ],
+                                child: Text(
+                                  _getTime(partida.duracionSegundos),
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize * 0.6,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
                             ],
@@ -400,6 +382,23 @@ class _AllProgressState extends State<AllProgress> {
     );
   }
 
+  double getWidthOfText(String text, BuildContext context) {
+    final TextSpan span = TextSpan(
+      text: text,
+      style: TextStyle(
+        fontFamily: 'ComicNeue',
+        fontSize: textHeaderSize,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+    final TextPainter tp = TextPainter(
+      text: span,
+      textDirection: TextDirection.ltr,
+    );
+    tp.layout(maxWidth: MediaQuery.of(context).size.width);
+    return tp.width;
+  }
+
   void _updateVariablesSize() {
     Size screenSize = MediaQuery.of(context).size;
 
@@ -414,13 +413,26 @@ class _AllProgressState extends State<AllProgress> {
       imgHeight = screenSize.height / 4;
       imgVolverHeight = screenSize.height / 10;
       textHeaderSize = screenSize.width * 0.015;
-      espacio1 = screenSize.width * 0.06;
-      espacio2 = screenSize.width * 0.24;
-      espacio3 = screenSize.width * 0.08;
-      widthFecha = espacioPadding + espacio1;
-      widthJugador = espacioPadding * 1.1 + espacio2;
-      widthAciertos = espacioPadding * 2.7 + espacio3;
-      widthDuracion = espacioPadding + espacio1;
+      widthFecha = getWidthOfText(
+            'Fecha de \nla partida',
+            context,
+          ) *
+          2;
+      widthJugador = getWidthOfText(
+            'Usuario\n(grupo)',
+            context,
+          ) *
+          4.5;
+      widthAciertos = getWidthOfText(
+            'Rutinas completas\n(de XX intentos)',
+            context,
+          ) *
+          1.5;
+      widthDuracion = getWidthOfText(
+            'Duración',
+            context,
+          ) *
+          1.5;
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
@@ -429,13 +441,26 @@ class _AllProgressState extends State<AllProgress> {
       imgHeight = screenSize.width / 5;
       imgVolverHeight = screenSize.height / 32;
       textHeaderSize = screenSize.width * 0.019;
-      espacio1 = screenSize.width * 0.08;
-      espacio2 = screenSize.width * 0.24;
-      espacio3 = screenSize.width * 0.08;
-      widthFecha = espacioPadding + espacio1;
-      widthJugador = espacioPadding * 0.75 + espacio2;
-      widthAciertos = espacioPadding * 2.2 + espacio3;
-      widthDuracion = espacioPadding + espacio1;
+      widthFecha = getWidthOfText(
+            'Fecha de \nla partida',
+            context,
+          ) *
+          2;
+      widthJugador = getWidthOfText(
+            'Usuario\n(grupo)',
+            context,
+          ) *
+          4.5;
+      widthAciertos = getWidthOfText(
+            'Rutinas completas\n(de XX intentos)',
+            context,
+          ) *
+          1.5;
+      widthDuracion = getWidthOfText(
+            'Duración',
+            context,
+          ) *
+          1.5;
     }
   }
 
@@ -492,74 +517,6 @@ class _AllProgressState extends State<AllProgress> {
         'Buscar',
         style: TextStyle(
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.white),
-      ),
-    );
-  }
-
-  void _createCabecerasTabla() {
-    cabeceraFecha = DataColumn(
-      label: Container(
-        child: Column(
-          children: [
-            Text(
-              'Fecha de \nla partida',
-              style: TextStyle(
-                fontFamily: 'ComicNeue',
-                fontSize: textHeaderSize,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-
-    cabeceraUsuario = DataColumn(
-      label: Container(
-        child: Column(
-          children: [
-            Text(
-              'Usuario\n(grupo)',
-              style: TextStyle(
-                fontFamily: 'ComicNeue',
-                fontSize: textHeaderSize,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-
-    cabeceraProgreso = DataColumn(
-      label: Column(
-        children: [
-          Text(
-            'Rutinas completas\n(de XX intentos)',
-            style: TextStyle(
-                fontFamily: 'ComicNeue',
-                fontSize: textHeaderSize,
-                fontWeight: FontWeight.bold,
-                color: Colors.black),
-          ),
-        ],
-      ),
-    );
-
-    cabeceraDuracion = DataColumn(
-      label: Column(
-        children: [
-          Text(
-            'Duración',
-            style: TextStyle(
-                fontFamily: 'ComicNeue',
-                fontSize: textHeaderSize,
-                fontWeight: FontWeight.bold,
-                color: Colors.black),
-          ),
-        ],
       ),
     );
   }

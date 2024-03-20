@@ -210,23 +210,28 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
 
                 Row(
                   children: [
-                    Text(
-                      'Grupo',
-                      style: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: columnText,
-                        fontWeight: FontWeight.bold,
+                    Container(
+                      width: grupoWidth,
+                      child: Text(
+                        'Grupo',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: columnText,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                    SizedBox(width: grupoWidth * 0.5),
-                    Text(
-                      'Pregunta',
-                      style: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: columnText,
-                        fontWeight: FontWeight.bold,
+                    Container(
+                      width: enunciadoWidth,
+                      child: Text(
+                        'Pregunta',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: columnText,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
+                    )
                   ],
                 ),
 
@@ -493,6 +498,23 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
     );
   }
 
+  double getWidthOfText(String text, BuildContext context) {
+    final TextSpan span = TextSpan(
+      text: text,
+      style: TextStyle(
+        fontFamily: 'ComicNeue',
+        fontSize: columnText,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+    final TextPainter tp = TextPainter(
+      text: span,
+      textDirection: TextDirection.ltr,
+    );
+    tp.layout(maxWidth: MediaQuery.of(context).size.width);
+    return tp.width;
+  }
+
   // Método para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
   void _updateVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
@@ -512,8 +534,16 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
       imgWidth = screenSize.width / 4;
       columnText = screenSize.width * 0.015;
       celdaText = screenSize.width * 0.0125;
-      enunciadoWidth = screenSize.width / 2;
-      grupoWidth = screenSize.width / 9;
+      enunciadoWidth = getWidthOfText(
+            'Grupo',
+            context,
+          ) *
+          17;
+      grupoWidth = getWidthOfText(
+            'Grupo',
+            context,
+          ) +
+          espacioPadding * 2;
       espacioCeldas = espacioPadding * 1.75;
     } else {
       titleSize = screenSize.width * 0.10;
@@ -527,8 +557,16 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
       imgWidth = screenSize.width / 4;
       columnText = screenSize.width * 0.025;
       celdaText = screenSize.width * 0.02;
-      enunciadoWidth = screenSize.width / 2;
-      grupoWidth = screenSize.width / 5;
+      enunciadoWidth = getWidthOfText(
+            'Grupo',
+            context,
+          ) *
+          8;
+      grupoWidth = getWidthOfText(
+            'Grupo',
+            context,
+          ) +
+          espacioPadding * 2;
       espacioCeldas = espacioPadding;
     }
   }
