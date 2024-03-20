@@ -374,6 +374,9 @@ class _EditRutinaState extends State<EditRutina> {
                       ),
                     ),
                     onPressed: () {
+                      if (!changeGrupo) {
+                        selectedGrupo = widget.grupo;
+                      }
                       if (!_completedParams()) {
                         showDialog(
                           context: context,
@@ -1003,9 +1006,6 @@ class _EditRutinaState extends State<EditRutina> {
   // Método para editar una pregunta de la BBDD
   Future<void> _editPregunta() async {
     Database db = await openDatabase('rutinas.db');
-    if (!changeGrupo) {
-      selectedGrupo = widget.grupo;
-    }
     await updatePregunta(db, widget.pregunta.id!, situacionText,
         Uint8List.fromList(personajeImage), selectedGrupo!.id);
   }
