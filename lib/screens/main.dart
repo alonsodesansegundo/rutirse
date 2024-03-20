@@ -1,3 +1,4 @@
+import 'package:TresEnUno/screens/homeTerapeuta.dart';
 import 'package:TresEnUno/screens/rutinas/homeRutinas.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -122,10 +123,28 @@ class _MainState extends State<Main> {
                     fontSize: textSize,
                   ),
                 ),
-                SizedBox(height: espacioAlto), // Espacio entre los textos
-
+                SizedBox(height: espacioAlto),
                 Row(
                   children: [
+                    SizedBox(width: espacioPadding),
+                    ImageTextButton(
+                      image: Image.asset('assets/img/botones/terapeuta.png',
+                          height: imgHeight),
+                      text: Text(
+                        'Soy terapeuta',
+                        style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
+                            color: Colors.black),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeTerapeuta()),
+                        );
+                      },
+                    ),
                     SizedBox(
                       width: espacioPadding,
                     ),
@@ -212,7 +231,7 @@ class _MainState extends State<Main> {
     btnInfo = ImageTextButton(
       image: Image.asset(
         'assets/img/botones/info.png',
-        height: imgHeight / 2,
+        height: imgHeight,
       ),
       text: Text(
         'Acerca de',

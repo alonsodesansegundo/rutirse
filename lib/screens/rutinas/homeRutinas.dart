@@ -7,7 +7,6 @@ import '../../provider/MyProvider.dart';
 import '../../widgets/ImageTextButton.dart';
 import 'ayuda.dart';
 import 'jugar.dart';
-import 'menuTerapeuta.dart';
 
 class HomeRutinas extends StatefulWidget {
   @override
@@ -254,25 +253,6 @@ class _HomeRutinasState extends State<HomeRutinas> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => Ayuda(origen: 'home')),
-                        );
-                      },
-                    ),
-                    SizedBox(width: espacioPadding),
-                    ImageTextButton(
-                      image: Image.asset('assets/img/botones/terapeuta.png',
-                          width: imgWidth, height: imgHeight),
-                      text: Text(
-                        'Soy terapeuta',
-                        style: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: textSize,
-                            color: Colors.black),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MenuTerapeuta()),
                         );
                       },
                     ),
