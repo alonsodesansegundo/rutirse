@@ -43,7 +43,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
 
   Grupo? selectedGrupo, selectedGrupoAux;
 
-  late String txtBuscar, txtBuscarAux;
+  late String txtBuscar = "", txtBuscarAux;
 
   late AlertDialog removePreguntaOk;
 
@@ -242,10 +242,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                       return Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
                       return Center(child: Text('Error: ${snapshot.error}'));
-                    } else {
-                      final preguntas = snapshot.data!.preguntas;
-                      hayMasPreguntas = snapshot.data!.hayMasPreguntas;
-
+                    } else if (preguntas.isNotEmpty) {
                       return Column(
                         children: [
                           ListView.builder(
@@ -462,6 +459,16 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                           ),
                         ],
                       );
+                    } else {
+                      return Text(
+                        "No hemos encontrado resultados.\n"
+                        "¡Te ánimamos a que crees nuevas preguntas sobre rutinas!",
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: textSize,
+                          color: Colors.black,
+                        ),
+                      );
                     }
                   },
                 ),
@@ -543,6 +550,9 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
     );
 
     btnAnterior = ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.blueGrey,
+      ),
       onPressed: () {
         _previousPage();
       },
@@ -554,6 +564,9 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
     );
 
     btnSiguiente = ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.blueGrey,
+      ),
       onPressed: () {
         _nextPage();
       },
@@ -569,6 +582,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
         paginaActual = 1;
         selectedGrupo = selectedGrupoAux;
         txtBuscar = txtBuscarAux;
+        FocusScope.of(context).unfocus();
         _loadPreguntas();
       },
       child: Text(

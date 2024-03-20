@@ -19,7 +19,14 @@ class _AllProgressState extends State<AllProgress> {
       espacioAlto = 0.0,
       imgHeight = 0.0,
       textHeaderSize = 0.0,
-      imgVolverHeight = 0.0;
+      imgVolverHeight = 0.0,
+      espacio1 = 0.0,
+      espacio2 = 0.0,
+      espacio3 = 0.0,
+      widthFecha = 0.0,
+      widthJugador = 0.0,
+      widthAciertos = 0.0,
+      widthDuracion = 0.0;
 
   late int paginaActual, preguntasPagina;
 
@@ -217,68 +224,154 @@ class _AllProgressState extends State<AllProgress> {
                 ],
               ),
               SizedBox(height: espacioAlto),
+              Row(
+                children: [
+                  SizedBox(width: espacioPadding / 2),
+                  Text(
+                    'Fecha',
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textHeaderSize,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(width: espacio1),
+                  Text(
+                    'Jugador\n(grupo)',
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textHeaderSize,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(width: espacio2),
+                  Text(
+                    'Aciertos\n'
+                    '(de X intentos)',
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textHeaderSize,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(width: espacio3),
+                  Text(
+                    'Duración',
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textHeaderSize,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+
+              Divider(
+                color: Colors.black,
+                thickness: 1,
+              ),
               FutureBuilder<void>(
                 future: getAllPartidasView(
                     paginaActual, preguntasPagina, txtBuscar, selectedGrupo),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
-                    return Text("Error: ${snapshot.error}");
+                    return Center(child: Text('Error: ${snapshot.error}'));
                   } else if (partidas != null && partidas!.isNotEmpty) {
-                    return DataTable(
-                      columns: [
-                        cabeceraFecha,
-                        cabeceraUsuario,
-                        cabeceraProgreso,
-                        cabeceraDuracion,
-                      ],
-                      rows: partidas!.map((PartidaView partida) {
-                        return DataRow(cells: [
-                          DataCell(Text(
-                            _getFecha(partida.fechaFin),
-                            style: TextStyle(
-                              fontFamily: 'ComicNeue',
-                              fontSize: textSize * 0.6,
-                              color: Colors.black,
-                            ),
-                          )),
-                          DataCell(Text(
-                            partida.jugadorName +
-                                "\n(" +
-                                partida.grupoName +
-                                ")",
-                            style: TextStyle(
-                              fontFamily: 'ComicNeue',
-                              fontSize: textSize * 0.6,
-                              color: Colors.black,
-                            ),
-                          )),
-                          DataCell(Text(
-                            partida.aciertos.toString() +
-                                "/" +
-                                (partida.fallos + partida.aciertos).toString(),
-                            style: TextStyle(
-                              fontFamily: 'ComicNeue',
-                              fontSize: textSize * 0.6,
-                              color: Colors.black,
-                            ),
-                          )),
-                          DataCell(Text(
-                            _getTime(partida.duracionSegundos),
-                            style: TextStyle(
-                              fontFamily: 'ComicNeue',
-                              fontSize: textSize * 0.6,
-                              color: Colors.black,
-                            ),
-                          )),
-                        ]);
-                      }).toList(),
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: partidas!.length,
+                      itemBuilder: (context, index) {
+                        final partida = partidas![index];
+                        return Container(
+                          margin: EdgeInsets.only(bottom: espacioAlto),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: widthFecha,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      _getFecha(partida.fechaFin),
+                                      style: TextStyle(
+                                        fontFamily: 'ComicNeue',
+                                        fontSize: textSize * 0.6,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: espacioPadding),
+                              Container(
+                                width: widthJugador,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      partida.jugadorName +
+                                          "\n(" +
+                                          partida.grupoName +
+                                          ")",
+                                      style: TextStyle(
+                                        fontFamily: 'ComicNeue',
+                                        fontSize: textSize * 0.6,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: espacioPadding),
+                              Container(
+                                width: widthAciertos,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      partida.aciertos.toString() +
+                                          " (de " +
+                                          (partida.fallos + partida.aciertos)
+                                              .toString() +
+                                          ")",
+                                      style: TextStyle(
+                                        fontFamily: 'ComicNeue',
+                                        fontSize: textSize * 0.6,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: espacioPadding),
+                              Container(
+                                width: widthFecha,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      _getTime(partida.duracionSegundos),
+                                      style: TextStyle(
+                                        fontFamily: 'ComicNeue',
+                                        fontSize: textSize * 0.6,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     );
                   } else {
                     return Text(
                       "No hemos encontrado resultados.\n"
-                      "¡Ánima a los usuarios a jugar! Así podrás ver como progresan.",
+                      "¡Ánima a los usuarios a jugar! Así podrás ver cómo progresan.",
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: textSize,
@@ -321,6 +414,13 @@ class _AllProgressState extends State<AllProgress> {
       imgHeight = screenSize.height / 4;
       imgVolverHeight = screenSize.height / 10;
       textHeaderSize = screenSize.width * 0.015;
+      espacio1 = screenSize.width * 0.06;
+      espacio2 = screenSize.width * 0.24;
+      espacio3 = screenSize.width * 0.08;
+      widthFecha = espacioPadding + espacio1;
+      widthJugador = espacioPadding * 1.1 + espacio2;
+      widthAciertos = espacioPadding * 2.7 + espacio3;
+      widthDuracion = espacioPadding + espacio1;
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
@@ -329,6 +429,13 @@ class _AllProgressState extends State<AllProgress> {
       imgHeight = screenSize.width / 5;
       imgVolverHeight = screenSize.height / 32;
       textHeaderSize = screenSize.width * 0.019;
+      espacio1 = screenSize.width * 0.08;
+      espacio2 = screenSize.width * 0.24;
+      espacio3 = screenSize.width * 0.08;
+      widthFecha = espacioPadding + espacio1;
+      widthJugador = espacioPadding * 0.75 + espacio2;
+      widthAciertos = espacioPadding * 2.2 + espacio3;
+      widthDuracion = espacioPadding + espacio1;
     }
   }
 
@@ -346,6 +453,9 @@ class _AllProgressState extends State<AllProgress> {
     );
 
     btnAnterior = ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.blueGrey,
+      ),
       onPressed: () {
         _previousPage();
       },
@@ -357,6 +467,9 @@ class _AllProgressState extends State<AllProgress> {
     );
 
     btnSiguiente = ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.blueGrey,
+      ),
       onPressed: () {
         _nextPage();
       },
@@ -372,6 +485,7 @@ class _AllProgressState extends State<AllProgress> {
         paginaActual = 1;
         selectedGrupo = selectedGrupoAux;
         txtBuscar = txtBuscarAux;
+        FocusScope.of(context).unfocus();
         _loadProgresos();
       },
       child: Text(
@@ -423,7 +537,7 @@ class _AllProgressState extends State<AllProgress> {
       label: Column(
         children: [
           Text(
-            'Progreso\n(completadas/intentos)',
+            'Rutinas completas\n(de XX intentos)',
             style: TextStyle(
                 fontFamily: 'ComicNeue',
                 fontSize: textHeaderSize,

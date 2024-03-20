@@ -335,6 +335,9 @@ class _Jugar extends State<Jugar> {
       onPressed: () {
         _stopSpeaking();
         saveProgreso();
+        Navigator.pop(context);
+        Navigator.pop(context);
+
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => MenuJugador()),
