@@ -134,7 +134,6 @@ class _AyudaState extends State<Ayuda> {
                     ),
                     Image.asset(
                       'assets/img/personajes/cerdo.png',
-                      height: imgHeight * 1.3,
                       width: imgWidth * 1.3,
                     ),
                   ],
@@ -148,7 +147,6 @@ class _AyudaState extends State<Ayuda> {
                       children: [
                         Image.asset(
                           'assets/img/rutinas/higiene/lavarDientes/2.LavarDientes.png',
-                          height: imgHeight,
                           width: imgWidth,
                         ),
                         Text(
@@ -177,7 +175,6 @@ class _AyudaState extends State<Ayuda> {
                         children: [
                           Image.asset(
                             'assets/img/rutinas/higiene/lavarDientes/1.LavarDientes.png',
-                            height: imgHeight,
                             width: imgWidth,
                           ),
                           Text(
@@ -220,7 +217,6 @@ class _AyudaState extends State<Ayuda> {
                         children: [
                           Image.asset(
                             'assets/img/rutinas/higiene/lavarDientes/2.LavarDientes.png',
-                            height: imgHeight,
                             width: imgWidth,
                           ),
                           Text(
@@ -240,7 +236,6 @@ class _AyudaState extends State<Ayuda> {
                       children: [
                         Image.asset(
                           'assets/img/rutinas/higiene/lavarDientes/1.LavarDientes.png',
-                          height: imgHeight,
                           width: imgWidth,
                         ),
                         Text(
@@ -275,7 +270,6 @@ class _AyudaState extends State<Ayuda> {
                       children: [
                         Image.asset(
                           'assets/img/rutinas/higiene/lavarDientes/2.LavarDientes.png',
-                          height: imgHeight,
                           width: imgWidth,
                         ),
                         Text(
@@ -294,7 +288,6 @@ class _AyudaState extends State<Ayuda> {
                       children: [
                         Image.asset(
                           'assets/img/rutinas/higiene/lavarDientes/1.LavarDientes.png',
-                          height: imgHeight,
                           width: imgWidth,
                         ),
                         Text(
@@ -329,7 +322,7 @@ class _AyudaState extends State<Ayuda> {
 
                 ImageTextButton(
                   image: Image.asset('assets/img/botones/fin.png',
-                      width: imgWidth, height: imgHeight),
+                      width: imgWidth * 0.75),
                   text: Text(
                     'Ayuda completada',
                     style: TextStyle(
@@ -387,7 +380,7 @@ class _AyudaState extends State<Ayuda> {
   void _createButtonsFromDialogs() {
     // boton para seguir en la pantalla de ayuda
     btnSeguirAyuda = ImageTextButton(
-      image: Image.asset('assets/img/botones/ayuda.png', height: imgHeight),
+      image: Image.asset('assets/img/botones/ayuda.png', width: imgWidth),
       text: Text(
         'Seguir en ayuda',
         style: TextStyle(
@@ -414,7 +407,7 @@ class _AyudaState extends State<Ayuda> {
 
     // boton para salir de la pantalla de ayuda desde el menu
     btnSalirFromMenu = ImageTextButton(
-      image: Image.asset('assets/img/botones/salir.png', height: imgHeight),
+      image: Image.asset('assets/img/botones/salir.png', width: imgWidth),
       text: Text(
         'Salir',
         style: TextStyle(
@@ -428,7 +421,7 @@ class _AyudaState extends State<Ayuda> {
 
     // boton para volver a la pantalla principal (he acabado la ayuda)
     btnJugar = ImageTextButton(
-      image: Image.asset('assets/img/botones/jugar.png', height: imgHeight),
+      image: Image.asset('assets/img/botones/jugar.png', width: imgWidth),
       text: Text(
         '¡Estoy listo!',
         style: TextStyle(
@@ -452,8 +445,7 @@ class _AyudaState extends State<Ayuda> {
             "Puedes confirmar la salida o seguir viendo la ayuda",
         contentSize: textSize,
         leftImageTextButton: btnSeguirAyuda,
-        rightImageTextButton: btnSalirAyudaFromHome,
-        spaceRight: espacioPadding * 2);
+        rightImageTextButton: btnSalirAyudaFromHome);
 
     // cuadro de dialogo para salir de la pantalla de ayuda desde el menu
     exitDialogFromMenu = ExitDialog(
@@ -463,8 +455,7 @@ class _AyudaState extends State<Ayuda> {
             "Puedes confirmar la salida o seguir viendo la ayuda",
         contentSize: textSize,
         leftImageTextButton: btnSeguirAyuda,
-        rightImageTextButton: btnSalirFromMenu,
-        spaceRight: espacioPadding * 2);
+        rightImageTextButton: btnSalirFromMenu);
 
     // cuadro de dialogo de he completado la ayuda desde la pantalla principal
     helpCompletedDialogFromHome = ExitDialog(
@@ -475,8 +466,7 @@ class _AyudaState extends State<Ayuda> {
             "Si todavía no te sientes preparado, no te preocupes, puedes seguir viendo la explicación de cómo jugar.",
         contentSize: textSize,
         leftImageTextButton: btnSeguirAyuda,
-        rightImageTextButton: btnSalirAyudaFromHome,
-        spaceRight: espacioPadding * 2);
+        rightImageTextButton: btnSalirAyudaFromHome);
 
     // cuadro de dialogo de he completado la ayuda desde el menu
     helpCompletedDialogFromMenu = ExitDialog(
@@ -487,7 +477,6 @@ class _AyudaState extends State<Ayuda> {
             "Si todavía no te sientes preparado, no te preocupes, puedes seguir viendo la explicación de cómo jugar.",
         contentSize: textSize,
         leftImageTextButton: btnJugar,
-        rightImageTextButton: btnSeguirAyuda,
-        spaceRight: espacioPadding * 2);
+        rightImageTextButton: btnSeguirAyuda);
   }
 }

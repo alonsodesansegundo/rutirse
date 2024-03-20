@@ -9,7 +9,6 @@ class ExitDialog extends StatefulWidget {
   final double contentSize;
   final ImageTextButton leftImageTextButton;
   final ImageTextButton? rightImageTextButton; // Cambiado a tipo opcional
-  final double? spaceRight; // Cambiado a tipo opcional
   final Image? optionalImage;
 
   ExitDialog({
@@ -19,7 +18,6 @@ class ExitDialog extends StatefulWidget {
     required this.contentSize,
     required this.leftImageTextButton,
     this.rightImageTextButton, // Cambiado a tipo opcional
-    this.spaceRight, // Cambiado a tipo opcional
     this.optionalImage, // Parámetro opcional
   });
 
@@ -54,8 +52,6 @@ class _ExitDialogState extends State<ExitDialog> {
               padding: EdgeInsets.only(left: 8.0),
               child: widget.optionalImage,
             ),
-          if (widget.optionalImage != null && widget.spaceRight != null)
-            SizedBox(width: widget.spaceRight),
         ],
       ),
       actions: [
@@ -65,9 +61,6 @@ class _ExitDialogState extends State<ExitDialog> {
             Spacer(),
             if (widget.rightImageTextButton != null)
               widget.rightImageTextButton!,
-            if (widget.rightImageTextButton != null &&
-                widget.spaceRight != null)
-              SizedBox(width: widget.spaceRight!),
           ],
         ),
       ],

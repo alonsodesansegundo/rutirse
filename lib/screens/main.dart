@@ -40,9 +40,10 @@ class _MainState extends State<Main> {
       espacioAlto = 0.0,
       espacioJugar = 0.0,
       imgHeight = 0.0,
+      imgWidth = 0.0,
       espacioAcercaDe = 0.0;
 
-  late ImageTextButton btnRutinas, btnIronias, btnAnimo, btnInfo;
+  late ImageTextButton btnRutinas, btnIronias, btnAnimo, btnTerapeuta, btnInfo;
 
   @override
   void initState() {
@@ -125,31 +126,7 @@ class _MainState extends State<Main> {
                 ),
                 SizedBox(height: espacioAlto),
                 Row(
-                  children: [
-                    SizedBox(width: espacioPadding),
-                    ImageTextButton(
-                      image: Image.asset('assets/img/botones/terapeuta.png',
-                          height: imgHeight),
-                      text: Text(
-                        'Soy terapeuta',
-                        style: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: textSize,
-                            color: Colors.black),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomeTerapeuta()),
-                        );
-                      },
-                    ),
-                    SizedBox(
-                      width: espacioPadding,
-                    ),
-                    btnInfo
-                  ],
+                  children: [btnTerapeuta, btnInfo],
                 )
               ],
             ),
@@ -169,19 +146,21 @@ class _MainState extends State<Main> {
     if (isHorizontal) {
       titleSize = screenSize.width * 0.08;
       textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.03;
+      espacioPadding = screenSize.height * 0.06;
       espacioAlto = screenSize.height * 0.02;
       espacioJugar = screenSize.height * 0.02;
       imgHeight = screenSize.height / 4;
       espacioAcercaDe = espacioAlto * 4;
+      imgWidth = screenSize.width / 3 - espacioPadding * 2.25;
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
       espacioPadding = screenSize.height * 0.03;
-      espacioAlto = screenSize.height * 0.03;
+      espacioAlto = screenSize.height * 0.015;
       espacioJugar = 0;
       imgHeight = screenSize.height / 10;
       espacioAcercaDe = espacioAlto * 2;
+      imgWidth = screenSize.width / 3 - espacioPadding * 2;
     }
   }
 
@@ -189,7 +168,7 @@ class _MainState extends State<Main> {
     btnRutinas = ImageTextButton(
       image: Image.asset(
         'assets/img/botones/rutinas.png',
-        height: imgHeight,
+        width: imgWidth,
       ),
       text: Text(
         'Rutinas',
@@ -206,10 +185,10 @@ class _MainState extends State<Main> {
     btnAnimo = ImageTextButton(
         image: Image.asset(
           'assets/img/botones/sentimientos.png',
-          height: imgHeight,
+          width: imgWidth,
         ),
         text: Text(
-          '¿Cómo me siento?',
+          'Sentimientos',
           style: TextStyle(
               fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
         ),
@@ -218,7 +197,7 @@ class _MainState extends State<Main> {
     btnIronias = ImageTextButton(
       image: Image.asset(
         'assets/img/botones/ironias.png',
-        height: imgHeight,
+        width: imgWidth,
       ),
       text: Text(
         'Ironías',
@@ -228,10 +207,28 @@ class _MainState extends State<Main> {
       onPressed: () {},
     );
 
+    btnTerapeuta = ImageTextButton(
+      image: Image.asset(
+        'assets/img/botones/terapeuta.png',
+        width: imgWidth,
+      ),
+      text: Text(
+        'Soy terapeuta',
+        style: TextStyle(
+            fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
+      ),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomeTerapeuta()),
+        );
+      },
+    );
+
     btnInfo = ImageTextButton(
       image: Image.asset(
         'assets/img/botones/info.png',
-        height: imgHeight,
+        width: imgWidth,
       ),
       text: Text(
         'Acerca de',

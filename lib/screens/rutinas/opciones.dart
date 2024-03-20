@@ -200,7 +200,6 @@ class _OpcionesState extends State<Opciones> {
                                     grupo.nombre.toLowerCase() +
                                     '.png',
                                 width: imgWidth,
-                                height: imgHeight,
                               ),
                               text: Text(
                                 grupo.nombre + '\n' + grupo.edades,
@@ -219,14 +218,12 @@ class _OpcionesState extends State<Opciones> {
                                   ? Colors.grey
                                   : Colors.transparent,
                             ),
-                            if (index < gruposList.length - 1)
-                              SizedBox(width: espacioPadding),
                           ],
                         );
                       }).toList()
                     : [Center(child: Text('No hay grupos disponibles'))],
               ),
-              SizedBox(height: espacioConfirmar),
+              SizedBox(height: espacioConfirmar * 0.75),
               btnConfirmar,
             ],
           ),
@@ -247,9 +244,9 @@ class _OpcionesState extends State<Opciones> {
       textSize = screenSize.width * 0.02;
       espacioPadding = screenSize.height * 0.06;
       espacioAlto = screenSize.height * 0.02;
-      imgHeight = screenSize.height / 4;
-      imgBtnDialogo = screenSize.height / 5;
-      imgWidth = screenSize.width / 4;
+      imgHeight = screenSize.height / 6;
+      imgBtnDialogo = screenSize.height / 6;
+      imgWidth = screenSize.width / 3 - espacioPadding * 2.25;
       imgVolverHeight = screenSize.height / 10;
       imgConfirmarHeight = screenSize.height / 5;
       espacioConfirmar = espacioAlto * 3;
@@ -258,9 +255,9 @@ class _OpcionesState extends State<Opciones> {
       textSize = screenSize.width * 0.03;
       espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.03;
-      imgHeight = screenSize.height / 5;
-      imgBtnDialogo = screenSize.height / 10;
-      imgWidth = screenSize.width / 5;
+      imgHeight = screenSize.height / 8;
+      imgBtnDialogo = screenSize.height / 11;
+      imgWidth = screenSize.width / 3 - espacioPadding * 2;
       imgVolverHeight = screenSize.height / 32;
       imgConfirmarHeight = screenSize.height / 10;
       espacioConfirmar = espacioAlto * 2;
@@ -280,8 +277,7 @@ class _OpcionesState extends State<Opciones> {
             "y volverás al menú del juego \'Rutinas\'.",
         contentSize: textSize,
         leftImageTextButton: btnSeguir,
-        rightImageTextButton: btnSalir,
-        spaceRight: espacioPadding * 2);
+        rightImageTextButton: btnSalir);
 
     // cuadro de dialogo para informar de que se han cambiado las opciones
     confirmDialog = ExitDialog(
@@ -338,8 +334,10 @@ class _OpcionesState extends State<Opciones> {
 
     // boton para confirmar los cambios
     btnConfirmar = ImageTextButton(
-      image: Image.asset('assets/img/botones/fin.png',
-          width: imgWidth, height: imgConfirmarHeight),
+      image: Image.asset(
+        'assets/img/botones/fin.png',
+        width: imgWidth * 0.75,
+      ),
       text: Text(
         'Confirmar',
         style: TextStyle(

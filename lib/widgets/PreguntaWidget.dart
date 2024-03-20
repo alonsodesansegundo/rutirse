@@ -6,7 +6,7 @@ class PreguntaWidget extends StatelessWidget {
   final String enunciado;
   final bool isLoading;
   final double subtextSize;
-  final double imgHeight;
+  final double imgWidth;
   final Uint8List? personajeImg;
   final double rightSpace;
 
@@ -14,7 +14,7 @@ class PreguntaWidget extends StatelessWidget {
     required this.enunciado,
     required this.isLoading,
     required this.subtextSize,
-    required this.imgHeight,
+    required this.imgWidth,
     this.personajeImg,
     required this.rightSpace,
   });
@@ -39,7 +39,7 @@ class PreguntaWidget extends StatelessWidget {
           if (personajeImg != null)
             Container(
               child: Image.memory(personajeImg!),
-              height: imgHeight,
+              width: imgWidth,
             ),
           SizedBox(width: rightSpace),
         ],

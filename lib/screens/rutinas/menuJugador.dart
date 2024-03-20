@@ -182,8 +182,7 @@ class _MenuJugadorState extends State<MenuJugador> {
             "De esta manera volverás a la pantalla principal de la aplicación.",
         contentSize: textSize,
         leftImageTextButton: btnSeguir,
-        rightImageTextButton: btnSalir,
-        spaceRight: espacioPadding * 2);
+        rightImageTextButton: btnSalir);
   }
 
   // metodo para crear los botones necesarios

@@ -38,8 +38,8 @@ class _Jugar extends State<Jugar> {
       textSize,
       espacioPadding,
       espacioAlto,
-      imgHeight,
-      personajeHeight,
+      imgWidth,
+      personajeWidth,
       imgCartaHeight,
       imgVolverHeight,
       espacioCartas,
@@ -140,7 +140,6 @@ class _Jugar extends State<Jugar> {
                   ),
                 ],
               ),
-              SizedBox(height: espacioAlto),
               FutureBuilder<void>(
                 future: _cargarPreguntas(),
                 builder: (context, snapshot) {
@@ -153,7 +152,7 @@ class _Jugar extends State<Jugar> {
                           enunciado: preguntasList[indiceActual].enunciado,
                           isLoading: false,
                           subtextSize: textSize,
-                          imgHeight: personajeHeight,
+                          imgWidth: personajeWidth,
                           personajeImg:
                               preguntasList[indiceActual].personajeImg,
                           rightSpace: espacioPadding,
@@ -197,7 +196,7 @@ class _Jugar extends State<Jugar> {
                             Container(
                               child: Image.memory(
                                   cartasAcciones[index].accion.imagen!),
-                              height: imgHeight,
+                              width: imgWidth,
                             ),
                             Container(
                               decoration: BoxDecoration(
@@ -219,9 +218,14 @@ class _Jugar extends State<Jugar> {
                   },
                 ),
               ),
+              SizedBox(
+                height: espacioAlto,
+              ),
               ImageTextButton(
-                image: Image.asset('assets/img/botones/fin.png',
-                    height: imgHeight),
+                image: Image.asset(
+                  'assets/img/botones/fin.png',
+                  width: imgWidth * 0.75,
+                ),
                 text: Text(
                   'Confirmar',
                   style: TextStyle(
@@ -276,23 +280,23 @@ class _Jugar extends State<Jugar> {
       textSize = screenSize.width * 0.02;
       espacioPadding = screenSize.height * 0.06;
       espacioAlto = screenSize.height * 0.04;
-      imgHeight = screenSize.height / 7;
-      personajeHeight = screenSize.height / 6;
+      personajeWidth = screenSize.width / 10;
       imgCartaHeight = screenSize.height / 4;
       imgVolverHeight = screenSize.height / 10;
       espacioCartas = screenSize.height * 0.015;
+      imgWidth = screenSize.width / 12;
     } else {
       cartasFila = 3;
       ancho = screenSize.width;
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
       espacioPadding = screenSize.height * 0.03;
-      espacioAlto = screenSize.height * 0.03;
+      espacioAlto = screenSize.height * 0.01;
       espacioCartas = screenSize.height * 0.02;
-      imgHeight = screenSize.height / 8;
-      personajeHeight = screenSize.height / 7;
+      personajeWidth = screenSize.width / 4;
       imgCartaHeight = screenSize.height / 6;
-      imgVolverHeight = imgHeight / 4;
+      imgVolverHeight = screenSize.height / 32;
+      imgWidth = screenSize.width / 6;
     }
   }
 
@@ -300,7 +304,10 @@ class _Jugar extends State<Jugar> {
   void _createButtonsFromDialogs() {
     // boton para seguir jugando
     btnSeguirJugando = ImageTextButton(
-      image: Image.asset('assets/img/botones/jugar.png', height: imgHeight),
+      image: Image.asset(
+        'assets/img/botones/jugar.png',
+        width: imgWidth,
+      ),
       text: Text(
         'Seguir jugando',
         style: TextStyle(
@@ -312,7 +319,10 @@ class _Jugar extends State<Jugar> {
     );
 
     btnSeguirJugandoCambiaPregunta = ImageTextButton(
-      image: Image.asset('assets/img/botones/jugar.png', height: imgHeight),
+      image: Image.asset(
+        'assets/img/botones/jugar.png',
+        width: imgWidth,
+      ),
       text: Text(
         'Seguir jugando',
         style: TextStyle(
@@ -326,7 +336,10 @@ class _Jugar extends State<Jugar> {
 
     // boton para salir del juego
     btnSalir = ImageTextButton(
-      image: Image.asset('assets/img/botones/salir.png', height: imgHeight),
+      image: Image.asset(
+        'assets/img/botones/salir.png',
+        width: imgWidth,
+      ),
       text: Text(
         'Salir',
         style: TextStyle(
@@ -346,7 +359,10 @@ class _Jugar extends State<Jugar> {
     );
 
     btnMenu = ImageTextButton(
-      image: Image.asset('assets/img/botones/salir.png', height: imgHeight),
+      image: Image.asset(
+        'assets/img/botones/salir.png',
+        width: imgWidth,
+      ),
       text: Text(
         'Ir al menú',
         style: TextStyle(
@@ -374,8 +390,7 @@ class _Jugar extends State<Jugar> {
             "Puedes confirmar la salida o seguir disfrutando del juego.",
         contentSize: textSize,
         leftImageTextButton: btnSeguirJugando,
-        rightImageTextButton: btnSalir,
-        spaceRight: espacioPadding * 2);
+        rightImageTextButton: btnSalir);
 
     // cuadro de dialogo para cuando hay alguna respuesta incorrecta
     incorrectDialog = ExitDialog(
@@ -389,9 +404,10 @@ class _Jugar extends State<Jugar> {
         contentSize: textSize,
         leftImageTextButton: btnSeguirJugando,
         rightImageTextButton: btnSalir,
-        spaceRight: espacioPadding * 2,
-        optionalImage: Image.asset('assets/img/medallas/incorrecto.png',
-            height: imgHeight));
+        optionalImage: Image.asset(
+          'assets/img/medallas/incorrecto.png',
+          width: imgWidth,
+        ));
 
     // cuadro de dialogo para cuando todas las respuestas son correctas
     correctDialog = ExitDialog(
@@ -403,9 +419,10 @@ class _Jugar extends State<Jugar> {
         contentSize: textSize,
         leftImageTextButton: btnSeguirJugandoCambiaPregunta,
         rightImageTextButton: btnSalir,
-        spaceRight: espacioPadding * 2,
-        optionalImage:
-            Image.asset('assets/img/medallas/correcto.png', height: imgHeight));
+        optionalImage: Image.asset(
+          'assets/img/medallas/correcto.png',
+          width: imgWidth,
+        ));
 
     // cuadro de dialogo cuando hemos completado todas las preguntas del juego
     endGameDialog = ExitDialog(
@@ -417,9 +434,10 @@ class _Jugar extends State<Jugar> {
             "¡Sigue trabajando para mejorar tu tiempo!",
         contentSize: textSize,
         leftImageTextButton: btnMenu,
-        spaceRight: espacioPadding * 2,
-        optionalImage:
-            Image.asset('assets/img/medallas/trofeo.png', height: imgHeight));
+        optionalImage: Image.asset(
+          'assets/img/medallas/trofeo.png',
+          width: imgWidth,
+        ));
   }
 
   // metodo para cargar todas las preguntas

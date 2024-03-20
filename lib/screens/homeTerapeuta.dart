@@ -17,6 +17,7 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
       imgVolverHeight = 0.0,
       espacioBotones = 0.0,
       btnWidth = 0.0,
+      imgWidth = 0.0,
       btnHeight = 0.0;
 
   late ImageTextButton btnVolver, btnRutinas, btnAnimo, btnIronias;
@@ -115,6 +116,7 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
       espacioBotones = screenSize.height * 0.3;
       btnWidth = screenSize.width / 4;
       btnHeight = screenSize.height / 10;
+      imgWidth = screenSize.width / 3 - espacioPadding * 2.25;
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
@@ -125,6 +127,7 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
       espacioBotones = screenSize.height * 0.09;
       btnWidth = screenSize.width / 3;
       btnHeight = screenSize.height / 14;
+      imgWidth = screenSize.width / 3 - espacioPadding * 2;
     }
   }
 
@@ -133,7 +136,7 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
     btnRutinas = ImageTextButton(
       image: Image.asset(
         'assets/img/botones/rutinas.png',
-        height: imgHeight,
+        width: imgWidth,
       ),
       text: Text(
         'Rutinas',
@@ -150,10 +153,10 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
     btnAnimo = ImageTextButton(
         image: Image.asset(
           'assets/img/botones/sentimientos.png',
-          height: imgHeight,
+          width: imgWidth,
         ),
         text: Text(
-          '¿Cómo me siento?',
+          'Sentimientos',
           style: TextStyle(
               fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
         ),
@@ -162,7 +165,7 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
     btnIronias = ImageTextButton(
       image: Image.asset(
         'assets/img/botones/ironias.png',
-        height: imgHeight,
+        width: imgWidth,
       ),
       text: Text(
         'Ironías',

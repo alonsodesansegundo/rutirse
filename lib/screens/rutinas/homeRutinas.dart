@@ -138,7 +138,7 @@ class _HomeRutinasState extends State<HomeRutinas> {
                         fontSize: textSize,
                       ),
                     ),
-                    SizedBox(width: espacioAlto + espacioAlto / 1.5),
+                    SizedBox(width: espacioPadding * 1.5),
                     Text(
                       txtGrupo,
                       style: TextStyle(
@@ -148,7 +148,7 @@ class _HomeRutinasState extends State<HomeRutinas> {
                     ),
                   ],
                 ),
-                SizedBox(height: espacioAlto),
+                SizedBox(height: espacioAlto * 0.5),
                 // Fila para los botones de seleccionar grupo
                 Row(
                   children: gruposList.isNotEmpty
@@ -163,7 +163,6 @@ class _HomeRutinasState extends State<HomeRutinas> {
                                       grupo.nombre.toLowerCase() +
                                       '.png',
                                   width: imgWidth,
-                                  height: imgHeight,
                                 ),
                                 text: Text(
                                   grupo.nombre + '\n' + grupo.edades,
@@ -182,14 +181,12 @@ class _HomeRutinasState extends State<HomeRutinas> {
                                     ? Colors.grey
                                     : Colors.transparent,
                               ),
-                              if (index < gruposList.length - 1)
-                                SizedBox(width: espacioPadding),
                             ],
                           );
                         }).toList()
                       : [Center(child: Text('No hay grupos disponibles'))],
                 ),
-                SizedBox(height: espacioAlto * 2),
+                SizedBox(height: espacioAlto * 1.5),
                 Text(
                   '¿Qué quieres hacer?',
                   style: TextStyle(
@@ -198,14 +195,14 @@ class _HomeRutinasState extends State<HomeRutinas> {
                   ),
                 ),
                 SizedBox(
-                  height: espacioJugar,
+                  height: espacioAlto * 0.5,
                 ),
                 // Fila para los botones de Jugar, Ayuda y Terapeuta
                 Row(
                   children: [
                     ImageTextButton(
                       image: Image.asset('assets/img/botones/jugar.png',
-                          width: imgWidth, height: imgHeight),
+                          width: imgWidth),
                       text: Text(
                         'Jugar',
                         style: TextStyle(
@@ -237,10 +234,9 @@ class _HomeRutinasState extends State<HomeRutinas> {
                         }
                       },
                     ),
-                    SizedBox(width: espacioPadding),
                     ImageTextButton(
                       image: Image.asset('assets/img/botones/ayuda.png',
-                          width: imgWidth, height: imgHeight),
+                          width: imgWidth),
                       text: Text(
                         'Ir a ayuda',
                         style: TextStyle(
@@ -277,10 +273,10 @@ class _HomeRutinasState extends State<HomeRutinas> {
       titleSize = screenSize.width * 0.08;
       textSize = screenSize.width * 0.02;
       espacioPadding = screenSize.height * 0.06;
-      espacioAlto = screenSize.height * 0.02;
+      espacioAlto = screenSize.height * 0.04;
       espacioJugar = screenSize.height * 0.02;
       imgHeight = screenSize.height / 4;
-      imgWidth = screenSize.width / 4;
+      imgWidth = screenSize.width / 3 - espacioPadding * 2.25;
       imgVolverHeight = screenSize.height / 5;
       imgVolverHomeHeight = screenSize.height / 10;
     } else {
@@ -290,7 +286,7 @@ class _HomeRutinasState extends State<HomeRutinas> {
       espacioAlto = screenSize.height * 0.03;
       espacioJugar = 0;
       imgHeight = screenSize.height / 5;
-      imgWidth = screenSize.width / 5;
+      imgWidth = screenSize.width / 3 - espacioPadding * 2;
       imgVolverHeight = screenSize.height / 10;
       imgVolverHomeHeight = screenSize.height / 32;
     }
