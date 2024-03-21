@@ -112,7 +112,6 @@ class _UserProgressState extends State<UserProgress> {
 
               Row(
                 children: [
-                  SizedBox(width: espacioPadding),
                   Container(
                     width: widthFecha,
                     child: Column(
@@ -205,11 +204,10 @@ class _UserProgressState extends State<UserProgress> {
                         final partida = partidas![index];
                         return Row(
                           children: [
-                            SizedBox(width: espacioPadding),
                             Container(
                               width: widthFecha,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                              child: Align(
+                                alignment: Alignment.center,
                                 child: Text(
                                   _getFecha(partida.fechaFin),
                                   style: TextStyle(
@@ -262,6 +260,7 @@ class _UserProgressState extends State<UserProgress> {
                                 ),
                               ),
                             ),
+                            SizedBox(height: espacioPadding),
                           ],
                         );
                       },
@@ -286,12 +285,12 @@ class _UserProgressState extends State<UserProgress> {
     );
   }
 
-  double getWidthOfText(String text, BuildContext context) {
+  double getWidthOfText(String text, double fontSize, BuildContext context) {
     final TextSpan span = TextSpan(
       text: text,
       style: TextStyle(
         fontFamily: 'ComicNeue',
-        fontSize: textHeaderSize,
+        fontSize: fontSize,
         fontWeight: FontWeight.bold,
       ),
     );
@@ -320,26 +319,25 @@ class _UserProgressState extends State<UserProgress> {
       imgHeight = screenSize.width / 5;
 
       widthFecha = getWidthOfText(
-            'Fecha de \nla partida',
+            'DD/MM/AAAA',
+            textSize * 0.8,
             context,
           ) *
           2;
       widthAciertos = getWidthOfText(
             'Rutinas\ncompletadas',
+            textHeaderSize,
             context,
           ) *
           2;
-      widthFallos = getWidthOfText(
-            'Intentos\nfallidos',
-            context,
-          ) *
-          3;
+      widthFallos = widthAciertos;
 
       widthDuracion = getWidthOfText(
             'Duración de\nla partida',
+            textHeaderSize,
             context,
           ) *
-          4;
+          2;
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
@@ -350,23 +348,22 @@ class _UserProgressState extends State<UserProgress> {
       textHeaderSize = screenSize.width * 0.02;
       imgHeight = screenSize.width / 5;
       widthFecha = getWidthOfText(
-            'Fecha de \nla partida',
+            'DD/MM/AAAA',
+            textSize * 0.8,
             context,
           ) *
-          2;
+          1.5;
       widthAciertos = getWidthOfText(
             'Rutinas\ncompletadas',
+            textHeaderSize,
             context,
           ) *
           2;
-      widthFallos = getWidthOfText(
-            'Intentos\nfallidos',
-            context,
-          ) *
-          2.5;
+      widthFallos = widthAciertos;
 
       widthDuracion = getWidthOfText(
             'Duración de\nla partida',
+            textHeaderSize,
             context,
           ) *
           2;
