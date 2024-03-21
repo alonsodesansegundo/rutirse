@@ -40,7 +40,6 @@ class _Jugar extends State<Jugar> {
       espacioAlto,
       imgWidth,
       personajeWidth,
-      imgCartaHeight,
       imgVolverHeight,
       espacioCartas,
       ancho;
@@ -281,10 +280,9 @@ class _Jugar extends State<Jugar> {
       espacioPadding = screenSize.height * 0.06;
       espacioAlto = screenSize.height * 0.04;
       personajeWidth = screenSize.width / 10;
-      imgCartaHeight = screenSize.height / 4;
       imgVolverHeight = screenSize.height / 10;
       espacioCartas = screenSize.height * 0.015;
-      imgWidth = screenSize.width / 12;
+      imgWidth = screenSize.width / 7;
     } else {
       cartasFila = 3;
       ancho = screenSize.width;
@@ -294,9 +292,8 @@ class _Jugar extends State<Jugar> {
       espacioAlto = screenSize.height * 0.01;
       espacioCartas = screenSize.height * 0.02;
       personajeWidth = screenSize.width / 4;
-      imgCartaHeight = screenSize.height / 6;
       imgVolverHeight = screenSize.height / 32;
-      imgWidth = screenSize.width / 6;
+      imgWidth = screenSize.width / 4;
     }
   }
 
