@@ -27,11 +27,10 @@ class _OpcionesState extends State<Opciones> {
       espacioPadding = 0.0,
       espacioAlto = 0.0,
       imgHeight = 0.0,
-      imgBtnDialogo = 0.0,
       imgWidth = 0.0,
       imgVolverHeight = 0.0,
       espacioConfirmar = 0.0,
-      imgConfirmarHeight = 0.0;
+      imgBtnWidth = 0.0;
 
   // botones
   late ImageTextButton btnSeguir, btnSalir, btnConfirmar, btnAceptar, btnVolver;
@@ -199,7 +198,7 @@ class _OpcionesState extends State<Opciones> {
                                 'assets/img/grupos/' +
                                     grupo.nombre.toLowerCase() +
                                     '.png',
-                                width: imgWidth,
+                                width: imgBtnWidth,
                               ),
                               text: Text(
                                 grupo.nombre + '\n' + grupo.edades,
@@ -245,22 +244,20 @@ class _OpcionesState extends State<Opciones> {
       espacioPadding = screenSize.height * 0.06;
       espacioAlto = screenSize.height * 0.02;
       imgHeight = screenSize.height / 6;
-      imgBtnDialogo = screenSize.height / 6;
       imgWidth = screenSize.width / 3 - espacioPadding * 2.25;
       imgVolverHeight = screenSize.height / 10;
-      imgConfirmarHeight = screenSize.height / 5;
       espacioConfirmar = espacioAlto * 3;
+      imgBtnWidth = screenSize.width / 10;
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
       espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.03;
       imgHeight = screenSize.height / 8;
-      imgBtnDialogo = screenSize.height / 11;
       imgWidth = screenSize.width / 3 - espacioPadding * 2;
       imgVolverHeight = screenSize.height / 32;
-      imgConfirmarHeight = screenSize.height / 10;
       espacioConfirmar = espacioAlto * 2;
+      imgBtnWidth = screenSize.width / 5;
     }
   }
 
@@ -306,8 +303,7 @@ class _OpcionesState extends State<Opciones> {
   void _createButtons() {
     // boton para seguir en opciones
     btnSeguir = ImageTextButton(
-      image:
-          Image.asset('assets/img/botones/opciones.png', height: imgBtnDialogo),
+      image: Image.asset('assets/img/botones/opciones.png', width: imgBtnWidth),
       text: Text(
         'Seguir en opciones',
         style: TextStyle(
@@ -320,7 +316,7 @@ class _OpcionesState extends State<Opciones> {
 
     // boton para salir de opciones
     btnSalir = ImageTextButton(
-      image: Image.asset('assets/img/botones/salir.png', height: imgBtnDialogo),
+      image: Image.asset('assets/img/botones/salir.png', width: imgBtnWidth),
       text: Text(
         'Salir',
         style: TextStyle(
@@ -336,7 +332,7 @@ class _OpcionesState extends State<Opciones> {
     btnConfirmar = ImageTextButton(
       image: Image.asset(
         'assets/img/botones/fin.png',
-        width: imgWidth * 0.75,
+        width: imgBtnWidth,
       ),
       text: Text(
         'Confirmar',
@@ -380,7 +376,7 @@ class _OpcionesState extends State<Opciones> {
 
     // boton para aceptar que se han actualizado las opciones
     btnAceptar = ImageTextButton(
-      image: Image.asset('assets/img/botones/aceptar.png', height: imgHeight),
+      image: Image.asset('assets/img/botones/aceptar.png', width: imgBtnWidth),
       text: Text(
         'Aceptar',
         style: TextStyle(
