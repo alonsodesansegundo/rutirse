@@ -23,8 +23,8 @@ class _AyudaState extends State<Ayuda> {
       textSize = 0.0,
       espacioPadding = 0.0,
       espacioAlto = 0.0,
-      imgHeight = 0.0,
       imgWidth = 0.0,
+      imgBtnWidth = 0.0,
       imgVolverHeight = 0.0;
 
   late ImageTextButton btnSeguirAyuda,
@@ -362,16 +362,16 @@ class _AyudaState extends State<Ayuda> {
       textSize = screenSize.width * 0.02;
       espacioPadding = screenSize.height * 0.06;
       espacioAlto = screenSize.height * 0.04;
-      imgHeight = screenSize.height / 5;
       imgWidth = screenSize.width / 5;
+      imgBtnWidth = screenSize.width / 5;
       imgVolverHeight = screenSize.height / 10;
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.04;
       espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.03;
-      imgHeight = screenSize.height / 10;
       imgWidth = screenSize.width / 5;
+      imgBtnWidth = screenSize.width / 5;
       imgVolverHeight = screenSize.height / 32;
     }
   }
@@ -380,7 +380,7 @@ class _AyudaState extends State<Ayuda> {
   void _createButtonsFromDialogs() {
     // boton para seguir en la pantalla de ayuda
     btnSeguirAyuda = ImageTextButton(
-      image: Image.asset('assets/img/botones/ayuda.png', width: imgWidth),
+      image: Image.asset('assets/img/botones/ayuda.png', width: imgBtnWidth),
       text: Text(
         'Seguir en ayuda',
         style: TextStyle(
@@ -393,7 +393,7 @@ class _AyudaState extends State<Ayuda> {
 
     // boton para salir de la pantalla de ayuda desde la pantalla principal
     btnSalirAyudaFromHome = ImageTextButton(
-      image: Image.asset('assets/img/botones/salir.png', height: imgHeight),
+      image: Image.asset('assets/img/botones/salir.png', height: imgBtnWidth),
       text: Text(
         'Salir',
         style: TextStyle(
@@ -407,7 +407,7 @@ class _AyudaState extends State<Ayuda> {
 
     // boton para salir de la pantalla de ayuda desde el menu
     btnSalirFromMenu = ImageTextButton(
-      image: Image.asset('assets/img/botones/salir.png', width: imgWidth),
+      image: Image.asset('assets/img/botones/salir.png', width: imgBtnWidth),
       text: Text(
         'Salir',
         style: TextStyle(
@@ -421,7 +421,7 @@ class _AyudaState extends State<Ayuda> {
 
     // boton para volver a la pantalla principal (he acabado la ayuda)
     btnJugar = ImageTextButton(
-      image: Image.asset('assets/img/botones/jugar.png', width: imgWidth),
+      image: Image.asset('assets/img/botones/jugar.png', width: imgBtnWidth),
       text: Text(
         '¡Estoy listo!',
         style: TextStyle(
