@@ -534,16 +534,15 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
       imgWidth = screenSize.width / 4;
       columnText = screenSize.width * 0.015;
       celdaText = screenSize.width * 0.0125;
-      enunciadoWidth = getWidthOfText(
-            'Grupo',
-            context,
-          ) *
-          17;
+
       grupoWidth = getWidthOfText(
             'Grupo',
             context,
           ) +
           espacioPadding * 2;
+
+      enunciadoWidth =
+          screenSize.width - (grupoWidth + 48 * 2 + espacioPadding * 3);
       espacioCeldas = espacioPadding * 1.75;
     } else {
       titleSize = screenSize.width * 0.10;
@@ -557,16 +556,15 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
       imgWidth = screenSize.width / 4;
       columnText = screenSize.width * 0.025;
       celdaText = screenSize.width * 0.02;
-      enunciadoWidth = getWidthOfText(
-            'Grupo',
-            context,
-          ) *
-          8;
+
       grupoWidth = getWidthOfText(
             'Grupo',
             context,
           ) +
           espacioPadding * 2;
+
+      enunciadoWidth =
+          screenSize.width - (grupoWidth + 48 * 2 + espacioPadding * 3);
       espacioCeldas = espacioPadding;
     }
   }
