@@ -38,7 +38,6 @@ class _MainState extends State<Main> {
       textSize = 0.0,
       espacioPadding = 0.0,
       espacioAlto = 0.0,
-      espacioJugar = 0.0,
       imgHeight = 0.0,
       imgWidth = 0.0,
       espacioAcercaDe = 0.0;
@@ -148,16 +147,14 @@ class _MainState extends State<Main> {
       textSize = screenSize.width * 0.02;
       espacioPadding = screenSize.height * 0.06;
       espacioAlto = screenSize.height * 0.02;
-      espacioJugar = screenSize.height * 0.02;
       imgHeight = screenSize.height / 4;
       espacioAcercaDe = espacioAlto * 4;
-      imgWidth = screenSize.width / 3 - espacioPadding * 2.25;
+      imgWidth = screenSize.width / 6 - espacioPadding * 2;
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
       espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.015;
-      espacioJugar = 0;
       imgHeight = screenSize.height / 10;
       espacioAcercaDe = espacioAlto * 2;
       imgWidth = screenSize.width / 3 - espacioPadding * 2;
