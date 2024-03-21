@@ -284,7 +284,7 @@ class _Jugar extends State<Jugar> {
       imgVolverHeight = screenSize.height / 10;
       espacioCartas = screenSize.height * 0.015;
       imgWidth = screenSize.width / 10;
-      imgBtnWidth = screenSize.width / 10;
+      imgBtnWidth = screenSize.width / 15;
     } else {
       cartasFila = 3;
       ancho = screenSize.width;
