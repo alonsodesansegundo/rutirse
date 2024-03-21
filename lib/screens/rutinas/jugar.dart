@@ -42,7 +42,8 @@ class _Jugar extends State<Jugar> {
       personajeWidth,
       imgVolverHeight,
       espacioCartas,
-      ancho;
+      ancho,
+      imgBtnWidth;
 
   late int cartasFila; // numero de cartas por fila
 
@@ -282,7 +283,8 @@ class _Jugar extends State<Jugar> {
       personajeWidth = screenSize.width / 10;
       imgVolverHeight = screenSize.height / 10;
       espacioCartas = screenSize.height * 0.015;
-      imgWidth = screenSize.width / 7;
+      imgWidth = screenSize.width / 10;
+      imgBtnWidth = screenSize.width / 10;
     } else {
       cartasFila = 3;
       ancho = screenSize.width;
@@ -294,6 +296,7 @@ class _Jugar extends State<Jugar> {
       personajeWidth = screenSize.width / 4;
       imgVolverHeight = screenSize.height / 32;
       imgWidth = screenSize.width / 4;
+      imgBtnWidth = screenSize.width / 5;
     }
   }
 
@@ -303,7 +306,7 @@ class _Jugar extends State<Jugar> {
     btnSeguirJugando = ImageTextButton(
       image: Image.asset(
         'assets/img/botones/jugar.png',
-        width: imgWidth,
+        width: imgBtnWidth,
       ),
       text: Text(
         'Seguir jugando',
@@ -318,7 +321,7 @@ class _Jugar extends State<Jugar> {
     btnSeguirJugandoCambiaPregunta = ImageTextButton(
       image: Image.asset(
         'assets/img/botones/jugar.png',
-        width: imgWidth,
+        width: imgBtnWidth,
       ),
       text: Text(
         'Seguir jugando',
@@ -335,7 +338,7 @@ class _Jugar extends State<Jugar> {
     btnSalir = ImageTextButton(
       image: Image.asset(
         'assets/img/botones/salir.png',
-        width: imgWidth,
+        width: imgBtnWidth,
       ),
       text: Text(
         'Salir',
@@ -358,7 +361,7 @@ class _Jugar extends State<Jugar> {
     btnMenu = ImageTextButton(
       image: Image.asset(
         'assets/img/botones/salir.png',
-        width: imgWidth,
+        width: imgBtnWidth,
       ),
       text: Text(
         'Ir al menú',
