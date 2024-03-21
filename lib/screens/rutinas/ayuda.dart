@@ -363,7 +363,7 @@ class _AyudaState extends State<Ayuda> {
       espacioPadding = screenSize.height * 0.06;
       espacioAlto = screenSize.height * 0.04;
       imgWidth = screenSize.width / 5;
-      imgBtnWidth = screenSize.width / 5;
+      imgBtnWidth = screenSize.width / 10;
       imgVolverHeight = screenSize.height / 10;
     } else {
       titleSize = screenSize.width * 0.10;
