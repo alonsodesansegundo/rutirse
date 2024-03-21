@@ -284,6 +284,7 @@ class _AllProgressState extends State<AllProgress> {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else if (partidas != null && partidas!.isNotEmpty) {
                     return ListView.builder(
+                      padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: partidas!.length,
