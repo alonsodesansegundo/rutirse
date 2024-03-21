@@ -13,12 +13,8 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
       textSize = 0.0,
       espacioPadding = 0.0,
       espacioAlto = 0.0,
-      imgHeight = 0.0,
       imgVolverHeight = 0.0,
-      espacioBotones = 0.0,
-      btnWidth = 0.0,
-      imgWidth = 0.0,
-      btnHeight = 0.0;
+      imgWidth = 0.0;
 
   late ImageTextButton btnVolver, btnRutinas, btnAnimo, btnIronias;
 
@@ -111,22 +107,14 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
       textSize = screenSize.width * 0.02;
       espacioPadding = screenSize.height * 0.06;
       espacioAlto = screenSize.height * 0.03;
-      imgHeight = screenSize.height / 4;
       imgVolverHeight = screenSize.height / 10;
-      espacioBotones = screenSize.height * 0.3;
-      btnWidth = screenSize.width / 4;
-      btnHeight = screenSize.height / 10;
-      imgWidth = screenSize.width / 3 - espacioPadding * 2.25;
+      imgWidth = screenSize.width / 6 - espacioPadding * 2;
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
       espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.03;
-      imgHeight = screenSize.height / 10;
       imgVolverHeight = screenSize.height / 32;
-      espacioBotones = screenSize.height * 0.09;
-      btnWidth = screenSize.width / 3;
-      btnHeight = screenSize.height / 14;
       imgWidth = screenSize.width / 3 - espacioPadding * 2;
     }
   }
