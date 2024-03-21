@@ -17,21 +17,20 @@ class _UserProgressState extends State<UserProgress> {
       textSize = 0.0,
       espacioPadding = 0.0,
       espacioAlto = 0.0,
-      imgHeight = 0.0,
       textHeaderSize = 0.0,
-      imgVolverHeight = 0.0;
+      imgVolverHeight = 0.0,
+      imgHeight = 0.0,
+      imgWidth = 0.0,
+      widthFecha = 0.0,
+      widthAciertos = 0.0,
+      widthFallos = 0.0,
+      widthDuracion = 0.0;
 
   // botones
   late ImageTextButton btnVolver;
 
   // lista de partidas
   List<Partida>? partidas;
-
-  // cabeceras de la tabla
-  late DataColumn cabeceraFecha,
-      cabeceraAciertos,
-      cabeceraFallos,
-      cabeceraDuracion;
 
   @override
   void initState() {
@@ -43,7 +42,6 @@ class _UserProgressState extends State<UserProgress> {
   Widget build(BuildContext context) {
     _updateVariablesSize();
     _createButtons();
-    _createCabecerasTabla();
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -111,6 +109,85 @@ class _UserProgressState extends State<UserProgress> {
                 ],
               ),
               SizedBox(height: espacioAlto),
+
+              Row(
+                children: [
+                  SizedBox(width: espacioPadding),
+                  Container(
+                    width: widthFecha,
+                    child: Column(
+                      children: [
+                        Image.asset('assets/img/calendario.png',
+                            width: imgWidth),
+                        SizedBox(height: espacioAlto * 0.25),
+                        Text(
+                          'Fecha de\nla partida',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textHeaderSize,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: widthAciertos,
+                    child: Column(
+                      children: [
+                        Image.asset('assets/img/medallas/correcto.png',
+                            width: imgWidth),
+                        SizedBox(height: espacioAlto * 0.25),
+                        Text(
+                          'Rutinas\ncompletadas',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textHeaderSize,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: widthFallos,
+                    child: Column(
+                      children: [
+                        Image.asset('assets/img/medallas/incorrecto.png',
+                            width: imgWidth),
+                        SizedBox(height: espacioAlto * 0.25),
+                        Text(
+                          'Intentos\n'
+                          'fallidos',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textHeaderSize,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: widthDuracion,
+                    child: Column(
+                      children: [
+                        Image.asset('assets/img/duracion.png', width: imgWidth),
+                        SizedBox(height: espacioAlto * 0.25),
+                        Text(
+                          'Duración de\nla partida',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textHeaderSize,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: espacioAlto / 2),
               FutureBuilder<void>(
                 future: _cargarPartidas(),
                 builder: (context, snapshot) {
@@ -119,50 +196,75 @@ class _UserProgressState extends State<UserProgress> {
                   } else if (snapshot.hasError) {
                     return Text("Error: ${snapshot.error}");
                   } else if (partidas != null && partidas!.isNotEmpty) {
-                    return DataTable(
-                      headingRowHeight: imgHeight + 8 + textHeaderSize * 2,
-                      columns: [
-                        cabeceraFecha,
-                        cabeceraAciertos,
-                        cabeceraFallos,
-                        cabeceraDuracion,
-                      ],
-                      rows: partidas!.map((Partida partida) {
-                        return DataRow(cells: [
-                          DataCell(Text(
-                            _getFecha(partida.fechaFin),
-                            style: TextStyle(
-                              fontFamily: 'ComicNeue',
-                              fontSize: textSize * 0.8,
-                              color: Colors.black,
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: partidas!.length,
+                      itemBuilder: (context, index) {
+                        final partida = partidas![index];
+                        return Row(
+                          children: [
+                            SizedBox(width: espacioPadding),
+                            Container(
+                              width: widthFecha,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  _getFecha(partida.fechaFin),
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize * 0.8,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
                             ),
-                          )),
-                          DataCell(Text(
-                            partida.aciertos.toString(),
-                            style: TextStyle(
-                              fontFamily: 'ComicNeue',
-                              fontSize: textSize * 0.8,
-                              color: Colors.black,
+                            Container(
+                              width: widthAciertos,
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  partida.aciertos.toString(),
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize * 0.8,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
                             ),
-                          )),
-                          DataCell(Text(
-                            partida.fallos.toString(),
-                            style: TextStyle(
-                              fontFamily: 'ComicNeue',
-                              fontSize: textSize * 0.8,
-                              color: Colors.black,
+                            Container(
+                              width: widthFallos,
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  partida.fallos.toString(),
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize * 0.8,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
                             ),
-                          )),
-                          DataCell(Text(
-                            _getTime(partida.duracionSegundos),
-                            style: TextStyle(
-                              fontFamily: 'ComicNeue',
-                              fontSize: textSize * 0.8,
-                              color: Colors.black,
+                            Container(
+                              width: widthDuracion,
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  _getTime(partida.duracionSegundos),
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize * 0.8,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
                             ),
-                          )),
-                        ]);
-                      }).toList(),
+                          ],
+                        );
+                      },
                     );
                   } else {
                     return Text(
@@ -184,6 +286,23 @@ class _UserProgressState extends State<UserProgress> {
     );
   }
 
+  double getWidthOfText(String text, BuildContext context) {
+    final TextSpan span = TextSpan(
+      text: text,
+      style: TextStyle(
+        fontFamily: 'ComicNeue',
+        fontSize: textHeaderSize,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+    final TextPainter tp = TextPainter(
+      text: span,
+      textDirection: TextDirection.ltr,
+    );
+    tp.layout(maxWidth: MediaQuery.of(context).size.width);
+    return tp.width;
+  }
+
   void _updateVariablesSize() {
     Size screenSize = MediaQuery.of(context).size;
 
@@ -195,17 +314,62 @@ class _UserProgressState extends State<UserProgress> {
       textSize = screenSize.width * 0.02;
       espacioPadding = screenSize.height * 0.06;
       espacioAlto = screenSize.height * 0.02;
-      imgHeight = screenSize.height / 4;
+      imgWidth = screenSize.width / 6;
       imgVolverHeight = screenSize.height / 10;
       textHeaderSize = screenSize.width * 0.015;
+      imgHeight = screenSize.width / 5;
+
+      widthFecha = getWidthOfText(
+            'Fecha de \nla partida',
+            context,
+          ) *
+          2;
+      widthAciertos = getWidthOfText(
+            'Rutinas\ncompletadas',
+            context,
+          ) *
+          2;
+      widthFallos = getWidthOfText(
+            'Intentos\nfallidos',
+            context,
+          ) *
+          3;
+
+      widthDuracion = getWidthOfText(
+            'Duración de\nla partida',
+            context,
+          ) *
+          4;
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
       espacioPadding = screenSize.height * 0.03;
       espacioAlto = screenSize.height * 0.03;
-      imgHeight = screenSize.width / 5;
+      imgWidth = screenSize.width / 6;
       imgVolverHeight = screenSize.height / 32;
       textHeaderSize = screenSize.width * 0.02;
+      imgHeight = screenSize.width / 5;
+      widthFecha = getWidthOfText(
+            'Fecha de \nla partida',
+            context,
+          ) *
+          2;
+      widthAciertos = getWidthOfText(
+            'Rutinas\ncompletadas',
+            context,
+          ) *
+          2;
+      widthFallos = getWidthOfText(
+            'Intentos\nfallidos',
+            context,
+          ) *
+          2.5;
+
+      widthDuracion = getWidthOfText(
+            'Duración de\nla partida',
+            context,
+          ) *
+          2;
     }
   }
 
@@ -220,81 +384,6 @@ class _UserProgressState extends State<UserProgress> {
       onPressed: () {
         Navigator.pop(context);
       },
-    );
-  }
-
-  void _createCabecerasTabla() {
-    cabeceraFecha = DataColumn(
-      label: Container(
-        child: Column(
-          children: [
-            Image.asset('assets/img/calendario.png', height: imgHeight * 0.75),
-            SizedBox(height: 8),
-            Text(
-              'Fecha de \nla partida',
-              style: TextStyle(
-                fontFamily: 'ComicNeue',
-                fontSize: textHeaderSize,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-
-    cabeceraAciertos = DataColumn(
-      label: Column(
-        children: [
-          Image.asset('assets/img/medallas/correcto.png',
-              height: imgHeight * 0.75),
-          SizedBox(height: 8),
-          Text(
-            'Rutinas\ncompletadas',
-            style: TextStyle(
-                fontFamily: 'ComicNeue',
-                fontSize: textHeaderSize,
-                fontWeight: FontWeight.bold,
-                color: Colors.black),
-          ),
-        ],
-      ),
-    );
-
-    cabeceraFallos = DataColumn(
-      label: Column(
-        children: [
-          Image.asset('assets/img/medallas/incorrecto.png',
-              height: imgHeight * 0.75),
-          SizedBox(height: 8),
-          Text(
-            'Intentos\nfallidos',
-            style: TextStyle(
-                fontFamily: 'ComicNeue',
-                fontSize: textHeaderSize,
-                fontWeight: FontWeight.bold,
-                color: Colors.black),
-          ),
-        ],
-      ),
-    );
-
-    cabeceraDuracion = DataColumn(
-      label: Column(
-        children: [
-          Image.asset('assets/img/duracion.png', height: imgHeight * 0.75),
-          SizedBox(height: 8),
-          Text(
-            'Duración de\nla partida',
-            style: TextStyle(
-                fontFamily: 'ComicNeue',
-                fontSize: textHeaderSize,
-                fontWeight: FontWeight.bold,
-                color: Colors.black),
-          ),
-        ],
-      ),
     );
   }
 
