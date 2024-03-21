@@ -18,9 +18,8 @@ class _MenuJugadorState extends State<MenuJugador> {
       espacioPadding = 0.0,
       espacioBotones = 0.0,
       espacioAlto = 0.0,
-      imgHeight = 0.0,
-      imgWidth = 0.0,
-      imgVolverHeight = 0.0;
+      imgVolverHeight = 0.0,
+      imgBtnWidth = 0.0;
 
   late ExitDialog exitDialog;
 
@@ -155,18 +154,16 @@ class _MenuJugadorState extends State<MenuJugador> {
       espacioPadding = screenSize.height * 0.06;
       espacioBotones = screenSize.height * 0.3;
       espacioAlto = screenSize.height * 0.03;
-      imgHeight = screenSize.height / 7;
-      imgWidth = screenSize.width / 4;
       imgVolverHeight = screenSize.height / 10;
+      imgBtnWidth = screenSize.width / 10;
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
       espacioPadding = screenSize.height * 0.03;
       espacioBotones = screenSize.height * 0.09;
       espacioAlto = screenSize.height * 0.03;
-      imgHeight = screenSize.height / 9;
-      imgWidth = screenSize.width / 5;
       imgVolverHeight = screenSize.height / 32;
+      imgBtnWidth = screenSize.width / 5;
     }
   }
 
@@ -189,7 +186,7 @@ class _MenuJugadorState extends State<MenuJugador> {
   void _createButtons() {
     // boton para dar la opcion de jugar
     btnJugar = ImageTextButton(
-      image: Image.asset('assets/img/botones/jugar.png', height: imgHeight),
+      image: Image.asset('assets/img/botones/jugar.png', width: imgBtnWidth),
       text: Text(
         'Jugar',
         style: TextStyle(
@@ -205,7 +202,8 @@ class _MenuJugadorState extends State<MenuJugador> {
 
     // boton para dar la opcion de ver progresos
     btnProgresos = ImageTextButton(
-      image: Image.asset('assets/img/botones/progresos.png', height: imgHeight),
+      image:
+          Image.asset('assets/img/botones/progresos.png', width: imgBtnWidth),
       text: Text(
         'Ver mis progresos',
         style: TextStyle(
@@ -221,7 +219,7 @@ class _MenuJugadorState extends State<MenuJugador> {
 
     // boton para dar la opcion de ir a opciones
     btnOpciones = ImageTextButton(
-      image: Image.asset('assets/img/botones/opciones.png', height: imgHeight),
+      image: Image.asset('assets/img/botones/opciones.png', width: imgBtnWidth),
       text: Text(
         'Opciones',
         style: TextStyle(
@@ -237,7 +235,7 @@ class _MenuJugadorState extends State<MenuJugador> {
 
     // boton para dar la opcion de ir a ayuda
     btnAyuda = ImageTextButton(
-      image: Image.asset('assets/img/botones/ayuda.png', height: imgHeight),
+      image: Image.asset('assets/img/botones/ayuda.png', width: imgBtnWidth),
       text: Text(
         'Ayuda',
         style: TextStyle(
@@ -256,7 +254,7 @@ class _MenuJugadorState extends State<MenuJugador> {
 
     // boton para seguir en el menú principal
     btnSeguir = ImageTextButton(
-      image: Image.asset('assets/img/botones/menu.png', height: imgHeight),
+      image: Image.asset('assets/img/botones/menu.png', width: imgBtnWidth),
       text: Text(
         'Seguir en el menú',
         style: TextStyle(
@@ -269,7 +267,7 @@ class _MenuJugadorState extends State<MenuJugador> {
 
     // boton para salir del menú principal
     btnSalir = ImageTextButton(
-      image: Image.asset('assets/img/botones/home.png', height: imgHeight),
+      image: Image.asset('assets/img/botones/home.png', width: imgBtnWidth),
       text: Text(
         'Salir',
         style: TextStyle(
