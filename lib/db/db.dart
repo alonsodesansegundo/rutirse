@@ -6,6 +6,7 @@ import 'obj/grupo.dart';
 import 'obj/jugador.dart';
 import 'obj/partida.dart';
 import 'obj/pregunta.dart';
+import 'obj/terapeuta.dart';
 
 String pathPersonajes = "assets/img/personajes/";
 
@@ -19,6 +20,7 @@ Future<Database> initializeDB() async {
       createTables(database);
 
       // inserción de datos iniciales (grupos, preguntas...)
+      insertDefaultPassword(database);
       insertGrupos(database);
       insertPreguntas(database);
 
@@ -87,12 +89,20 @@ void createTableAccion(Database database) {
     )""");
 }
 
+void createTableTerapeuta(Database database) {
+  database.execute("""
+    CREATE TABLE terapeuta (
+      password TEXT NOT NULL
+    )""");
+}
+
 void createTables(Database database) {
   createTableGrupo(database);
   createTableJugador(database);
   createTablePartida(database);
   createTablePregunta(database);
   createTableAccion(database);
+  createTableTerapeuta(database);
 }
 
 Future<void> addRutina(Pregunta pregunta, List<Accion> acciones) async {
