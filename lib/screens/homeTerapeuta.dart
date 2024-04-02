@@ -2,6 +2,7 @@ import 'package:TresEnUno/screens/rutinas/menuTerapeuta.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/ImageTextButton.dart';
+import '../db/obj/terapeuta.dart';
 
 class HomeTerapeuta extends StatefulWidget {
   @override
@@ -14,19 +15,44 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
       espacioPadding = 0.0,
       espacioAlto = 0.0,
       imgVolverHeight = 0.0,
-      imgWidth = 0.0;
+      imgWidth = 0.0,
+      dialogTextSize = 0.0,
+      dialogTitleSize = 0.0;
 
-  late ImageTextButton btnVolver, btnRutinas, btnAnimo, btnIronias;
+  late ImageTextButton btnVolver,
+      btnRutinas,
+      btnAnimo,
+      btnIronias,
+      btnChangePassword;
+
+  late StatefulBuilder changePasswordDialog;
+
+  late TextEditingController _enterPasswordController,
+      _newPasswordController,
+      _confirmPasswordController;
+
+  late String _errorMessage, terapeutaPassword;
+
+  late bool flag = false;
 
   @override
   void initState() {
     super.initState();
+    flag = false;
   }
 
   @override
   Widget build(BuildContext context) {
     _updateVariablesSize();
     _createButtons();
+    _createDialogs();
+    if (!flag) {
+      flag = true;
+      _newPasswordController = TextEditingController();
+      _confirmPasswordController = TextEditingController();
+      _enterPasswordController = TextEditingController();
+      _errorMessage = "";
+    }
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -88,6 +114,19 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
               Row(
                 children: [btnRutinas, btnAnimo, btnIronias],
               ),
+              SizedBox(height: espacioAlto),
+              Text(
+                'Otras opciones:',
+                style: TextStyle(
+                  fontFamily: 'ComicNeue',
+                  fontSize: textSize,
+                ),
+              ),
+              SizedBox(height: espacioAlto), // Espacio
+
+              Row(
+                children: [btnChangePassword],
+              )
             ],
           ),
         ),
@@ -109,6 +148,8 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
       espacioAlto = screenSize.height * 0.03;
       imgVolverHeight = screenSize.height / 10;
       imgWidth = screenSize.width / 6 - espacioPadding * 2;
+      dialogTitleSize = titleSize * 0.35;
+      dialogTextSize = textSize * 0.45;
     } else {
       titleSize = screenSize.width * 0.10;
       textSize = screenSize.width * 0.03;
@@ -116,6 +157,8 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
       espacioAlto = screenSize.height * 0.03;
       imgVolverHeight = screenSize.height / 32;
       imgWidth = screenSize.width / 3 - espacioPadding * 2;
+      dialogTitleSize = titleSize * 0.75;
+      dialogTextSize = textSize * 0.85;
     }
   }
 
@@ -176,5 +219,213 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
         Navigator.of(context).pop();
       },
     );
+
+    btnChangePassword = ImageTextButton(
+      image: Image.asset(
+        'assets/img/botones/contraseña.png',
+        width: imgWidth,
+      ),
+      text: Text(
+        'Cambiar\ncontraseña',
+        style: TextStyle(
+            fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
+      ),
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return changePasswordDialog;
+          },
+        );
+      },
+    );
+  }
+
+  void _createDialogs() {
+    changePasswordDialog = StatefulBuilder(
+      builder: (BuildContext context, StateSetter setState) {
+        return AlertDialog(
+          title: Text(
+            'Cambiar contraseña',
+            style: TextStyle(
+              fontFamily: 'ComicNeue',
+              fontSize: dialogTitleSize,
+            ),
+          ),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  "Debes introducir la contraseña actual y la nueva contraseña.",
+                  style: TextStyle(
+                    fontFamily: 'ComicNeue',
+                    fontSize: dialogTextSize,
+                  ),
+                ),
+                TextField(
+                  controller: _enterPasswordController,
+                  style: TextStyle(
+                    fontFamily: 'ComicNeue',
+                    fontSize: dialogTextSize,
+                  ),
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Contraseña antigua',
+                  ),
+                ),
+                SizedBox(
+                  height: espacioAlto,
+                ),
+                TextField(
+                  style: TextStyle(
+                    fontFamily: 'ComicNeue',
+                    fontSize: dialogTextSize,
+                  ),
+                  controller: _newPasswordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Contraseña nueva',
+                  ),
+                ),
+                TextField(
+                  style: TextStyle(
+                    fontFamily: 'ComicNeue',
+                    fontSize: dialogTextSize,
+                  ),
+                  controller: _confirmPasswordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Repetir contraseña nueva',
+                  ),
+                ),
+                if (_errorMessage.isNotEmpty)
+                  Padding(
+                    padding: EdgeInsets.only(top: espacioAlto),
+                    child: Text(
+                      _errorMessage,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontFamily: 'ComicNeue',
+                        fontSize: dialogTextSize,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            ButtonBar(
+              alignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    if (await _validateChangePassword(setState)) {
+                      Navigator.pop(context);
+                      await updatePassword(_newPasswordController.text);
+                      flag = false;
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text(
+                              'Contraseña cambiada',
+                              style: TextStyle(
+                                fontFamily: 'ComicNeue',
+                                fontSize: dialogTitleSize,
+                              ),
+                            ),
+                            content: Text(
+                              'La contraseña ha sido cambiada con éxito.',
+                              style: TextStyle(
+                                fontFamily: 'ComicNeue',
+                                fontSize: dialogTextSize,
+                              ),
+                            ),
+                            actions: <Widget>[
+                              Center(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    'Aceptar',
+                                    style: TextStyle(
+                                      fontFamily: 'ComicNeue',
+                                      fontSize:
+                                          dialogTextSize, // Cambia el color según tus preferencias
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
+                        },
+                      );
+                    }
+                  },
+                  child: Text(
+                    'Confirmar',
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: dialogTextSize,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    flag = false;
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    'Cancelar',
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: dialogTextSize,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<bool> _validateChangePassword(StateSetter setState) async {
+    await _getPassword();
+    if (terapeutaPassword != _enterPasswordController.text) {
+      setState(() {
+        _errorMessage = "Contraseña incorrecta";
+      });
+      return false;
+    }
+    if (_newPasswordController.text.isEmpty ||
+        _confirmPasswordController.text.isEmpty) {
+      setState(() {
+        _errorMessage = "La nueva contraseña no puede ser vacía";
+      });
+      return false;
+    }
+    if (_newPasswordController.text != _confirmPasswordController.text) {
+      setState(() {
+        _errorMessage = "Las nuevas contraseñas no coinciden";
+      });
+      return false;
+    }
+    return true;
+  }
+
+  // Método para obtener la lista de grupos de la BBDD
+  Future<void> _getPassword() async {
+    try {
+      String aux = await getPassword();
+      setState(() {
+        terapeutaPassword = aux;
+      });
+    } catch (e) {
+      print("Error al obtener la password de terapeuta: $e");
+    }
   }
 }
