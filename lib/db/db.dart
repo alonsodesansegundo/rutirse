@@ -23,8 +23,8 @@ Future<Database> initializeDB() async {
       insertPreguntas(database);
 
       // INSERCCIONES DE RUTINAS POR TERAPEUTA PARA PRUEBAS
-      insertDataTerapeutaTest();
-      insertDefaultJugadoresPartidasTest();
+      //insertDataTerapeutaTest();
+      //insertDefaultJugadoresPartidasTest();
     },
     version: 1,
   );
