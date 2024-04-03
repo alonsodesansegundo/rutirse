@@ -835,11 +835,7 @@ class _AddRutinaState extends State<AddRutina> {
   // método para añadir un nuevo ElementAccion
   void _addAccion() {
     setState(() {
-      String accionText = 'Acción ' + (acciones.length + 1).toString();
-      if (selectedGrupo != null && selectedGrupo!.nombre == "Adolescencia")
-        accionText += ": ";
-      else
-        accionText += "*:";
+      String accionText = 'Acción ' + (acciones.length + 1).toString() + "*";
 
       acciones.add(ElementAccion(
         text1: accionText,
@@ -850,8 +846,9 @@ class _AddRutinaState extends State<AddRutina> {
         btnWidth: btnWidth,
         btnHeight: btnHeight,
         textSituacionWidth: textSituacionWidth,
-        onPressedGaleria: () => _selectNewActionGallery(acciones.length),
-        onPressedArasaac: () => _selectNewActionArasaac(acciones.length),
+        onPressedGaleria: () => _selectNewActionGallery(acciones.length - 1),
+        onPressedArasaac: () => _selectNewActionArasaac(acciones.length - 1),
+        flagAdolescencia: selectedGrupo?.nombre == "Adolescencia",
       ));
     });
   }

@@ -42,6 +42,8 @@ class _EditRutinaState extends State<EditRutina> {
       btnHeight,
       imgVolverHeight;
 
+  late int sizeAccionesInitial;
+
   late ElevatedButton btnPersonajeExistente,
       btnGaleria,
       btnArasaac,
@@ -72,9 +74,12 @@ class _EditRutinaState extends State<EditRutina> {
 
   late bool firstLoad = true, changeGrupo, loadData;
 
+  late Grupo defaultGrupo;
+
   @override
   void initState() {
     super.initState();
+    defaultGrupo = widget.grupo;
     loadData = false;
     grupos = [];
     acciones = [];
@@ -379,7 +384,12 @@ class _EditRutinaState extends State<EditRutina> {
                     ),
                     onPressed: () {
                       if (!changeGrupo) {
-                        selectedGrupo = widget.grupo;
+                        for (Grupo grupo in grupos) {
+                          if (grupo.nombre == widget.grupo.nombre) {
+                            selectedGrupo = grupo;
+                            break;
+                          }
+                        }
                       }
                       if (!_completedParams()) {
                         showDialog(
@@ -929,11 +939,13 @@ class _EditRutinaState extends State<EditRutina> {
   // método para añadir un nuevo ElementAccion
   void _addAccion() {
     setState(() {
-      String accionText = 'Acción ' + (acciones.length + 1).toString();
-      if (selectedGrupo != null && selectedGrupo!.nombre == "Adolescencia")
-        accionText += ": ";
+      String accionText = 'Acción ' + (acciones.length + 1).toString() + "*";
+
+      bool flag;
+      if (!changeGrupo)
+        flag = defaultGrupo.nombre == "Adolescencia";
       else
-        accionText += "*:";
+        flag = selectedGrupo!.nombre == "Adolescencia";
 
       acciones.add(ElementAccion(
         text1: accionText,
@@ -944,8 +956,9 @@ class _EditRutinaState extends State<EditRutina> {
         btnWidth: btnWidth,
         btnHeight: btnHeight,
         textSituacionWidth: textSituacionWidth,
-        onPressedGaleria: () => _selectNewActionGallery(acciones.length),
-        onPressedArasaac: () => _selectNewActionArasaac(acciones.length),
+        onPressedGaleria: () => _selectNewActionGallery(acciones.length - 1),
+        onPressedArasaac: () => _selectNewActionArasaac(acciones.length - 1),
+        flagAdolescencia: flag,
       ));
     });
   }
@@ -1002,30 +1015,53 @@ class _EditRutinaState extends State<EditRutina> {
   Future<void> _editAcciones() async {
     Database db = await openDatabase('rutinas.db');
     for (int i = 0; i < acciones.length; i++) {
-      if (selectedGrupo!.nombre != "Adolescencia")
-        await db.update(
-          'accion',
-          {
-            'texto': acciones[i].accionText,
-            'orden': i,
-            'imagen': acciones[i].accionImage,
-            'preguntaId': widget.pregunta.id,
-          },
-          where: 'id = ?',
-          whereArgs: [acciones[i].id],
-        );
-      else
-        await db.update(
-          'accion',
-          {
-            'texto': "",
-            'orden': i,
-            'imagen': acciones[i].accionImage,
-            'preguntaId': widget.pregunta.id,
-          },
-          where: 'id = ?',
-          whereArgs: [acciones[i].id],
-        );
+      if (i < this.sizeAccionesInitial) {
+        if (selectedGrupo!.nombre != "Adolescencia")
+          await db.update(
+            'accion',
+            {
+              'texto': acciones[i].accionText,
+              'orden': i,
+              'imagen': acciones[i].accionImage,
+              'preguntaId': widget.pregunta.id,
+            },
+            where: 'id = ?',
+            whereArgs: [acciones[i].id],
+          );
+        else
+          await db.update(
+            'accion',
+            {
+              'texto': "",
+              'orden': i,
+              'imagen': acciones[i].accionImage,
+              'preguntaId': widget.pregunta.id,
+            },
+            where: 'id = ?',
+            whereArgs: [acciones[i].id],
+          );
+      } else {
+        if (selectedGrupo!.nombre != "Adolescencia")
+          await db.insert(
+            'accion',
+            {
+              'texto': acciones[i].accionText,
+              'orden': i,
+              'imagen': acciones[i].accionImage,
+              'preguntaId': widget.pregunta.id,
+            },
+          );
+        else
+          await db.insert(
+            'accion',
+            {
+              'texto': "",
+              'orden': i,
+              'imagen': acciones[i].accionImage,
+              'preguntaId': widget.pregunta.id,
+            },
+          );
+      }
     }
     for (int i = 0; i < accionesToDelete.length; i++)
       deleteAccion(db, accionesToDelete[i].id!);
@@ -1074,6 +1110,7 @@ class _EditRutinaState extends State<EditRutina> {
         this.acciones.add(elementAccion);
       });
     }
+    this.sizeAccionesInitial = this.acciones.length;
   }
 
   void _removePregunta(int preguntaId) {
