@@ -92,7 +92,8 @@ void createTableAccion(Database database) {
 void createTableTerapeuta(Database database) {
   database.execute("""
     CREATE TABLE terapeuta (
-      password TEXT NOT NULL
+      password TEXT NOT NULL,
+      pista TEXT NOT NULL
     )""");
 }
 

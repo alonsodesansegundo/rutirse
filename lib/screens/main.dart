@@ -35,6 +35,8 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
+  late int intentosPassword;
+
   late double titleSize,
       textSize,
       espacioPadding,
@@ -43,17 +45,19 @@ class _MainState extends State<Main> {
       imgWidth,
       espacioAcercaDe,
       dialogTextSize,
-      dialogTitleSize;
+      dialogTitleSize,
+      maxWidth;
 
   late ImageTextButton btnRutinas, btnIronias, btnAnimo, btnTerapeuta, btnInfo;
 
   late StatefulBuilder passwordDialog, noPasswordDialog;
 
-  late String terapeutaPassword;
+  late String terapeutaPassword, terapeutaPista;
 
   late TextEditingController _enterPasswordController,
       _createPasswordController,
-      _confirmPasswordController;
+      _confirmPasswordController,
+      _pistaController;
 
   late String _errorMessage;
 
@@ -64,12 +68,17 @@ class _MainState extends State<Main> {
     super.initState();
     loadData = false;
 
+    intentosPassword = 0;
+
     _createPasswordController = TextEditingController();
     _confirmPasswordController = TextEditingController();
     _enterPasswordController = TextEditingController();
+    _pistaController = TextEditingController();
 
     _errorMessage = "";
     _getPassword();
+    _getPista();
+
     flag = false;
   }
 
@@ -85,6 +94,7 @@ class _MainState extends State<Main> {
     if (!flag) {
       flag = true;
       _getPassword();
+      _getPista();
     }
 
     return MaterialApp(
@@ -181,6 +191,7 @@ class _MainState extends State<Main> {
     imgWidth = screenSize.width / 3 - espacioPadding * 2;
     dialogTitleSize = titleSize * 0.75;
     dialogTextSize = textSize * 0.85;
+    maxWidth = MediaQuery.of(context).size.width * 0.8;
   }
 
   void _createButtons() {
@@ -238,6 +249,8 @@ class _MainState extends State<Main> {
       ),
       onPressed: () {
         flag = false;
+        intentosPassword = 0;
+        _errorMessage = "";
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -275,6 +288,7 @@ class _MainState extends State<Main> {
     if (enterPassword != terapeutaPassword) {
       setState(() {
         _errorMessage = 'La contraseña es incorrecta';
+        intentosPassword++;
       });
     } else {
       _errorMessage = "";
@@ -293,6 +307,7 @@ class _MainState extends State<Main> {
   void _validateCreatePassword(StateSetter setState) {
     String password = _createPasswordController.text;
     String confirmPassword = _confirmPasswordController.text;
+    String pista = _pistaController.text;
 
     if (password.isEmpty || confirmPassword.isEmpty) {
       setState(() {
@@ -302,8 +317,12 @@ class _MainState extends State<Main> {
       setState(() {
         _errorMessage = 'Las contraseñas no coinciden';
       });
+    } else if (pista.isEmpty) {
+      setState(() {
+        _errorMessage = 'La pista es obligatoria';
+      });
     } else {
-      updatePassword(password);
+      updatePassword(password, pista);
       _errorMessage = "";
       _createPasswordController.text = "";
       _confirmPasswordController.text = "";
@@ -361,6 +380,24 @@ class _MainState extends State<Main> {
                         fontFamily: 'ComicNeue',
                         fontSize: textSize,
                       ),
+                    ),
+                  ),
+                if (intentosPassword >= 3)
+                  Container(
+                    child: Row(
+                      children: [
+                        SizedBox(height: espacioAlto),
+                        Container(
+                          constraints: BoxConstraints(maxWidth: maxWidth),
+                          child: Text(
+                            "PISTA: " + terapeutaPista,
+                            style: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: textSize,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
               ],
@@ -446,6 +483,19 @@ class _MainState extends State<Main> {
                   labelText: 'Confirmar Contraseña',
                 ),
               ),
+              SizedBox(
+                height: espacioAlto,
+              ),
+              TextField(
+                style: TextStyle(
+                  fontFamily: 'ComicNeue',
+                  fontSize: dialogTextSize,
+                ),
+                controller: _pistaController,
+                decoration: InputDecoration(
+                  labelText: 'Pista para recordar contraseña',
+                ),
+              ),
               if (_errorMessage.isNotEmpty)
                 Padding(
                   padding: EdgeInsets.only(top: espacioAlto),
@@ -496,7 +546,7 @@ class _MainState extends State<Main> {
     );
   }
 
-  // Método para obtener la lista de grupos de la BBDD
+  // Método para obtener la contraseña de terapeuta
   Future<void> _getPassword() async {
     try {
       String aux = await getPassword();
@@ -505,6 +555,18 @@ class _MainState extends State<Main> {
       });
     } catch (e) {
       print("Error al obtener la password de terapeuta: $e");
+    }
+  }
+
+  // Método para obtener la contraseña de terapeuta
+  Future<void> _getPista() async {
+    try {
+      String aux = await getPista();
+      setState(() {
+        terapeutaPista = aux;
+      });
+    } catch (e) {
+      print("Error al obtener la pista de la contraseña de terapeuta: $e");
     }
   }
 }

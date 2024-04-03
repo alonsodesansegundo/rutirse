@@ -29,17 +29,17 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
 
   late TextEditingController _enterPasswordController,
       _newPasswordController,
-      _confirmPasswordController;
+      _confirmPasswordController,
+      _newPistaController;
 
   late String _errorMessage, terapeutaPassword;
 
-  late bool flag, loadData;
+  late bool loadData;
 
   @override
   void initState() {
     super.initState();
     loadData = false;
-    flag = false;
   }
 
   @override
@@ -49,13 +49,6 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
       _createVariablesSize();
       _createButtons();
       _createDialogs();
-    }
-    if (!flag) {
-      flag = true;
-      _newPasswordController = TextEditingController();
-      _confirmPasswordController = TextEditingController();
-      _enterPasswordController = TextEditingController();
-      _errorMessage = "";
     }
 
     return Scaffold(
@@ -148,7 +141,7 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
     espacioAlto = screenSize.height * 0.03;
     imgVolverHeight = screenSize.height / 32;
     imgWidth = screenSize.width / 3 - espacioPadding * 2;
-    dialogTitleSize = titleSize * 0.75;
+    dialogTitleSize = titleSize * 0.5;
     dialogTextSize = textSize * 0.85;
   }
 
@@ -221,6 +214,12 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
       onPressed: () {
+        _newPasswordController = TextEditingController();
+        _confirmPasswordController = TextEditingController();
+        _enterPasswordController = TextEditingController();
+        _newPistaController = TextEditingController();
+
+        _errorMessage = "";
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -247,7 +246,7 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  "Debes introducir la contraseña actual y la nueva contraseña.",
+                  "Debes introducir la contraseña actual y la nueva contraseña, además de una pista.",
                   style: TextStyle(
                     fontFamily: 'ComicNeue',
                     fontSize: dialogTextSize,
@@ -289,6 +288,19 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
                     labelText: 'Repetir contraseña nueva',
                   ),
                 ),
+                SizedBox(
+                  height: espacioAlto,
+                ),
+                TextField(
+                  style: TextStyle(
+                    fontFamily: 'ComicNeue',
+                    fontSize: dialogTextSize,
+                  ),
+                  controller: _newPistaController,
+                  decoration: InputDecoration(
+                    labelText: 'Pista para recordar contraseña',
+                  ),
+                ),
                 if (_errorMessage.isNotEmpty)
                   Padding(
                     padding: EdgeInsets.only(top: espacioAlto),
@@ -312,8 +324,8 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
                   onPressed: () async {
                     if (await _validateChangePassword(setState)) {
                       Navigator.pop(context);
-                      await updatePassword(_newPasswordController.text);
-                      flag = false;
+                      await updatePassword(_newPasswordController.text,
+                          _newPistaController.text);
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -364,7 +376,6 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    flag = false;
                     Navigator.pop(context);
                   },
                   child: Text(
@@ -393,14 +404,25 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
     }
     if (_newPasswordController.text.isEmpty ||
         _confirmPasswordController.text.isEmpty) {
+      print("ERROR 1");
+
       setState(() {
         _errorMessage = "La nueva contraseña no puede ser vacía";
       });
       return false;
     }
     if (_newPasswordController.text != _confirmPasswordController.text) {
+      print("ERROR 2");
+
       setState(() {
         _errorMessage = "Las nuevas contraseñas no coinciden";
+      });
+      return false;
+    }
+    if (_newPistaController.text.isEmpty) {
+      print("ERROR 3");
+      setState(() {
+        _errorMessage = "La pista es obligatoria";
       });
       return false;
     }

@@ -22,7 +22,7 @@ class Terapeuta {
 
 void insertDefaultPassword(Database database) async {
   await database.transaction((txn) async {
-    txn.rawInsert("INSERT INTO terapeuta (password) VALUES ('')");
+    txn.rawInsert("INSERT INTO terapeuta (password,pista) VALUES ('','')");
   });
 }
 
@@ -38,8 +38,21 @@ Future<String> getPassword() async {
   }
 }
 
-Future<void> updatePassword(String newPassword) async {
+Future<String> getPista() async {
   final Database database = await initializeDB();
 
-  await database.rawUpdate('UPDATE terapeuta SET password = ?', [newPassword]);
+  List<Map<String, dynamic>> result =
+      await database.rawQuery('SELECT pista FROM terapeuta');
+  if (result.isNotEmpty) {
+    return result.first['pista'];
+  } else {
+    return '';
+  }
+}
+
+Future<void> updatePassword(String newPassword, String newPista) async {
+  final Database database = await initializeDB();
+
+  await database.rawUpdate(
+      'UPDATE terapeuta SET password = ?, pista = ?', [newPassword, newPista]);
 }
