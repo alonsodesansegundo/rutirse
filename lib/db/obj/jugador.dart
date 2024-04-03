@@ -69,3 +69,16 @@ Future<Jugador> insertJugadorDefault(Database database, Jugador jugador) async {
   });
   return sol;
 }
+
+Future<void> deletePlayer(int playerId) async {
+  Database database = await initializeDB();
+
+  try {
+    await database.transaction((txn) async {
+      await txn.rawDelete('DELETE FROM jugador WHERE id = ?', [playerId]);
+    });
+    print('Jugador eliminado con éxito');
+  } catch (e) {
+    print('Error al eliminar jugador: $e');
+  }
+}

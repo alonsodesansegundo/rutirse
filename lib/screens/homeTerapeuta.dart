@@ -1,3 +1,4 @@
+import 'package:TresEnUno/screens/removePlayer.dart';
 import 'package:TresEnUno/screens/rutinas/menuTerapeuta.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,7 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
       btnRutinas,
       btnAnimo,
       btnIronias,
+      btnRemovePlayer,
       btnChangePassword;
 
   late StatefulBuilder changePasswordDialog;
@@ -90,7 +92,8 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
                     child: Text(
                       'Como terapeuta tienes la posibilidad de acceder a los distintos juegos, ya '
                       'sea para añadir nuevas preguntas, modificar o eliminar preguntas añadidas'
-                      ' por terapeutas o consultar los datos de cualquier jugador para ver su progreso. ',
+                      ' por terapeutas o consultar los datos de cualquier jugador para ver su progreso. '
+                      'También puedes eliminar jugadores o cambiar la contraseña.',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: textSize,
@@ -122,7 +125,7 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
               SizedBox(height: espacioAlto), // Espacio
 
               Row(
-                children: [btnChangePassword],
+                children: [btnRemovePlayer, btnChangePassword],
               )
             ],
           ),
@@ -200,6 +203,24 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
       ),
       onPressed: () {
         Navigator.of(context).pop();
+      },
+    );
+
+    btnRemovePlayer = ImageTextButton(
+      image: Image.asset(
+        'assets/img/botones/borrar.png',
+        width: imgWidth,
+      ),
+      text: Text(
+        'Eliminar\njugador',
+        style: TextStyle(
+            fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
+      ),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => RemovePlayer()),
+        );
       },
     );
 
