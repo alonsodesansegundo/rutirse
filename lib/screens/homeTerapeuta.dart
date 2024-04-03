@@ -10,14 +10,14 @@ class HomeTerapeuta extends StatefulWidget {
 }
 
 class _HomeTerapeutaState extends State<HomeTerapeuta> {
-  double titleSize = 0.0,
-      textSize = 0.0,
-      espacioPadding = 0.0,
-      espacioAlto = 0.0,
-      imgVolverHeight = 0.0,
-      imgWidth = 0.0,
-      dialogTextSize = 0.0,
-      dialogTitleSize = 0.0;
+  late double titleSize,
+      textSize,
+      espacioPadding,
+      espacioAlto,
+      imgVolverHeight,
+      imgWidth,
+      dialogTextSize,
+      dialogTitleSize;
 
   late ImageTextButton btnVolver,
       btnRutinas,
@@ -33,19 +33,23 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
 
   late String _errorMessage, terapeutaPassword;
 
-  late bool flag = false;
+  late bool flag, loadData;
 
   @override
   void initState() {
     super.initState();
+    loadData = false;
     flag = false;
   }
 
   @override
   Widget build(BuildContext context) {
-    _updateVariablesSize();
-    _createButtons();
-    _createDialogs();
+    if (!loadData) {
+      loadData = true;
+      _createVariablesSize();
+      _createButtons();
+      _createDialogs();
+    }
     if (!flag) {
       flag = true;
       _newPasswordController = TextEditingController();
@@ -135,31 +139,17 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
   }
 
   // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
-  void _updateVariablesSize() {
+  void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
-    final isHorizontal =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
-    if (isHorizontal) {
-      titleSize = screenSize.width * 0.08;
-      textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.06;
-      espacioAlto = screenSize.height * 0.03;
-      imgVolverHeight = screenSize.height / 10;
-      imgWidth = screenSize.width / 6 - espacioPadding * 2;
-      dialogTitleSize = titleSize * 0.35;
-      dialogTextSize = textSize * 0.45;
-    } else {
-      titleSize = screenSize.width * 0.10;
-      textSize = screenSize.width * 0.03;
-      espacioPadding = screenSize.height * 0.03;
-      espacioAlto = screenSize.height * 0.03;
-      imgVolverHeight = screenSize.height / 32;
-      imgWidth = screenSize.width / 3 - espacioPadding * 2;
-      dialogTitleSize = titleSize * 0.75;
-      dialogTextSize = textSize * 0.85;
-    }
+    titleSize = screenSize.width * 0.10;
+    textSize = screenSize.width * 0.03;
+    espacioPadding = screenSize.height * 0.03;
+    espacioAlto = screenSize.height * 0.03;
+    imgVolverHeight = screenSize.height / 32;
+    imgWidth = screenSize.width / 3 - espacioPadding * 2;
+    dialogTitleSize = titleSize * 0.75;
+    dialogTextSize = textSize * 0.85;
   }
 
   // metodo para crear los botones necesarios

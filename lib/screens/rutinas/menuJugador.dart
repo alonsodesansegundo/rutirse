@@ -13,13 +13,13 @@ class MenuJugador extends StatefulWidget {
 }
 
 class _MenuJugadorState extends State<MenuJugador> {
-  double titleSize = 0.0,
-      textSize = 0.0,
-      espacioPadding = 0.0,
-      espacioBotones = 0.0,
-      espacioAlto = 0.0,
-      imgVolverHeight = 0.0,
-      imgBtnWidth = 0.0;
+  late double titleSize,
+      textSize,
+      espacioPadding,
+      espacioBotones,
+      espacioAlto,
+      imgVolverHeight,
+      imgBtnWidth;
 
   late ExitDialog exitDialog;
 
@@ -30,16 +30,22 @@ class _MenuJugadorState extends State<MenuJugador> {
       btnSeguir,
       btnSalir;
 
+  late bool loadData;
+
   @override
   void initState() {
     super.initState();
+    loadData = false;
   }
 
   @override
   Widget build(BuildContext context) {
-    _updateVariablesSize();
-    _createButtons();
-    _createDialogs();
+    if (!loadData) {
+      loadData = true;
+      _createVariablesSize();
+      _createButtons();
+      _createDialogs();
+    }
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -142,29 +148,16 @@ class _MenuJugadorState extends State<MenuJugador> {
   }
 
   // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
-  void _updateVariablesSize() {
+  void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
-    final isHorizontal =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
-    if (isHorizontal) {
-      titleSize = screenSize.width * 0.08;
-      textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.06;
-      espacioBotones = screenSize.height * 0.3;
-      espacioAlto = screenSize.height * 0.03;
-      imgVolverHeight = screenSize.height / 10;
-      imgBtnWidth = screenSize.width / 10;
-    } else {
-      titleSize = screenSize.width * 0.10;
-      textSize = screenSize.width * 0.03;
-      espacioPadding = screenSize.height * 0.03;
-      espacioBotones = screenSize.height * 0.09;
-      espacioAlto = screenSize.height * 0.03;
-      imgVolverHeight = screenSize.height / 32;
-      imgBtnWidth = screenSize.width / 5;
-    }
+    titleSize = screenSize.width * 0.10;
+    textSize = screenSize.width * 0.03;
+    espacioPadding = screenSize.height * 0.03;
+    espacioBotones = screenSize.height * 0.09;
+    espacioAlto = screenSize.height * 0.03;
+    imgVolverHeight = screenSize.height / 32;
+    imgBtnWidth = screenSize.width / 5;
   }
 
   // metodo para crear los cuadro de dialogos

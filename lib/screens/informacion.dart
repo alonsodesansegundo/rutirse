@@ -8,20 +8,21 @@ class Informacion extends StatefulWidget {
 }
 
 class _InformacionState extends State<Informacion> {
-  double titleSize = 0.0,
-      textSize = 0.0,
-      espacioPadding = 0.0,
-      espacioAlto = 0.0,
-      imgHeight = 0.0;
+  late double titleSize, textSize, espacioPadding, espacioAlto, imgHeight;
+  late bool loadData;
 
   @override
   void initState() {
     super.initState();
+    loadData = false;
   }
 
   @override
   Widget build(BuildContext context) {
-    _updateVariablesSize();
+    if (!loadData) {
+      loadData = true;
+      _createVariablesSize();
+    }
 
     return MaterialApp(
       home: Scaffold(
@@ -140,24 +141,13 @@ class _InformacionState extends State<Informacion> {
   }
 
   // Método para asignar valores a las variables relacionadas con tamaños de fuente, imágenes, etc.
-  void _updateVariablesSize() {
+  void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // Tamaño del dispositivo
 
-    final isHorizontal =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
-    if (isHorizontal) {
-      titleSize = screenSize.width * 0.08;
-      textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.03;
-      espacioAlto = screenSize.height * 0.02;
-      imgHeight = screenSize.height / 10;
-    } else {
-      titleSize = screenSize.width * 0.10;
-      textSize = screenSize.width * 0.03;
-      espacioPadding = screenSize.height * 0.03;
-      espacioAlto = screenSize.height * 0.03;
-      imgHeight = screenSize.height / 32;
-    }
+    titleSize = screenSize.width * 0.10;
+    textSize = screenSize.width * 0.03;
+    espacioPadding = screenSize.height * 0.03;
+    espacioAlto = screenSize.height * 0.03;
+    imgHeight = screenSize.height / 32;
   }
 }

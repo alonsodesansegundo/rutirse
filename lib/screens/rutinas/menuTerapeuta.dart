@@ -11,26 +11,33 @@ class MenuTerapeuta extends StatefulWidget {
 }
 
 class _MenuTerapeutaState extends State<MenuTerapeuta> {
-  double titleSize = 0.0,
-      textSize = 0.0,
-      espacioPadding = 0.0,
-      espacioAlto = 0.0,
-      imgVolverHeight = 0.0,
-      btnWidth = 0.0,
-      btnHeight = 0.0;
+  late double titleSize,
+      textSize,
+      espacioPadding,
+      espacioAlto,
+      imgVolverHeight,
+      btnWidth,
+      btnHeight;
 
   late ElevatedButton btnAddRutina, btnListRutinas, btnProgresos;
+
   late ImageTextButton btnVolver;
+
+  late bool loadData;
 
   @override
   void initState() {
     super.initState();
+    loadData = false;
   }
 
   @override
   Widget build(BuildContext context) {
-    _updateVariablesSize();
-    _createButtons();
+    if (!loadData) {
+      loadData = true;
+      _createVariablesSize();
+      _createButtons();
+    }
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -99,29 +106,16 @@ class _MenuTerapeutaState extends State<MenuTerapeuta> {
   }
 
   // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
-  void _updateVariablesSize() {
+  void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
-    final isHorizontal =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
-    if (isHorizontal) {
-      titleSize = screenSize.width * 0.08;
-      textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.06;
-      espacioAlto = screenSize.height * 0.03;
-      imgVolverHeight = screenSize.height / 10;
-      btnWidth = screenSize.width / 4;
-      btnHeight = screenSize.height / 10;
-    } else {
-      titleSize = screenSize.width * 0.10;
-      textSize = screenSize.width * 0.03;
-      espacioPadding = screenSize.height * 0.03;
-      espacioAlto = screenSize.height * 0.03;
-      imgVolverHeight = screenSize.height / 32;
-      btnWidth = screenSize.width / 3;
-      btnHeight = screenSize.height / 14;
-    }
+    titleSize = screenSize.width * 0.10;
+    textSize = screenSize.width * 0.03;
+    espacioPadding = screenSize.height * 0.03;
+    espacioAlto = screenSize.height * 0.03;
+    imgVolverHeight = screenSize.height / 32;
+    btnWidth = screenSize.width / 3;
+    btnHeight = screenSize.height / 14;
   }
 
   // metodo para crear los botones necesarios

@@ -13,24 +13,25 @@ class Opciones extends StatefulWidget {
 }
 
 class _OpcionesState extends State<Opciones> {
-  late bool loadProvider;
+  late bool loadProvider, loadData;
   late List<Grupo> gruposList; // lista de grupos obtenidos de la BBDD
   late String txtGrupo; // texto del grupo seleccionado
   late List<bool>
       btnGruposFlags; // para tener en cuenta que boton ha sido pulsado
 
   late String nombre;
+
   Grupo? selectedGrupo = null;
 
-  double titleSize = 0.0,
-      textSize = 0.0,
-      espacioPadding = 0.0,
-      espacioAlto = 0.0,
-      imgHeight = 0.0,
-      imgWidth = 0.0,
-      imgVolverHeight = 0.0,
-      espacioConfirmar = 0.0,
-      imgBtnWidth = 0.0;
+  late double titleSize,
+      textSize,
+      espacioPadding,
+      espacioAlto,
+      imgHeight,
+      imgWidth,
+      imgVolverHeight,
+      espacioConfirmar,
+      imgBtnWidth;
 
   // botones
   late ImageTextButton btnSeguir, btnSalir, btnConfirmar, btnAceptar, btnVolver;
@@ -41,6 +42,7 @@ class _OpcionesState extends State<Opciones> {
   @override
   void initState() {
     super.initState();
+    loadData = false;
     loadProvider = false;
     _getGrupos();
     gruposList = [];
@@ -50,9 +52,12 @@ class _OpcionesState extends State<Opciones> {
 
   @override
   Widget build(BuildContext context) {
-    _updateVariablesSize();
-    _createButtons();
-    _createDialogs();
+    if (!loadData) {
+      loadData = true;
+      _createVariablesSize();
+      _createButtons();
+      _createDialogs();
+    }
 
     // si es la primera vez, obtengo datos del provider
     if (!loadProvider) {
@@ -232,33 +237,18 @@ class _OpcionesState extends State<Opciones> {
   }
 
   // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
-  void _updateVariablesSize() {
+  void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
-    final isHorizontal =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
-    if (isHorizontal) {
-      titleSize = screenSize.width * 0.08;
-      textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.06;
-      espacioAlto = screenSize.height * 0.02;
-      imgHeight = screenSize.height / 6;
-      imgWidth = screenSize.width / 3 - espacioPadding * 2.25;
-      imgVolverHeight = screenSize.height / 10;
-      espacioConfirmar = espacioAlto * 3;
-      imgBtnWidth = screenSize.width / 10;
-    } else {
-      titleSize = screenSize.width * 0.10;
-      textSize = screenSize.width * 0.03;
-      espacioPadding = screenSize.height * 0.03;
-      espacioAlto = screenSize.height * 0.03;
-      imgHeight = screenSize.height / 8;
-      imgWidth = screenSize.width / 3 - espacioPadding * 2;
-      imgVolverHeight = screenSize.height / 32;
-      espacioConfirmar = espacioAlto * 2;
-      imgBtnWidth = screenSize.width / 5;
-    }
+    titleSize = screenSize.width * 0.10;
+    textSize = screenSize.width * 0.03;
+    espacioPadding = screenSize.height * 0.03;
+    espacioAlto = screenSize.height * 0.03;
+    imgHeight = screenSize.height / 8;
+    imgWidth = screenSize.width / 3 - espacioPadding * 2;
+    imgVolverHeight = screenSize.height / 32;
+    espacioConfirmar = espacioAlto * 2;
+    imgBtnWidth = screenSize.width / 5;
   }
 
   // metodo para crear los cuadro de dialogos

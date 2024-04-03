@@ -11,20 +11,20 @@ class UserProgress extends StatefulWidget {
 }
 
 class _UserProgressState extends State<UserProgress> {
-  late bool loadPartidas;
+  late bool loadPartidas, loadData;
 
-  double titleSize = 0.0,
-      textSize = 0.0,
-      espacioPadding = 0.0,
-      espacioAlto = 0.0,
-      textHeaderSize = 0.0,
-      imgVolverHeight = 0.0,
-      imgHeight = 0.0,
-      imgWidth = 0.0,
-      widthFecha = 0.0,
-      widthAciertos = 0.0,
-      widthFallos = 0.0,
-      widthDuracion = 0.0;
+  late double titleSize,
+      textSize,
+      espacioPadding,
+      espacioAlto,
+      textHeaderSize,
+      imgVolverHeight,
+      imgHeight,
+      imgWidth,
+      widthFecha,
+      widthAciertos,
+      widthFallos,
+      widthDuracion;
 
   // botones
   late ImageTextButton btnVolver;
@@ -35,13 +35,17 @@ class _UserProgressState extends State<UserProgress> {
   @override
   void initState() {
     super.initState();
+    loadData = false;
     loadPartidas = false;
   }
 
   @override
   Widget build(BuildContext context) {
-    _updateVariablesSize();
-    _createButtons();
+    if (!loadData) {
+      loadData = true;
+      _createVariablesSize();
+      _createButtons();
+    }
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -302,72 +306,37 @@ class _UserProgressState extends State<UserProgress> {
     return tp.width;
   }
 
-  void _updateVariablesSize() {
+  void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size;
 
-    final isHorizontal =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    titleSize = screenSize.width * 0.10;
+    textSize = screenSize.width * 0.03;
+    espacioPadding = screenSize.height * 0.03;
+    espacioAlto = screenSize.height * 0.03;
+    imgWidth = screenSize.width / 6;
+    imgVolverHeight = screenSize.height / 32;
+    textHeaderSize = screenSize.width * 0.02;
+    imgHeight = screenSize.width / 5;
+    widthFecha = getWidthOfText(
+          'DD/MM/AAAA',
+          textSize * 0.8,
+          context,
+        ) *
+        1.5;
+    widthAciertos = getWidthOfText(
+          'Rutinas\ncompletadas',
+          textHeaderSize,
+          context,
+        ) *
+        2;
+    widthFallos = widthAciertos;
 
-    if (isHorizontal) {
-      titleSize = screenSize.width * 0.08;
-      textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.06;
-      espacioAlto = screenSize.height * 0.02;
-      imgWidth = screenSize.width / 6;
-      imgVolverHeight = screenSize.height / 10;
-      textHeaderSize = screenSize.width * 0.015;
-      imgHeight = screenSize.width / 5;
-
-      widthFecha = getWidthOfText(
-            'DD/MM/AAAA',
-            textSize * 0.8,
-            context,
-          ) *
-          2;
-      widthAciertos = getWidthOfText(
-            'Rutinas\ncompletadas',
-            textHeaderSize,
-            context,
-          ) *
-          2;
-      widthFallos = widthAciertos;
-
-      widthDuracion = getWidthOfText(
-            'Duración de\nla partida',
-            textHeaderSize,
-            context,
-          ) *
-          2;
-    } else {
-      titleSize = screenSize.width * 0.10;
-      textSize = screenSize.width * 0.03;
-      espacioPadding = screenSize.height * 0.03;
-      espacioAlto = screenSize.height * 0.03;
-      imgWidth = screenSize.width / 6;
-      imgVolverHeight = screenSize.height / 32;
-      textHeaderSize = screenSize.width * 0.02;
-      imgHeight = screenSize.width / 5;
-      widthFecha = getWidthOfText(
-            'DD/MM/AAAA',
-            textSize * 0.8,
-            context,
-          ) *
-          1.5;
-      widthAciertos = getWidthOfText(
-            'Rutinas\ncompletadas',
-            textHeaderSize,
-            context,
-          ) *
-          2;
-      widthFallos = widthAciertos;
-
-      widthDuracion = getWidthOfText(
-            'Duración de\nla partida',
-            textHeaderSize,
-            context,
-          ) *
-          2;
-    }
+    widthDuracion = getWidthOfText(
+          'Duración de\nla partida',
+          textHeaderSize,
+          context,
+        ) *
+        2;
   }
 
   void _createButtons() {

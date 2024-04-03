@@ -11,19 +11,19 @@ class AllProgress extends StatefulWidget {
 }
 
 class _AllProgressState extends State<AllProgress> {
-  late bool loadPartidas;
+  late bool loadPartidas, loadData;
 
-  double titleSize = 0.0,
-      textSize = 0.0,
-      espacioPadding = 0.0,
-      espacioAlto = 0.0,
-      imgHeight = 0.0,
-      textHeaderSize = 0.0,
-      imgVolverHeight = 0.0,
-      widthFecha = 0.0,
-      widthJugador = 0.0,
-      widthAciertos = 0.0,
-      widthDuracion = 0.0;
+  late double titleSize,
+      textSize,
+      espacioPadding,
+      espacioAlto,
+      imgHeight,
+      textHeaderSize,
+      imgVolverHeight,
+      widthFecha,
+      widthJugador,
+      widthAciertos,
+      widthDuracion;
 
   late int paginaActual, preguntasPagina;
 
@@ -52,6 +52,7 @@ class _AllProgressState extends State<AllProgress> {
   @override
   void initState() {
     super.initState();
+    loadData = false;
     loadPartidas = false;
     selectedGrupo = null;
     selectedGrupoAux = null;
@@ -67,8 +68,11 @@ class _AllProgressState extends State<AllProgress> {
 
   @override
   Widget build(BuildContext context) {
-    _updateVariablesSize();
-    _createButtons();
+    if (!loadData) {
+      loadData = true;
+      _createVariablesSize();
+      _createButtons();
+    }
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -400,69 +404,36 @@ class _AllProgressState extends State<AllProgress> {
     return tp.width;
   }
 
-  void _updateVariablesSize() {
+  void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size;
 
-    final isHorizontal =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
-    if (isHorizontal) {
-      titleSize = screenSize.width * 0.08;
-      textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.06;
-      espacioAlto = screenSize.height * 0.02;
-      imgHeight = screenSize.height / 4;
-      imgVolverHeight = screenSize.height / 10;
-      textHeaderSize = screenSize.width * 0.015;
-      widthFecha = getWidthOfText(
-            'Fecha de \nla partida',
-            context,
-          ) *
-          2;
-      widthJugador = getWidthOfText(
-            'Usuario\n(grupo)',
-            context,
-          ) *
-          4.5;
-      widthAciertos = getWidthOfText(
-            'Rutinas completas\n(de XX intentos)',
-            context,
-          ) *
-          1.5;
-      widthDuracion = getWidthOfText(
-            'Duración',
-            context,
-          ) *
-          1.5;
-    } else {
-      titleSize = screenSize.width * 0.10;
-      textSize = screenSize.width * 0.03;
-      espacioPadding = screenSize.height * 0.03;
-      espacioAlto = screenSize.height * 0.03;
-      imgHeight = screenSize.width / 5;
-      imgVolverHeight = screenSize.height / 32;
-      textHeaderSize = screenSize.width * 0.019;
-      widthFecha = getWidthOfText(
-            'Fecha de \nla partida',
-            context,
-          ) *
-          2;
-      widthJugador = getWidthOfText(
-            'Usuario\n(grupo)',
-            context,
-          ) *
-          4.5;
-      widthAciertos = getWidthOfText(
-            'Rutinas completas\n(de XX intentos)',
-            context,
-          ) *
-          1.5;
-      widthDuracion = getWidthOfText(
-            'Duración',
-            context,
-          ) *
-          1.5;
-    }
+    titleSize = screenSize.width * 0.10;
+    textSize = screenSize.width * 0.03;
+    espacioPadding = screenSize.height * 0.03;
+    espacioAlto = screenSize.height * 0.03;
+    imgHeight = screenSize.width / 5;
+    imgVolverHeight = screenSize.height / 32;
+    textHeaderSize = screenSize.width * 0.019;
+    widthFecha = getWidthOfText(
+          'Fecha de \nla partida',
+          context,
+        ) *
+        2;
+    widthJugador = getWidthOfText(
+          'Usuario\n(grupo)',
+          context,
+        ) *
+        4.5;
+    widthAciertos = getWidthOfText(
+          'Rutinas completas\n(de XX intentos)',
+          context,
+        ) *
+        1.5;
+    widthDuracion = getWidthOfText(
+          'Duración',
+          context,
+        ) *
+        1.5;
   }
 
   void _createButtons() {

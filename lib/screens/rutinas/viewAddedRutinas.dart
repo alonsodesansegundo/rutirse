@@ -12,20 +12,20 @@ class ViewAddedRutinas extends StatefulWidget {
 }
 
 class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
-  double titleSize = 0.0,
-      textSize = 0.0,
-      espacioPadding = 0.0,
-      espacioAlto = 0.0,
-      imgVolverHeight = 0.0,
-      textSituacionWidth = 0.0,
-      btnWidth = 0.0,
-      btnHeight = 0.0,
-      imgWidth = 0.0,
-      columnText = 0.0,
-      celdaText = 0.0,
-      enunciadoWidth = 0.0,
-      grupoWidth = 0.0,
-      espacioCeldas = 0.0;
+  late double titleSize,
+      textSize,
+      espacioPadding,
+      espacioAlto,
+      imgVolverHeight,
+      textSituacionWidth,
+      btnWidth,
+      btnHeight,
+      imgWidth,
+      columnText,
+      celdaText,
+      enunciadoWidth,
+      grupoWidth,
+      espacioCeldas;
 
   late ImageTextButton btnVolver;
 
@@ -35,9 +35,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
 
   late List<Pregunta> preguntas;
 
-  late bool hayMasPreguntas;
-
-  late bool loadGrupos;
+  late bool hayMasPreguntas, loadGrupos, loadData;
 
   late List<Grupo> grupos;
 
@@ -50,6 +48,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
   @override
   void initState() {
     super.initState();
+    loadData = false;
     paginaActual = 1;
     preguntasPagina = 5;
     preguntas = [];
@@ -65,9 +64,12 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
 
   @override
   Widget build(BuildContext context) {
-    _updateVariablesSize();
-    _createButtons();
-    _createDialogs();
+    if (!loadData) {
+      loadData = true;
+      _createVariablesSize();
+      _createButtons();
+      _createDialogs();
+    }
 
     return Scaffold(
       body: ListView(
@@ -516,57 +518,30 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
   }
 
   // Método para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
-  void _updateVariablesSize() {
+  void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
-    final isHorizontal =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    titleSize = screenSize.width * 0.10;
+    textSize = screenSize.width * 0.03;
+    espacioPadding = screenSize.height * 0.03;
+    espacioAlto = screenSize.height * 0.03;
+    imgVolverHeight = screenSize.height / 32;
+    textSituacionWidth = screenSize.width - espacioPadding * 2;
+    btnWidth = screenSize.width / 3;
+    btnHeight = screenSize.height / 15;
+    imgWidth = screenSize.width / 4;
+    columnText = screenSize.width * 0.025;
+    celdaText = screenSize.width * 0.02;
 
-    if (isHorizontal) {
-      titleSize = screenSize.width * 0.08;
-      textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.06;
-      espacioAlto = screenSize.height * 0.03;
-      imgVolverHeight = screenSize.height / 10;
-      textSituacionWidth = screenSize.width - espacioPadding * 2;
-      btnWidth = screenSize.width / 4;
-      btnHeight = screenSize.height / 10;
-      imgWidth = screenSize.width / 4;
-      columnText = screenSize.width * 0.015;
-      celdaText = screenSize.width * 0.0125;
+    grupoWidth = getWidthOfText(
+          'Grupo',
+          context,
+        ) +
+        espacioPadding * 2;
 
-      grupoWidth = getWidthOfText(
-            'Grupo',
-            context,
-          ) +
-          espacioPadding * 2;
-
-      enunciadoWidth =
-          screenSize.width - (grupoWidth + 48 * 2 + espacioPadding * 3);
-      espacioCeldas = espacioPadding * 1.75;
-    } else {
-      titleSize = screenSize.width * 0.10;
-      textSize = screenSize.width * 0.03;
-      espacioPadding = screenSize.height * 0.03;
-      espacioAlto = screenSize.height * 0.03;
-      imgVolverHeight = screenSize.height / 32;
-      textSituacionWidth = screenSize.width - espacioPadding * 2;
-      btnWidth = screenSize.width / 3;
-      btnHeight = screenSize.height / 15;
-      imgWidth = screenSize.width / 4;
-      columnText = screenSize.width * 0.025;
-      celdaText = screenSize.width * 0.02;
-
-      grupoWidth = getWidthOfText(
-            'Grupo',
-            context,
-          ) +
-          espacioPadding * 2;
-
-      enunciadoWidth =
-          screenSize.width - (grupoWidth + 48 * 2 + espacioPadding * 3);
-      espacioCeldas = espacioPadding;
-    }
+    enunciadoWidth =
+        screenSize.width - (grupoWidth + 48 * 2 + espacioPadding * 3);
+    espacioCeldas = espacioPadding;
   }
 
   // Método para crear los botones necesarios

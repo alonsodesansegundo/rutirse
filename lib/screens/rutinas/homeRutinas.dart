@@ -19,13 +19,13 @@ class _HomeRutinasState extends State<HomeRutinas> {
   late List<bool>
       btnGruposFlags; // para tener en cuenta que boton ha sido pulsado
 
-  double titleSize = 0.0,
-      textSize = 0.0,
-      espacioPadding = 0.0,
-      espacioAlto = 0.0,
-      imgWidth = 0.0,
-      imgVolverHomeHeight = 0.0,
-      imgVolverHeight = 0.0;
+  late double titleSize,
+      textSize,
+      espacioPadding,
+      espacioAlto,
+      imgWidth,
+      imgVolverHomeHeight,
+      imgVolverHeight;
 
   // Datos que se deben de completar para empezar a jugar
   String nombre = "Introduce tu nombre";
@@ -33,9 +33,12 @@ class _HomeRutinasState extends State<HomeRutinas> {
 
   late AlertDialog dialogoCamposIncompletos;
 
+  late bool loadData;
+
   @override
   void initState() {
     super.initState();
+    loadData = false;
     _getGrupos();
     gruposList = [];
     txtGrupo = "";
@@ -44,8 +47,11 @@ class _HomeRutinasState extends State<HomeRutinas> {
 
   @override
   Widget build(BuildContext context) {
-    _updateVariablesSize();
-    _createDialogs();
+    if (!loadData) {
+      loadData = true;
+      _createVariablesSize();
+      _createDialogs();
+    }
 
     var myProvider = Provider.of<MyProvider>(context);
 
@@ -261,29 +267,16 @@ class _HomeRutinasState extends State<HomeRutinas> {
   }
 
   // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
-  void _updateVariablesSize() {
+  void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
-    final isHorizontal =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
-    if (isHorizontal) {
-      titleSize = screenSize.width * 0.08;
-      textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.06;
-      espacioAlto = screenSize.height * 0.04;
-      imgWidth = screenSize.width / 6 - espacioPadding * 2;
-      imgVolverHeight = screenSize.height / 5;
-      imgVolverHomeHeight = screenSize.height / 10;
-    } else {
-      titleSize = screenSize.width * 0.10;
-      textSize = screenSize.width * 0.03;
-      espacioPadding = screenSize.height * 0.03;
-      espacioAlto = screenSize.height * 0.03;
-      imgWidth = screenSize.width / 3 - espacioPadding * 2;
-      imgVolverHeight = screenSize.height / 10;
-      imgVolverHomeHeight = screenSize.height / 32;
-    }
+    titleSize = screenSize.width * 0.10;
+    textSize = screenSize.width * 0.03;
+    espacioPadding = screenSize.height * 0.03;
+    espacioAlto = screenSize.height * 0.03;
+    imgWidth = screenSize.width / 3 - espacioPadding * 2;
+    imgVolverHeight = screenSize.height / 10;
+    imgVolverHomeHeight = screenSize.height / 32;
   }
 
   // metodo para crear los cuadro de dialogos

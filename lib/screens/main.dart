@@ -35,15 +35,15 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
-  double titleSize = 0.0,
-      textSize = 0.0,
-      espacioPadding = 0.0,
-      espacioAlto = 0.0,
-      imgHeight = 0.0,
-      imgWidth = 0.0,
-      espacioAcercaDe = 0.0,
-      dialogTextSize = 0.0,
-      dialogTitleSize = 0.0;
+  late double titleSize,
+      textSize,
+      espacioPadding,
+      espacioAlto,
+      imgHeight,
+      imgWidth,
+      espacioAcercaDe,
+      dialogTextSize,
+      dialogTitleSize;
 
   late ImageTextButton btnRutinas, btnIronias, btnAnimo, btnTerapeuta, btnInfo;
 
@@ -57,14 +57,17 @@ class _MainState extends State<Main> {
 
   late String _errorMessage;
 
-  late bool flag;
+  late bool flag, loadData;
 
   @override
   void initState() {
     super.initState();
+    loadData = false;
+
     _createPasswordController = TextEditingController();
     _confirmPasswordController = TextEditingController();
     _enterPasswordController = TextEditingController();
+
     _errorMessage = "";
     _getPassword();
     flag = false;
@@ -72,13 +75,17 @@ class _MainState extends State<Main> {
 
   @override
   Widget build(BuildContext context) {
+    if (!loadData) {
+      loadData = true;
+      _createVariablesSize();
+      _createButtons();
+      _createDialogs();
+    }
+
     if (!flag) {
       flag = true;
       _getPassword();
     }
-    _updateVariablesSize();
-    _createButtons();
-    _createDialogs();
 
     return MaterialApp(
       home: Scaffold(
@@ -162,33 +169,18 @@ class _MainState extends State<Main> {
   }
 
   // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
-  void _updateVariablesSize() {
+  void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
-    final isHorizontal =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
-    if (isHorizontal) {
-      titleSize = screenSize.width * 0.08;
-      textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.06;
-      espacioAlto = screenSize.height * 0.02;
-      imgHeight = screenSize.height / 4;
-      espacioAcercaDe = espacioAlto * 4;
-      imgWidth = screenSize.width / 6 - espacioPadding * 2;
-      dialogTitleSize = titleSize * 0.45;
-      dialogTextSize = textSize * 0.65;
-    } else {
-      titleSize = screenSize.width * 0.10;
-      textSize = screenSize.width * 0.03;
-      espacioPadding = screenSize.height * 0.03;
-      espacioAlto = screenSize.height * 0.015;
-      imgHeight = screenSize.height / 10;
-      espacioAcercaDe = espacioAlto * 2;
-      imgWidth = screenSize.width / 3 - espacioPadding * 2;
-      dialogTitleSize = titleSize * 0.75;
-      dialogTextSize = textSize * 0.85;
-    }
+    titleSize = screenSize.width * 0.10;
+    textSize = screenSize.width * 0.03;
+    espacioPadding = screenSize.height * 0.03;
+    espacioAlto = screenSize.height * 0.015;
+    imgHeight = screenSize.height / 10;
+    espacioAcercaDe = espacioAlto * 2;
+    imgWidth = screenSize.width / 3 - espacioPadding * 2;
+    dialogTitleSize = titleSize * 0.75;
+    dialogTextSize = textSize * 0.85;
   }
 
   void _createButtons() {

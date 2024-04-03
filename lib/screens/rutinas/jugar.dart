@@ -58,13 +58,14 @@ class _Jugar extends State<Jugar> {
 
   late DateTime timeInicio, timeFin;
 
-  late bool loadProvider;
+  late bool loadProvider, loadData;
 
   late Jugador jugadorActual;
 
   @override
   void initState() {
     super.initState();
+    loadData = false;
     flutterTts = FlutterTts();
     timeInicio = DateTime.now();
     flag = false;
@@ -78,9 +79,12 @@ class _Jugar extends State<Jugar> {
 
   @override
   Widget build(BuildContext context) {
-    _updateVariablesSize();
-    _createButtonsFromDialogs();
-    _createDialogs();
+    if (!loadData) {
+      loadData = true;
+      _createVariablesSize();
+      _createButtonsFromDialogs();
+      _createDialogs();
+    }
     if (!loadProvider) {
       var myProvider = Provider.of<MyProvider>(context);
       jugadorActual = myProvider.jugador;
@@ -267,37 +271,20 @@ class _Jugar extends State<Jugar> {
   }
 
   // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
-  void _updateVariablesSize() {
+  void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size;
 
-    final isHorizontal =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
-    if (isHorizontal) {
-      cartasFila = 6;
-      ancho = screenSize.width;
-      titleSize = screenSize.width * 0.08;
-      textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.06;
-      espacioAlto = screenSize.height * 0.04;
-      personajeWidth = screenSize.width / 10;
-      imgVolverHeight = screenSize.height / 10;
-      espacioCartas = screenSize.height * 0.015;
-      imgWidth = screenSize.width / 10;
-      imgBtnWidth = screenSize.width / 15;
-    } else {
-      cartasFila = 3;
-      ancho = screenSize.width;
-      titleSize = screenSize.width * 0.10;
-      textSize = screenSize.width * 0.03;
-      espacioPadding = screenSize.height * 0.03;
-      espacioAlto = screenSize.height * 0.01;
-      espacioCartas = screenSize.height * 0.02;
-      personajeWidth = screenSize.width / 4;
-      imgVolverHeight = screenSize.height / 32;
-      imgWidth = screenSize.width / 4;
-      imgBtnWidth = screenSize.width / 5;
-    }
+    cartasFila = 3;
+    ancho = screenSize.width;
+    titleSize = screenSize.width * 0.10;
+    textSize = screenSize.width * 0.03;
+    espacioPadding = screenSize.height * 0.03;
+    espacioAlto = screenSize.height * 0.01;
+    espacioCartas = screenSize.height * 0.02;
+    personajeWidth = screenSize.width / 4;
+    imgVolverHeight = screenSize.height / 32;
+    imgWidth = screenSize.width / 4;
+    imgBtnWidth = screenSize.width / 5;
   }
 
   // metodo para crear los botones necesarios en los cuadros de dialogos

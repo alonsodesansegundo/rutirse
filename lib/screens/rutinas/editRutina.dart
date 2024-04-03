@@ -31,16 +31,16 @@ class _EditRutinaState extends State<EditRutina> {
 
   late Color colorSituacion, colorGrupo;
 
-  double titleSize = 0.0,
-      textSize = 0.0,
-      espacioPadding = 0.0,
-      espacioAlto = 0.0,
-      imgHeight = 0.0,
-      imgWidth = 0.0,
-      textSituacionWidth = 0.0,
-      btnWidth = 0.0,
-      btnHeight = 0.0,
-      imgVolverHeight = 0.0;
+  late double titleSize,
+      textSize,
+      espacioPadding,
+      espacioAlto,
+      imgHeight,
+      imgWidth,
+      textSituacionWidth,
+      btnWidth,
+      btnHeight,
+      imgVolverHeight;
 
   late ElevatedButton btnPersonajeExistente,
       btnGaleria,
@@ -70,11 +70,12 @@ class _EditRutinaState extends State<EditRutina> {
       noInternetDialog,
       removePreguntaOk;
 
-  late bool firstLoad = true, changeGrupo;
+  late bool firstLoad = true, changeGrupo, loadData;
 
   @override
   void initState() {
     super.initState();
+    loadData = false;
     grupos = [];
     acciones = [];
     accionesToDelete = [];
@@ -102,9 +103,12 @@ class _EditRutinaState extends State<EditRutina> {
 
   @override
   Widget build(BuildContext context) {
-    _updateVariablesSize();
-    _createButtons();
-    _createDialogs();
+    if (!loadData) {
+      loadData = true;
+      _createVariablesSize();
+      _createButtons();
+      _createDialogs();
+    }
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -491,35 +495,19 @@ class _EditRutinaState extends State<EditRutina> {
   }
 
   // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
-  void _updateVariablesSize() {
+  void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
-    final isHorizontal =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
-    if (isHorizontal) {
-      titleSize = screenSize.width * 0.08;
-      textSize = screenSize.width * 0.02;
-      espacioPadding = screenSize.height * 0.06;
-      espacioAlto = screenSize.height * 0.03;
-      imgHeight = screenSize.height / 7;
-      imgVolverHeight = screenSize.height / 10;
-      textSituacionWidth = screenSize.width - espacioPadding * 2;
-      btnWidth = screenSize.width / 4;
-      btnHeight = screenSize.height / 10;
-      imgWidth = screenSize.width / 4;
-    } else {
-      titleSize = screenSize.width * 0.10;
-      textSize = screenSize.width * 0.03;
-      espacioPadding = screenSize.height * 0.03;
-      espacioAlto = screenSize.height * 0.03;
-      imgHeight = screenSize.height / 9;
-      imgVolverHeight = screenSize.height / 32;
-      textSituacionWidth = screenSize.width - espacioPadding * 2;
-      btnWidth = screenSize.width / 3;
-      btnHeight = screenSize.height / 15;
-      imgWidth = screenSize.width / 4;
-    }
+    titleSize = screenSize.width * 0.10;
+    textSize = screenSize.width * 0.03;
+    espacioPadding = screenSize.height * 0.03;
+    espacioAlto = screenSize.height * 0.03;
+    imgHeight = screenSize.height / 9;
+    imgVolverHeight = screenSize.height / 32;
+    textSituacionWidth = screenSize.width - espacioPadding * 2;
+    btnWidth = screenSize.width / 3;
+    btnHeight = screenSize.height / 15;
+    imgWidth = screenSize.width / 4;
   }
 
   // Método para crear los botones necesarios
