@@ -197,6 +197,37 @@ class _RemovePlayerState extends State<RemovePlayer> {
                   ],
                 ),
                 SizedBox(height: espacioAlto),
+                Row(
+                  children: [
+                    SizedBox(width: espacioPadding / 2),
+                    Container(
+                      width: widthColumn,
+                      child: Text(
+                        'Jugador',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: textSize,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: widthColumn,
+                      child: Text(
+                        'Grupo',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: textSize,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Divider(
+                  color: Colors.black,
+                  thickness: 1,
+                ),
                 FutureBuilder<void>(
                   future: getAllJugadoresView(
                       paginaActual, jugadoresPagina, txtBuscar, selectedGrupo),
@@ -224,7 +255,7 @@ class _RemovePlayerState extends State<RemovePlayer> {
                                     jugador.jugadorName,
                                     style: TextStyle(
                                       fontFamily: 'ComicNeue',
-                                      fontSize: textSize,
+                                      fontSize: textSize * 0.75,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -235,7 +266,7 @@ class _RemovePlayerState extends State<RemovePlayer> {
                                     jugador.grupoName,
                                     style: TextStyle(
                                       fontFamily: 'ComicNeue',
-                                      fontSize: textSize,
+                                      fontSize: textSize * 0.75,
                                       color: Colors.black,
                                     ),
                                   ),
