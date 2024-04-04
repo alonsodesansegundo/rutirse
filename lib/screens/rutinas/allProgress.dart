@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../db/obj/grupo.dart';
+import '../../db/obj/partida.dart';
 import '../../db/obj/partidaView.dart';
 import '../../obj/PartidasPaginacion.dart';
 import '../../widgets/ImageTextButton.dart';
@@ -25,12 +26,12 @@ class _AllProgressState extends State<AllProgress> {
       widthAciertos,
       widthDuracion;
 
-  late int paginaActual, preguntasPagina;
+  late int paginaActual, partidasPagina;
 
   // botones
   late ImageTextButton btnVolver;
 
-  late ElevatedButton btnAnterior, btnSiguiente, btnBuscar;
+  late ElevatedButton btnAnterior, btnSiguiente, btnBuscar, btnRemoveAll;
 
   // lista de partidas
   List<PartidaView>? partidas;
@@ -49,6 +50,12 @@ class _AllProgressState extends State<AllProgress> {
 
   late bool hayMasPartidas;
 
+  late List<int> partidasToRemove;
+
+  late List<bool> flagCheck;
+
+  late AlertDialog removePartidaOk, removeAll, removeAllOk, notPartidasSelected;
+
   @override
   void initState() {
     super.initState();
@@ -59,11 +66,13 @@ class _AllProgressState extends State<AllProgress> {
     txtBuscar = "";
     txtBuscarAux = "";
     paginaActual = 1;
-    preguntasPagina = 5;
+    partidasPagina = 4;
     hayMasPartidas = false;
     _loadProgresos();
     grupos = [];
     _getGrupos();
+    partidasToRemove = [];
+    flagCheck = [];
   }
 
   @override
@@ -71,6 +80,7 @@ class _AllProgressState extends State<AllProgress> {
     if (!loadData) {
       loadData = true;
       _createVariablesSize();
+      _createDialogs();
       _createButtons();
     }
     return Scaffold(
@@ -127,7 +137,7 @@ class _AllProgressState extends State<AllProgress> {
                   Expanded(
                     child: Text(
                       'En esta pantalla puedes observar los progresos o resultados en el'
-                      ' juego \'Rutinas\' de todos los usuarios.\n'
+                      ' juego \'Rutinas\' de todos los usuarios. También tienes la posibilidad de eliminar partidas si lo crees necesario.\n'
                       'Dichos resultados están ordenados de más reciente a más antiguo.',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
@@ -280,7 +290,7 @@ class _AllProgressState extends State<AllProgress> {
               ),
               FutureBuilder<void>(
                 future: getAllPartidasView(
-                    paginaActual, preguntasPagina, txtBuscar, selectedGrupo),
+                    paginaActual, partidasPagina, txtBuscar, selectedGrupo),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
@@ -294,6 +304,7 @@ class _AllProgressState extends State<AllProgress> {
                       itemCount: partidas!.length,
                       itemBuilder: (context, index) {
                         final partida = partidas![index];
+                        flagCheck.add(false);
                         return Container(
                           margin: EdgeInsets.only(bottom: espacioAlto),
                           child: Row(
@@ -350,6 +361,89 @@ class _AllProgressState extends State<AllProgress> {
                                   ),
                                 ),
                               ),
+                              Checkbox(
+                                value: flagCheck[index],
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    flagCheck[index] = !flagCheck[index];
+                                    partidasToRemove.add(partida.id!);
+                                  });
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.delete),
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text(
+                                          'Aviso',
+                                          style: TextStyle(
+                                            fontFamily: 'ComicNeue',
+                                            fontSize: titleSize * 0.75,
+                                          ),
+                                        ),
+                                        content: Text(
+                                          'Estás a punto de eliminar una partida del usuario ${partida.jugadorName} del grupo ${partida.grupoName}.\n'
+                                          '¿Estás seguro de ello?',
+                                          style: TextStyle(
+                                            fontFamily: 'ComicNeue',
+                                            fontSize: textSize,
+                                          ),
+                                        ),
+                                        actions: <Widget>[
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    _removePartidaRutinas(
+                                                        partida.id!);
+                                                    _loadProgresos();
+                                                  });
+                                                  Navigator.of(context).pop();
+                                                  showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return removePartidaOk;
+                                                    },
+                                                  );
+                                                },
+                                                child: Text(
+                                                  'Sí, eliminar',
+                                                  style: TextStyle(
+                                                    fontFamily: 'ComicNeue',
+                                                    fontSize: textSize,
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: espacioPadding,
+                                              ),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Text(
+                                                  'Cancelar',
+                                                  style: TextStyle(
+                                                    fontFamily: 'ComicNeue',
+                                                    fontSize: textSize,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
                             ],
                           ),
                         );
@@ -368,8 +462,8 @@ class _AllProgressState extends State<AllProgress> {
                   }
                 },
               ),
+              btnRemoveAll,
               SizedBox(height: espacioAlto),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -423,9 +517,9 @@ class _AllProgressState extends State<AllProgress> {
           'Usuario\n(grupo)',
           context,
         ) *
-        4.5;
+        3;
     widthAciertos = getWidthOfText(
-          'Rutinas completas\n(de XX intentos)',
+          'Aciertos\n(de XX intentos)',
           context,
         ) *
         1.5;
@@ -454,6 +548,8 @@ class _AllProgressState extends State<AllProgress> {
         backgroundColor: Colors.blueGrey,
       ),
       onPressed: () {
+        flagCheck = [];
+        partidasToRemove = [];
         _previousPage();
       },
       child: Text(
@@ -468,6 +564,8 @@ class _AllProgressState extends State<AllProgress> {
         backgroundColor: Colors.blueGrey,
       ),
       onPressed: () {
+        flagCheck = [];
+        partidasToRemove = [];
         _nextPage();
       },
       child: Text(
@@ -482,6 +580,8 @@ class _AllProgressState extends State<AllProgress> {
         paginaActual = 1;
         selectedGrupo = selectedGrupoAux;
         txtBuscar = txtBuscarAux;
+        flagCheck = [];
+        partidasToRemove = [];
         FocusScope.of(context).unfocus();
         _loadProgresos();
       },
@@ -490,6 +590,206 @@ class _AllProgressState extends State<AllProgress> {
         style: TextStyle(
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.white),
       ),
+    );
+
+    btnRemoveAll = ElevatedButton(
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            if (partidasToRemove.length == 0)
+              return notPartidasSelected;
+            else
+              return removeAll;
+          },
+        );
+      },
+      style: ElevatedButton.styleFrom(
+        primary: Colors.red,
+      ),
+      child: Text(
+        'Eliminar partidas',
+        style: TextStyle(
+            fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.white),
+      ),
+    );
+  }
+
+  // Metodo para crear los cuadros de dialogo necesarios
+  void _createDialogs() {
+    notPartidasSelected = AlertDialog(
+      title: Text(
+        'Aviso',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: titleSize * 0.75,
+        ),
+      ),
+      content: Text(
+        'No hay ninguna partida seleccionada para eliminar. '
+        'Debes seleccionar al menos una partida para eliminar.',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: textSize,
+        ),
+      ),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Aceptar',
+                style: TextStyle(
+                  fontFamily: 'ComicNeue',
+                  fontSize: textSize,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+    removePartidaOk = AlertDialog(
+      title: Text(
+        'Éxito',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: titleSize * 0.75,
+        ),
+      ),
+      content: Text(
+        'La partida ha sido eliminada con éxito.\n'
+        '¡Muchas gracias por tu colaboración!',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: textSize,
+        ),
+      ),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Aceptar',
+                style: TextStyle(
+                  fontFamily: 'ComicNeue',
+                  fontSize: textSize,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+
+    removeAllOk = AlertDialog(
+      title: Text(
+        'Éxito',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: titleSize * 0.75,
+        ),
+      ),
+      content: Text(
+        'Las partidas han sido eliminadas con éxito.\n'
+        '¡Muchas gracias por tu colaboración!',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: textSize,
+        ),
+      ),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Aceptar',
+                style: TextStyle(
+                  fontFamily: 'ComicNeue',
+                  fontSize: textSize,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+
+    removeAll = AlertDialog(
+      title: Text(
+        'Aviso',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: titleSize * 0.75,
+        ),
+      ),
+      content: Text(
+        'Estás a punto de eliminar todas las partidas seleccionadas de manera definitiva.\n'
+        '¿Estás seguro de ello?',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: textSize,
+        ),
+      ),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                for (int i = 0; i < partidasToRemove.length; i++)
+                  _removePartidaRutinas(partidasToRemove[i]);
+                flagCheck = [];
+                partidasToRemove = [];
+                setState(() {
+                  _loadProgresos();
+                });
+                Navigator.of(context).pop();
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return removeAllOk;
+                  },
+                );
+              },
+              child: Text(
+                'Sí, eliminar',
+                style: TextStyle(
+                  fontFamily: 'ComicNeue',
+                  fontSize: textSize,
+                ),
+              ),
+            ),
+            SizedBox(
+              width: espacioPadding,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Cancelar',
+                style: TextStyle(
+                  fontFamily: 'ComicNeue',
+                  fontSize: textSize,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -533,7 +833,7 @@ class _AllProgressState extends State<AllProgress> {
 
   Future<void> _loadProgresos() async {
     PartidasPaginacion aux = await getAllPartidasView(
-        paginaActual, preguntasPagina, txtBuscar, selectedGrupo);
+        paginaActual, partidasPagina, txtBuscar, selectedGrupo);
 
     setState(() {
       this.partidas = aux.partidas;
@@ -555,5 +855,9 @@ class _AllProgressState extends State<AllProgress> {
       paginaActual++;
     });
     _loadProgresos();
+  }
+
+  void _removePartidaRutinas(int partidaId) {
+    deletePartidaById(partidaId);
   }
 }

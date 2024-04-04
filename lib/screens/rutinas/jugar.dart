@@ -599,6 +599,6 @@ class _Jugar extends State<Jugar> {
         fallos: fallos,
         jugadorId: jugadorActual.id!);
 
-    insertPartida(partida);
+    insertPartidaRutinas(partida);
   }
 }

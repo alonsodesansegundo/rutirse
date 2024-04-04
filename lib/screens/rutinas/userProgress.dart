@@ -360,7 +360,7 @@ class _UserProgressState extends State<UserProgress> {
         var myProvider = Provider.of<MyProvider>(context);
         // obtengo las partidas del jugador correspondiente
         List<Partida> partidasList =
-            await getPartidasByUserId(myProvider.jugador.id!);
+            await getPartidasRutinasByUserId(myProvider.jugador.id!);
         setState(() {
           partidas = partidasList; // actualizo la lista
         });
