@@ -73,6 +73,7 @@ class _AllProgressState extends State<AllProgress> {
     _getGrupos();
     partidasToRemove = [];
     flagCheck = [];
+    partidas = [];
   }
 
   @override
@@ -465,7 +466,7 @@ class _AllProgressState extends State<AllProgress> {
                   }
                 },
               ),
-              btnRemoveAll,
+              if (this.partidas!.isNotEmpty) btnRemoveAll,
               SizedBox(height: espacioAlto),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
