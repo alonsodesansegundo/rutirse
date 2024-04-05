@@ -40,7 +40,8 @@ class _EditRutinaState extends State<EditRutina> {
       textSituacionWidth,
       btnWidth,
       btnHeight,
-      imgVolverHeight;
+      imgVolverHeight,
+      widthTxtPersonaje;
 
   late int sizeAccionesInitial;
 
@@ -104,6 +105,14 @@ class _EditRutinaState extends State<EditRutina> {
 
       _loadAcciones();
     }
+    _initializeState();
+  }
+
+  Future<void> _initializeState() async {
+    await _getGrupos();
+    await _getExistsPersonajes('assets/img/personajes/');
+
+    _createDialogs();
   }
 
   @override
@@ -112,7 +121,6 @@ class _EditRutinaState extends State<EditRutina> {
       loadData = true;
       _createVariablesSize();
       _createButtons();
-      _createDialogs();
     }
 
     return Scaffold(
@@ -264,7 +272,7 @@ class _EditRutinaState extends State<EditRutina> {
                 textBaseline: TextBaseline.alphabetic,
                 children: [
                   Container(
-                    width: espacioPadding * 4.2,
+                    width: widthTxtPersonaje,
                     child: Text(
                       'Personaje:',
                       style: TextStyle(
@@ -311,7 +319,6 @@ class _EditRutinaState extends State<EditRutina> {
                   return Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.all(8.0),
                         decoration: BoxDecoration(
                           border: Border.all(color: acciones[index].color),
                         ),
@@ -504,6 +511,23 @@ class _EditRutinaState extends State<EditRutina> {
     );
   }
 
+  double getWidthOfText(String text, BuildContext context) {
+    final TextSpan span = TextSpan(
+      text: text,
+      style: TextStyle(
+        fontFamily: 'ComicNeue',
+        fontSize: textSize * 0.5,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+    final TextPainter tp = TextPainter(
+      text: span,
+      textDirection: TextDirection.ltr,
+    );
+    tp.layout(maxWidth: MediaQuery.of(context).size.width);
+    return tp.width;
+  }
+
   // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
@@ -517,7 +541,9 @@ class _EditRutinaState extends State<EditRutina> {
     textSituacionWidth = screenSize.width - espacioPadding * 2;
     btnWidth = screenSize.width / 3;
     btnHeight = screenSize.height / 15;
-    imgWidth = screenSize.width / 4;
+    imgWidth = screenSize.width / 4.5;
+    widthTxtPersonaje =
+        getWidthOfText("(máx. 30 caracteres)", context) + espacioPadding * 1.5;
   }
 
   // Método para crear los botones necesarios
@@ -703,7 +729,7 @@ class _EditRutinaState extends State<EditRutina> {
     // cuadro de dialogo para escoger un personaje de arasaac
     arasaacPersonajeDialog = ArasaacPersonajeDialog(
       espacioAlto: espacioAlto,
-      espacioPadding: espacioPadding,
+      espacioPadding: widthTxtPersonaje,
       btnWidth: btnWidth,
       btnHeigth: btnHeight,
       imgWidth: imgWidth,
@@ -903,7 +929,7 @@ class _EditRutinaState extends State<EditRutina> {
         connectivityResult == ConnectivityResult.wifi) {
       ArasaacAccionDialog aux = ArasaacAccionDialog(
         espacioAlto: espacioAlto,
-        espacioPadding: espacioPadding,
+        espacioPadding: widthTxtPersonaje,
         btnWidth: btnWidth,
         btnHeigth: btnHeight,
         imgWidth: imgWidth,
@@ -951,7 +977,7 @@ class _EditRutinaState extends State<EditRutina> {
         text1: accionText,
         numberAccion: acciones.length + 1,
         textSize: textSize,
-        espacioPadding: espacioPadding,
+        espacioPadding: widthTxtPersonaje,
         espacioAlto: espacioAlto,
         btnWidth: btnWidth,
         btnHeight: btnHeight,
@@ -1095,7 +1121,7 @@ class _EditRutinaState extends State<EditRutina> {
         text1: txt,
         numberAccion: i + 1,
         textSize: textSize,
-        espacioPadding: espacioPadding,
+        espacioPadding: widthTxtPersonaje,
         espacioAlto: espacioAlto,
         btnWidth: btnWidth,
         btnHeight: btnHeight,

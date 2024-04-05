@@ -43,8 +43,6 @@ class ElementAccion extends StatefulWidget {
 class _ElementAccionState extends State<ElementAccion> {
   @override
   Widget build(BuildContext context) {
-    _updateVariablesSize();
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -58,7 +56,7 @@ class _ElementAccionState extends State<ElementAccion> {
                   Column(
                     children: [
                       Container(
-                        width: widget.espacioPadding * 4,
+                        width: widget.espacioPadding,
                         child: Text(
                           widget.text1,
                           style: TextStyle(
@@ -68,7 +66,7 @@ class _ElementAccionState extends State<ElementAccion> {
                         ),
                       ),
                       Container(
-                        width: widget.espacioPadding * 4,
+                        width: widget.espacioPadding,
                         child: Text(
                           "(máx. 30 caracteres)",
                           style: TextStyle(
@@ -104,7 +102,7 @@ class _ElementAccionState extends State<ElementAccion> {
           textBaseline: TextBaseline.alphabetic,
           children: [
             Container(
-              width: widget.espacioPadding * 4,
+              width: widget.espacioPadding,
               child: Text(
                 'Imagen \nacción ' + widget.numberAccion.toString() + "*:",
                 style: TextStyle(
@@ -150,28 +148,5 @@ class _ElementAccionState extends State<ElementAccion> {
         ),
       ],
     );
-  }
-
-  void _updateVariablesSize() {
-    Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
-
-    final isHorizontal =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
-    if (isHorizontal) {
-      widget.textSize = screenSize.width * 0.02;
-      widget.espacioPadding = screenSize.height * 0.06;
-      widget.espacioAlto = screenSize.height * 0.03;
-      widget.textSituacionWidth = screenSize.width - widget.espacioPadding * 2;
-      widget.btnWidth = screenSize.width / 4;
-      widget.btnHeight = screenSize.height / 10;
-    } else {
-      widget.textSize = screenSize.width * 0.03;
-      widget.espacioPadding = screenSize.height * 0.03;
-      widget.espacioAlto = screenSize.height * 0.03;
-      widget.textSituacionWidth = screenSize.width - widget.espacioPadding * 2;
-      widget.btnWidth = screenSize.width / 3;
-      widget.btnHeight = screenSize.height / 15;
-    }
   }
 }

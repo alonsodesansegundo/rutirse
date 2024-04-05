@@ -29,7 +29,8 @@ class _AddRutinaState extends State<AddRutina> {
       textSituacionWidth,
       btnWidth,
       btnHeight,
-      imgWidth;
+      imgWidth,
+      widthTxtPersonaje;
 
   late ImageTextButton btnVolver;
 
@@ -67,18 +68,27 @@ class _AddRutinaState extends State<AddRutina> {
   @override
   void initState() {
     super.initState();
+    firstLoad = false;
+
     grupos = [];
-    _getGrupos();
+    personajes = [];
     situacionText = "";
     keywords = "";
-    personajes = [];
-    _getExistsPersonajes('assets/img/personajes/');
     firstLoad = false;
     personajeImage = [];
     acciones = [];
     selectedGrupo = null;
     colorSituacion = Colors.transparent;
     colorGrupo = Colors.transparent;
+
+    _initializeState();
+  }
+
+  Future<void> _initializeState() async {
+    await _getGrupos();
+    await _getExistsPersonajes('assets/img/personajes/');
+
+    _createDialogs();
   }
 
   @override
@@ -87,13 +97,12 @@ class _AddRutinaState extends State<AddRutina> {
       firstLoad = true;
       _createVariablesSize();
       _createButtons();
-      _createDialogs();
       acciones = [
         ElementAccion(
           text1: 'Acción 1*:',
           numberAccion: 1,
           textSize: textSize,
-          espacioPadding: espacioPadding,
+          espacioPadding: widthTxtPersonaje,
           espacioAlto: espacioAlto,
           btnWidth: btnWidth,
           btnHeight: btnHeight,
@@ -105,7 +114,7 @@ class _AddRutinaState extends State<AddRutina> {
           text1: 'Acción 2*:',
           numberAccion: 2,
           textSize: textSize,
-          espacioPadding: espacioPadding,
+          espacioPadding: widthTxtPersonaje,
           espacioAlto: espacioAlto,
           btnWidth: btnWidth,
           btnHeight: btnHeight,
@@ -264,7 +273,7 @@ class _AddRutinaState extends State<AddRutina> {
                 textBaseline: TextBaseline.alphabetic,
                 children: [
                   Container(
-                    width: espacioPadding * 4.2,
+                    width: widthTxtPersonaje,
                     child: Text(
                       'Personaje:',
                       style: TextStyle(
@@ -310,7 +319,6 @@ class _AddRutinaState extends State<AddRutina> {
                   return Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.all(8.0),
                         decoration: BoxDecoration(
                           border: Border.all(color: acciones[index].color),
                         ),
@@ -439,6 +447,23 @@ class _AddRutinaState extends State<AddRutina> {
     return imagePaths;
   }
 
+  double getWidthOfText(String text, BuildContext context) {
+    final TextSpan span = TextSpan(
+      text: text,
+      style: TextStyle(
+        fontFamily: 'ComicNeue',
+        fontSize: textSize * 0.5,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+    final TextPainter tp = TextPainter(
+      text: span,
+      textDirection: TextDirection.ltr,
+    );
+    tp.layout(maxWidth: MediaQuery.of(context).size.width);
+    return tp.width;
+  }
+
   // Método para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
@@ -451,7 +476,9 @@ class _AddRutinaState extends State<AddRutina> {
     textSituacionWidth = screenSize.width - espacioPadding * 2;
     btnWidth = screenSize.width / 3;
     btnHeight = screenSize.height / 15;
-    imgWidth = screenSize.width / 4;
+    imgWidth = screenSize.width / 4.5;
+    widthTxtPersonaje =
+        getWidthOfText("(máx. 30 caracteres)", context) + espacioPadding * 1.5;
   }
 
   // Método para crear los botones necesarios
@@ -841,7 +868,7 @@ class _AddRutinaState extends State<AddRutina> {
         text1: accionText,
         numberAccion: acciones.length + 1,
         textSize: textSize,
-        espacioPadding: espacioPadding,
+        espacioPadding: widthTxtPersonaje,
         espacioAlto: espacioAlto,
         btnWidth: btnWidth,
         btnHeight: btnHeight,
