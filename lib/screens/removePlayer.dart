@@ -408,7 +408,7 @@ class _RemovePlayerState extends State<RemovePlayer> {
     espacioPadding = screenSize.height * 0.03;
     espacioAlto = screenSize.height * 0.03;
     imgHeight = screenSize.height / 32;
-    widthColumn = screenSize.width * 0.4;
+    widthColumn = screenSize.width * 0.4 - 24;
   }
 
   void _createButtons() {

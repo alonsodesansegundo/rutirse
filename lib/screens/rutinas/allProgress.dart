@@ -235,7 +235,7 @@ class _AllProgressState extends State<AllProgress> {
               SizedBox(height: espacioAlto),
               Row(
                 children: [
-                  SizedBox(width: espacioPadding / 2),
+                  SizedBox(width: espacioPadding / 4),
                   Container(
                     width: widthFecha,
                     child: Text(
@@ -261,8 +261,7 @@ class _AllProgressState extends State<AllProgress> {
                   Container(
                     width: widthAciertos,
                     child: Text(
-                      'Aciertos\n'
-                      '(de X intentos)',
+                      'Aciertos\n(de X intentos)',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: textHeaderSize,
@@ -309,7 +308,7 @@ class _AllProgressState extends State<AllProgress> {
                           margin: EdgeInsets.only(bottom: espacioAlto),
                           child: Row(
                             children: [
-                              SizedBox(width: espacioPadding / 2),
+                              SizedBox(width: espacioPadding / 4),
                               Container(
                                 width: widthFecha,
                                 child: Text(
@@ -322,7 +321,7 @@ class _AllProgressState extends State<AllProgress> {
                                 ),
                               ),
                               Container(
-                                width: widthJugador,
+                                width: widthJugador - 12,
                                 child: Text(
                                   partida.jugadorName +
                                       "\n(" +
@@ -334,6 +333,9 @@ class _AllProgressState extends State<AllProgress> {
                                     color: Colors.black,
                                   ),
                                 ),
+                              ),
+                              SizedBox(
+                                width: 12,
                               ),
                               Container(
                                 width: widthAciertos,
@@ -351,7 +353,7 @@ class _AllProgressState extends State<AllProgress> {
                                 ),
                               ),
                               Container(
-                                width: widthFecha,
+                                width: widthFecha / 2,
                                 child: Text(
                                   _getTime(partida.duracionSegundos),
                                   style: TextStyle(
@@ -361,6 +363,7 @@ class _AllProgressState extends State<AllProgress> {
                                   ),
                                 ),
                               ),
+                              Spacer(),
                               Checkbox(
                                 value: flagCheck[index],
                                 onChanged: (newValue) {
@@ -513,13 +516,8 @@ class _AllProgressState extends State<AllProgress> {
           context,
         ) *
         2;
-    widthJugador = getWidthOfText(
-          'Usuario\n(grupo)',
-          context,
-        ) *
-        3;
     widthAciertos = getWidthOfText(
-          'Aciertos\n(de XX intentos)',
+          'Aciertos\n(de X intentos)',
           context,
         ) *
         1.5;
@@ -528,6 +526,11 @@ class _AllProgressState extends State<AllProgress> {
           context,
         ) *
         1.5;
+
+    widthJugador = screenSize.width -
+        (espacioPadding * 2.5) -
+        (widthFecha + widthAciertos + widthDuracion) -
+        (48 * 2);
   }
 
   void _createButtons() {
