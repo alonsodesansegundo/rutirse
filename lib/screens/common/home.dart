@@ -5,15 +5,20 @@ import '../../db/obj/grupo.dart';
 import '../../db/obj/jugador.dart';
 import '../../provider/MyProvider.dart';
 import '../../widgets/ImageTextButton.dart';
-import 'ayuda.dart';
-import 'jugar.dart';
+import '../rutinas/ayuda.dart';
+import '../rutinas/jugar.dart';
 
-class HomeRutinas extends StatefulWidget {
+class Home extends StatefulWidget {
+  // string que nos indica en que juego estamos
+  final String juego;
+
+  Home({required this.juego});
+
   @override
-  _HomeRutinasState createState() => _HomeRutinasState();
+  _HomeState createState() => _HomeState();
 }
 
-class _HomeRutinasState extends State<HomeRutinas> {
+class _HomeState extends State<Home> {
   late List<Grupo> gruposList; // lista de grupos obtenidos de la BBDD
   late String txtGrupo; // texto del grupo seleccionado
   late List<bool>
@@ -66,15 +71,30 @@ class _HomeRutinasState extends State<HomeRutinas> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Título Rutinas
-                    Text(
-                      "Rutinas",
-                      style: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: titleSize,
+                    if (widget.juego == 'rutinas')
+                      Text(
+                        "Rutinas",
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: titleSize,
+                        ),
                       ),
-                    ),
-
+                    if (widget.juego == 'ironias')
+                      Text(
+                        "Ironías",
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: titleSize,
+                        ),
+                      ),
+                    if (widget.juego == 'sentimientos')
+                      Text(
+                        "Sentimientos",
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: titleSize,
+                        ),
+                      ),
                     ImageTextButton(
                       image: Image.asset('assets/img/botones/home.png',
                           height: imgVolverHomeHeight),
@@ -224,10 +244,14 @@ class _HomeRutinasState extends State<HomeRutinas> {
 
                           myProvider.jugador = await insertJugador(jugador);
                           myProvider.grupo = selectedGrupo!;
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Jugar()),
-                          );
+                          if (widget.juego == 'rutinas')
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => JugarRutinas()),
+                            );
+                          if (widget.juego == 'ironias') {}
+                          if (widget.juego == 'sentimientos') {}
                         } else {
                           showDialog(
                             context: context,
@@ -249,11 +273,15 @@ class _HomeRutinasState extends State<HomeRutinas> {
                             color: Colors.black),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Ayuda(origen: 'home')),
-                        );
+                        if (widget.juego == 'rutinas')
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    AyudaRutinas(origen: 'home')),
+                          );
+                        if (widget.juego == 'ironias') {}
+                        if (widget.juego == 'sentimientos') {}
                       },
                     ),
                   ],

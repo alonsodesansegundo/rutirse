@@ -1,12 +1,12 @@
 import 'package:TresEnUno/db/obj/terapeuta.dart';
-import 'package:TresEnUno/screens/rutinas/homeRutinas.dart';
+import 'package:TresEnUno/screens/common/home.dart';
+import 'package:TresEnUno/screens/terapeuta/homeTerapeuta.dart';
+import 'package:TresEnUno/screens/terapeuta/informacion.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/MyProvider.dart';
 import '../widgets/ImageTextButton.dart';
-import 'homeTerapeuta.dart';
-import 'informacion.dart';
 
 void main() {
   runApp(
@@ -155,7 +155,7 @@ class _MainState extends State<Main> {
                 ),
                 SizedBox(height: espacioAlto), // Espacio entre los textos
                 Row(
-                  children: [btnRutinas, btnAnimo, btnIronias],
+                  children: [btnRutinas, btnIronias, btnAnimo],
                 ),
 
                 SizedBox(height: espacioAcercaDe),
@@ -208,7 +208,7 @@ class _MainState extends State<Main> {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomeRutinas()),
+          MaterialPageRoute(builder: (context) => Home(juego: 'rutinas')),
         );
       },
     );
@@ -222,7 +222,13 @@ class _MainState extends State<Main> {
           style: TextStyle(
               fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
         ),
-        onPressed: () {});
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Home(juego: 'sentimientos')),
+          );
+        });
 
     btnIronias = ImageTextButton(
       image: Image.asset(
@@ -234,7 +240,12 @@ class _MainState extends State<Main> {
         style: TextStyle(
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Home(juego: 'ironias')),
+        );
+      },
     );
 
     btnTerapeuta = ImageTextButton(

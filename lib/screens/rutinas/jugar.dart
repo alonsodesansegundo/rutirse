@@ -14,16 +14,16 @@ import '../../provider/MyProvider.dart';
 import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
 import '../../widgets/PreguntaWidget.dart';
-import 'menuJugador.dart';
+import '../common/menuJugador.dart';
 
 Random random = Random(); // para generar numeros aleatorios
 
-class Jugar extends StatefulWidget {
+class JugarRutinas extends StatefulWidget {
   @override
-  _Jugar createState() => _Jugar();
+  _JugarRutinas createState() => _JugarRutinas();
 }
 
-class _Jugar extends State<Jugar> {
+class _JugarRutinas extends State<JugarRutinas> {
   late FlutterTts flutterTts; // para reproducir audio
 
   late bool flag, isSpeaking; // bandera para cargar las preguntas solo 1 vez

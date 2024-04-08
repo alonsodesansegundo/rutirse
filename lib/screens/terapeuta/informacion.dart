@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/ImageTextButton.dart';
+import '../../widgets/ImageTextButton.dart';
 
 class Informacion extends StatefulWidget {
   @override

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
-import 'ayuda.dart';
-import 'jugar.dart';
+import '../rutinas/ayuda.dart';
+import '../rutinas/jugar.dart';
 import 'opciones.dart';
 
 class MenuJugador extends StatefulWidget {
@@ -188,7 +188,7 @@ class _MenuJugadorState extends State<MenuJugador> {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Jugar()),
+          MaterialPageRoute(builder: (context) => JugarRutinas()),
         );
       },
     );
@@ -238,7 +238,7 @@ class _MenuJugadorState extends State<MenuJugador> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => Ayuda(
+              builder: (context) => AyudaRutinas(
                     origen: 'menu',
                   )),
         );

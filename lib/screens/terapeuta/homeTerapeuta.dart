@@ -1,9 +1,9 @@
-import 'package:TresEnUno/screens/removePlayer.dart';
 import 'package:TresEnUno/screens/rutinas/menuTerapeuta.dart';
+import 'package:TresEnUno/screens/terapeuta/removePlayer.dart';
 import 'package:flutter/material.dart';
 
+import '../../db/obj/terapeuta.dart';
 import '../../widgets/ImageTextButton.dart';
-import '../db/obj/terapeuta.dart';
 
 class HomeTerapeuta extends StatefulWidget {
   @override

@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
 
-class Ayuda extends StatefulWidget {
+class AyudaRutinas extends StatefulWidget {
   // string que nos indica si la pantalla de origen es 'home' o 'menu'
   // para dependiendo de eso, mostrar un cuadro de dialogo u otro (exitDialogFromHome o exitDialogFromMenu)
   final String origen;
 
-  Ayuda({required this.origen});
+  AyudaRutinas({required this.origen});
 
   @override
-  _AyudaState createState() => _AyudaState();
+  _AyudaRutinasState createState() => _AyudaRutinasState();
 }
 
-class _AyudaState extends State<Ayuda> {
+class _AyudaRutinasState extends State<AyudaRutinas> {
   // string que nos indica si la pantalla de origen es 'home' o 'menu'
   // para dependiendo de eso, mostrar un cuadro de dialogo u otro (exitDialogFromHome o exitDialogFromMenu)
   late String origen;

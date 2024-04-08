@@ -1,10 +1,10 @@
 import 'package:TresEnUno/db/obj/jugador.dart';
 import 'package:flutter/material.dart';
 
-import '../db/obj/grupo.dart';
-import '../db/obj/jugadorView.dart';
-import '../obj/JugadoresPaginacion.dart';
-import '../widgets/ImageTextButton.dart';
+import '../../db/obj/grupo.dart';
+import '../../db/obj/jugadorView.dart';
+import '../../obj/JugadoresPaginacion.dart';
+import '../../widgets/ImageTextButton.dart';
 
 class RemovePlayer extends StatefulWidget {
   @override
