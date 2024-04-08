@@ -282,7 +282,9 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                                                   grupo: grupo,
                                                 ),
                                               ),
-                                            ).then((value) => _loadPreguntas());
+                                            ).then((value) {
+                                              _loadPreguntas();
+                                            });
                                           },
                                           child: Container(
                                             child: Row(
@@ -345,7 +347,9 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                                                               grupo: grupo,
                                                             ),
                                                           ),
-                                                        );
+                                                        ).then((value) {
+                                                          _loadPreguntas();
+                                                        });
                                                       },
                                                     ),
                                                     IconButton(

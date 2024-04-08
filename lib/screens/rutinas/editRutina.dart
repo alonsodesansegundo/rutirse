@@ -144,7 +144,7 @@ class _EditRutinaState extends State<EditRutina> {
                         ),
                       ),
                       Text(
-                        'Editar pregunta',
+                        'Editar rutina',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: titleSize / 2,
@@ -216,6 +216,7 @@ class _EditRutinaState extends State<EditRutina> {
                               selectedGrupo = grupo;
                               acciones = acciones.map((accion) {
                                 return ElementAccion(
+                                  id: accion.id,
                                   text1: accion.text1,
                                   numberAccion: accion.numberAccion,
                                   textSize: accion.textSize,
@@ -729,7 +730,7 @@ class _EditRutinaState extends State<EditRutina> {
     // cuadro de dialogo para escoger un personaje de arasaac
     arasaacPersonajeDialog = ArasaacPersonajeDialog(
       espacioAlto: espacioAlto,
-      espacioPadding: widthTxtPersonaje,
+      espacioPadding: espacioPadding,
       btnWidth: btnWidth,
       btnHeigth: btnHeight,
       imgWidth: imgWidth,
@@ -916,6 +917,7 @@ class _EditRutinaState extends State<EditRutina> {
   }
 
   // Método para seleccionar una nueva imagen de accion desde ARASAAC
+  // Método para seleccionar una nueva imagen de accion desde ARASAAC
   Future<void> _selectNewActionArasaac(int index) async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
@@ -929,7 +931,7 @@ class _EditRutinaState extends State<EditRutina> {
         connectivityResult == ConnectivityResult.wifi) {
       ArasaacAccionDialog aux = ArasaacAccionDialog(
         espacioAlto: espacioAlto,
-        espacioPadding: widthTxtPersonaje,
+        espacioPadding: espacioPadding,
         btnWidth: btnWidth,
         btnHeigth: btnHeight,
         imgWidth: imgWidth,
@@ -1042,7 +1044,7 @@ class _EditRutinaState extends State<EditRutina> {
     Database db = await openDatabase('rutinas.db');
     for (int i = 0; i < acciones.length; i++) {
       if (i < this.sizeAccionesInitial) {
-        if (selectedGrupo!.nombre != "Adolescencia")
+        if (selectedGrupo!.nombre != "Adolescencia") {
           await db.update(
             'accion',
             {
@@ -1054,7 +1056,7 @@ class _EditRutinaState extends State<EditRutina> {
             where: 'id = ?',
             whereArgs: [acciones[i].id],
           );
-        else
+        } else {
           await db.update(
             'accion',
             {
@@ -1066,8 +1068,9 @@ class _EditRutinaState extends State<EditRutina> {
             where: 'id = ?',
             whereArgs: [acciones[i].id],
           );
+        }
       } else {
-        if (selectedGrupo!.nombre != "Adolescencia")
+        if (selectedGrupo!.nombre != "Adolescencia") {
           await db.insert(
             'accion',
             {
@@ -1077,7 +1080,7 @@ class _EditRutinaState extends State<EditRutina> {
               'preguntaId': widget.pregunta.id,
             },
           );
-        else
+        } else {
           await db.insert(
             'accion',
             {
@@ -1087,6 +1090,7 @@ class _EditRutinaState extends State<EditRutina> {
               'preguntaId': widget.pregunta.id,
             },
           );
+        }
       }
     }
     for (int i = 0; i < accionesToDelete.length; i++)

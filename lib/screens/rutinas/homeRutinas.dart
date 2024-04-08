@@ -219,7 +219,7 @@ class _HomeRutinasState extends State<HomeRutinas> {
                             this.nombre != "Introduce tu nombre" &&
                             selectedGrupo != null) {
                           Jugador jugador = new Jugador(
-                              nombre: nombre.toString(),
+                              nombre: nombre.trim(),
                               grupoId: selectedGrupo!.id);
 
                           myProvider.jugador = await insertJugador(jugador);

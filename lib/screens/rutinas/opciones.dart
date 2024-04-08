@@ -331,9 +331,9 @@ class _OpcionesState extends State<Opciones> {
       ),
       onPressed: () async {
         // si hay un grupo seleccionado
-        if (selectedGrupo != null) {
+        if (selectedGrupo != null && nombre.trim().isNotEmpty) {
           Jugador jugador = Jugador(
-            nombre: nombre.toString(),
+            nombre: nombre.trim(),
             grupoId: selectedGrupo!.id,
           );
 
