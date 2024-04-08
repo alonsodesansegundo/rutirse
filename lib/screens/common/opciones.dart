@@ -8,6 +8,10 @@ import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
 
 class Opciones extends StatefulWidget {
+  // string que nos indica en que juego estamos
+  final String juego;
+
+  Opciones({required this.juego});
   @override
   _OpcionesState createState() => _OpcionesState();
 }
@@ -83,13 +87,30 @@ class _OpcionesState extends State<Opciones> {
                     crossAxisAlignment: CrossAxisAlignment
                         .start, // Alinea los elementos a la izquierda
                     children: [
-                      Text(
-                        'Rutinas',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: titleSize,
+                      if (widget.juego == 'rutinas')
+                        Text(
+                          'Rutinas',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize,
+                          ),
                         ),
-                      ),
+                      if (widget.juego == 'ironias')
+                        Text(
+                          'Ironias',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize,
+                          ),
+                        ),
+                      if (widget.juego == 'sentimientos')
+                        Text(
+                          'Sentimientos',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize,
+                          ),
+                        ),
                       Text(
                         'Opciones',
                         style: TextStyle(
@@ -127,16 +148,39 @@ class _OpcionesState extends State<Opciones> {
               SizedBox(height: espacioAlto), // Espacio entre los textos
               Row(
                 children: [
-                  Expanded(
-                    child: Text(
-                      'Aquí puedes cambiar diferentes opciones para el juego \'Rutinas\'.\n'
-                      'Estas opciones son tu nombre y el grupo al que perteneces.',
-                      style: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: textSize,
+                  if (widget.juego == 'rutinas')
+                    Expanded(
+                      child: Text(
+                        'Aquí puedes cambiar diferentes opciones para el juego \'Rutinas\'.\n'
+                        'Estas opciones son tu nombre y el grupo al que perteneces.',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: textSize,
+                        ),
                       ),
                     ),
-                  ),
+                  if (widget.juego == 'ironias')
+                    Expanded(
+                      child: Text(
+                        'Aquí puedes cambiar diferentes opciones para el juego \'Ironías\'.\n'
+                        'Estas opciones son tu nombre y el grupo al que perteneces.',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: textSize,
+                        ),
+                      ),
+                    ),
+                  if (widget.juego == 'sentimientos')
+                    Expanded(
+                      child: Text(
+                        'Aquí puedes cambiar diferentes opciones para el juego \'Sentimientos\'.\n'
+                        'Estas opciones son tu nombre y el grupo al que perteneces.',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: textSize,
+                        ),
+                      ),
+                    ),
                 ],
               ),
               SizedBox(height: espacioAlto), // Espacio
@@ -255,26 +299,72 @@ class _OpcionesState extends State<Opciones> {
   void _createDialogs() {
     // CUADROS DE DIALOGO
     // cuadro de dialogo para cuando quiere jugar pero los datos son incompletos
-    exitDialog = ExitDialog(
-        title: 'Aviso',
-        titleSize: titleSize,
-        content:
-            "¿Estás seguro de que deseas salir de las opciones del juego 'Rutinas'?\n"
-            "De esta manera los posibles cambios que hayas realizado no se guardarán "
-            "y volverás al menú del juego \'Rutinas\'.",
-        contentSize: textSize,
-        leftImageTextButton: btnSeguir,
-        rightImageTextButton: btnSalir);
+    if (widget.juego == 'rutinas')
+      exitDialog = ExitDialog(
+          title: 'Aviso',
+          titleSize: titleSize,
+          content:
+              "¿Estás seguro de que deseas salir de las opciones del juego 'Rutinas'?\n"
+              "De esta manera los posibles cambios que hayas realizado no se guardarán "
+              "y volverás al menú del juego \'Rutinas\'.",
+          contentSize: textSize,
+          leftImageTextButton: btnSeguir,
+          rightImageTextButton: btnSalir);
+
+    if (widget.juego == 'ironias')
+      exitDialog = ExitDialog(
+          title: 'Aviso',
+          titleSize: titleSize,
+          content:
+              "¿Estás seguro de que deseas salir de las opciones del juego 'Ironías'?\n"
+              "De esta manera los posibles cambios que hayas realizado no se guardarán "
+              "y volverás al menú del juego \'Rutinas\'.",
+          contentSize: textSize,
+          leftImageTextButton: btnSeguir,
+          rightImageTextButton: btnSalir);
+
+    if (widget.juego == 'sentimientos')
+      exitDialog = ExitDialog(
+          title: 'Aviso',
+          titleSize: titleSize,
+          content:
+              "¿Estás seguro de que deseas salir de las opciones del juego 'Sentimientos'?\n"
+              "De esta manera los posibles cambios que hayas realizado no se guardarán "
+              "y volverás al menú del juego \'Rutinas\'.",
+          contentSize: textSize,
+          leftImageTextButton: btnSeguir,
+          rightImageTextButton: btnSalir);
 
     // cuadro de dialogo para informar de que se han cambiado las opciones
-    confirmDialog = ExitDialog(
-        title: 'Éxito',
-        titleSize: titleSize,
-        content:
-            "Las opciones para el juego 'Rutinas' han sido actualizados con éxito.\n"
-            "¡Muchas gracias por tu interés y colaboración!",
-        contentSize: textSize,
-        leftImageTextButton: btnAceptar);
+    if (widget.juego == 'rutinas')
+      confirmDialog = ExitDialog(
+          title: 'Éxito',
+          titleSize: titleSize,
+          content:
+              "Las opciones para el juego 'Rutinas' han sido actualizados con éxito.\n"
+              "¡Muchas gracias por tu interés y colaboración!",
+          contentSize: textSize,
+          leftImageTextButton: btnAceptar);
+
+    if (widget.juego == 'ironias')
+      confirmDialog = ExitDialog(
+          title: 'Éxito',
+          titleSize: titleSize,
+          content:
+              "Las opciones para el juego 'Ironías' han sido actualizados con éxito.\n"
+              "¡Muchas gracias por tu interés y colaboración!",
+          contentSize: textSize,
+          leftImageTextButton: btnAceptar);
+
+    if (widget.juego == 'sentimientos')
+      confirmDialog = ExitDialog(
+          title: 'Éxito',
+          titleSize: titleSize,
+          content:
+              "Las opciones para el juego 'Sentimientos' han sido actualizados con éxito.\n"
+              "¡Muchas gracias por tu interés y colaboración!",
+          contentSize: textSize,
+          leftImageTextButton: btnAceptar);
 
     // cuadro de dialogo para cuando los campos son incompletos
     incompletDialog = ExitDialog(

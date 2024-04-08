@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../db/obj/partida.dart';
-import '../../provider/MyProvider.dart';
 import '../../widgets/ImageTextButton.dart';
 
-class UserProgressRutinas extends StatefulWidget {
+class UserProgressIronias extends StatefulWidget {
   @override
-  _UserProgressRutinasState createState() => _UserProgressRutinasState();
+  _UserProgressIroniasState createState() => _UserProgressIroniasState();
 }
 
-class _UserProgressRutinasState extends State<UserProgressRutinas> {
+class _UserProgressIroniasState extends State<UserProgressIronias> {
   late bool loadPartidas, loadData;
 
   late double titleSize,
@@ -62,7 +60,7 @@ class _UserProgressRutinasState extends State<UserProgressRutinas> {
                         .start, // Alinea los elementos a la izquierda
                     children: [
                       Text(
-                        'Rutinas',
+                        'Ironias',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: titleSize,
@@ -102,7 +100,7 @@ class _UserProgressRutinasState extends State<UserProgressRutinas> {
                   Expanded(
                     child: Text(
                       'En esta pantalla puedes observar tus progresos o resultados en el'
-                      ' juego \'Rutinas\'.\n'
+                      ' juego \'Ironias\'.\n'
                       'Dichos resultados están ordenados de más reciente a más antiguo.',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
@@ -191,97 +189,6 @@ class _UserProgressRutinasState extends State<UserProgressRutinas> {
                 ],
               ),
               SizedBox(height: espacioAlto / 2),
-              FutureBuilder<void>(
-                future: _cargarPartidas(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
-                    return Text("Error: ${snapshot.error}");
-                  } else if (partidas != null && partidas!.isNotEmpty) {
-                    return ListView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: partidas!.length,
-                      itemBuilder: (context, index) {
-                        final partida = partidas![index];
-                        return Row(
-                          children: [
-                            Container(
-                              width: widthFecha,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  _getFecha(partida.fechaFin),
-                                  style: TextStyle(
-                                    fontFamily: 'ComicNeue',
-                                    fontSize: textSize * 0.8,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: widthAciertos,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  partida.aciertos.toString(),
-                                  style: TextStyle(
-                                    fontFamily: 'ComicNeue',
-                                    fontSize: textSize * 0.8,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: widthFallos,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  partida.fallos.toString(),
-                                  style: TextStyle(
-                                    fontFamily: 'ComicNeue',
-                                    fontSize: textSize * 0.8,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: widthDuracion,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  _getTime(partida.duracionSegundos),
-                                  style: TextStyle(
-                                    fontFamily: 'ComicNeue',
-                                    fontSize: textSize * 0.8,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: espacioPadding),
-                          ],
-                        );
-                      },
-                    );
-                  } else {
-                    return Text(
-                      "Todavía no hay partidas, por lo que no tenemos datos para mostrarte.\n"
-                      "¡Te animamos a jugar!",
-                      style: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: textSize,
-                        color: Colors.black,
-                      ),
-                    );
-                  }
-                },
-              ),
             ],
           ),
         ),
@@ -351,49 +258,5 @@ class _UserProgressRutinasState extends State<UserProgressRutinas> {
         Navigator.pop(context);
       },
     );
-  }
-
-  Future<void> _cargarPartidas() async {
-    if (!loadPartidas) {
-      loadPartidas = true;
-      try {
-        var myProvider = Provider.of<MyProvider>(context);
-        // obtengo las partidas del jugador correspondiente
-        List<Partida> partidasList =
-            await getPartidasRutinasByUserId(myProvider.jugador.id!);
-        setState(() {
-          partidas = partidasList; // actualizo la lista
-        });
-      } catch (e) {
-        // no se debe de producir ningún error al ser una BBDD local
-        print("Error al obtener la lista de preguntas: $e"); //
-      }
-    }
-  }
-
-  String _getFecha(String fecha) {
-    return fecha.substring(0, 10);
-  }
-
-  String _getTime(int duracionSegundos) {
-    int horas = duracionSegundos ~/ 3600;
-    int minutos = (duracionSegundos % 3600) ~/ 60;
-    int segundos = duracionSegundos % 60;
-
-    String tiempoFormateado = '';
-
-    if (horas > 0) {
-      tiempoFormateado += '${horas}h ';
-      if (minutos <= 0)
-        tiempoFormateado += '${minutos.toString().padLeft(2, '0')}min ';
-    }
-
-    if (minutos > 0) {
-      tiempoFormateado += '${minutos.toString().padLeft(2, '0')}min ';
-    }
-
-    tiempoFormateado += '${segundos.toString().padLeft(2, '0')}s';
-
-    return tiempoFormateado;
   }
 }

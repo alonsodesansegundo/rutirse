@@ -1,13 +1,21 @@
+import 'package:TresEnUno/screens/ironias/JugarIronias.dart';
+import 'package:TresEnUno/screens/ironias/ayuda.dart';
 import 'package:TresEnUno/screens/rutinas/userProgress.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
+import '../ironias/userProgress.dart';
 import '../rutinas/ayuda.dart';
 import '../rutinas/jugar.dart';
 import 'opciones.dart';
 
 class MenuJugador extends StatefulWidget {
+  // string que nos indica en que juego estamos
+  final String juego;
+
+  MenuJugador({required this.juego});
+
   @override
   _MenuJugadorState createState() => _MenuJugadorState();
 }
@@ -61,13 +69,30 @@ class _MenuJugadorState extends State<MenuJugador> {
                     crossAxisAlignment: CrossAxisAlignment
                         .start, // Alinea los elementos a la izquierda
                     children: [
-                      Text(
-                        'Rutinas',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: titleSize,
+                      if (widget.juego == 'rutinas')
+                        Text(
+                          'Rutinas',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize,
+                          ),
                         ),
-                      ),
+                      if (widget.juego == 'ironias')
+                        Text(
+                          'Ironías',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize,
+                          ),
+                        ),
+                      if (widget.juego == 'sentimientos')
+                        Text(
+                          'Sentimientos',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize,
+                          ),
+                        ),
                       Text(
                         'Menú',
                         style: TextStyle(
@@ -105,16 +130,39 @@ class _MenuJugadorState extends State<MenuJugador> {
               SizedBox(height: espacioAlto), // Espacio entre los textos
               Row(
                 children: [
-                  Expanded(
-                    child: Text(
-                      'Aquí tienes diferentes opciones para el juego \'Rutinas\'.\n'
-                      'Estas opciones son: jugar, ver tus progresos, ver y cambiar las opciones y ver la ayuda.',
-                      style: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: textSize,
+                  if (widget.juego == 'rutinas')
+                    Expanded(
+                      child: Text(
+                        'Aquí tienes diferentes opciones para el juego \'Rutinas\'.\n'
+                        'Estas opciones son: jugar, ver tus progresos, ver y cambiar las opciones y ver la ayuda.',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: textSize,
+                        ),
                       ),
                     ),
-                  ),
+                  if (widget.juego == 'ironias')
+                    Expanded(
+                      child: Text(
+                        'Aquí tienes diferentes opciones para el juego \'Ironías\'.\n'
+                        'Estas opciones son: jugar, ver tus progresos, ver y cambiar las opciones y ver la ayuda.',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: textSize,
+                        ),
+                      ),
+                    ),
+                  if (widget.juego == 'sentimientos')
+                    Expanded(
+                      child: Text(
+                        'Aquí tienes diferentes opciones para el juego \'Sentimientos\'.\n'
+                        'Estas opciones son: jugar, ver tus progresos, ver y cambiar las opciones y ver la ayuda.',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: textSize,
+                        ),
+                      ),
+                    ),
                 ],
               ),
               SizedBox(height: espacioAlto), // Espacio
@@ -186,10 +234,16 @@ class _MenuJugadorState extends State<MenuJugador> {
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => JugarRutinas()),
-        );
+        if (widget.juego == 'rutinas')
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => JugarRutinas()),
+          );
+        if (widget.juego == 'ironias')
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => JugarIronias()),
+          );
       },
     );
 
@@ -203,10 +257,17 @@ class _MenuJugadorState extends State<MenuJugador> {
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => UserProgress()),
-        );
+        if (widget.juego == 'rutinas')
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => UserProgressRutinas()),
+          );
+
+        if (widget.juego == 'ironias')
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => UserProgressIronias()),
+          );
       },
     );
 
@@ -219,10 +280,18 @@ class _MenuJugadorState extends State<MenuJugador> {
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Opciones()),
-        );
+        if (widget.juego == 'rutinas')
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Opciones(juego: 'rutinas')),
+          );
+
+        if (widget.juego == 'ironias')
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Opciones(juego: 'ironias')),
+          );
+        if (widget.juego == 'sentimientos') {}
       },
     );
 
@@ -235,13 +304,25 @@ class _MenuJugadorState extends State<MenuJugador> {
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => AyudaRutinas(
-                    origen: 'menu',
-                  )),
-        );
+        if (widget.juego == 'rutinas')
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AyudaRutinas(
+                      origen: 'menu',
+                    )),
+          );
+        if (widget.juego == 'ironias') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AyudaIronias(
+                      origen: 'menu',
+                    )),
+          );
+        }
+
+        if (widget.juego == 'sentimientos') {}
       },
     );
 

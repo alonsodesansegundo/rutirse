@@ -1,3 +1,5 @@
+import 'package:TresEnUno/screens/ironias/JugarIronias.dart';
+import 'package:TresEnUno/screens/ironias/ayuda.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -250,7 +252,13 @@ class _HomeState extends State<Home> {
                               MaterialPageRoute(
                                   builder: (context) => JugarRutinas()),
                             );
-                          if (widget.juego == 'ironias') {}
+                          if (widget.juego == 'ironias') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => JugarIronias()),
+                            );
+                          }
                           if (widget.juego == 'sentimientos') {}
                         } else {
                           showDialog(
@@ -280,7 +288,13 @@ class _HomeState extends State<Home> {
                                 builder: (context) =>
                                     AyudaRutinas(origen: 'home')),
                           );
-                        if (widget.juego == 'ironias') {}
+                        if (widget.juego == 'ironias')
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    AyudaIronias(origen: 'home')),
+                          );
                         if (widget.juego == 'sentimientos') {}
                       },
                     ),

@@ -340,7 +340,10 @@ class _JugarRutinas extends State<JugarRutinas> {
 
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => MenuJugador()),
+          MaterialPageRoute(
+              builder: (context) => MenuJugador(
+                    juego: 'rutinas',
+                  )),
         );
       },
     );
@@ -360,7 +363,10 @@ class _JugarRutinas extends State<JugarRutinas> {
         saveProgreso();
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => MenuJugador()),
+          MaterialPageRoute(
+              builder: (context) => MenuJugador(
+                    juego: 'rutinas',
+                  )),
         );
       },
     );
