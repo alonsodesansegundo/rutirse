@@ -933,8 +933,12 @@ class _AddRutinaState extends State<AddRutina> {
     int preguntaId;
     Database db = await openDatabase('rutinas.db');
 
-    preguntaId = await insertPregunta(db, situacionText,
-        Uint8List.fromList(personajeImage), selectedGrupo!.id);
+    if (personajeImage.isEmpty)
+      preguntaId =
+          await insertPregunta(db, situacionText, [], selectedGrupo!.id);
+    else
+      preguntaId = await insertPregunta(db, situacionText,
+          Uint8List.fromList(personajeImage), selectedGrupo!.id);
     return preguntaId;
   }
 

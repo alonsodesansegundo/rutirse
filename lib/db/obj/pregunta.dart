@@ -105,16 +105,28 @@ Future<int> insertPregunta(Database database, String enunciado,
     List<int> imgPersonaje, int grupoId) async {
   int id = -1;
   await database.transaction((txn) async {
-    id = await txn.rawInsert(
-      "INSERT INTO pregunta (enunciado, personajeImg, grupoId, byTerapeuta, fecha) VALUES (?, ?, ?, ?, ?)",
-      [
-        enunciado,
-        imgPersonaje,
-        grupoId,
-        1,
-        DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
-      ],
-    );
+    if (imgPersonaje.isEmpty)
+      id = await txn.rawInsert(
+        "INSERT INTO pregunta (enunciado, personajeImg, grupoId, byTerapeuta, fecha) VALUES (?, ?, ?, ?, ?)",
+        [
+          enunciado,
+          null,
+          grupoId,
+          1,
+          DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
+        ],
+      );
+    else
+      id = await txn.rawInsert(
+        "INSERT INTO pregunta (enunciado, personajeImg, grupoId, byTerapeuta, fecha) VALUES (?, ?, ?, ?, ?)",
+        [
+          enunciado,
+          imgPersonaje,
+          grupoId,
+          1,
+          DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
+        ],
+      );
   });
 
   return id;
@@ -176,17 +188,30 @@ Future<void> removePregunta(int preguntaId) async {
 
 Future<void> updatePregunta(Database database, int id, String enunciado,
     List<int> imgPersonaje, int grupoId) async {
-  await database.update(
-    'pregunta',
-    {
-      'enunciado': enunciado,
-      'personajeImg': imgPersonaje,
-      'grupoId': grupoId,
-      'fecha': DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
-    },
-    where: 'id = ?',
-    whereArgs: [id],
-  );
+  if (imgPersonaje.isEmpty)
+    await database.update(
+      'pregunta',
+      {
+        'enunciado': enunciado,
+        'personajeImg': null,
+        'grupoId': grupoId,
+        'fecha': DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
+      },
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  else
+    await database.update(
+      'pregunta',
+      {
+        'enunciado': enunciado,
+        'personajeImg': imgPersonaje,
+        'grupoId': grupoId,
+        'fecha': DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
+      },
+      where: 'id = ?',
+      whereArgs: [id],
+    );
 }
 
 void insertPreguntas(Database database) {
