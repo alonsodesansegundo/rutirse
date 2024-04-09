@@ -10,17 +10,17 @@ import 'package:sqflite/sqflite.dart';
 
 import '../../db/obj/accion.dart';
 import '../../db/obj/grupo.dart';
-import '../../db/obj/pregunta.dart';
+import '../../db/obj/situacionRutina.dart';
 import '../../widgets/ArasaacAccionDialog.dart';
 import '../../widgets/ArasaacPersonajeDialog.dart';
 import '../../widgets/ElementAccion.dart';
 import '../../widgets/ImageTextButton.dart';
 
 class EditRutina extends StatefulWidget {
-  Pregunta pregunta;
+  SituacionRutina situacionRutina;
   Grupo grupo;
 
-  EditRutina({required this.pregunta, required this.grupo});
+  EditRutina({required this.situacionRutina, required this.grupo});
 
   @override
   _EditRutinaState createState() => _EditRutinaState();
@@ -95,10 +95,10 @@ class _EditRutinaState extends State<EditRutina> {
     if (firstLoad) {
       firstLoad = false;
       _getGrupos();
-      situacionText = widget.pregunta.enunciado;
-      if (widget.pregunta.personajeImg != null) {
+      situacionText = widget.situacionRutina.enunciado;
+      if (widget.situacionRutina.personajeImg != null) {
         setState(() {
-          personajeImage = widget.pregunta.personajeImg!;
+          personajeImage = widget.situacionRutina.personajeImg!;
         });
       } else
         personajeImage = [];
@@ -444,7 +444,7 @@ class _EditRutinaState extends State<EditRutina> {
                         ),
                         content: Text(
                           'Estás a punto de eliminar la siguiente pregunta del grupo ${widget.grupo.nombre}:\n'
-                          '${widget.pregunta.enunciado}\n'
+                          '${widget.situacionRutina.enunciado}\n'
                           '¿Estás seguro de ello?',
                           style: TextStyle(
                             fontFamily: 'ComicNeue',
@@ -457,7 +457,7 @@ class _EditRutinaState extends State<EditRutina> {
                             children: [
                               ElevatedButton(
                                 onPressed: () {
-                                  _removePregunta(widget.pregunta.id!);
+                                  _removePregunta(widget.situacionRutina.id!);
                                   Navigator.of(context).pop();
                                   showDialog(
                                     context: context,
@@ -1035,7 +1035,7 @@ class _EditRutinaState extends State<EditRutina> {
   // Método para editar una pregunta de la BBDD
   Future<void> _editPregunta() async {
     Database db = await openDatabase('rutinas.db');
-    await updatePregunta(db, widget.pregunta.id!, situacionText,
+    await updatePregunta(db, widget.situacionRutina.id!, situacionText,
         Uint8List.fromList(personajeImage), selectedGrupo!.id);
   }
 
@@ -1051,7 +1051,7 @@ class _EditRutinaState extends State<EditRutina> {
               'texto': acciones[i].accionText,
               'orden': i,
               'imagen': acciones[i].accionImage,
-              'preguntaId': widget.pregunta.id,
+              'preguntaId': widget.situacionRutina.id,
             },
             where: 'id = ?',
             whereArgs: [acciones[i].id],
@@ -1063,7 +1063,7 @@ class _EditRutinaState extends State<EditRutina> {
               'texto': "",
               'orden': i,
               'imagen': acciones[i].accionImage,
-              'preguntaId': widget.pregunta.id,
+              'preguntaId': widget.situacionRutina.id,
             },
             where: 'id = ?',
             whereArgs: [acciones[i].id],
@@ -1077,7 +1077,7 @@ class _EditRutinaState extends State<EditRutina> {
               'texto': acciones[i].accionText,
               'orden': i,
               'imagen': acciones[i].accionImage,
-              'preguntaId': widget.pregunta.id,
+              'preguntaId': widget.situacionRutina.id,
             },
           );
         } else {
@@ -1087,7 +1087,7 @@ class _EditRutinaState extends State<EditRutina> {
               'texto': "",
               'orden': i,
               'imagen': acciones[i].accionImage,
-              'preguntaId': widget.pregunta.id,
+              'preguntaId': widget.situacionRutina.id,
             },
           );
         }
@@ -1111,7 +1111,7 @@ class _EditRutinaState extends State<EditRutina> {
 
   // Método para cargar las acciones de la pregunta seleccionada
   void _loadAcciones() async {
-    List<Accion> aux = await getAcciones(widget.pregunta.id!);
+    List<Accion> aux = await getAcciones(widget.situacionRutina.id!);
 
     for (int i = 0; i < aux.length; i++) {
       String txt;

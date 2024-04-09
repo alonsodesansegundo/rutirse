@@ -1,13 +1,16 @@
 import 'dart:math';
 
+import 'package:TresEnUno/db/obj/respuestaIronia.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:provider/provider.dart';
 
 import '../../db/obj/jugador.dart';
+import '../../db/obj/situacionIronia.dart';
 import '../../provider/MyProvider.dart';
 import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
+import '../../widgets/PreguntaWidget.dart';
 import '../common/menuJugador.dart';
 
 Random random = Random(); // para generar numeros aleatorios
@@ -23,6 +26,8 @@ class _JugarIronias extends State<JugarIronias> {
   late bool flag, isSpeaking; // bandera para cargar las preguntas solo 1 vez
 
   late int indiceActual; // índice de la pregunta actual
+
+  late List<SituacionIronia> situacionIroniaList; // lista de preguntas
 
   late double titleSize,
       textSize,
@@ -57,6 +62,7 @@ class _JugarIronias extends State<JugarIronias> {
     flutterTts = FlutterTts();
     timeInicio = DateTime.now();
     flag = false;
+    situacionIroniaList = [];
     indiceActual = -1;
     aciertos = 0;
     fallos = 0;
@@ -110,6 +116,29 @@ class _JugarIronias extends State<JugarIronias> {
                     ],
                   ),
                 ],
+              ),
+              FutureBuilder<void>(
+                future: _cargarPreguntas(),
+                builder: (context, snapshot) {
+                  if (situacionIroniaList.isEmpty) {
+                    return Text("Cargando...");
+                  } else {
+                    return Column(
+                      children: [
+                        PreguntaWidget(
+                          enunciado:
+                              situacionIroniaList[indiceActual].enunciado,
+                          isLoading: false,
+                          subtextSize: textSize,
+                          imgWidth: personajeWidth,
+                          personajeImg:
+                              situacionIroniaList[indiceActual].imagen,
+                          rightSpace: espacioPadding,
+                        ),
+                      ],
+                    );
+                  }
+                },
               ),
               SizedBox(height: espacioAlto),
               btnSalir
@@ -280,6 +309,44 @@ class _JugarIronias extends State<JugarIronias> {
           'assets/img/medallas/trofeo.png',
           width: imgWidth,
         ));
+  }
+
+  // metodo para cargar todas las preguntas
+  Future<void> _cargarPreguntas() async {
+    if (!flag) {
+      flag = true;
+      try {
+        var myProvider = Provider.of<MyProvider>(context);
+        // obtengo las preguntas del grupo correspondiente
+        List<SituacionIronia> situaciones =
+            await getSituacionesIronias(myProvider.grupo.id);
+        setState(() {
+          print("HOLA " + situaciones.length.toString());
+          situacionIroniaList = situaciones; // actualizo la lista
+          indiceActual =
+              random.nextInt(situacionIroniaList.length); // pregunta aleatoria
+          _speak(situacionIroniaList[indiceActual].enunciado);
+          _cargarRespuestas(); // cargo las acciones de la pregunta actual
+        });
+      } catch (e) {
+        // no se debe de producir ningún error al ser una BBDD local
+        print("Error al obtener la lista de preguntas de ironías: $e"); //
+      }
+    }
+  }
+
+  // método para cargar las acciones de la pregunta actual
+  Future<void> _cargarRespuestas() async {
+    try {
+      List<RespuestaIronia> respuestas =
+          await getRespuestasIronia(situacionIroniaList[indiceActual].id ?? -1);
+      setState(() {
+        respuestas.shuffle(); // desordenar acciones
+      });
+    } catch (e) {
+      // no se debe de producir ningún error al ser una BBDD local
+      print("Error al obtener la lista de acciones: $e");
+    }
   }
 
   // método para reproducir un texto por audio

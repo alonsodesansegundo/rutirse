@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../db/obj/grupo.dart';
-import '../../db/obj/pregunta.dart';
-import '../../obj/PreguntasPaginacion.dart';
+import '../../db/obj/situacionRutina.dart';
+import '../../obj/SituacionRutinaPaginacion.dart';
 import '../../widgets/ImageTextButton.dart';
 import 'editRutina.dart';
 
@@ -33,7 +33,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
 
   late int paginaActual, preguntasPagina;
 
-  late List<Pregunta> preguntas;
+  late List<SituacionRutina> situaciones;
 
   late bool hayMasPreguntas, loadGrupos, loadData;
 
@@ -51,7 +51,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
     loadData = false;
     paginaActual = 1;
     preguntasPagina = 5;
-    preguntas = [];
+    situaciones = [];
     hayMasPreguntas = false;
     _loadPreguntas();
     selectedGrupo = null;
@@ -241,15 +241,15 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                   color: Colors.black,
                   thickness: 1,
                 ),
-                FutureBuilder<PreguntasPaginacion>(
-                  future: getPreguntasCreatedByTerapeuta(
+                FutureBuilder<SituacionRutinaPaginacion>(
+                  future: getSituacionesRutinasCreatedByTerapeuta(
                       paginaActual, preguntasPagina, txtBuscar, selectedGrupo),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
                       return Center(child: Text('Error: ${snapshot.error}'));
-                    } else if (preguntas.isNotEmpty) {
+                    } else if (situaciones.isNotEmpty) {
                       return Column(
                         children: [
                           ListView.builder(
@@ -257,12 +257,12 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: preguntasPagina,
                             itemBuilder: (context, index) {
-                              if (index < preguntas.length) {
-                                final pregunta = preguntas[index];
+                              if (index < situaciones.length) {
+                                final situacion = situaciones[index];
                                 return Container(
                                   margin: EdgeInsets.only(bottom: espacioAlto),
                                   child: FutureBuilder<Grupo>(
-                                    future: getGrupoById(pregunta.grupoId),
+                                    future: getGrupoById(situacion.grupoId),
                                     builder: (context, snapshot) {
                                       if (snapshot.connectionState ==
                                           ConnectionState.waiting) {
@@ -278,7 +278,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                                               MaterialPageRoute(
                                                 builder: (context) =>
                                                     EditRutina(
-                                                  pregunta: pregunta,
+                                                  situacionRutina: situacion,
                                                   grupo: grupo,
                                                 ),
                                               ),
@@ -317,7 +317,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                                                             .start,
                                                     children: [
                                                       Text(
-                                                        '${pregunta.enunciado}',
+                                                        '${situacion.enunciado}',
                                                         style: TextStyle(
                                                           fontFamily:
                                                               'ComicNeue',
@@ -342,8 +342,8 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                                                             builder:
                                                                 (context) =>
                                                                     EditRutina(
-                                                              pregunta:
-                                                                  pregunta,
+                                                              situacionRutina:
+                                                                  situacion,
                                                               grupo: grupo,
                                                             ),
                                                           ),
@@ -369,7 +369,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                                                           ),
                                                           content: Text(
                                                             'Estás a punto de eliminar la siguiente pregunta del grupo ${grupo.nombre}:\n'
-                                                            '${pregunta.enunciado}\n'
+                                                            '${situacion.enunciado}\n'
                                                             '¿Estás seguro de ello?',
                                                             style: TextStyle(
                                                               fontFamily:
@@ -388,7 +388,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                                                                   onPressed:
                                                                       () {
                                                                     _removePreguntaSelected(
-                                                                        pregunta
+                                                                        situacion
                                                                             .id!);
                                                                     setState(
                                                                         () {
@@ -661,12 +661,13 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
   }
 
   Future<void> _loadPreguntas() async {
-    PreguntasPaginacion aux = await getPreguntasCreatedByTerapeuta(
-        paginaActual, preguntasPagina, txtBuscar, selectedGrupo);
+    SituacionRutinaPaginacion aux =
+        await getSituacionesRutinasCreatedByTerapeuta(
+            paginaActual, preguntasPagina, txtBuscar, selectedGrupo);
 
     setState(() {
-      this.preguntas = aux.preguntas;
-      this.hayMasPreguntas = aux.hayMasPreguntas;
+      this.situaciones = aux.situaciones;
+      this.hayMasPreguntas = aux.hayMasSituaciones;
     });
   }
 

@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import '../../db/obj/accion.dart';
 import '../../db/obj/jugador.dart';
 import '../../db/obj/partida.dart';
-import '../../db/obj/pregunta.dart';
+import '../../db/obj/situacionRutina.dart';
 import '../../obj/CartaAccion.dart';
 import '../../provider/MyProvider.dart';
 import '../../widgets/ExitDialog.dart';
@@ -28,7 +28,7 @@ class _JugarRutinas extends State<JugarRutinas> {
 
   late bool flag, isSpeaking; // bandera para cargar las preguntas solo 1 vez
 
-  late List<Pregunta> preguntasList; // lista de preguntas
+  late List<SituacionRutina> situacionRutinaList; // lista de preguntas
 
   late List<CartaAccion> cartasAcciones; // acciones de la pregunta actual
 
@@ -69,7 +69,7 @@ class _JugarRutinas extends State<JugarRutinas> {
     flutterTts = FlutterTts();
     timeInicio = DateTime.now();
     flag = false;
-    preguntasList = [];
+    situacionRutinaList = [];
     cartasAcciones = [];
     indiceActual = -1;
     aciertos = 0;
@@ -147,18 +147,19 @@ class _JugarRutinas extends State<JugarRutinas> {
               FutureBuilder<void>(
                 future: _cargarPreguntas(),
                 builder: (context, snapshot) {
-                  if (preguntasList.isEmpty) {
+                  if (situacionRutinaList.isEmpty) {
                     return Text("Cargando...");
                   } else {
                     return Column(
                       children: [
                         PreguntaWidget(
-                          enunciado: preguntasList[indiceActual].enunciado,
+                          enunciado:
+                              situacionRutinaList[indiceActual].enunciado,
                           isLoading: false,
                           subtextSize: textSize,
                           imgWidth: personajeWidth,
                           personajeImg:
-                              preguntasList[indiceActual].personajeImg,
+                              situacionRutinaList[indiceActual].personajeImg,
                           rightSpace: espacioPadding,
                         ),
                       ],
@@ -242,7 +243,7 @@ class _JugarRutinas extends State<JugarRutinas> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        if (preguntasList.length != 1) {
+                        if (situacionRutinaList.length != 1) {
                           _speak('Fantástico');
                           return correctDialog;
                         } else {
@@ -440,12 +441,13 @@ class _JugarRutinas extends State<JugarRutinas> {
       try {
         var myProvider = Provider.of<MyProvider>(context);
         // obtengo las preguntas del grupo correspondiente
-        List<Pregunta> preguntas = await getPreguntas(myProvider.grupo.id);
+        List<SituacionRutina> situaciones =
+            await getSituacionesRutinas(myProvider.grupo.id);
         setState(() {
-          preguntasList = preguntas; // actualizo la lista
+          situacionRutinaList = situaciones; // actualizo la lista
           indiceActual =
-              random.nextInt(preguntasList.length); // pregunta aleatoria
-          _speak(preguntasList[indiceActual].enunciado);
+              random.nextInt(situacionRutinaList.length); // pregunta aleatoria
+          _speak(situacionRutinaList[indiceActual].enunciado);
           _cargarAcciones(); // cargo las acciones de la pregunta actual
         });
       } catch (e) {
@@ -458,10 +460,8 @@ class _JugarRutinas extends State<JugarRutinas> {
   // método para cargar las acciones de la pregunta actual
   Future<void> _cargarAcciones() async {
     try {
-      // obtengo las acciones de la pregunta actual
-      print("PREGUNTA ID: " + preguntasList[indiceActual].id.toString());
       List<Accion> acciones =
-          await getAcciones(preguntasList[indiceActual].id ?? -1);
+          await getAcciones(situacionRutinaList[indiceActual].id ?? -1);
       setState(() {
         acciones.shuffle(); // desordenar acciones
         // creo las cartas
@@ -471,8 +471,6 @@ class _JugarRutinas extends State<JugarRutinas> {
           );
         }).toList();
       });
-      print("LONGITUD: " + cartasAcciones.length.toString());
-      print("ACCION 1: " + cartasAcciones[0].toString());
     } catch (e) {
       // no se debe de producir ningún error al ser una BBDD local
       print("Error al obtener la lista de acciones: $e");
@@ -502,12 +500,12 @@ class _JugarRutinas extends State<JugarRutinas> {
   // método para cambiar la pregunta actual
   void _cambiarPregunta() {
     setState(() {
-      if (preguntasList.isNotEmpty) {
+      if (situacionRutinaList.isNotEmpty) {
         // si hay preguntas
         // Elimino la pregunta actual de la lista
-        preguntasList.removeAt(indiceActual);
-        indiceActual = random.nextInt(preguntasList.length);
-        _speak(preguntasList[indiceActual].enunciado);
+        situacionRutinaList.removeAt(indiceActual);
+        indiceActual = random.nextInt(situacionRutinaList.length);
+        _speak(situacionRutinaList[indiceActual].enunciado);
         _cargarAcciones();
       }
     });

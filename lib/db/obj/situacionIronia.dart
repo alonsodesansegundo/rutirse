@@ -2,38 +2,38 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../obj/PreguntasPaginacion.dart';
+import '../../obj/SituacionIroniaPaginacion.dart';
 import '../db.dart';
-import '../preguntasScripts/adolescencia.dart';
-import '../preguntasScripts/atenciont.dart';
-import '../preguntasScripts/infancia.dart';
 import 'grupo.dart';
+import 'ironiasScripts/adolescencia.dart';
+import 'ironiasScripts/atenciont.dart';
+import 'ironiasScripts/infancia.dart';
 
-class Pregunta {
+class SituacionIronia {
   final int? id;
   final String enunciado;
-  final Uint8List? personajeImg;
+  final Uint8List? imagen;
   final int grupoId;
   final String fecha;
   final int byTerapeuta;
 
-  Pregunta(
+  SituacionIronia(
       {this.id,
       required this.enunciado,
-      this.personajeImg,
+      this.imagen,
       required this.grupoId,
       required this.fecha,
       required this.byTerapeuta});
 
-  Pregunta.preguntasFromMap(Map<String, dynamic> item)
+  SituacionIronia.situacionesFromMap(Map<String, dynamic> item)
       : id = item["id"],
         enunciado = item["enunciado"],
-        personajeImg = item["personajeImg"],
+        imagen = item["imagen"],
         grupoId = item["grupoId"],
         fecha = item["fecha"],
         byTerapeuta = item["byTerapeuta"];
 
-  Map<String, Object> preguntasToMap() {
+  Map<String, Object> situacionesToMap() {
     return {
       'enunciado': enunciado,
       'grupoId': grupoId,
@@ -44,27 +44,29 @@ class Pregunta {
 
   @override
   String toString() {
-    return 'Pregunta {id: $id, enunciado: $enunciado,'
-        ' personajeImg: $personajeImg, '
+    return 'SituacionIronia {id: $id, enunciado: $enunciado,'
+        ' imagen: $imagen, '
         'grupoId: $grupoId}, '
         'fecha: $fecha}, '
         'byTerapeuta: $byTerapeuta, ';
   }
 }
 
-Future<List<Pregunta>> getPreguntas(int grupoId) async {
+Future<List<SituacionIronia>> getSituacionesIronias(int grupoId) async {
   try {
     final Database db = await initializeDB();
-    final List<Map<String, dynamic>> preguntasMap =
-        await db.query('pregunta', where: 'grupoId = ?', whereArgs: [grupoId]);
-    return preguntasMap.map((map) => Pregunta.preguntasFromMap(map)).toList();
+    final List<Map<String, dynamic>> preguntasMap = await db
+        .query('situacionIronia', where: 'grupoId = ?', whereArgs: [grupoId]);
+    return preguntasMap
+        .map((map) => SituacionIronia.situacionesFromMap(map))
+        .toList();
   } catch (e) {
-    print("Error al obtener preguntas: $e");
+    print("Error al obtener situaciones: $e");
     return [];
   }
 }
 
-Future<PreguntasPaginacion> getPreguntasCreatedByTerapeuta(
+Future<SituacionIroniaPaginacion> getSituacionesIroniasCreatedByTerapeuta(
     int pageNumber, int pageSize, String txtBuscar, Grupo? grupo) async {
   try {
     final Database db = await initializeDB();
@@ -79,35 +81,37 @@ Future<PreguntasPaginacion> getPreguntasCreatedByTerapeuta(
       whereClause += " AND grupoId = ${grupo.id}";
     }
 
-    final List<Map<String, dynamic>> preguntasMap = await db.query(
-      'pregunta',
+    final List<Map<String, dynamic>> situacionesMap = await db.query(
+      'situacionIronia',
       where: whereClause,
       orderBy: 'id DESC',
       limit: pageSize,
       offset: offset,
     );
-    final List<Pregunta> preguntas =
-        preguntasMap.map((map) => Pregunta.preguntasFromMap(map)).toList();
+    final List<SituacionIronia> situaciones = situacionesMap
+        .map((map) => SituacionIronia.situacionesFromMap(map))
+        .toList();
 
     // Comprobar si hay más preguntas disponibles
-    final List<Map<String, dynamic>> totalPreguntasMap =
-        await db.query('pregunta', where: whereClause);
-    final bool hayMasPreguntas = (offset + pageSize) < totalPreguntasMap.length;
+    final List<Map<String, dynamic>> totalSituacionesMap =
+        await db.query('situacionIronia', where: whereClause);
+    final bool hayMasPreguntas =
+        (offset + pageSize) < totalSituacionesMap.length;
 
-    return PreguntasPaginacion(preguntas, hayMasPreguntas);
+    return SituacionIroniaPaginacion(situaciones, hayMasPreguntas);
   } catch (e) {
-    print("Error al obtener preguntas: $e");
-    return PreguntasPaginacion([], false);
+    print("Error al obtener situaciones: $e");
+    return SituacionIroniaPaginacion([], false);
   }
 }
 
-Future<int> insertPregunta(Database database, String enunciado,
-    List<int> imgPersonaje, int grupoId) async {
+Future<int> insertSituacionIronia(
+    Database database, String enunciado, List<int> imagen, int grupoId) async {
   int id = -1;
   await database.transaction((txn) async {
-    if (imgPersonaje.isEmpty)
+    if (imagen.isEmpty)
       id = await txn.rawInsert(
-        "INSERT INTO pregunta (enunciado, personajeImg, grupoId, byTerapeuta, fecha) VALUES (?, ?, ?, ?, ?)",
+        "INSERT INTO situacionIronia (enunciado, imagen, grupoId, byTerapeuta, fecha) VALUES (?, ?, ?, ?, ?)",
         [
           enunciado,
           null,
@@ -118,10 +122,10 @@ Future<int> insertPregunta(Database database, String enunciado,
       );
     else
       id = await txn.rawInsert(
-        "INSERT INTO pregunta (enunciado, personajeImg, grupoId, byTerapeuta, fecha) VALUES (?, ?, ?, ?, ?)",
+        "INSERT INTO situacionIronia (enunciado, imagen, grupoId, byTerapeuta, fecha) VALUES (?, ?, ?, ?, ?)",
         [
           enunciado,
-          imgPersonaje,
+          imagen,
           grupoId,
           1,
           DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
@@ -132,14 +136,14 @@ Future<int> insertPregunta(Database database, String enunciado,
   return id;
 }
 
-Future<int> insertPreguntaInitialData(
+Future<int> insertSituacionIroniaInitialData(
     Database database, String enunciado, String pathImg, int grupoId) async {
   int id = -1;
   ByteData imageData = await rootBundle.load(pathImg);
   List<int> bytes = imageData.buffer.asUint8List();
   await database.transaction((txn) async {
     id = await txn.rawInsert(
-      "INSERT INTO pregunta (enunciado, personajeImg, grupoId, fecha) VALUES (?, ?, ?, ?)",
+      "INSERT INTO situacionIronia (enunciado, imagen, grupoId, fecha) VALUES (?, ?, ?, ?)",
       [
         enunciado,
         bytes,
@@ -152,48 +156,28 @@ Future<int> insertPreguntaInitialData(
   return id;
 }
 
-Future<int> insertPreguntaInitialDataTerapeutaTest(
-    Database database, String enunciado, String pathImg, int grupoId) async {
-  int id = -1;
-  ByteData imageData = await rootBundle.load(pathImg);
-  List<int> bytes = imageData.buffer.asUint8List();
-  await database.transaction((txn) async {
-    id = await txn.rawInsert(
-      "INSERT INTO pregunta (enunciado, personajeImg, grupoId, fecha,byTerapeuta) VALUES (?, ?, ?, ?, 1)",
-      [
-        enunciado,
-        bytes,
-        grupoId,
-        DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
-      ],
-    );
-  });
-
-  return id;
-}
-
-Future<void> removePregunta(int preguntaId) async {
+Future<void> removePregunta(int situacionIroniaId) async {
   try {
     final Database db = await initializeDB();
     await db.delete(
-      'pregunta',
+      'situacionIronia',
       where: 'id = ?',
-      whereArgs: [preguntaId],
+      whereArgs: [situacionIroniaId],
     );
-    print('Pregunta eliminada con éxito');
+    print('Situación ironía eliminada con éxito');
   } catch (e) {
-    print('Error al eliminar la pregunta: $e');
+    print('Error al eliminar la situación ironía: $e');
   }
 }
 
 Future<void> updatePregunta(Database database, int id, String enunciado,
-    List<int> imgPersonaje, int grupoId) async {
-  if (imgPersonaje.isEmpty)
+    List<int> imagen, int grupoId) async {
+  if (imagen.isEmpty)
     await database.update(
-      'pregunta',
+      'situacionIronia',
       {
         'enunciado': enunciado,
-        'personajeImg': null,
+        'imgagen': null,
         'grupoId': grupoId,
         'fecha': DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
       },
@@ -202,10 +186,10 @@ Future<void> updatePregunta(Database database, int id, String enunciado,
     );
   else
     await database.update(
-      'pregunta',
+      'situacionIronia',
       {
         'enunciado': enunciado,
-        'personajeImg': imgPersonaje,
+        'imgagen': imagen,
         'grupoId': grupoId,
         'fecha': DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
       },
@@ -214,8 +198,8 @@ Future<void> updatePregunta(Database database, int id, String enunciado,
     );
 }
 
-void insertPreguntas(Database database) {
-  insertPreguntaInitialDataAtencionT(database);
-  insertPreguntaInitialDataInfancia(database);
-  insertPreguntaInitialDataAdolescencia(database);
+void insertIronias(Database database) {
+  insertIroniasInitialDataAtencionT(database);
+  insertIroniasInitialDataInfancia(database);
+  insertIroniasInitialDataAdolescencia(database);
 }

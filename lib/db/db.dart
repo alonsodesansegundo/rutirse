@@ -3,7 +3,8 @@ import 'package:sqflite/sqflite.dart';
 
 import 'obj/accion.dart';
 import 'obj/grupo.dart';
-import 'obj/pregunta.dart';
+import 'obj/situacionIronia.dart';
+import 'obj/situacionRutina.dart';
 import 'obj/terapeuta.dart';
 
 String pathPersonajes = "assets/img/personajes/";
@@ -20,11 +21,8 @@ Future<Database> initializeDB() async {
       // inserción de datos iniciales (grupos, preguntas...)
       insertDefaultPassword(database);
       insertGrupos(database);
-      insertPreguntas(database);
-
-      // INSERCCIONES DE RUTINAS POR TERAPEUTA PARA PRUEBAS
-      //insertDataTerapeutaTest();
-      //insertDefaultJugadoresPartidasTest();
+      insertRutinas(database);
+      insertIronias(database);
     },
     version: 1,
   );
@@ -79,9 +77,9 @@ void createTablePartida(Database database) {
     )""");
 }
 
-void createTablePregunta(Database database) {
+void createTableSituacionRutina(Database database) {
   database.execute("""
-    CREATE TABLE pregunta (
+    CREATE TABLE situacionRutina (
       id INTEGER PRIMARY KEY AUTOINCREMENT, 
       enunciado TEXT NOT NULL,
       personajeImg BLOB,
@@ -100,8 +98,34 @@ void createTableAccion(Database database) {
       texto TEXT,
       orden INTEGER NOT NULL,
       imagen BLOB NOT NULL,
-      preguntaId INTEGER NOT NULL,
-      FOREIGN KEY (preguntaId) REFERENCES pregunta(id)
+      situacionRutinaId INTEGER NOT NULL,
+      FOREIGN KEY (situacionRutinaId) REFERENCES situacionRutina(id)
+      ON DELETE CASCADE 
+    )""");
+}
+
+void createTableSituacionIronia(Database database) {
+  database.execute("""
+    CREATE TABLE situacionIronia (
+      id INTEGER PRIMARY KEY AUTOINCREMENT, 
+      enunciado TEXT NOT NULL,
+      imagen BLOB,
+      grupoId INTEGER NOT NULL,
+      fecha TEXT NOT NULL,
+      byTerapeuta INTEGER DEFAULT 0 NOT NULL,
+      FOREIGN KEY (grupoId) REFERENCES grupo(id)
+      ON DELETE CASCADE 
+    )""");
+}
+
+void createTableRespuestaIronia(Database database) {
+  database.execute("""
+    CREATE TABLE respuestaIronia (
+      id INTEGER PRIMARY KEY AUTOINCREMENT, 
+      texto TEXT,
+      correcta INTEGER NOT NULL,
+      situacionIroniaId INTEGER NOT NULL,
+      FOREIGN KEY (situacionIroniaId) REFERENCES situacionIronia(id)
       ON DELETE CASCADE 
     )""");
 }
@@ -118,124 +142,17 @@ void createTables(Database database) {
   createTableGrupo(database);
   createTableJugador(database);
   createTablePartida(database);
-  createTablePregunta(database);
+  createTableSituacionRutina(database);
   createTableAccion(database);
   createTableTerapeuta(database);
+  createTableSituacionIronia(database);
+  createTableRespuestaIronia(database);
 }
 
-Future<void> addRutina(Pregunta pregunta, List<Accion> acciones) async {
+Future<void> addRutina(
+    SituacionRutina situacionRutina, List<Accion> acciones) async {
   Database database = await initializeDB();
-  await database.insert("pregunta", pregunta.preguntasToMap());
+  await database.insert("situacionRutina", situacionRutina.situacionesToMap());
   for (int i = 0; i < acciones.length; i++)
     await database.insert("accion", acciones[i].accionesToMap());
-}
-
-Future<void> insertDataTerapeutaTest() async {
-  Database database = await initializeDB();
-  int grupoAtencionT = 1;
-  int grupoInfancia = 2;
-  int grupoAdolescencia = 3;
-
-  String pathRutinas = 'assets/img/rutinas/';
-  String pathPersonaje = 'assets/img/personajes/';
-
-  // LAVAR DIENTES
-  int id_P1 = await insertPreguntaInitialDataTerapeutaTest(
-      database,
-      'Por favor, pon en orden lo que tiene que hacer el bailador Adrián para lavarse los dientes.',
-      pathPersonaje + 'bailador.png',
-      grupoAdolescencia);
-  insertAccionInitialDataTerapeutaTest(database, "", 0,
-      pathRutinas + "higiene/lavarDientes/1.LavarDientes.png", id_P1);
-  insertAccionInitialDataTerapeutaTest(database, "", 1,
-      pathRutinas + "higiene/lavarDientes/6.LavarDientes.png", id_P1);
-  insertAccionInitialDataTerapeutaTest(database, "", 2,
-      pathRutinas + "higiene/lavarDientes/2.LavarDientes.png", id_P1);
-  insertAccionInitialDataTerapeutaTest(database, "", 3,
-      pathRutinas + "higiene/lavarDientes/3.LavarDientes.png", id_P1);
-  insertAccionInitialDataTerapeutaTest(database, "", 4,
-      pathRutinas + "higiene/lavarDientes/4.LavarDientes.png", id_P1);
-  insertAccionInitialDataTerapeutaTest(database, "", 5,
-      pathRutinas + "higiene/lavarDientes/5.LavarDientes.png", id_P1);
-
-  int id_P2 = await insertPreguntaInitialDataTerapeutaTest(
-      database,
-      'Por favor, pon en orden lo que tiene que hacer la fontanera María para lavarse los dientes.',
-      pathPersonaje + 'fontanera.png',
-      grupoAtencionT);
-  insertAccionInitialDataTerapeutaTest(database, "Coger el cepillo", 0,
-      pathRutinas + "higiene/lavarDientes/1.LavarDientes.png", id_P2);
-  insertAccionInitialDataTerapeutaTest(database, "Coger pasta de dientes", 1,
-      pathRutinas + "higiene/lavarDientes/6.LavarDientes.png", id_P2);
-  insertAccionInitialDataTerapeutaTest(database, "Echar la pasta de dientes", 2,
-      pathRutinas + "higiene/lavarDientes/2.LavarDientes.png", id_P2);
-  insertAccionInitialDataTerapeutaTest(database, "Cepillarse", 3,
-      pathRutinas + "higiene/lavarDientes/3.LavarDientes.png", id_P2);
-  insertAccionInitialDataTerapeutaTest(database, "Lavar el cepillo", 4,
-      pathRutinas + "higiene/lavarDientes/4.LavarDientes.png", id_P2);
-  insertAccionInitialDataTerapeutaTest(database, "Guardar el cepillo", 5,
-      pathRutinas + "higiene/lavarDientes/5.LavarDientes.png", id_P2);
-
-  int id_P3 = await insertPreguntaInitialDataTerapeutaTest(
-      database,
-      'Por favor, pon en orden lo que tiene que hacer la fontanera María para lavarse los dientes.',
-      pathPersonaje + 'fontanera.png',
-      grupoInfancia);
-  insertAccionInitialDataTerapeutaTest(database, "Coger el cepillo", 0,
-      pathRutinas + "higiene/lavarDientes/1.LavarDientes.png", id_P3);
-  insertAccionInitialDataTerapeutaTest(database, "Coger pasta de dientes", 1,
-      pathRutinas + "higiene/lavarDientes/6.LavarDientes.png", id_P3);
-  insertAccionInitialDataTerapeutaTest(database, "Echar la pasta de dientes", 2,
-      pathRutinas + "higiene/lavarDientes/2.LavarDientes.png", id_P3);
-  insertAccionInitialDataTerapeutaTest(database, "Cepillarse", 3,
-      pathRutinas + "higiene/lavarDientes/3.LavarDientes.png", id_P3);
-  insertAccionInitialDataTerapeutaTest(database, "Lavar el cepillo", 4,
-      pathRutinas + "higiene/lavarDientes/4.LavarDientes.png", id_P3);
-  insertAccionInitialDataTerapeutaTest(database, "Guardar el cepillo", 5,
-      pathRutinas + "higiene/lavarDientes/5.LavarDientes.png", id_P3);
-
-  // PEINARSE
-  int id_P4 = await insertPreguntaInitialDataTerapeutaTest(
-      database,
-      'Por favor, pon en orden lo que tiene que hacer el león Simba para peinarse.',
-      pathPersonaje + 'león.png',
-      grupoInfancia);
-  insertAccionInitialDataTerapeutaTest(database, 'Coger el peine', 0,
-      pathRutinas + "higiene/peinarse/1.CogerPeine.png", id_P4);
-  insertAccionInitialDataTerapeutaTest(database, 'Peinarse', 1,
-      pathRutinas + "higiene/peinarse/2.Peinarse.png", id_P4);
-  insertAccionInitialDataTerapeutaTest(database, 'Limpiar el peine', 2,
-      pathRutinas + "higiene/peinarse/4.LimpiarPeine.png", id_P4);
-  insertAccionInitialDataTerapeutaTest(database, 'Guardar el peine', 3,
-      pathRutinas + "higiene/peinarse/3.GuardarPeine.png", id_P4);
-
-  // PEINARSE
-  int id_P5 = await insertPreguntaInitialDataTerapeutaTest(
-      database,
-      'Por favor, pon en orden lo que tiene que hacer el león Simba para peinarse.',
-      pathPersonaje + 'león.png',
-      grupoAdolescencia);
-  insertAccionInitialDataTerapeutaTest(database, '', 0,
-      pathRutinas + "higiene/peinarse/1.CogerPeine.png", id_P5);
-  insertAccionInitialDataTerapeutaTest(
-      database, '', 1, pathRutinas + "higiene/peinarse/2.Peinarse.png", id_P5);
-  insertAccionInitialDataTerapeutaTest(database, '', 2,
-      pathRutinas + "higiene/peinarse/4.LimpiarPeine.png", id_P5);
-  insertAccionInitialData(database, '', 3,
-      pathRutinas + "higiene/peinarse/3.GuardarPeine.png", id_P5);
-
-  // PEINARSE
-  int id_P6 = await insertPreguntaInitialDataTerapeutaTest(
-      database,
-      'Por favor, pon en orden lo que tiene que hacer el león Simba para peinarse.',
-      pathPersonaje + 'león.png',
-      grupoAtencionT);
-  insertAccionInitialDataTerapeutaTest(database, 'Coger el peine', 0,
-      pathRutinas + "higiene/peinarse/1.CogerPeine.png", id_P6);
-  insertAccionInitialDataTerapeutaTest(database, 'Peinarse', 1,
-      pathRutinas + "higiene/peinarse/2.Peinarse.png", id_P6);
-  insertAccionInitialDataTerapeutaTest(database, 'Limpiar el peine', 2,
-      pathRutinas + "higiene/peinarse/4.LimpiarPeine.png", id_P6);
-  insertAccionInitialDataTerapeutaTest(database, 'Guardar el peine', 3,
-      pathRutinas + "higiene/peinarse/3.GuardarPeine.png", id_P6);
 }

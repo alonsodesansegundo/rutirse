@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:TresEnUno/db/obj/grupo.dart';
-import 'package:TresEnUno/db/obj/pregunta.dart';
+import 'package:TresEnUno/db/obj/situacionRutina.dart';
 import 'package:TresEnUno/widgets/ArasaacAccionDialog.dart';
 import 'package:TresEnUno/widgets/ArasaacPersonajeDialog.dart';
 import 'package:TresEnUno/widgets/ElementAccion.dart';
@@ -935,9 +935,9 @@ class _AddRutinaState extends State<AddRutina> {
 
     if (personajeImage.isEmpty)
       preguntaId =
-          await insertPregunta(db, situacionText, [], selectedGrupo!.id);
+          await insertSituacionRutina(db, situacionText, [], selectedGrupo!.id);
     else
-      preguntaId = await insertPregunta(db, situacionText,
+      preguntaId = await insertSituacionRutina(db, situacionText,
           Uint8List.fromList(personajeImage), selectedGrupo!.id);
     return preguntaId;
   }
