@@ -1,12 +1,15 @@
 import 'dart:math';
 
+import 'package:TresEnUno/db/obj/partidaIronias.dart';
 import 'package:TresEnUno/db/obj/respuestaIronia.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../db/obj/jugador.dart';
 import '../../db/obj/situacionIronia.dart';
+import '../../obj/CartaRespuestaIronia.dart';
 import '../../provider/MyProvider.dart';
 import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
@@ -29,23 +32,33 @@ class _JugarIronias extends State<JugarIronias> {
 
   late List<SituacionIronia> situacionIroniaList; // lista de preguntas
 
+  late List<CartaRespuestaIronia> respuestasActuales;
+
+  late RespuestaIronia? respuestaSelected;
+
   late double titleSize,
       textSize,
       espacioPadding,
       espacioAlto,
       imgWidth,
       personajeWidth,
-      imgVolverHeight,
+      btnRespuestaWidth,
       espacioCartas,
       ancho,
-      imgBtnWidth;
+      imgBtnWidth,
+      imgVolverHeight;
 
   late ImageTextButton btnSeguirJugando,
       btnSeguirJugandoCambiaPregunta,
+      btnConfirmar,
       btnSalir,
       btnMenu;
 
-  late ExitDialog exitDialog, incorrectDialog, correctDialog, endGameDialog;
+  late ExitDialog exitDialog,
+      incorrectDialog,
+      correctDialog,
+      endGameDialog,
+      notSelectedDialog;
 
   late int aciertos, fallos;
 
@@ -63,6 +76,8 @@ class _JugarIronias extends State<JugarIronias> {
     timeInicio = DateTime.now();
     flag = false;
     situacionIroniaList = [];
+    respuestasActuales = [];
+    respuestaSelected = null;
     indiceActual = -1;
     aciertos = 0;
     fallos = 0;
@@ -115,6 +130,25 @@ class _JugarIronias extends State<JugarIronias> {
                       ),
                     ],
                   ),
+                  ImageTextButton(
+                    image: Image.asset('assets/img/botones/salir.png',
+                        height: imgVolverHeight * 1.5),
+                    text: Text(
+                      'Salir',
+                      style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: textSize,
+                          color: Colors.black),
+                    ),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return exitDialog;
+                        },
+                      );
+                    },
+                  ),
                 ],
               ),
               FutureBuilder<void>(
@@ -135,13 +169,66 @@ class _JugarIronias extends State<JugarIronias> {
                               situacionIroniaList[indiceActual].imagen,
                           rightSpace: espacioPadding,
                         ),
+                        SizedBox(height: espacioAlto * 2),
+                        Column(
+                          children: respuestasActuales.map((respuesta) {
+                            return Row(
+                              children: [
+                                Container(
+                                  width: btnRespuestaWidth,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      respuesta.selected = !respuesta.selected;
+                                      if (respuesta.selected) {
+                                        for (int i = 0;
+                                            i < respuestasActuales.length;
+                                            i++) {
+                                          respuestasActuales[i]
+                                                  .backgroundColor =
+                                              Colors.redAccent;
+                                          if (respuesta !=
+                                              respuestasActuales[i])
+                                            respuestasActuales[i].selected =
+                                                false;
+                                        }
+                                        setState(() {
+                                          respuesta.backgroundColor =
+                                              Colors.lightGreen;
+                                          respuestaSelected =
+                                              respuesta.respuesta;
+                                        });
+                                      } else {
+                                        respuestaSelected = null;
+                                        for (int i = 0;
+                                            i < respuestasActuales.length;
+                                            i++) {
+                                          setState(() {
+                                            respuestasActuales[i]
+                                                .backgroundColor = Colors.blue;
+                                          });
+                                        }
+                                      }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      primary: respuesta
+                                          .backgroundColor, // Aquí establecemos el color de fondo gris
+                                    ),
+                                    child: Text(respuesta.respuesta.texto),
+                                  ),
+                                ),
+                                SizedBox(width: espacioPadding / 2),
+                              ],
+                            );
+                          }).toList(),
+                        ),
+                        SizedBox(height: espacioAlto * 2),
                       ],
                     );
                   }
                 },
               ),
               SizedBox(height: espacioAlto),
-              btnSalir
+              btnConfirmar
             ],
           ),
         ),
@@ -160,13 +247,59 @@ class _JugarIronias extends State<JugarIronias> {
     espacioAlto = screenSize.height * 0.01;
     espacioCartas = screenSize.height * 0.02;
     personajeWidth = screenSize.width / 4;
-    imgVolverHeight = screenSize.height / 32;
+    btnRespuestaWidth = (screenSize.width - espacioPadding * 2) / 1.5;
     imgWidth = screenSize.width / 4;
     imgBtnWidth = screenSize.width / 5;
+    imgVolverHeight = screenSize.height / 32;
   }
 
   // metodo para crear los botones necesarios en los cuadros de dialogos
   void _createButtonsFromDialogs() {
+    // boton para enviar la respuesta
+    btnConfirmar = ImageTextButton(
+      image: Image.asset(
+        'assets/img/botones/fin.png',
+        width: imgWidth * 0.75,
+      ),
+      text: Text(
+        'Confirmar',
+        style: TextStyle(
+            fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
+      ),
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            if (respuestaSelected != null && respuestaSelected!.correcta == 1) {
+              aciertos++;
+              if (situacionIroniaList.length != 1) {
+                _speak('Fantástico');
+                if (situacionIroniaList.isNotEmpty) {
+                  // si hay preguntas
+                  // Elimino la pregunta actual de la lista
+                  situacionIroniaList.removeAt(indiceActual);
+                  indiceActual = random.nextInt(situacionIroniaList.length);
+                  _speak(situacionIroniaList[indiceActual].enunciado);
+                  _cargarRespuestas();
+                }
+                return correctDialog;
+              } else {
+                _speak("¡Enhorabuena!");
+                return this.endGameDialog;
+              }
+            }
+            if (respuestaSelected != null && respuestaSelected!.correcta != 1) {
+              fallos++;
+              _speak('¡Oops!');
+              return incorrectDialog;
+            }
+            _speak('Vaya...');
+            return notSelectedDialog;
+          },
+        );
+      },
+    );
+
     // boton para seguir jugando
     btnSeguirJugando = ImageTextButton(
       image: Image.asset(
@@ -212,7 +345,7 @@ class _JugarIronias extends State<JugarIronias> {
       ),
       onPressed: () {
         _stopSpeaking();
-        //saveProgreso();
+        saveProgreso();
         Navigator.pop(context);
         Navigator.pop(context);
 
@@ -238,7 +371,7 @@ class _JugarIronias extends State<JugarIronias> {
       ),
       onPressed: () {
         _stopSpeaking();
-        //saveProgreso();
+        saveProgreso();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -268,10 +401,9 @@ class _JugarIronias extends State<JugarIronias> {
         title: '¡Oops!',
         titleSize: titleSize,
         content:
-            "Hay algunas respuestas incorrectas, ¡pero sigue intentándolo!\n"
+            "Vaya, parece que te has equivocado... ¡pero sigue intentándolo!\n"
             "Te animamos a que lo intentes de nuevo y mejorar.\n"
-            "¡Ánimo, tú puedes!\n\n"
-            "PISTA: fíjate en los colores de las cartas...",
+            "¡Ánimo, tú puedes!\n\n",
         contentSize: textSize,
         leftImageTextButton: btnSeguirJugando,
         rightImageTextButton: btnSalir,
@@ -285,7 +417,7 @@ class _JugarIronias extends State<JugarIronias> {
         title: '¡Fantástico!',
         titleSize: titleSize,
         content: "¡Enhorabuena, lo has hecho excelente! "
-            "\nHas ordenado todas las acciones de manera perfecta.\n"
+            "\nHas sabido detectar perfectamente si se trataba o no de una ironía.\n"
             "¡Gran trabajo!",
         contentSize: textSize,
         leftImageTextButton: btnSeguirJugandoCambiaPregunta,
@@ -297,18 +429,30 @@ class _JugarIronias extends State<JugarIronias> {
 
     // cuadro de dialogo cuando hemos completado todas las preguntas del juego
     endGameDialog = ExitDialog(
-        title: '¡Enhorabuena!',
+      title: '¡Enhorabuena!',
+      titleSize: titleSize,
+      content:
+          "¡Qué gran trabajo, bravo! Has superado todas las fases del juego.\n"
+          "Espero que hayas disfrutado y aprendido con esta experiencia.\n"
+          "¡Sigue trabajando para mejorar tu tiempo!",
+      contentSize: textSize,
+      leftImageTextButton: btnMenu,
+      optionalImage: Image.asset(
+        'assets/img/medallas/trofeo.png',
+        width: imgWidth,
+      ),
+    );
+
+    notSelectedDialog = ExitDialog(
+        title: 'Vaya...',
         titleSize: titleSize,
         content:
-            "¡Qué gran trabajo, bravo! Has superado todas las fases del juego.\n"
-            "Espero que hayas disfrutado y aprendido con esta experiencia.\n"
-            "¡Sigue trabajando para mejorar tu tiempo!",
+            "Parece que te has olvidado de indicar una respuesta correcta.\n"
+            "Recuerda que la respuesta que tengas seleccionada actualmente se pondrá de color verde.\n"
+            "¡Te animamos a que lo revises y lo sigas intentando!",
         contentSize: textSize,
-        leftImageTextButton: btnMenu,
-        optionalImage: Image.asset(
-          'assets/img/medallas/trofeo.png',
-          width: imgWidth,
-        ));
+        leftImageTextButton: btnSeguirJugandoCambiaPregunta,
+        rightImageTextButton: btnSalir);
   }
 
   // metodo para cargar todas las preguntas
@@ -321,7 +465,6 @@ class _JugarIronias extends State<JugarIronias> {
         List<SituacionIronia> situaciones =
             await getSituacionesIronias(myProvider.grupo.id);
         setState(() {
-          print("HOLA " + situaciones.length.toString());
           situacionIroniaList = situaciones; // actualizo la lista
           indiceActual =
               random.nextInt(situacionIroniaList.length); // pregunta aleatoria
@@ -335,17 +478,21 @@ class _JugarIronias extends State<JugarIronias> {
     }
   }
 
-  // método para cargar las acciones de la pregunta actual
+  // método para cargar las respuestas de la pregunta actual
   Future<void> _cargarRespuestas() async {
     try {
       List<RespuestaIronia> respuestas =
           await getRespuestasIronia(situacionIroniaList[indiceActual].id ?? -1);
       setState(() {
-        respuestas.shuffle(); // desordenar acciones
+        respuestas.shuffle(); // desordenar respuestas
+        // creo las cartas respuesta
+        respuestasActuales = respuestas.map((respuesta) {
+          return CartaRespuestaIronia(respuesta: respuesta);
+        }).toList();
       });
     } catch (e) {
       // no se debe de producir ningún error al ser una BBDD local
-      print("Error al obtener la lista de acciones: $e");
+      print("Error al obtener la lista de respuestas: $e");
     }
   }
 
@@ -375,5 +522,24 @@ class _JugarIronias extends State<JugarIronias> {
         isSpeaking = false;
       });
     }
+  }
+
+  // metodo para guardar el progreso o partida
+  void saveProgreso() {
+    timeFin = DateTime.now();
+    Duration duracion = timeFin.difference(timeInicio);
+
+    // Formatear la fecha en el formato deseado
+    String formattedFechaFin =
+        DateFormat('dd/MM/yyyy HH:mm:ss').format(timeFin);
+
+    PartidaIronias partida = new PartidaIronias(
+        fechaFin: formattedFechaFin,
+        duracionSegundos: duracion.inSeconds,
+        aciertos: aciertos,
+        fallos: fallos,
+        jugadorId: jugadorActual.id!);
+
+    insertPartidaIronias(partida);
   }
 }

@@ -2,7 +2,7 @@
 import 'package:TresEnUno/db/obj/respuestaIronia.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../situacionIronia.dart';
+import '../obj/situacionIronia.dart';
 
 String pathIronias = 'assets/img/ironias/';
 

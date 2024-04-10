@@ -4,7 +4,7 @@ import '../db.dart';
 
 class RespuestaIronia {
   final int id;
-  final String texto;
+  String texto;
   final int correcta;
   final int situacionIroniaId;
 
@@ -50,7 +50,7 @@ Future<List<RespuestaIronia>> getRespuestasIronia(int situacionId) async {
     final Database db = await initializeDB();
     final List<Map<String, dynamic>> accionesMap = await db.query(
         'respuestaIronia',
-        where: 'situacionId = ?',
+        where: 'situacionIroniaId = ?',
         whereArgs: [situacionId]);
     return accionesMap
         .map((map) => RespuestaIronia.respuestasFromMap(map))

@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../db/obj/accion.dart';
 import '../../db/obj/jugador.dart';
 import '../../db/obj/partida.dart';
+import '../../db/obj/partidaRutinas.dart';
 import '../../db/obj/situacionRutina.dart';
 import '../../obj/CartaAccion.dart';
 import '../../provider/MyProvider.dart';

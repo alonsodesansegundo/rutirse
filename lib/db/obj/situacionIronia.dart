@@ -4,10 +4,10 @@ import 'package:sqflite/sqflite.dart';
 
 import '../../obj/SituacionIroniaPaginacion.dart';
 import '../db.dart';
+import '../ironiasScripts/adolescencia.dart';
+import '../ironiasScripts/atenciont.dart';
+import '../ironiasScripts/infancia.dart';
 import 'grupo.dart';
-import 'ironiasScripts/adolescencia.dart';
-import 'ironiasScripts/atenciont.dart';
-import 'ironiasScripts/infancia.dart';
 
 class SituacionIronia {
   final int? id;
