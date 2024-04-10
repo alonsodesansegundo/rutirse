@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../db/obj/terapeuta.dart';
 import '../../widgets/ImageTextButton.dart';
+import '../ironias/menuTerapeutaIronias.dart';
 
 class HomeTerapeuta extends StatefulWidget {
   @override
@@ -112,7 +113,7 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
               ),
               SizedBox(height: espacioAlto), // Espacio
               Row(
-                children: [btnRutinas, btnAnimo, btnIronias],
+                children: [btnRutinas, btnIronias, btnAnimo],
               ),
               SizedBox(height: espacioAlto),
               Text(
@@ -189,7 +190,12 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
         style: TextStyle(
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MenuTerapeutaIronias()),
+        );
+      },
     );
 
     // boton para dar volver a la pantalla principal de rutinas

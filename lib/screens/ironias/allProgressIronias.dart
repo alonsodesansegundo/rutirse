@@ -6,12 +6,12 @@ import '../../db/obj/partidaView.dart';
 import '../../obj/PartidasPaginacion.dart';
 import '../../widgets/ImageTextButton.dart';
 
-class AllProgress extends StatefulWidget {
+class AllProgressIronia extends StatefulWidget {
   @override
-  _AllProgressState createState() => _AllProgressState();
+  _AllProgressIroniaState createState() => _AllProgressIroniaState();
 }
 
-class _AllProgressState extends State<AllProgress> {
+class _AllProgressIroniaState extends State<AllProgressIronia> {
   late bool loadPartidas, loadData;
 
   late double titleSize,
@@ -98,7 +98,7 @@ class _AllProgressState extends State<AllProgress> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Rutinas',
+                        'Ironías',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: titleSize,
@@ -138,7 +138,7 @@ class _AllProgressState extends State<AllProgress> {
                   Expanded(
                     child: Text(
                       'En esta pantalla puedes observar los progresos o resultados en el'
-                      ' juego \'Rutinas\' de todos los usuarios. También tienes la posibilidad de eliminar partidas si lo crees necesario.\n'
+                      ' juego \'Ironías\' de todos los usuarios. También tienes la posibilidad de eliminar partidas si lo crees necesario.\n'
                       'Dichos resultados están ordenados de más reciente a más antiguo.',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
@@ -290,7 +290,7 @@ class _AllProgressState extends State<AllProgress> {
               ),
               FutureBuilder<void>(
                 future: getAllPartidasView(paginaActual, partidasPagina,
-                    txtBuscar, selectedGrupo, 'Rutinas'),
+                    txtBuscar, selectedGrupo, 'Ironias'),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
@@ -837,7 +837,7 @@ class _AllProgressState extends State<AllProgress> {
 
   Future<void> _loadProgresos() async {
     PartidasPaginacion aux = await getAllPartidasView(
-        paginaActual, partidasPagina, txtBuscar, selectedGrupo, 'Rutinas');
+        paginaActual, partidasPagina, txtBuscar, selectedGrupo, 'Ironias');
 
     setState(() {
       this.partidas = aux.partidas;
