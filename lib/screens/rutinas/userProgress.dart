@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../db/obj/partida.dart';
+import '../../db/obj/partidaRutinas.dart';
 import '../../provider/MyProvider.dart';
 import '../../widgets/ImageTextButton.dart';
 
@@ -30,7 +30,7 @@ class _UserProgressRutinasState extends State<UserProgressRutinas> {
   late ImageTextButton btnVolver;
 
   // lista de partidas
-  List<Partida>? partidas;
+  List<PartidaRutinas>? partidas;
 
   @override
   void initState() {
@@ -359,7 +359,7 @@ class _UserProgressRutinasState extends State<UserProgressRutinas> {
       try {
         var myProvider = Provider.of<MyProvider>(context);
         // obtengo las partidas del jugador correspondiente
-        List<Partida> partidasList =
+        List<PartidaRutinas> partidasList =
             await getPartidasRutinasByUserId(myProvider.jugador.id!);
         setState(() {
           partidas = partidasList; // actualizo la lista
