@@ -172,51 +172,65 @@ class _JugarIronias extends State<JugarIronias> {
                         SizedBox(height: espacioAlto * 2),
                         Column(
                           children: respuestasActuales.map((respuesta) {
-                            return Row(
+                            return Column(
                               children: [
-                                Container(
-                                  width: btnRespuestaWidth,
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      respuesta.selected = !respuesta.selected;
-                                      if (respuesta.selected) {
-                                        for (int i = 0;
-                                            i < respuestasActuales.length;
-                                            i++) {
-                                          respuestasActuales[i]
-                                                  .backgroundColor =
-                                              Colors.redAccent;
-                                          if (respuesta !=
-                                              respuestasActuales[i])
-                                            respuestasActuales[i].selected =
-                                                false;
-                                        }
-                                        setState(() {
-                                          respuesta.backgroundColor =
-                                              Colors.lightGreen;
-                                          respuestaSelected =
-                                              respuesta.respuesta;
-                                        });
-                                      } else {
-                                        respuestaSelected = null;
-                                        for (int i = 0;
-                                            i < respuestasActuales.length;
-                                            i++) {
-                                          setState(() {
-                                            respuestasActuales[i]
-                                                .backgroundColor = Colors.blue;
-                                          });
-                                        }
-                                      }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: respuesta
-                                          .backgroundColor, // Aquí establecemos el color de fondo gris
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: btnRespuestaWidth,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          respuesta.selected =
+                                              !respuesta.selected;
+                                          if (respuesta.selected) {
+                                            for (int i = 0;
+                                                i < respuestasActuales.length;
+                                                i++) {
+                                              respuestasActuales[i]
+                                                      .backgroundColor =
+                                                  Colors.redAccent;
+                                              if (respuesta !=
+                                                  respuestasActuales[i])
+                                                respuestasActuales[i].selected =
+                                                    false;
+                                            }
+                                            setState(() {
+                                              respuesta.backgroundColor =
+                                                  Colors.lightGreen;
+                                              respuestaSelected =
+                                                  respuesta.respuesta;
+                                            });
+                                          } else {
+                                            respuestaSelected = null;
+                                            for (int i = 0;
+                                                i < respuestasActuales.length;
+                                                i++) {
+                                              setState(() {
+                                                respuestasActuales[i]
+                                                        .backgroundColor =
+                                                    Colors.blue;
+                                              });
+                                            }
+                                          }
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          primary: respuesta
+                                              .backgroundColor, // Aquí establecemos el color de fondo gris
+                                        ),
+                                        child: Text(
+                                          respuesta.respuesta.texto,
+                                          style: TextStyle(
+                                            fontFamily: 'ComicNeue',
+                                            fontSize: textSize,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                    child: Text(respuesta.respuesta.texto),
-                                  ),
+                                  ],
                                 ),
-                                SizedBox(width: espacioPadding / 2),
+                                SizedBox(
+                                    height:
+                                        espacioAlto), // Espacio fijo entre filas
                               ],
                             );
                           }).toList(),
