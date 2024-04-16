@@ -1,5 +1,5 @@
 import 'package:TresEnUno/screens/ironias/JugarIronias.dart';
-import 'package:TresEnUno/screens/ironias/ayuda.dart';
+import 'package:TresEnUno/screens/ironias/ayudaIronias.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,8 +7,8 @@ import '../../db/obj/grupo.dart';
 import '../../db/obj/jugador.dart';
 import '../../provider/MyProvider.dart';
 import '../../widgets/ImageTextButton.dart';
-import '../rutinas/ayuda.dart';
-import '../rutinas/jugar.dart';
+import '../rutinas/ayudaRutinas.dart';
+import '../rutinas/jugarRutinas.dart';
 
 class Home extends StatefulWidget {
   // string que nos indica en que juego estamos

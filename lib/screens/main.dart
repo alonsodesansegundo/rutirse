@@ -1,12 +1,12 @@
 import 'package:TresEnUno/db/obj/terapeuta.dart';
 import 'package:TresEnUno/screens/common/home.dart';
-import 'package:TresEnUno/screens/terapeuta/homeTerapeuta.dart';
-import 'package:TresEnUno/screens/terapeuta/informacion.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/MyProvider.dart';
 import '../widgets/ImageTextButton.dart';
+import 'common/homeTerapeuta.dart';
+import 'common/informacion.dart';
 
 void main() {
   runApp(

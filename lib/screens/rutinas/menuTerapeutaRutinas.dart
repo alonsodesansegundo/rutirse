@@ -1,5 +1,5 @@
 import 'package:TresEnUno/screens/rutinas/addRutina.dart';
-import 'package:TresEnUno/screens/rutinas/allProgress.dart';
+import 'package:TresEnUno/screens/rutinas/allProgressRutinas.dart';
 import 'package:TresEnUno/screens/rutinas/viewAddedRutinas.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,5 @@
-import 'package:TresEnUno/screens/rutinas/menuTerapeuta.dart';
-import 'package:TresEnUno/screens/terapeuta/removePlayer.dart';
+import 'package:TresEnUno/screens/common/removePlayer.dart';
+import 'package:TresEnUno/screens/rutinas/menuTerapeutaRutinas.dart';
 import 'package:flutter/material.dart';
 
 import '../../db/obj/terapeuta.dart';

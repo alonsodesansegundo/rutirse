@@ -1,13 +1,13 @@
 import 'package:TresEnUno/screens/ironias/JugarIronias.dart';
-import 'package:TresEnUno/screens/ironias/ayuda.dart';
-import 'package:TresEnUno/screens/rutinas/userProgress.dart';
+import 'package:TresEnUno/screens/ironias/ayudaIronias.dart';
+import 'package:TresEnUno/screens/rutinas/userProgressRutinas.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
-import '../ironias/userProgress.dart';
-import '../rutinas/ayuda.dart';
-import '../rutinas/jugar.dart';
+import '../ironias/userProgressIronias.dart';
+import '../rutinas/ayudaRutinas.dart';
+import '../rutinas/jugarRutinas.dart';
 import 'opciones.dart';
 
 class MenuJugador extends StatefulWidget {
