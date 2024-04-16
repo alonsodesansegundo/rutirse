@@ -286,16 +286,17 @@ class _JugarIronias extends State<JugarIronias> {
           builder: (BuildContext context) {
             if (respuestaSelected != null && respuestaSelected!.correcta == 1) {
               aciertos++;
+              respuestaSelected = null;
+
               if (situacionIroniaList.length != 1) {
-                _speak('Fantástico');
                 if (situacionIroniaList.isNotEmpty) {
                   // si hay preguntas
                   // Elimino la pregunta actual de la lista
                   situacionIroniaList.removeAt(indiceActual);
                   indiceActual = random.nextInt(situacionIroniaList.length);
-                  _speak(situacionIroniaList[indiceActual].enunciado);
                   _cargarRespuestas();
                 }
+                _speak('Fantástico');
                 return correctDialog;
               } else {
                 _speak("¡Enhorabuena!");
@@ -342,7 +343,7 @@ class _JugarIronias extends State<JugarIronias> {
       ),
       onPressed: () {
         Navigator.of(context).pop();
-        //_cambiarPregunta();
+        _speak(situacionIroniaList[indiceActual].enunciado);
       },
     );
 
