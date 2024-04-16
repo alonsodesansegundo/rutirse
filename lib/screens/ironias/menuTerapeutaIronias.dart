@@ -1,3 +1,4 @@
+import 'package:TresEnUno/screens/ironias/addIronia.dart';
 import 'package:TresEnUno/screens/ironias/allProgressIronias.dart';
 import 'package:flutter/material.dart';
 
@@ -131,7 +132,12 @@ class _MenuTerapeutaIroniasState extends State<MenuTerapeutaIronias> {
             fontSize: textSize,
           ),
         ),
-        onPressed: () {});
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddIronia()),
+          );
+        });
 
     // boton para dar la opcion de ver las ironias añadidas
     btnListIronias = ElevatedButton(
