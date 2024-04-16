@@ -317,9 +317,17 @@ class _AyudaRutinasState extends State<AyudaRutinas> {
                     fontSize: textSize,
                   ),
                 ),
+                SizedBox(height: espacioAlto / 2), // Espacio entre los textos
+                Text(
+                  'Para confirmar nuestras respuestas debemos de pulsar el botón \'Confirmar\' que se encuentra en la parte de abajo.',
+                  style: TextStyle(
+                    fontFamily: 'ComicNeue',
+                    fontSize: textSize,
+                  ),
+                ),
                 SizedBox(height: espacioAlto),
                 Text(
-                  'Esperamos que esta ayuda te haya sido de utlidad.\n¡Muchas gracias por tu atención!',
+                  'Esperamos que esta ayuda te haya sido de utilidad.\n¡Muchas gracias por tu atención!',
                   style: TextStyle(
                     fontFamily: 'ComicNeue',
                     fontSize: textSize,
