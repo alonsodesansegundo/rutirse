@@ -142,7 +142,7 @@ class _UserProgressIroniasState extends State<UserProgressIronias> {
                             width: imgWidth),
                         SizedBox(height: espacioAlto * 0.25),
                         Text(
-                          'Ironías (o no)\nacertadas',
+                          'Situaciones\nacertadas',
                           style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: textHeaderSize,
@@ -324,7 +324,7 @@ class _UserProgressIroniasState extends State<UserProgressIronias> {
         ) *
         1.5;
     widthAciertos = getWidthOfText(
-          'Fases\ncompletadas',
+          'Situaciones\ncompletadas',
           textHeaderSize,
           context,
         ) *
