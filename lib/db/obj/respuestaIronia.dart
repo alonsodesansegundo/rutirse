@@ -60,3 +60,17 @@ Future<List<RespuestaIronia>> getRespuestasIronia(int situacionId) async {
     return [];
   }
 }
+
+Future<void> deleteRespuestasBySituacionIroniaId(
+    Database db, int situacionIroniaId) async {
+  try {
+    await db.delete(
+      'respuestaIronia',
+      where: 'situacionIroniaId = ?',
+      whereArgs: [situacionIroniaId],
+    );
+    print('Respuestas eliminadas con éxito');
+  } catch (e) {
+    print("Error al eliminar respuestas: $e");
+  }
+}

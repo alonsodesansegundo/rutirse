@@ -156,7 +156,7 @@ Future<int> insertSituacionIroniaInitialData(
   return id;
 }
 
-Future<void> removePregunta(int situacionIroniaId) async {
+Future<void> removePreguntaIronia(int situacionIroniaId) async {
   try {
     final Database db = await initializeDB();
     await db.delete(
@@ -170,32 +170,19 @@ Future<void> removePregunta(int situacionIroniaId) async {
   }
 }
 
-Future<void> updatePregunta(Database database, int id, String enunciado,
+Future<int> updatePreguntaIronia(Database database, int id, String enunciado,
     List<int> imagen, int grupoId) async {
-  if (imagen.isEmpty)
-    await database.update(
-      'situacionIronia',
-      {
-        'enunciado': enunciado,
-        'imgagen': null,
-        'grupoId': grupoId,
-        'fecha': DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
-      },
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-  else
-    await database.update(
-      'situacionIronia',
-      {
-        'enunciado': enunciado,
-        'imgagen': imagen,
-        'grupoId': grupoId,
-        'fecha': DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
-      },
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+  return await database.update(
+    'situacionIronia',
+    {
+      'enunciado': enunciado,
+      'imagen': imagen,
+      'grupoId': grupoId,
+      'fecha': DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
+    },
+    where: 'id = ?',
+    whereArgs: [id],
+  );
 }
 
 void insertIronias(Database database) {

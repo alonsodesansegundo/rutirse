@@ -1,5 +1,6 @@
 import 'package:TresEnUno/screens/ironias/addIronia.dart';
 import 'package:TresEnUno/screens/ironias/allProgressIronias.dart';
+import 'package:TresEnUno/screens/ironias/viewAddedIronias.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/ImageTextButton.dart';
@@ -152,7 +153,12 @@ class _MenuTerapeutaIroniasState extends State<MenuTerapeutaIronias> {
           fontSize: textSize,
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ViewAddedIronias()),
+        );
+      },
     );
 
     // boton para dar la opcion de ver los progresos de todos los usuarios
