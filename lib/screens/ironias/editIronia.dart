@@ -141,7 +141,7 @@ class _EditIroniaState extends State<EditIronia> {
                         ),
                       ),
                       Text(
-                        'Editar ironía',
+                        'Editar pregunta',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: titleSize / 2,
@@ -157,7 +157,7 @@ class _EditIroniaState extends State<EditIronia> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Aquí tienes la posibilidad de editar la pregunta sobre la ironía y sus respuestas, incluso el grupo al que pertenece.',
+                      'Aquí tienes la posibilidad de editar la situación y las respuestas de la pregunta, incluso el grupo al que pertenece.',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: textSize,
@@ -551,7 +551,7 @@ class _EditIroniaState extends State<EditIronia> {
                         );
                       }
                     },
-                    child: Text("Editar ironía"),
+                    child: Text("Editar pregunta"),
                   ),
                 ],
               ),
@@ -637,7 +637,7 @@ class _EditIroniaState extends State<EditIronia> {
                         },
                       );
                     },
-                    child: Text("Eliminar ironía"),
+                    child: Text("Eliminar pregunta"),
                   ),
                 ],
               ),
@@ -799,7 +799,7 @@ class _EditIroniaState extends State<EditIronia> {
         ),
       ),
       content: Text(
-        'La ironía o no ironía no se ha podido editar, revisa que has completado todos los campos obligatorios\n'
+        'La pregunta no se ha podido editar, revisa que has completado todos los campos obligatorios\n'
         'Por favor, revisa todos los campos e inténtalo de nuevo.',
         style: TextStyle(
           fontFamily: 'ComicNeue',
@@ -834,7 +834,7 @@ class _EditIroniaState extends State<EditIronia> {
         ),
       ),
       content: Text(
-        'La ironía se ha editado con éxito. Agradecemos tu colaboración, y los jugadores seguro que todavía más!',
+        'La pregunta se ha editado con éxito. Agradecemos tu colaboración, y los jugadores seguro que todavía más!',
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,

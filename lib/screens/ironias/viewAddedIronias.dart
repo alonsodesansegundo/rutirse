@@ -95,7 +95,7 @@ class _ViewAddedIroniasState extends State<ViewAddedIronias> {
                             ),
                           ),
                           Text(
-                            'Ironías añadidas',
+                            'Preguntas añadidas',
                             style: TextStyle(
                               fontFamily: 'ComicNeue',
                               fontSize: titleSize / 2,

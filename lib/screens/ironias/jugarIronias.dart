@@ -183,6 +183,7 @@ class _JugarIronias extends State<JugarIronias> {
                                           respuesta.selected =
                                               !respuesta.selected;
                                           if (respuesta.selected) {
+                                            _speak(respuesta.respuesta.texto);
                                             for (int i = 0;
                                                 i < respuestasActuales.length;
                                                 i++) {
@@ -201,6 +202,7 @@ class _JugarIronias extends State<JugarIronias> {
                                                   respuesta.respuesta;
                                             });
                                           } else {
+                                            _stopSpeaking();
                                             respuestaSelected = null;
                                             for (int i = 0;
                                                 i < respuestasActuales.length;

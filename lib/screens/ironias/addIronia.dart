@@ -117,7 +117,7 @@ class _AddIroniaState extends State<AddIronia> {
                         ),
                       ),
                       Text(
-                        'Añadir ironía',
+                        'Añadir pregunta',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: titleSize / 2,
@@ -133,7 +133,7 @@ class _AddIroniaState extends State<AddIronia> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Aquí puedes crear nuevas ironías o no para el juego.',
+                      'Aquí puedes crear nuevas preguntas para el juego de Ironías.',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: textSize,
@@ -495,7 +495,7 @@ class _AddIroniaState extends State<AddIronia> {
                         );
                       }
                     },
-                    child: Text("Añadir ironía"),
+                    child: Text("Añadir pregunta"),
                   ),
                 ],
               ),
@@ -668,7 +668,7 @@ class _AddIroniaState extends State<AddIronia> {
         ),
       ),
       content: Text(
-        'La ironía no se ha podido añadir. Por favor,  revisa que has completado todos los campos obligatorios e inténtalo de nuevo.\n',
+        'La pregunta no se ha podido añadir. Por favor,  revisa que has completado todos los campos obligatorios e inténtalo de nuevo.\n',
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,
@@ -702,7 +702,7 @@ class _AddIroniaState extends State<AddIronia> {
         ),
       ),
       content: Text(
-        'La ironía se ha añadido con éxito. Agradecemos tu colaboración, y los jugadores seguro que todavía más!',
+        'La pregunta se ha añadido con éxito. Agradecemos tu colaboración, y los jugadores seguro que todavía más!',
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,

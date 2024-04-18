@@ -127,7 +127,7 @@ class _MenuTerapeutaIroniasState extends State<MenuTerapeutaIronias> {
           backgroundColor: Colors.cyan,
         ),
         child: Text(
-          'Añadir ironía',
+          'Añadir pregunta',
           style: TextStyle(
             fontFamily: 'ComicNeue',
             fontSize: textSize,
@@ -147,7 +147,7 @@ class _MenuTerapeutaIroniasState extends State<MenuTerapeutaIronias> {
         backgroundColor: Colors.cyan,
       ),
       child: Text(
-        'Ironías añadidas',
+        'Preguntas añadidas',
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,
