@@ -6,7 +6,7 @@ import 'package:TresEnUno/db/obj/situacionRutina.dart';
 import 'package:TresEnUno/widgets/ArasaacAccionDialog.dart';
 import 'package:TresEnUno/widgets/ArasaacPersonajeDialog.dart';
 import 'package:TresEnUno/widgets/ElementAccion.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
