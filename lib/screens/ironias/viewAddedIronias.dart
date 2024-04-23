@@ -95,7 +95,7 @@ class _ViewAddedIroniasState extends State<ViewAddedIronias> {
                             ),
                           ),
                           Text(
-                            'Preguntas añadidas',
+                            'Situaciones añadidas',
                             style: TextStyle(
                               fontFamily: 'ComicNeue',
                               fontSize: titleSize / 2,
@@ -112,7 +112,7 @@ class _ViewAddedIroniasState extends State<ViewAddedIronias> {
                   children: [
                     Expanded(
                       child: Text(
-                        'Aquí puedes ver las diferentes preguntas sobre ironías que han añadido todos los terapeutas. '
+                        'Aquí puedes ver las diferentes situaciones para el juego de Ironías que han añadido todos los terapeutas. '
                         'Tienes la posibilidad de editarlas o eliminarlas según creas conveniente. Están ordenadas de más recientes a más antiguas.',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
@@ -226,7 +226,7 @@ class _ViewAddedIroniasState extends State<ViewAddedIronias> {
                     Container(
                       width: enunciadoWidth,
                       child: Text(
-                        'Pregunta',
+                        'Situación',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: columnText,
@@ -368,7 +368,7 @@ class _ViewAddedIroniasState extends State<ViewAddedIronias> {
                                                             ),
                                                           ),
                                                           content: Text(
-                                                            'Estás a punto de eliminar la siguiente pregunta del grupo ${grupo.nombre}:\n'
+                                                            'Estás a punto de eliminar la siguiente situación del grupo ${grupo.nombre}:\n'
                                                             '${situacion.enunciado}\n'
                                                             '¿Estás seguro de ello?',
                                                             style: TextStyle(
@@ -473,7 +473,7 @@ class _ViewAddedIroniasState extends State<ViewAddedIronias> {
                     } else {
                       return Text(
                         "No hemos encontrado resultados.\n"
-                        "¡Te ánimamos a que crees nuevas preguntas sobre ironías!",
+                        "¡Te ánimamos a que crees nuevas situaciones!",
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: textSize,
@@ -619,7 +619,7 @@ class _ViewAddedIroniasState extends State<ViewAddedIronias> {
         ),
       ),
       content: Text(
-        'La pregunta ha sido eliminada correctamente.\n'
+        'La situación ha sido eliminada correctamente.\n'
         '¡Muchas gracias por tu colaboración!',
         style: TextStyle(
           fontFamily: 'ComicNeue',

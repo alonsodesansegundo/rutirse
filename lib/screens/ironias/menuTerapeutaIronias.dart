@@ -76,8 +76,8 @@ class _MenuTerapeutaIroniasState extends State<MenuTerapeutaIronias> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Como terapeuta tienes la posibilidad de añadir nuevas ironías, editar o eliminar '
-                      'las ironías añadidas y ver el progreso de todos los usuarios.',
+                      'Como terapeuta tienes la posibilidad de añadir nuevas situaciones, editar o eliminar '
+                      'las situaciones añadidas y ver el progreso de todos los usuarios.',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: textSize,
@@ -127,7 +127,7 @@ class _MenuTerapeutaIroniasState extends State<MenuTerapeutaIronias> {
           backgroundColor: Colors.cyan,
         ),
         child: Text(
-          'Añadir pregunta',
+          'Añadir situación',
           style: TextStyle(
             fontFamily: 'ComicNeue',
             fontSize: textSize,
@@ -147,7 +147,7 @@ class _MenuTerapeutaIroniasState extends State<MenuTerapeutaIronias> {
         backgroundColor: Colors.cyan,
       ),
       child: Text(
-        'Preguntas añadidas',
+        'Situaciones añadidas',
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,

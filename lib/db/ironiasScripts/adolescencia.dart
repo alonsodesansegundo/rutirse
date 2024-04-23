@@ -65,7 +65,7 @@ void insertIroniasInitialDataAdolescencia(Database database) async {
 
   int id_P3 = await insertSituacionIroniaInitialData(
       database,
-      'Pepe está de camino a la parada del autobús para ir al instituto, con tan mala suerte que lo pierde delante suya.'
+      'Pepe está de camino a la parada del autobús para ir al instituto, con tan mala suerte que lo pierde delante suya. '
       'Pepe dice: "¡Genial, qué manera tan buena de empezar el día"',
       pathIronias + 'perderautobus.png',
       grupoAdolescencia);
@@ -92,7 +92,7 @@ void insertIroniasInitialDataAdolescencia(Database database) async {
 
   int id_P4 = await insertSituacionIroniaInitialData(
       database,
-      'Pepe está de camino a la parada del autobús para ir al instituto, con tan mala suerte que lo pierde delante suya.'
+      'Pepe está de camino a la parada del autobús para ir al instituto, con tan mala suerte que lo pierde delante suya. '
       'Pepe dice: "¡Qué mala suerte! Lo he perdido por los pelos."',
       pathIronias + 'perderautobus.png',
       grupoAdolescencia);
@@ -162,7 +162,7 @@ void insertIroniasInitialDataAdolescencia(Database database) async {
   int id_P7 = await insertSituacionIroniaInitialData(
       database,
       'Luisa y su amiga Carmen han ido a la bolera por la tarde. En su primer lanzamiento de la tarde Luisa'
-      'ha hecho un pleno. Carmen dice: ¡Wow, qué buen tiro!',
+      ' ha hecho un pleno. Carmen dice: ¡Wow, qué buen tiro!',
       pathIronias + 'bolos.png',
       grupoAdolescencia);
   insertRespuestaIronia(
@@ -177,7 +177,7 @@ void insertIroniasInitialDataAdolescencia(Database database) async {
   int id_P8 = await insertSituacionIroniaInitialData(
       database,
       'Juanjo y su amigo Martín han ido a la bolera por la tarde. En su primer lanzamiento de la tarde Martín'
-      'no ha tirado ni un solo bolo. Juanjo dice: ¡Caray, qué buen tiro!',
+      ' no ha tirado ni un solo bolo. Juanjo dice: ¡Caray, qué buen tiro!',
       pathIronias + 'bolos2.png',
       grupoAdolescencia);
   insertRespuestaIronia(
@@ -210,8 +210,8 @@ void insertIroniasInitialDataAdolescencia(Database database) async {
       'Luisa dice: "¡Qué buena suerte la mía!',
       pathIronias + 'caca.png',
       grupoAdolescencia);
-  insertRespuestaIronia(
-      database, "No es una ironía, realmente ha tenido mala suerte.", 0, id_P9);
+  insertRespuestaIronia(database,
+      "No es una ironía, realmente ha tenido mala suerte.", 0, id_P10);
   insertRespuestaIronia(database,
       "No es una ironía, realmente ha tenido buena suerte", 1, id_P10);
   insertRespuestaIronia(

@@ -11,8 +11,8 @@ void insertIroniasInitialDataInfancia(Database database) async {
 
   int id_P1 = await insertSituacionIroniaInitialData(
       database,
-      'Es un día de invierno, una madre ve que su hijo está a punto de salir de casa.'
-      'La madre dice: "¡No te vayas a desabrigues que hace frío!"',
+      'Es un día de invierno, una madre ve que su hijo está a punto de salir de casa. '
+      'La madre dice: "¡No te desabrigues que hace frío!"',
       pathIronias + 'frio.png',
       grupoInfancia);
   insertRespuestaIronia(
@@ -22,7 +22,7 @@ void insertIroniasInitialDataInfancia(Database database) async {
 
   int id_P2 = await insertSituacionIroniaInitialData(
       database,
-      'Es un día de verano, un padre ve a su hija que está a punto de salir de casa.'
+      'Es un día de verano, un padre ve a su hija que está a punto de salir de casa. '
       'El padre dice: "¡No te vayas a desabrigar que hace frío!"',
       pathIronias + 'calor.png',
       grupoInfancia);
@@ -67,7 +67,7 @@ void insertIroniasInitialDataInfancia(Database database) async {
 
   int id_P5 = await insertSituacionIroniaInitialData(
       database,
-      'Un padre entra en la habitación de su hija y ve todo desordenado.'
+      'Un padre entra en la habitación de su hija y ve todo desordenado. '
       'El padre dice: ¡Qué desorden, dios mío!',
       pathIronias + 'desordenado.png',
       grupoInfancia);
@@ -106,7 +106,7 @@ void insertIroniasInitialDataInfancia(Database database) async {
 
   int id_P8 = await insertSituacionIroniaInitialData(
       database,
-      'Pepe ha visto una película de miedo por la tarde y ahora se encuentra en cama sin ser capaz de dormir.'
+      'Pepe ha visto una película de miedo por la tarde y ahora se encuentra en cama sin ser capaz de dormir. '
       'Pepe piensa: "No debí ver esa película de miedo".',
       pathIronias + 'despierto.png',
       grupoInfancia);
@@ -120,7 +120,7 @@ void insertIroniasInitialDataInfancia(Database database) async {
 
   int id_P9 = await insertSituacionIroniaInitialData(
       database,
-      'María ha visto una película de miedo por la tarde y ahora se encuentra en cama sin ser capaz de dormir.'
+      'María ha visto una película de miedo por la tarde y ahora se encuentra en cama sin ser capaz de dormir. '
       'María piensa: "¡Qué buena idea ver esa película de miedo!".',
       pathIronias + 'despierto.png',
       grupoInfancia);
@@ -137,7 +137,7 @@ void insertIroniasInitialDataInfancia(Database database) async {
 
   int id_P10 = await insertSituacionIroniaInitialData(
       database,
-      'Una madre entra en la habitación de su hijo y ve todo desordenado.'
+      'Una madre entra en la habitación de su hijo y ve todo desordenado. '
       'La madre dice: ¡Qué ordenado está todo!',
       pathIronias + 'desordenado.png',
       grupoInfancia);

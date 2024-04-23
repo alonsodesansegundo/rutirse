@@ -117,7 +117,7 @@ class _AddIroniaState extends State<AddIronia> {
                         ),
                       ),
                       Text(
-                        'Añadir pregunta',
+                        'Añadir situación',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: titleSize / 2,
@@ -133,7 +133,7 @@ class _AddIroniaState extends State<AddIronia> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Aquí puedes crear nuevas preguntas para el juego de Ironías.',
+                      'Aquí puedes crear nuevas situaciones para el juego de Ironías.',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: textSize,
@@ -495,7 +495,7 @@ class _AddIroniaState extends State<AddIronia> {
                         );
                       }
                     },
-                    child: Text("Añadir pregunta"),
+                    child: Text("Añadir situación"),
                   ),
                 ],
               ),
@@ -668,7 +668,7 @@ class _AddIroniaState extends State<AddIronia> {
         ),
       ),
       content: Text(
-        'La pregunta no se ha podido añadir. Por favor,  revisa que has completado todos los campos obligatorios e inténtalo de nuevo.\n',
+        'La situación no se ha podido añadir. Por favor, revisa que has completado todos los campos obligatorios e inténtalo de nuevo.\n',
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,
@@ -702,7 +702,7 @@ class _AddIroniaState extends State<AddIronia> {
         ),
       ),
       content: Text(
-        'La pregunta se ha añadido con éxito. Agradecemos tu colaboración, y los jugadores seguro que todavía más!',
+        'La situación se ha añadido con éxito. Agradecemos tu colaboración, y los jugadores seguro que todavía más!',
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,
