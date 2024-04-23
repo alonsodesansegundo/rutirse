@@ -114,7 +114,7 @@ class _MenuTerapeutaIroniasState extends State<MenuTerapeutaIronias> {
     espacioPadding = screenSize.height * 0.03;
     espacioAlto = screenSize.height * 0.03;
     imgVolverHeight = screenSize.height / 32;
-    btnWidth = screenSize.width / 3;
+    btnWidth = screenSize.width / 2.5;
     btnHeight = screenSize.height / 14;
   }
 
