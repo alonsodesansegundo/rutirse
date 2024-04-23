@@ -55,7 +55,7 @@ void insertGrupos(Database database) async {
     txn.rawInsert(
         "INSERT INTO grupo (nombre, edades) VALUES ('Atención T.','4 - 7 años')");
     txn.rawInsert(
-        "INSERT INTO grupo (nombre, edades) VALUES ('Infancia','7 - 11 años')");
+        "INSERT INTO grupo (nombre, edades) VALUES ('Infancia','8 - 11 años')");
     txn.rawInsert(
         "INSERT INTO grupo (nombre, edades) VALUES ('Adolescencia','12 - 17 años')");
   });
