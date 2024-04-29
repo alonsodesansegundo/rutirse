@@ -259,7 +259,7 @@ void insertPreguntaRutinaInitialDataAdolescencia(Database database) async {
   insertAccionInitialData(database, '', 1,
       pathRutinas + "vidaDiaria/irBaño/3.LevantarTapa.png", id_P14);
   insertAccionInitialData(database, '', 2,
-      pathRutinas + "vidaDiaria/irBaño/16.BajarVestido.png", id_P14);
+      pathRutinas + "vidaDiaria/irBaño/15.SubirVestido.png", id_P14);
   insertAccionInitialData(database, '', 3,
       pathRutinas + "vidaDiaria/irBaño/11.BajarRopaA.png", id_P14);
   insertAccionInitialData(
@@ -273,7 +273,7 @@ void insertPreguntaRutinaInitialDataAdolescencia(Database database) async {
   insertAccionInitialData(database, '', 8,
       pathRutinas + "vidaDiaria/irBaño/14.SubirRopaA.png", id_P14);
   insertAccionInitialData(database, '', 9,
-      pathRutinas + "vidaDiaria/irBaño/15.SubirVestido.png", id_P14);
+      pathRutinas + "vidaDiaria/irBaño/16.BajarVestido.png", id_P14);
   insertAccionInitialData(database, '', 10,
       pathRutinas + "higiene/lavarCara/2.MojarManos.png", id_P14);
 

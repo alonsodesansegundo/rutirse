@@ -257,8 +257,8 @@ void insertPreguntaRutinaInitialDataInfancia(Database database) async {
       pathRutinas + "vidaDiaria/irBaño/1.Baño.png", id_P14);
   insertAccionInitialData(database, 'Levantar la tapa', 1,
       pathRutinas + "vidaDiaria/irBaño/3.LevantarTapa.png", id_P14);
-  insertAccionInitialData(database, 'Bajar el vestido', 2,
-      pathRutinas + "vidaDiaria/irBaño/16.BajarVestido.png", id_P14);
+  insertAccionInitialData(database, 'Subir el vestido', 2,
+      pathRutinas + "vidaDiaria/irBaño/15.SubirVestido.png", id_P14);
   insertAccionInitialData(database, 'Bajar la ropa interior', 3,
       pathRutinas + "vidaDiaria/irBaño/11.BajarRopaA.png", id_P14);
   insertAccionInitialData(database, 'Hacer sus necesidades', 4,
@@ -271,8 +271,8 @@ void insertPreguntaRutinaInitialDataInfancia(Database database) async {
       pathRutinas + "vidaDiaria/irBaño/9.TirarCisterna.png", id_P14);
   insertAccionInitialData(database, 'Subir la ropa interior', 8,
       pathRutinas + "vidaDiaria/irBaño/14.SubirRopaA.png", id_P14);
-  insertAccionInitialData(database, 'Subir el vestido', 9,
-      pathRutinas + "vidaDiaria/irBaño/15.SubirVestido.png", id_P14);
+  insertAccionInitialData(database, 'Bajar el vestido', 9,
+      pathRutinas + "vidaDiaria/irBaño/16.BajarVestido.png", id_P14);
   insertAccionInitialData(database, 'Lavarse las manos', 10,
       pathRutinas + "higiene/lavarCara/2.MojarManos.png", id_P14);
 

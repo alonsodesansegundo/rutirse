@@ -201,8 +201,8 @@ void insertPreguntaRutinaInitialDataAtencionT(Database database) async {
       'Por favor, pon en orden lo que tiene que hacer nuestra amiga Cristina para hacer sus necesidades (ir al baño).',
       pathPersonaje + 'chica.png',
       grupoAtencionT);
-  insertAccionInitialData(database, 'Bajar el vestido', 0,
-      pathRutinas + "vidaDiaria/irBaño/16.BajarVestido.png", id_P14);
+  insertAccionInitialData(database, 'Subir el vestido', 0,
+      pathRutinas + "vidaDiaria/irBaño/15.SubirVestido.png", id_P14);
   insertAccionInitialData(database, 'Bajar ropa interior', 1,
       pathRutinas + "vidaDiaria/irBaño/11.BajarRopaA.png", id_P14);
   insertAccionInitialData(database, 'Hacer sus necesidades', 2,
@@ -213,8 +213,8 @@ void insertPreguntaRutinaInitialDataAtencionT(Database database) async {
       pathRutinas + "vidaDiaria/irBaño/9.TirarCisterna.png", id_P14);
   insertAccionInitialData(database, 'Subir la ropa interior', 5,
       pathRutinas + "vidaDiaria/irBaño/14.SubirRopaA.png", id_P14);
-  insertAccionInitialData(database, 'Subir el vestido', 6,
-      pathRutinas + "vidaDiaria/irBaño/15.SubirVestido.png", id_P14);
+  insertAccionInitialData(database, 'Bajar el vestido', 6,
+      pathRutinas + "vidaDiaria/irBaño/16.BajarVestido.png", id_P14);
   insertAccionInitialData(database, 'Lavarse las manos', 7,
       pathRutinas + "higiene/lavarCara/2.MojarManos.png", id_P14);
 
