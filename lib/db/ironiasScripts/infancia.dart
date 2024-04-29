@@ -68,7 +68,7 @@ void insertIroniasInitialDataInfancia(Database database) async {
   int id_P5 = await insertSituacionIroniaInitialData(
       database,
       'Un padre entra en la habitación de su hija y ve todo desordenado. '
-      'El padre dice: ¡Qué desorden, dios mío!',
+      'El padre dice: ¡Qué desorden, Dios mío!',
       pathIronias + 'desordenado.png',
       grupoInfancia);
   insertRespuestaIronia(

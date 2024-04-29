@@ -10,13 +10,13 @@ void insertIroniasInitialDataAtencionT(Database database) async {
   int grupoAtencionT = 1;
 
   int id_P1 = await insertSituacionIroniaInitialData(database,
-      '¡Qué alegría, que buen día!', pathIronias + 'sol.png', grupoAtencionT);
+      '¡Qué alegría, qué buen día!', pathIronias + 'sol.png', grupoAtencionT);
   insertRespuestaIronia(database, "No, no es una ironía.", 1, id_P1);
   insertRespuestaIronia(database, "Sí, es una ironía.", 0, id_P1);
 
   int id_P2 = await insertSituacionIroniaInitialData(
       database,
-      '¡Qué alegría, que buen día!',
+      '¡Qué alegría, qué buen día!',
       pathIronias + 'lluvia.png',
       grupoAtencionT);
   insertRespuestaIronia(database, "No, no es una ironía.", 0, id_P2);
@@ -42,13 +42,13 @@ void insertIroniasInitialDataAtencionT(Database database) async {
   insertRespuestaIronia(database, "No, no es una ironía.", 1, id_P6);
   insertRespuestaIronia(database, "Sí, es una ironía.", 0, id_P6);
 
-  int id_P7 = await insertSituacionIroniaInitialData(database,
-      '¡Qué mal día que hace!', pathIronias + 'sol.png', grupoAtencionT);
+  int id_P7 = await insertSituacionIroniaInitialData(
+      database, '¡Qué mal día hace!', pathIronias + 'sol.png', grupoAtencionT);
   insertRespuestaIronia(database, "No, no es una ironía.", 0, id_P7);
   insertRespuestaIronia(database, "Sí, es una ironía.", 1, id_P7);
 
   int id_P8 = await insertSituacionIroniaInitialData(database,
-      '¡Qué mal día que hace!', pathIronias + 'lluvia.png', grupoAtencionT);
+      '¡Qué mal día hace!', pathIronias + 'lluvia.png', grupoAtencionT);
   insertRespuestaIronia(database, "No, no es una ironía.", 1, id_P8);
   insertRespuestaIronia(database, "Sí, es una ironía.", 0, id_P8);
 
@@ -57,8 +57,11 @@ void insertIroniasInitialDataAtencionT(Database database) async {
   insertRespuestaIronia(database, "No, no es una ironía.", 1, id_P9);
   insertRespuestaIronia(database, "Sí, es una ironía.", 0, id_P9);
 
-  int id_P10 = await insertSituacionIroniaInitialData(database,
-      '¡Qué rápido va el caracol!', pathIronias + 'caracol.png', grupoAtencionT);
+  int id_P10 = await insertSituacionIroniaInitialData(
+      database,
+      '¡Qué rápido va el caracol!',
+      pathIronias + 'caracol.png',
+      grupoAtencionT);
   insertRespuestaIronia(database, "No, no es una ironía.", 0, id_P10);
   insertRespuestaIronia(database, "Sí, es una ironía.", 1, id_P10);
 }
