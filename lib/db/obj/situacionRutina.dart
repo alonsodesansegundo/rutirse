@@ -71,19 +71,20 @@ Future<SituacionRutinaPaginacion> getSituacionesRutinasCreatedByTerapeuta(
   try {
     final Database db = await initializeDB();
     int offset = (pageNumber - 1) * pageSize;
-    String whereClause = 'byTerapeuta = 1';
+    String whereClause = '';
 
     // Agregar condiciones de búsqueda por enunciado y grupo
     if (txtBuscar.isNotEmpty) {
-      whereClause += " AND enunciado LIKE '%$txtBuscar%'";
+      whereClause += "enunciado LIKE '%$txtBuscar%'";
     }
     if (grupo != null) {
-      whereClause += " AND grupoId = ${grupo.id}";
+      whereClause +=
+          (whereClause.isNotEmpty ? ' AND ' : '') + "grupoId = ${grupo.id}";
     }
 
     final List<Map<String, dynamic>> situacionesMap = await db.query(
       'situacionRutina',
-      where: whereClause,
+      where: whereClause.isEmpty ? null : whereClause,
       orderBy: 'id DESC',
       limit: pageSize,
       offset: offset,
@@ -93,8 +94,9 @@ Future<SituacionRutinaPaginacion> getSituacionesRutinasCreatedByTerapeuta(
         .toList();
 
     // Comprobar si hay más preguntas disponibles
-    final List<Map<String, dynamic>> totalSituacionesMap =
-        await db.query('situacionRutina', where: whereClause);
+    final List<Map<String, dynamic>> totalSituacionesMap = await db.query(
+        'situacionRutina',
+        where: whereClause.isEmpty ? null : whereClause);
     final bool hayMasPreguntas =
         (offset + pageSize) < totalSituacionesMap.length;
 

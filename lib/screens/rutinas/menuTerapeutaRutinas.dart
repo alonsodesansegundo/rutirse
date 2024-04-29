@@ -77,7 +77,7 @@ class _MenuTerapeutaState extends State<MenuTerapeuta> {
                   Expanded(
                     child: Text(
                       'Como terapeuta tienes la posibilidad de añadir nuevas rutinas, editar o eliminar '
-                      'las rutinas añadidas y ver el progreso de todos los usuarios.',
+                      'las rutinas existentes y ver el progreso de todos los usuarios.',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: textSize,
@@ -148,7 +148,7 @@ class _MenuTerapeutaState extends State<MenuTerapeuta> {
         backgroundColor: Colors.cyan,
       ),
       child: Text(
-        'Rutinas añadidas',
+        'Rutinas existentes',
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,

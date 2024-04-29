@@ -112,8 +112,9 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                   children: [
                     Expanded(
                       child: Text(
-                        'Aquí puedes ver las diferentes preguntas sobre rutinas que han añadido todos los terapeutas. '
-                        'Tienes la posibilidad de editarlas o eliminarlas según creas conveniente. Están ordenadas de más recientes a más antiguas.',
+                        'Aquí puedes ver las diferentes preguntas del juego \'Rutinas\'. '
+                        'Tienes la posibilidad de editarlas o eliminarlas según creas conveniente.'
+                        '\nEstán ordenadas de más recientes a más antiguas.',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: textSize,

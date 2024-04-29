@@ -112,8 +112,9 @@ class _ViewAddedIroniasState extends State<ViewAddedIronias> {
                   children: [
                     Expanded(
                       child: Text(
-                        'Aquí puedes ver las diferentes situaciones para el juego de Ironías que han añadido todos los terapeutas. '
-                        'Tienes la posibilidad de editarlas o eliminarlas según creas conveniente. Están ordenadas de más recientes a más antiguas.',
+                        'Aquí puedes ver las diferentes preguntas del juego \'Ironías\'. '
+                        'Tienes la posibilidad de editarlas o eliminarlas según creas conveniente.'
+                        '\nEstán ordenadas de más recientes a más antiguas.',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: textSize,
