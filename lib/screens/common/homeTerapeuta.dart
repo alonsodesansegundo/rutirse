@@ -92,8 +92,8 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
                   Expanded(
                     child: Text(
                       'Como terapeuta tienes la posibilidad de acceder a los distintos juegos, ya '
-                      'sea para añadir nuevas preguntas, modificar o eliminar preguntas añadidas'
-                      ' por terapeutas o consultar los datos de cualquier jugador para ver su progreso. '
+                      'sea para añadir nuevas preguntas, modificar o eliminar preguntas existentes'
+                      ' o consultar los datos de cualquier jugador para ver su progreso. '
                       'También puedes eliminar jugadores o cambiar la contraseña.',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
