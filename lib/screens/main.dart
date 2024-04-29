@@ -136,10 +136,10 @@ class _MainState extends State<Main> {
                 SizedBox(height: espacioAlto), // Espacio entre los textos
                 // Explicación pantalla
                 Text(
-                  '¡Hola! A continuación, puedes elegir entre una serie de juegos. '
-                  'Con ellos, tenemos como objetivo ayudarte a mejorar en diferentes '
-                  'situaciones que puedes encontrarte en tu día a día.\n¡Esperamos haberlo '
-                  'logrado y que disfrutes de esta experiencia!',
+                  '¡Hola! A continuación puedes elegir entre varios juegos. '
+                  'Con ellos queremos ayudarte a mejorar en diferentes situaciones '
+                  'que puedes encontrarte en tu día a día.\n'
+                  '¡Esperamos que disfrutes con esta experiencia!',
                   style: TextStyle(
                     fontFamily: 'ComicNeue',
                     fontSize: textSize,
@@ -301,6 +301,7 @@ class _MainState extends State<Main> {
         _errorMessage = 'La contraseña es incorrecta';
         intentosPassword++;
       });
+      _enterPasswordController.text = "";
     } else {
       _errorMessage = "";
       _enterPasswordController.text = "";
