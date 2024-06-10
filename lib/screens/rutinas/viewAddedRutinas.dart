@@ -95,7 +95,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                             ),
                           ),
                           Text(
-                            'Rutinas añadidas',
+                            'Rutinas existentes',
                             style: TextStyle(
                               fontFamily: 'ComicNeue',
                               fontSize: titleSize / 2,
