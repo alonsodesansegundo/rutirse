@@ -95,7 +95,7 @@ class _OpcionesState extends State<Opciones> {
                             fontSize: titleSize,
                           ),
                         ),
-                      if (widget.juego == 'ironias')
+                      if (widget.juego == 'humor')
                         Text(
                           'Ironias',
                           style: TextStyle(
@@ -159,10 +159,10 @@ class _OpcionesState extends State<Opciones> {
                         ),
                       ),
                     ),
-                  if (widget.juego == 'ironias')
+                  if (widget.juego == 'humor')
                     Expanded(
                       child: Text(
-                        'Aquí puedes cambiar diferentes opciones para el juego \'Ironías\'.\n'
+                        'Aquí puedes cambiar diferentes opciones para el juego \'Humor\'.\n'
                         'Estas opciones son tu nombre y el grupo al que perteneces.',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
@@ -311,12 +311,12 @@ class _OpcionesState extends State<Opciones> {
           leftImageTextButton: btnSeguir,
           rightImageTextButton: btnSalir);
 
-    if (widget.juego == 'ironias')
+    if (widget.juego == 'humor')
       exitDialog = ExitDialog(
           title: 'Aviso',
           titleSize: titleSize,
           content:
-              "¿Estás seguro de que deseas salir de las opciones del juego 'Ironías'?\n"
+              "¿Estás seguro de que deseas salir de las opciones del juego 'Humor'?\n"
               "De esta manera los posibles cambios que hayas realizado no se guardarán "
               "y volverás al menú del juego \'Rutinas\'.",
           contentSize: textSize,
@@ -346,12 +346,12 @@ class _OpcionesState extends State<Opciones> {
           contentSize: textSize,
           leftImageTextButton: btnAceptar);
 
-    if (widget.juego == 'ironias')
+    if (widget.juego == 'humor')
       confirmDialog = ExitDialog(
           title: 'Éxito',
           titleSize: titleSize,
           content:
-              "Las opciones para el juego 'Ironías' han sido actualizados con éxito.\n"
+              "Las opciones para el juego 'Humor' han sido actualizados con éxito.\n"
               "¡Muchas gracias por tu interés y colaboración!",
           contentSize: textSize,
           leftImageTextButton: btnAceptar);

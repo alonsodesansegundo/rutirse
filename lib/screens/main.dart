@@ -232,18 +232,18 @@ class _MainState extends State<Main> {
 
     btnIronias = ImageTextButton(
       image: Image.asset(
-        'assets/img/botones/ironias.png',
+        'assets/img/botones/humor.png',
         width: imgWidth,
       ),
       text: Text(
-        'Ironías',
+        'Humor',
         style: TextStyle(
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Home(juego: 'ironias')),
+          MaterialPageRoute(builder: (context) => Home(juego: 'humor')),
         );
       },
     );

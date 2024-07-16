@@ -18,12 +18,12 @@ import '../common/menuJugador.dart';
 
 Random random = Random(); // para generar numeros aleatorios
 
-class JugarIronias extends StatefulWidget {
+class JugarHumor extends StatefulWidget {
   @override
-  _JugarIronias createState() => _JugarIronias();
+  _JugarHumor createState() => _JugarHumor();
 }
 
-class _JugarIronias extends State<JugarIronias> {
+class _JugarHumor extends State<JugarHumor> {
   late FlutterTts flutterTts; // para reproducir audio
 
   late bool flag, isSpeaking; // bandera para cargar las preguntas solo 1 vez
@@ -115,7 +115,7 @@ class _JugarIronias extends State<JugarIronias> {
                         .start, // Alinea los elementos a la izquierda
                     children: [
                       Text(
-                        'Ironías',
+                        'Humor',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: titleSize,
@@ -370,7 +370,7 @@ class _JugarIronias extends State<JugarIronias> {
           context,
           MaterialPageRoute(
               builder: (context) => MenuJugador(
-                    juego: 'ironias',
+                    juego: 'humor',
                   )),
         );
       },
@@ -393,7 +393,7 @@ class _JugarIronias extends State<JugarIronias> {
           context,
           MaterialPageRoute(
               builder: (context) => MenuJugador(
-                    juego: 'ironias',
+                    juego: 'humor',
                   )),
         );
       },
@@ -490,7 +490,7 @@ class _JugarIronias extends State<JugarIronias> {
         });
       } catch (e) {
         // no se debe de producir ningún error al ser una BBDD local
-        print("Error al obtener la lista de preguntas de ironías: $e"); //
+        print("Error al obtener la lista de preguntas de humor: $e"); //
       }
     }
   }

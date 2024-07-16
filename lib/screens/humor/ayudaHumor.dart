@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
 
-class AyudaIronias extends StatefulWidget {
+class AyudaHumor extends StatefulWidget {
   // string que nos indica si la pantalla de origen es 'home' o 'menu'
   // para dependiendo de eso, mostrar un cuadro de dialogo u otro (exitDialogFromHome o exitDialogFromMenu)
   final String origen;
 
-  AyudaIronias({required this.origen});
+  AyudaHumor({required this.origen});
 
   @override
-  _AyudaIroniasState createState() => _AyudaIroniasState();
+  _AyudaHumorState createState() => _AyudaHumorState();
 }
 
-class _AyudaIroniasState extends State<AyudaIronias> {
+class _AyudaHumorState extends State<AyudaHumor> {
   // string que nos indica si la pantalla de origen es 'home' o 'menu'
   // para dependiendo de eso, mostrar un cuadro de dialogo u otro (exitDialogFromHome o exitDialogFromMenu)
   late String origen;
@@ -75,7 +75,7 @@ class _AyudaIroniasState extends State<AyudaIronias> {
                           .start, // Alinea los elementos a la izquierda
                       children: [
                         Text(
-                          'Ironías',
+                          'Humor',
                           style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: titleSize,
@@ -119,7 +119,7 @@ class _AyudaIroniasState extends State<AyudaIronias> {
                   children: [
                     Expanded(
                       child: Text(
-                        'Aquí descubrirás cómo jugar a \'Ironías\', '
+                        'Aquí descubrirás cómo jugar a \'Humor\', '
                         'un juego que consiste en indicar si una frase en una situación dada se trata de una ironía o no. '
                         '\nAquí tienes un ejemplo:',
                         style: TextStyle(
@@ -143,7 +143,7 @@ class _AyudaIroniasState extends State<AyudaIronias> {
                       ),
                     ),
                     Image.asset(
-                      'assets/img/ironias/sol.png',
+                      'assets/img/humor/sol.png',
                       width: imgWidth * 1.3,
                     ),
                   ],
@@ -222,7 +222,7 @@ class _AyudaIroniasState extends State<AyudaIronias> {
                       ),
                     ),
                     Image.asset(
-                      'assets/img/ironias/sol.png',
+                      'assets/img/humor/sol.png',
                       width: imgWidth * 1.3,
                     ),
                   ],
@@ -420,7 +420,7 @@ class _AyudaIroniasState extends State<AyudaIronias> {
         title: '¡Genial!',
         titleSize: titleSize,
         content:
-            "Si ya estás preparado para empezar a jugar, volverás al menú principal de \'Ironías\'.\n"
+            "Si ya estás preparado para empezar a jugar, volverás al menú principal de \'Humor\'.\n"
             "Si todavía no te sientes preparado, no te preocupes, puedes seguir viendo la explicación de cómo jugar.",
         contentSize: textSize,
         leftImageTextButton: btnSeguirAyuda,

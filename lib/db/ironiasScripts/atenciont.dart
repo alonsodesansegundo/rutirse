@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 
 import '../obj/situacionIronia.dart';
 
-String pathIronias = 'assets/img/ironias/';
+String pathIronias = 'assets/img/humor/';
 
 void insertIroniasInitialDataAtencionT(Database database) async {
   int grupoAtencionT = 1;

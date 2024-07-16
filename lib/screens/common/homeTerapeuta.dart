@@ -1,10 +1,10 @@
 import 'package:TresEnUno/screens/common/removePlayer.dart';
+import 'package:TresEnUno/screens/humor/menuTerapeutaHumor.dart';
 import 'package:TresEnUno/screens/rutinas/menuTerapeutaRutinas.dart';
 import 'package:flutter/material.dart';
 
 import '../../db/obj/terapeuta.dart';
 import '../../widgets/ImageTextButton.dart';
-import '../ironias/menuTerapeutaIronias.dart';
 
 class HomeTerapeuta extends StatefulWidget {
   @override
@@ -182,18 +182,18 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
 
     btnIronias = ImageTextButton(
       image: Image.asset(
-        'assets/img/botones/ironias.png',
+        'assets/img/botones/humor.png',
         width: imgWidth,
       ),
       text: Text(
-        'Ironías',
+        'Humor',
         style: TextStyle(
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => MenuTerapeutaIronias()),
+          MaterialPageRoute(builder: (context) => MenuTerapeutaHumor()),
         );
       },
     );

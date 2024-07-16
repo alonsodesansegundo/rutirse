@@ -1,16 +1,16 @@
-import 'package:TresEnUno/screens/ironias/addIronia.dart';
-import 'package:TresEnUno/screens/ironias/allProgressIronias.dart';
-import 'package:TresEnUno/screens/ironias/viewAddedIronias.dart';
+import 'package:TresEnUno/screens/humor/addHumor.dart';
+import 'package:TresEnUno/screens/humor/allProgressHumor.dart';
+import 'package:TresEnUno/screens/humor/viewAddedHumor.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/ImageTextButton.dart';
 
-class MenuTerapeutaIronias extends StatefulWidget {
+class MenuTerapeutaHumor extends StatefulWidget {
   @override
-  _MenuTerapeutaIroniasState createState() => _MenuTerapeutaIroniasState();
+  _MenuTerapeutaHumorState createState() => _MenuTerapeutaHumorState();
 }
 
-class _MenuTerapeutaIroniasState extends State<MenuTerapeutaIronias> {
+class _MenuTerapeutaHumorState extends State<MenuTerapeutaHumor> {
   late double titleSize,
       textSize,
       espacioPadding,
@@ -53,7 +53,7 @@ class _MenuTerapeutaIroniasState extends State<MenuTerapeutaIronias> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Ironías',
+                        'Humor',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: titleSize,
@@ -136,11 +136,11 @@ class _MenuTerapeutaIroniasState extends State<MenuTerapeutaIronias> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AddIronia()),
+            MaterialPageRoute(builder: (context) => AddHumor()),
           );
         });
 
-    // boton para dar la opcion de ver las ironias añadidas
+    // boton para dar la opcion de ver las humor añadidas
     btnListIronias = ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: Size(btnWidth, btnHeight),
@@ -156,7 +156,7 @@ class _MenuTerapeutaIroniasState extends State<MenuTerapeutaIronias> {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ViewAddedIronias()),
+          MaterialPageRoute(builder: (context) => ViewAddedHumor()),
         );
       },
     );
@@ -177,7 +177,7 @@ class _MenuTerapeutaIroniasState extends State<MenuTerapeutaIronias> {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => AllProgressIronia()),
+          MaterialPageRoute(builder: (context) => AllProgressHumor()),
         );
       },
     );

@@ -82,7 +82,7 @@ flutter:
     - assets/img/rutinas/vidaSocial/medico/
     - assets/img/rutinas/vidaSocial/parque/
     - assets/img/medallas/
-    - assets/img/ironias/
+    - assets/img/humor/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

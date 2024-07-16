@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import '../../db/obj/grupo.dart';
 import '../../db/obj/situacionIronia.dart';
 import '../../widgets/ImageTextButton.dart';
-import 'editIronia.dart';
+import 'editHumor.dart';
 
-class ViewAddedIronias extends StatefulWidget {
+class ViewAddedHumor extends StatefulWidget {
   @override
-  _ViewAddedIroniasState createState() => _ViewAddedIroniasState();
+  _ViewAddedHumorState createState() => _ViewAddedHumorState();
 }
 
-class _ViewAddedIroniasState extends State<ViewAddedIronias> {
+class _ViewAddedHumorState extends State<ViewAddedHumor> {
   late double titleSize,
       textSize,
       espacioPadding,
@@ -88,7 +88,7 @@ class _ViewAddedIroniasState extends State<ViewAddedIronias> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Ironías',
+                            'Humor',
                             style: TextStyle(
                               fontFamily: 'ComicNeue',
                               fontSize: titleSize,
@@ -112,7 +112,7 @@ class _ViewAddedIroniasState extends State<ViewAddedIronias> {
                   children: [
                     Expanded(
                       child: Text(
-                        'Aquí puedes ver las diferentes preguntas del juego \'Ironías\'. '
+                        'Aquí puedes ver las diferentes preguntas del juego \'Humor\'. '
                         'Tienes la posibilidad de editarlas o eliminarlas según creas conveniente.'
                         '\nEstán ordenadas de más recientes a más antiguas.',
                         style: TextStyle(
@@ -277,8 +277,7 @@ class _ViewAddedIroniasState extends State<ViewAddedIronias> {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                builder: (context) =>
-                                                    EditIronia(
+                                                builder: (context) => EditHumor(
                                                   situacionIronia: situacion,
                                                   grupo: grupo,
                                                 ),
@@ -342,7 +341,7 @@ class _ViewAddedIroniasState extends State<ViewAddedIronias> {
                                                           MaterialPageRoute(
                                                             builder:
                                                                 (context) =>
-                                                                    EditIronia(
+                                                                    EditHumor(
                                                               situacionIronia:
                                                                   situacion,
                                                               grupo: grupo,
@@ -551,7 +550,7 @@ class _ViewAddedIroniasState extends State<ViewAddedIronias> {
 
   // Método para crear los botones necesarios
   void _createButtons() {
-    // boton para dar volver a la pantalla principal de ironias
+    // boton para dar volver a la pantalla principal de humor
     btnVolver = ImageTextButton(
       image:
           Image.asset('assets/img/botones/home.png', height: imgVolverHeight),

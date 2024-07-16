@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:TresEnUno/db/obj/grupo.dart';
-import 'package:TresEnUno/obj/Respuesta.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,47 +7,65 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../db/obj/grupo.dart';
 import '../../db/obj/respuestaIronia.dart';
 import '../../db/obj/situacionIronia.dart';
-import '../../widgets/ArasaacImageDialog.dart';
+import '../../obj/Respuesta.dart';
+import '../../widgets/ArasaacAccionDialog.dart';
+import '../../widgets/ArasaacPersonajeDialog.dart';
 import '../../widgets/ImageTextButton.dart';
 
-class AddIronia extends StatefulWidget {
+class EditHumor extends StatefulWidget {
+  SituacionIronia situacionIronia;
+  Grupo grupo;
+
+  EditHumor({required this.situacionIronia, required this.grupo});
+
   @override
-  _AddIroniaState createState() => _AddIroniaState();
+  _EditIroniaState createState() => _EditIroniaState();
 }
 
-class _AddIroniaState extends State<AddIronia> {
+class _EditIroniaState extends State<EditHumor> {
+  late ImageTextButton btnVolver;
+
   late double titleSize,
       textSize,
       espacioPadding,
       espacioAlto,
-      imgVolverHeight,
+      imgHeight,
+      imgWidth,
       textSituacionWidth,
       btnWidth,
       btnHeight,
-      imgWidth,
+      imgVolverHeight,
       widthTextImagen;
 
-  late ImageTextButton btnVolver;
-
-  late List<Grupo> grupos;
-
-  Grupo? selectedGrupo; // Variable para almacenar el grupo seleccionado
-
-  late String situacionText, correctText;
+  late int sizeAccionesInitial;
 
   late ElevatedButton btnGaleria, btnArasaac, btnEliminarImage;
 
-  late ArasaacImageDialog arasaacImageDialog;
+  late List<Grupo> grupos;
+
+  late Grupo? selectedGrupo;
+
+  late String situacionText, correctText;
+
+  late List<int> image;
+
+  late Dialog existPersonajeDialog;
+
+  late ArasaacPersonajeDialog arasaacPersonajeDialog;
+
+  late ArasaacAccionDialog arasaacAccionDialog;
 
   late AlertDialog incompletedParamsDialog,
       completedParamsDialog,
-      noInternetDialog;
+      noInternetDialog,
+      removePreguntaOk;
 
-  late bool firstLoad, esIronia, noEsIronia;
+  late bool firstLoad = true, changeGrupo, loadData, esIronia, noEsIronia;
 
-  late List<int> image;
+  late Grupo defaultGrupo;
 
   late List<Respuesta> respuestasIncorrectas;
 
@@ -58,41 +74,49 @@ class _AddIroniaState extends State<AddIronia> {
       colorCorrectText,
       colorBordeImagen,
       colorCheckbox;
-
   @override
   void initState() {
     super.initState();
-    firstLoad = false;
-
+    defaultGrupo = widget.grupo;
+    loadData = false;
     grupos = [];
-    situacionText = "";
-    correctText = "";
-    respuestasIncorrectas = [];
-    firstLoad = false;
     image = [];
+    respuestasIncorrectas = [];
     selectedGrupo = null;
+    changeGrupo = false;
     colorSituacion = Colors.transparent;
     colorCorrectText = Colors.transparent;
     colorGrupo = Colors.transparent;
     colorBordeImagen = Colors.transparent;
     colorCheckbox = Colors.transparent;
+    correctText = "";
+
     esIronia = false;
     noEsIronia = false;
 
+    if (firstLoad) {
+      firstLoad = false;
+      _getGrupos();
+      situacionText = widget.situacionIronia.enunciado;
+      setState(() {
+        image = widget.situacionIronia.imagen!;
+      });
+    }
+    _loadRespuestas();
     _initializeState();
   }
 
   Future<void> _initializeState() async {
     await _getGrupos();
-
     _createDialogs();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!firstLoad) {
-      firstLoad = true;
+    if (!loadData) {
+      loadData = true;
       _createVariablesSize();
+      situacionText = widget.situacionIronia.enunciado;
       _createButtons();
     }
 
@@ -110,14 +134,14 @@ class _AddIroniaState extends State<AddIronia> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Ironías',
+                        'Humor',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: titleSize,
                         ),
                       ),
                       Text(
-                        'Añadir situación',
+                        'Editar pregunta',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: titleSize / 2,
@@ -133,7 +157,7 @@ class _AddIroniaState extends State<AddIronia> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Aquí puedes crear nuevas situaciones para el juego de Ironías.',
+                      'Aquí tienes la posibilidad de editar la situación y las respuestas de la pregunta, incluso el grupo al que pertenece.',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: textSize,
@@ -164,7 +188,7 @@ class _AddIroniaState extends State<AddIronia> {
                             left: espacioPadding,
                           ),
                           hint: Text(
-                            'Selecciona el grupo',
+                            widget.grupo.nombre,
                             style: TextStyle(
                               fontFamily: 'ComicNeue',
                               fontSize: textSize,
@@ -186,6 +210,7 @@ class _AddIroniaState extends State<AddIronia> {
                           onChanged: (Grupo? grupo) {
                             setState(() {
                               selectedGrupo = grupo;
+                              changeGrupo = true;
                               respuestasIncorrectas = [];
                               if (selectedGrupo!.nombre == "Infancia")
                                 respuestasIncorrectas.add(new Respuesta(
@@ -221,6 +246,7 @@ class _AddIroniaState extends State<AddIronia> {
                   color: colorSituacion,
                 ),
                 child: TextField(
+                  controller: TextEditingController(text: this.situacionText),
                   onChanged: (text) {
                     this.situacionText = text;
                   },
@@ -238,7 +264,7 @@ class _AddIroniaState extends State<AddIronia> {
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: colorBordeImagen, // Color del borde verde
+                    color: colorBordeImagen,
                     width: 1.0,
                   ),
                 ),
@@ -284,8 +310,9 @@ class _AddIroniaState extends State<AddIronia> {
                 ),
               ),
               SizedBox(height: espacioAlto),
-              if (selectedGrupo != null &&
-                  selectedGrupo!.nombre == 'Atención T.')
+              if ((!changeGrupo && widget.grupo.nombre == "Atención T.") ||
+                  (selectedGrupo != null &&
+                      selectedGrupo!.nombre == 'Atención T.'))
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(
@@ -298,7 +325,7 @@ class _AddIroniaState extends State<AddIronia> {
                     textBaseline: TextBaseline.alphabetic,
                     children: [
                       Text(
-                        '¿Es una ironía?*',
+                        '¿Es una broma?*',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: textSize,
@@ -306,7 +333,7 @@ class _AddIroniaState extends State<AddIronia> {
                       ),
                       CheckboxListTile(
                         title: Text(
-                          "Sí, es una ironía.",
+                          "Sí, es una broma",
                           style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: textSize * 0.75,
@@ -323,7 +350,7 @@ class _AddIroniaState extends State<AddIronia> {
                       ),
                       CheckboxListTile(
                         title: Text(
-                          "No, no es una ironía.",
+                          "No, no es una broma",
                           style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: textSize * 0.75,
@@ -341,8 +368,9 @@ class _AddIroniaState extends State<AddIronia> {
                     ],
                   ),
                 ),
-              if (selectedGrupo != null &&
-                  selectedGrupo!.nombre != 'Atención T.')
+              if ((!changeGrupo && widget.grupo.nombre != "Atención T.") ||
+                  (selectedGrupo != null &&
+                      selectedGrupo!.nombre != 'Atención T.'))
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   textBaseline: TextBaseline.alphabetic,
@@ -362,6 +390,8 @@ class _AddIroniaState extends State<AddIronia> {
                         color: colorCorrectText,
                       ),
                       child: TextField(
+                        controller:
+                            TextEditingController(text: this.correctText),
                         onChanged: (text) {
                           this.correctText = text;
                         },
@@ -378,7 +408,9 @@ class _AddIroniaState extends State<AddIronia> {
                     SizedBox(
                       height: espacioAlto / 2,
                     ),
-                    if (selectedGrupo!.nombre == 'Infancia')
+                    if ((!changeGrupo && widget.grupo.nombre == "Infancia") ||
+                        (selectedGrupo != null &&
+                            selectedGrupo!.nombre == 'Infancia'))
                       Text(
                         "Respuesta incorrecta*:",
                         style: TextStyle(
@@ -386,7 +418,10 @@ class _AddIroniaState extends State<AddIronia> {
                           fontSize: textSize,
                         ),
                       ),
-                    if (selectedGrupo!.nombre == 'Adolescencia')
+                    if ((!changeGrupo &&
+                            widget.grupo.nombre == "Adolescencia") ||
+                        (selectedGrupo != null &&
+                            selectedGrupo!.nombre == 'Adolescencia'))
                       Text(
                         "Respuestas incorrectas*:",
                         style: TextStyle(
@@ -399,9 +434,15 @@ class _AddIroniaState extends State<AddIronia> {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        color: respuestasIncorrectas[0].color,
+                        color: respuestasIncorrectas.isNotEmpty
+                            ? respuestasIncorrectas[0].color
+                            : Colors.transparent,
                       ),
                       child: TextField(
+                        controller: TextEditingController(
+                            text: respuestasIncorrectas.isNotEmpty
+                                ? this.respuestasIncorrectas[0].texto
+                                : ""),
                         onChanged: (text) {
                           this.respuestasIncorrectas[0].texto = text;
                         },
@@ -418,14 +459,23 @@ class _AddIroniaState extends State<AddIronia> {
                     SizedBox(
                       height: espacioAlto / 2,
                     ),
-                    if (selectedGrupo!.nombre == 'Adolescencia')
+                    if ((!changeGrupo &&
+                            widget.grupo.nombre == "Adolescencia") ||
+                        (selectedGrupo != null &&
+                            selectedGrupo!.nombre == 'Adolescencia'))
                       Column(
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: respuestasIncorrectas[1].color,
+                              color: respuestasIncorrectas.isNotEmpty
+                                  ? respuestasIncorrectas[1].color
+                                  : Colors.transparent,
                             ),
                             child: TextField(
+                              controller: TextEditingController(
+                                  text: respuestasIncorrectas.isNotEmpty
+                                      ? this.respuestasIncorrectas[1].texto
+                                      : ""),
                               onChanged: (text) {
                                 this.respuestasIncorrectas[1].texto = text;
                               },
@@ -444,9 +494,15 @@ class _AddIroniaState extends State<AddIronia> {
                           ),
                           Container(
                             decoration: BoxDecoration(
-                              color: respuestasIncorrectas[2].color,
+                              color: respuestasIncorrectas.isNotEmpty
+                                  ? respuestasIncorrectas[2].color
+                                  : Colors.transparent,
                             ),
                             child: TextField(
+                              controller: TextEditingController(
+                                  text: respuestasIncorrectas.isNotEmpty
+                                      ? this.respuestasIncorrectas[2].texto
+                                      : ""),
                               onChanged: (text) {
                                 this.respuestasIncorrectas[2].texto = text;
                               },
@@ -486,7 +542,7 @@ class _AddIroniaState extends State<AddIronia> {
                           },
                         );
                       } else {
-                        _addIronia();
+                        _editIronia();
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -495,7 +551,93 @@ class _AddIroniaState extends State<AddIronia> {
                         );
                       }
                     },
-                    child: Text("Añadir situación"),
+                    child: Text("Editar pregunta"),
+                  ),
+                ],
+              ),
+              SizedBox(height: espacioAlto / 3),
+
+              Row(
+                children: [
+                  const Spacer(), // Agrega un espacio flexible
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(btnWidth, btnHeight),
+                      backgroundColor: Colors.red,
+                      textStyle: TextStyle(
+                        fontFamily: 'ComicNeue',
+                        fontSize: textSize,
+                      ),
+                    ),
+                    onPressed: () {
+                      AlertDialog aux = AlertDialog(
+                        title: Text(
+                          'Aviso',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize * 0.75,
+                          ),
+                        ),
+                        content: Text(
+                          'Estás a punto de eliminar la siguiente pregunta del grupo ${widget.grupo.nombre}:\n'
+                          '${widget.situacionIronia.enunciado}\n'
+                          '¿Estás seguro de ello?',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
+                          ),
+                        ),
+                        actions: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  _removePregunta(widget.situacionIronia.id!);
+                                  Navigator.of(context).pop();
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return removePreguntaOk;
+                                    },
+                                  );
+                                },
+                                child: Text(
+                                  'Sí, eliminar',
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: espacioPadding,
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text(
+                                  'Cancelar',
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return aux;
+                        },
+                      );
+                    },
+                    child: Text("Eliminar pregunta"),
                   ),
                 ],
               ),
@@ -504,18 +646,6 @@ class _AddIroniaState extends State<AddIronia> {
         ),
       ),
     );
-  }
-
-  // Método para obtener la lista de grupos de la BBDD
-  Future<void> _getGrupos() async {
-    try {
-      List<Grupo> gruposList = await getGrupos();
-      setState(() {
-        grupos = gruposList;
-      });
-    } catch (e) {
-      print("Error al obtener la lista de grupos: $e");
-    }
   }
 
   double getWidthOfText(String text, BuildContext context) {
@@ -535,7 +665,7 @@ class _AddIroniaState extends State<AddIronia> {
     return tp.width;
   }
 
-  // Método para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
@@ -543,6 +673,7 @@ class _AddIroniaState extends State<AddIronia> {
     textSize = screenSize.width * 0.03;
     espacioPadding = screenSize.height * 0.03;
     espacioAlto = screenSize.height * 0.03;
+    imgHeight = screenSize.height / 9;
     imgVolverHeight = screenSize.height / 32;
     textSituacionWidth = screenSize.width - espacioPadding * 2;
     btnWidth = screenSize.width / 3;
@@ -554,7 +685,7 @@ class _AddIroniaState extends State<AddIronia> {
 
   // Método para crear los botones necesarios
   void _createButtons() {
-    // boton para dar volver a la pantalla principal de ironías
+    // boton para dar volver a la pantalla principal de humor
     btnVolver = ImageTextButton(
       image:
           Image.asset('assets/img/botones/home.png', height: imgVolverHeight),
@@ -582,7 +713,7 @@ class _AddIroniaState extends State<AddIronia> {
         ),
       ),
       onPressed: () {
-        _selectNewImageGallery();
+        _selectNewPersonajeGallery();
       },
     );
 
@@ -613,7 +744,7 @@ class _AddIroniaState extends State<AddIronia> {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return arasaacImageDialog;
+              return arasaacPersonajeDialog;
             },
           );
         }
@@ -626,7 +757,7 @@ class _AddIroniaState extends State<AddIronia> {
         backgroundColor: Colors.redAccent,
       ),
       child: Text(
-        'Eliminar imagen',
+        'Eliminar personaje',
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize * 0.75,
@@ -642,14 +773,14 @@ class _AddIroniaState extends State<AddIronia> {
 
   // Metodo para crear los cuadros de dialogo necesarios
   void _createDialogs() {
-    // cuadro de dialogo para escoger un personaje de arasaac
-    arasaacImageDialog = ArasaacImageDialog(
+    // cuadro de dialogo para escoger unq imagen de arasaac
+    arasaacPersonajeDialog = ArasaacPersonajeDialog(
       espacioAlto: espacioAlto,
       espacioPadding: espacioPadding,
       btnWidth: btnWidth,
       btnHeigth: btnHeight,
       imgWidth: imgWidth,
-      onImageArasaacChanged: (newValue) async {
+      onPersonajeArasaacChanged: (newValue) async {
         final response = await http.get(Uri.parse(newValue));
         List<int> bytes = response.bodyBytes;
         setState(() {
@@ -668,7 +799,8 @@ class _AddIroniaState extends State<AddIronia> {
         ),
       ),
       content: Text(
-        'La situación no se ha podido añadir. Por favor, revisa que has completado todos los campos obligatorios e inténtalo de nuevo.\n',
+        'La pregunta no se ha podido editar, revisa que has completado todos los campos obligatorios\n'
+        'Por favor, revisa todos los campos e inténtalo de nuevo.',
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,
@@ -702,7 +834,7 @@ class _AddIroniaState extends State<AddIronia> {
         ),
       ),
       content: Text(
-        'La situación se ha añadido con éxito. Agradecemos tu colaboración, y los jugadores seguro que todavía más!',
+        'La pregunta se ha editado con éxito. Agradecemos tu colaboración, y los jugadores seguro que todavía más!',
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,
@@ -760,10 +892,48 @@ class _AddIroniaState extends State<AddIronia> {
         )
       ],
     );
+
+    removePreguntaOk = AlertDialog(
+      title: Text(
+        'Éxito',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: titleSize * 0.75,
+        ),
+      ),
+      content: Text(
+        'La pregunta ha sido eliminada correctamente.\n'
+        '¡Muchas gracias por tu colaboración!',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: textSize,
+        ),
+      ),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Aceptar',
+                style: TextStyle(
+                  fontFamily: 'ComicNeue',
+                  fontSize: textSize,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 
   // Método para seleccionar un nuevo personaje desde la galería
-  Future<void> _selectNewImageGallery() async {
+  Future<void> _selectNewPersonajeGallery() async {
     final picker = ImagePicker();
     final imageAux = await picker.pickImage(source: ImageSource.gallery);
     if (imageAux != null) {
@@ -779,15 +949,6 @@ class _AddIroniaState extends State<AddIronia> {
   // Método para comprobar que los parametros obligatorios están completos
   bool _completedParams() {
     bool correct = true;
-    // compruebo que todos los parametros obligatorios están completos
-    if (selectedGrupo == null) {
-      correct = false;
-      setState(() {
-        colorGrupo = Colors.red;
-      });
-    } else
-      colorGrupo = Colors.transparent;
-
     if (situacionText.trim().isEmpty) {
       correct = false;
       setState(() {
@@ -837,25 +998,31 @@ class _AddIroniaState extends State<AddIronia> {
     return correct;
   }
 
-  // Método para añadir una ironia y sus respuestas
-  Future<void> _addIronia() async {
-    int ironiaId = await _addPregunta();
-    _addRespuestas(ironiaId);
+  // Método para editar una pregunta y sus acciones
+  Future<void> _editIronia() async {
+    await _editPregunta();
+    _editRespuestas();
   }
 
-  // Método para añadir una pregunta a la BBDD
-  Future<int> _addPregunta() async {
-    int preguntaId;
+  // Método para editar una pregunta de la BBDD
+  Future<void> _editPregunta() async {
     Database db = await openDatabase('rutinas.db');
-    preguntaId = await insertSituacionIronia(
-        db, situacionText, Uint8List.fromList(image), selectedGrupo!.id);
-    return preguntaId;
+    if (!changeGrupo)
+      await updatePreguntaIronia(db, widget.situacionIronia.id!, situacionText,
+          Uint8List.fromList(image), widget.grupo!.id);
+    else
+      await updatePreguntaIronia(db, widget.situacionIronia.id!, situacionText,
+          Uint8List.fromList(image), selectedGrupo!.id);
   }
 
-  Future<void> _addRespuestas(int ironiaId) async {
+  // Método para editar acciones de la BBDD
+  Future<void> _editRespuestas() async {
     Database db = await openDatabase('rutinas.db');
+    // elimino las respuestas anteriores
+    deleteRespuestasBySituacionIroniaId(db, widget.situacionIronia.id!);
 
-    if (selectedGrupo!.nombre == "Atención T.") {
+    if ((changeGrupo && selectedGrupo!.nombre == "Atención T.") ||
+        (!changeGrupo && widget.grupo!.nombre == "Atención T.")) {
       int aux, aux2;
       if (esIronia)
         aux = 1;
@@ -865,12 +1032,54 @@ class _AddIroniaState extends State<AddIronia> {
         aux2 = 1;
       else
         aux2 = 0;
-      insertRespuestaIronia(db, "Sí, es una ironía", aux, ironiaId);
-      insertRespuestaIronia(db, "No, no es una ironía", aux2, ironiaId);
+      insertRespuestaIronia(
+          db, "Sí, es una ironía", aux, widget.situacionIronia.id!);
+      insertRespuestaIronia(
+          db, "No, no es una ironía", aux2, widget.situacionIronia.id!);
       return;
     }
-    insertRespuestaIronia(db, correctText, 1, ironiaId);
+    insertRespuestaIronia(db, correctText, 1, widget.situacionIronia.id!);
     for (int i = 0; i < respuestasIncorrectas.length; i++)
-      insertRespuestaIronia(db, respuestasIncorrectas[i].texto, 0, ironiaId);
+      insertRespuestaIronia(
+          db, respuestasIncorrectas[i].texto, 0, widget.situacionIronia.id!);
   }
+
+  // Método para obtener la lista de grupos de la BBDD
+  Future<void> _getGrupos() async {
+    try {
+      List<Grupo> gruposList = await getGrupos();
+      setState(() {
+        grupos = gruposList;
+      });
+    } catch (e) {
+      print("Error al obtener la lista de grupos: $e");
+    }
+  }
+
+  // Método para cargar las respuestas de la pregunta seleccionada
+  Future<void> _loadRespuestas() async {
+    List<RespuestaIronia> aux =
+        await getRespuestasIronia(widget.situacionIronia.id!);
+
+    setState(() {
+      if (widget.grupo.nombre == "Atención T.") {
+        if (aux[0].correcta == 1 && aux[0].texto == "Sí, es una ironía")
+          esIronia = true;
+        else
+          noEsIronia = true;
+      }
+
+      for (int i = 0; i < aux.length; i++) {
+        if (aux[i].correcta == 1)
+          this.correctText = aux[i].texto;
+        else
+          respuestasIncorrectas.add(new Respuesta(
+              id: aux[i].id, texto: aux[i].texto, color: Colors.transparent));
+      }
+    });
+  }
+}
+
+void _removePregunta(int preguntaId) {
+  removePreguntaIronia(preguntaId);
 }

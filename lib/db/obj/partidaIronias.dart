@@ -38,27 +38,27 @@ class PartidaIronias extends Partida {
   }
 }
 
-// método para insertar una partida de ironias en la BBDD
+// método para insertar una partida de humor en la BBDD
 Future<int> insertPartidaIronias(PartidaIronias partida) async {
   Database database = await initializeDB();
 
   // Insertar la partida en la tabla partida
   int partidaId = await database.insert("partida", partida.partidasToMap());
 
-  // Crear un mapa para los datos específicos de ironias
+  // Crear un mapa para los datos específicos de humor
   Map<String, dynamic> rutinasData = {
     'partidaId': partidaId,
     // Agrega aquí los demás campos específicos de ironias
   };
 
-  // Insertar los datos de ironias en la tabla ironias
+  // Insertar los datos de humor en la tabla humor
   int ironiasId = await database.insert("partidaIronias", rutinasData);
 
   // Retornar el id de la partida insertada en la tabla partida
   return partidaId;
 }
 
-// Método para obtener las partidas de ironias de un jugador dado su userId
+// Método para obtener las partidas de humor de un jugador dado su userId
 Future<List<PartidaIronias>> getPartidasIroniasByUserId(int jugadorId) async {
   Database database = await initializeDB();
 

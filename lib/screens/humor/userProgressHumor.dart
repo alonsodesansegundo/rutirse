@@ -5,12 +5,12 @@ import 'package:provider/provider.dart';
 import '../../provider/MyProvider.dart';
 import '../../widgets/ImageTextButton.dart';
 
-class UserProgressIronias extends StatefulWidget {
+class UserProgressHumor extends StatefulWidget {
   @override
-  _UserProgressIroniasState createState() => _UserProgressIroniasState();
+  _UserProgressHumorState createState() => _UserProgressHumorState();
 }
 
-class _UserProgressIroniasState extends State<UserProgressIronias> {
+class _UserProgressHumorState extends State<UserProgressHumor> {
   late bool loadPartidas, loadData;
 
   late double titleSize,

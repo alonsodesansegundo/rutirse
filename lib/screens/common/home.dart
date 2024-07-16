@@ -1,5 +1,4 @@
-import 'package:TresEnUno/screens/ironias/JugarIronias.dart';
-import 'package:TresEnUno/screens/ironias/ayudaIronias.dart';
+import 'package:TresEnUno/screens/humor/jugarHumor.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,6 +6,7 @@ import '../../db/obj/grupo.dart';
 import '../../db/obj/jugador.dart';
 import '../../provider/MyProvider.dart';
 import '../../widgets/ImageTextButton.dart';
+import '../humor/ayudaHumor.dart';
 import '../rutinas/ayudaRutinas.dart';
 import '../rutinas/jugarRutinas.dart';
 
@@ -81,9 +81,9 @@ class _HomeState extends State<Home> {
                           fontSize: titleSize,
                         ),
                       ),
-                    if (widget.juego == 'ironias')
+                    if (widget.juego == 'humor')
                       Text(
-                        "Ironías",
+                        "Humor",
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: titleSize,
@@ -252,11 +252,11 @@ class _HomeState extends State<Home> {
                               MaterialPageRoute(
                                   builder: (context) => JugarRutinas()),
                             );
-                          if (widget.juego == 'ironias') {
+                          if (widget.juego == 'humor') {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => JugarIronias()),
+                                  builder: (context) => JugarHumor()),
                             );
                           }
                           if (widget.juego == 'sentimientos') {}
@@ -288,12 +288,12 @@ class _HomeState extends State<Home> {
                                 builder: (context) =>
                                     AyudaRutinas(origen: 'home')),
                           );
-                        if (widget.juego == 'ironias')
+                        if (widget.juego == 'humor')
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    AyudaIronias(origen: 'home')),
+                                    AyudaHumor(origen: 'home')),
                           );
                         if (widget.juego == 'sentimientos') {}
                       },

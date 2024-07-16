@@ -1,11 +1,11 @@
-import 'package:TresEnUno/screens/ironias/JugarIronias.dart';
-import 'package:TresEnUno/screens/ironias/ayudaIronias.dart';
+import 'package:TresEnUno/screens/humor/ayudaHumor.dart';
+import 'package:TresEnUno/screens/humor/jugarHumor.dart';
+import 'package:TresEnUno/screens/humor/userProgressHumor.dart';
 import 'package:TresEnUno/screens/rutinas/userProgressRutinas.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
-import '../ironias/userProgressIronias.dart';
 import '../rutinas/ayudaRutinas.dart';
 import '../rutinas/jugarRutinas.dart';
 import 'opciones.dart';
@@ -77,9 +77,9 @@ class _MenuJugadorState extends State<MenuJugador> {
                             fontSize: titleSize,
                           ),
                         ),
-                      if (widget.juego == 'ironias')
+                      if (widget.juego == 'humor')
                         Text(
-                          'Ironías',
+                          'Humor',
                           style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: titleSize,
@@ -141,10 +141,10 @@ class _MenuJugadorState extends State<MenuJugador> {
                         ),
                       ),
                     ),
-                  if (widget.juego == 'ironias')
+                  if (widget.juego == 'humor')
                     Expanded(
                       child: Text(
-                        'Aquí tienes diferentes opciones para el juego \'Ironías\'.\n'
+                        'Aquí tienes diferentes opciones para el juego \'Humor\'.\n'
                         'Estas opciones son: jugar, ver tus progresos, ver y cambiar las opciones y ver la ayuda.',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
@@ -239,10 +239,10 @@ class _MenuJugadorState extends State<MenuJugador> {
             context,
             MaterialPageRoute(builder: (context) => JugarRutinas()),
           );
-        if (widget.juego == 'ironias')
+        if (widget.juego == 'humor')
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => JugarIronias()),
+            MaterialPageRoute(builder: (context) => JugarHumor()),
           );
       },
     );
@@ -263,10 +263,10 @@ class _MenuJugadorState extends State<MenuJugador> {
             MaterialPageRoute(builder: (context) => UserProgressRutinas()),
           );
 
-        if (widget.juego == 'ironias')
+        if (widget.juego == 'humor')
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => UserProgressIronias()),
+            MaterialPageRoute(builder: (context) => UserProgressHumor()),
           );
       },
     );
@@ -286,10 +286,10 @@ class _MenuJugadorState extends State<MenuJugador> {
             MaterialPageRoute(builder: (context) => Opciones(juego: 'rutinas')),
           );
 
-        if (widget.juego == 'ironias')
+        if (widget.juego == 'humor')
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Opciones(juego: 'ironias')),
+            MaterialPageRoute(builder: (context) => Opciones(juego: 'humor')),
           );
         if (widget.juego == 'sentimientos') {}
       },
@@ -312,11 +312,11 @@ class _MenuJugadorState extends State<MenuJugador> {
                       origen: 'menu',
                     )),
           );
-        if (widget.juego == 'ironias') {
+        if (widget.juego == 'humor') {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => AyudaIronias(
+                builder: (context) => AyudaHumor(
                       origen: 'menu',
                     )),
           );

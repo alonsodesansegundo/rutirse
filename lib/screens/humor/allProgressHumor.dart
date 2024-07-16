@@ -6,12 +6,12 @@ import '../../db/obj/partidaView.dart';
 import '../../obj/PartidasPaginacion.dart';
 import '../../widgets/ImageTextButton.dart';
 
-class AllProgressIronia extends StatefulWidget {
+class AllProgressHumor extends StatefulWidget {
   @override
-  _AllProgressIroniaState createState() => _AllProgressIroniaState();
+  _AllProgressHumorState createState() => _AllProgressHumorState();
 }
 
-class _AllProgressIroniaState extends State<AllProgressIronia> {
+class _AllProgressHumorState extends State<AllProgressHumor> {
   late bool loadPartidas, loadData;
 
   late double titleSize,
@@ -98,7 +98,7 @@ class _AllProgressIroniaState extends State<AllProgressIronia> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Ironías',
+                        'Humor',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: titleSize,
@@ -138,7 +138,7 @@ class _AllProgressIroniaState extends State<AllProgressIronia> {
                   Expanded(
                     child: Text(
                       'En esta pantalla puedes observar los progresos o resultados en el'
-                      ' juego \'Ironías\' de todos los usuarios. También tienes la posibilidad de eliminar partidas si lo crees necesario.\n'
+                      ' juego \'Humor\' de todos los usuarios. También tienes la posibilidad de eliminar partidas si lo crees necesario.\n'
                       'Dichos resultados están ordenados de más reciente a más antiguo.',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
