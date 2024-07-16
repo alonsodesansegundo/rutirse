@@ -865,8 +865,8 @@ class _AddHumorState extends State<AddHumor> {
         aux2 = 1;
       else
         aux2 = 0;
-      insertRespuestaIronia(db, "Sí, es una broma", aux, ironiaId);
-      insertRespuestaIronia(db, "No, no es una broma", aux2, ironiaId);
+      insertRespuestaIronia(db, "Sí, es una broma.", aux, ironiaId);
+      insertRespuestaIronia(db, "No, no es una broma.", aux2, ironiaId);
       return;
     }
     insertRespuestaIronia(db, correctText, 1, ironiaId);
