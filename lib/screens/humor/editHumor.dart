@@ -333,7 +333,7 @@ class _EditIroniaState extends State<EditHumor> {
                       ),
                       CheckboxListTile(
                         title: Text(
-                          "Sí, es una broma",
+                          "Sí, es una broma.",
                           style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: textSize * 0.75,
@@ -350,7 +350,7 @@ class _EditIroniaState extends State<EditHumor> {
                       ),
                       CheckboxListTile(
                         title: Text(
-                          "No, no es una broma",
+                          "No, no es una broma.",
                           style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: textSize * 0.75,
@@ -1033,9 +1033,9 @@ class _EditIroniaState extends State<EditHumor> {
       else
         aux2 = 0;
       insertRespuestaIronia(
-          db, "Sí, es una ironía", aux, widget.situacionIronia.id!);
+          db, "Sí, es una broma.", aux, widget.situacionIronia.id!);
       insertRespuestaIronia(
-          db, "No, no es una ironía", aux2, widget.situacionIronia.id!);
+          db, "No, no es una broma.", aux2, widget.situacionIronia.id!);
       return;
     }
     insertRespuestaIronia(db, correctText, 1, widget.situacionIronia.id!);
@@ -1063,10 +1063,29 @@ class _EditIroniaState extends State<EditHumor> {
 
     setState(() {
       if (widget.grupo.nombre == "Atención T.") {
-        if (aux[0].correcta == 1 && aux[0].texto == "Sí, es una ironía")
-          esIronia = true;
-        else
-          noEsIronia = true;
+        print("CORRECTO: " +
+            aux[0].correcta.toString() +
+            " TEXTO: " +
+            aux[0].texto);
+        if (aux[0].correcta == 1) {
+          if (aux[0].texto == "Sí, es una broma.") {
+            print("entro1");
+            esIronia = true;
+          }
+          if (aux[0].texto == "No, no es una broma.") {
+            print("entro2");
+            noEsIronia = true;
+          }
+        } else {
+          if (aux[0].texto == "Sí, es una broma.") {
+            print("entro3");
+            noEsIronia = true;
+          }
+          if (aux[0].texto == "No, no es una broma.") {
+            print("entro4");
+            esIronia = true;
+          }
+        }
       }
 
       for (int i = 0; i < aux.length; i++) {
