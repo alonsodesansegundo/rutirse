@@ -2,6 +2,7 @@ import 'package:TresEnUno/screens/humor/ayudaHumor.dart';
 import 'package:TresEnUno/screens/humor/jugarHumor.dart';
 import 'package:TresEnUno/screens/humor/userProgressHumor.dart';
 import 'package:TresEnUno/screens/rutinas/userProgressRutinas.dart';
+import 'package:TresEnUno/screens/sentimientos/ayudaSentimientos.dart';
 import 'package:TresEnUno/screens/sentimientos/jugarSentimientos.dart';
 import 'package:flutter/material.dart';
 
@@ -335,7 +336,15 @@ class _MenuJugadorState extends State<MenuJugador> {
           );
         }
 
-        if (widget.juego == 'sentimientos') {}
+        if (widget.juego == 'sentimientos') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AyudaSentimientos(
+                      origen: 'menu',
+                    )),
+          );
+        }
       },
     );
 
