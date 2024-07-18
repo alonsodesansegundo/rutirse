@@ -2,38 +2,38 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../obj/SituacionRutinaPaginacion.dart';
+import '../../obj/PreguntaSentimientoPaginacion.dart';
 import '../db.dart';
-import '../rutinasScripts/adolescencia.dart';
-import '../rutinasScripts/atenciont.dart';
-import '../rutinasScripts/infancia.dart';
+import '../sentimientosScripts/adolescencia.dart';
+import '../sentimientosScripts/atenciont.dart';
+import '../sentimientosScripts/infancia.dart';
 import 'grupo.dart';
 
-class SituacionRutina {
+class PreguntaSentimiento {
   final int? id;
   final String enunciado;
-  final Uint8List? personajeImg;
+  final Uint8List? imagen;
   final int grupoId;
   final String fecha;
   final int byTerapeuta;
 
-  SituacionRutina(
+  PreguntaSentimiento(
       {this.id,
       required this.enunciado,
-      this.personajeImg,
+      this.imagen,
       required this.grupoId,
       required this.fecha,
       required this.byTerapeuta});
 
-  SituacionRutina.situacionesFromMap(Map<String, dynamic> item)
+  PreguntaSentimiento.sentimientosFromMap(Map<String, dynamic> item)
       : id = item["id"],
         enunciado = item["enunciado"],
-        personajeImg = item["personajeImg"],
+        imagen = item["imagen"],
         grupoId = item["grupoId"],
         fecha = item["fecha"],
         byTerapeuta = item["byTerapeuta"];
 
-  Map<String, Object> situacionesToMap() {
+  Map<String, Object> sentimientosToMap() {
     return {
       'enunciado': enunciado,
       'grupoId': grupoId,
@@ -44,29 +44,31 @@ class SituacionRutina {
 
   @override
   String toString() {
-    return 'SituacionRutina {id: $id, enunciado: $enunciado,'
-        ' personajeImg: $personajeImg, '
+    return 'PreguntaSentimiento {id: $id, enunciado: $enunciado,'
+        ' imagen: $imagen, '
         'grupoId: $grupoId}, '
         'fecha: $fecha}, '
         'byTerapeuta: $byTerapeuta, ';
   }
 }
 
-Future<List<SituacionRutina>> getSituacionesRutinas(int grupoId) async {
+Future<List<PreguntaSentimiento>> getPreguntasSentimiento(int grupoId) async {
   try {
     final Database db = await initializeDB();
-    final List<Map<String, dynamic>> preguntasMap = await db
-        .query('situacionRutina', where: 'grupoId = ?', whereArgs: [grupoId]);
+    final List<Map<String, dynamic>> preguntasMap = await db.query(
+        'preguntaSentimiento',
+        where: 'grupoId = ?',
+        whereArgs: [grupoId]);
     return preguntasMap
-        .map((map) => SituacionRutina.situacionesFromMap(map))
+        .map((map) => PreguntaSentimiento.sentimientosFromMap(map))
         .toList();
   } catch (e) {
-    print("Error al obtener situaciones: $e");
+    print("Error al obtener preguntas sentimientos: $e");
     return [];
   }
 }
 
-Future<SituacionRutinaPaginacion> getSituacionesRutinasCreatedByTerapeuta(
+Future<PreguntaSentimientoPaginacion> getPreguntasSentimientoCreatedByTerapeuta(
     int pageNumber, int pageSize, String txtBuscar, Grupo? grupo) async {
   try {
     final Database db = await initializeDB();
@@ -82,38 +84,38 @@ Future<SituacionRutinaPaginacion> getSituacionesRutinasCreatedByTerapeuta(
           (whereClause.isNotEmpty ? ' AND ' : '') + "grupoId = ${grupo.id}";
     }
 
-    final List<Map<String, dynamic>> situacionesMap = await db.query(
-      'situacionRutina',
+    final List<Map<String, dynamic>> preguntasMap = await db.query(
+      'preguntaSentimiento',
       where: whereClause.isEmpty ? null : whereClause,
       orderBy: 'id DESC',
       limit: pageSize,
       offset: offset,
     );
-    final List<SituacionRutina> situaciones = situacionesMap
-        .map((map) => SituacionRutina.situacionesFromMap(map))
+    final List<PreguntaSentimiento> preguntas = preguntasMap
+        .map((map) => PreguntaSentimiento.sentimientosFromMap(map))
         .toList();
 
     // Comprobar si hay más preguntas disponibles
     final List<Map<String, dynamic>> totalSituacionesMap = await db.query(
-        'situacionRutina',
+        'preguntaSentimiento',
         where: whereClause.isEmpty ? null : whereClause);
     final bool hayMasPreguntas =
         (offset + pageSize) < totalSituacionesMap.length;
 
-    return SituacionRutinaPaginacion(situaciones, hayMasPreguntas);
+    return PreguntaSentimientoPaginacion(preguntas, hayMasPreguntas);
   } catch (e) {
-    print("Error al obtener situaciones: $e");
-    return SituacionRutinaPaginacion([], false);
+    print("Error al obtener preguntas situaciones: $e");
+    return PreguntaSentimientoPaginacion([], false);
   }
 }
 
-Future<int> insertSituacionRutina(Database database, String enunciado,
+Future<int> insertPreguntaSentimiento(Database database, String enunciado,
     List<int> imgPersonaje, int grupoId) async {
   int id = -1;
   await database.transaction((txn) async {
     if (imgPersonaje.isEmpty)
       id = await txn.rawInsert(
-        "INSERT INTO situacionRutina (enunciado, personajeImg, grupoId, byTerapeuta, fecha) VALUES (?, ?, ?, ?, ?)",
+        "INSERT INTO preguntaSituacion (enunciado, imagen, grupoId, byTerapeuta, fecha) VALUES (?, ?, ?, ?, ?)",
         [
           enunciado,
           null,
@@ -124,7 +126,7 @@ Future<int> insertSituacionRutina(Database database, String enunciado,
       );
     else
       id = await txn.rawInsert(
-        "INSERT INTO situacionRutina (enunciado, personajeImg, grupoId, byTerapeuta, fecha) VALUES (?, ?, ?, ?, ?)",
+        "INSERT INTO preguntaSituacion (enunciado, imagen, grupoId, byTerapeuta, fecha) VALUES (?, ?, ?, ?, ?)",
         [
           enunciado,
           imgPersonaje,
@@ -138,14 +140,14 @@ Future<int> insertSituacionRutina(Database database, String enunciado,
   return id;
 }
 
-Future<int> insertSituacionRutinaInitialData(
+Future<int> insertPreguntaSituacionInitialData(
     Database database, String enunciado, String pathImg, int grupoId) async {
   int id = -1;
   ByteData imageData = await rootBundle.load(pathImg);
   List<int> bytes = imageData.buffer.asUint8List();
   await database.transaction((txn) async {
     id = await txn.rawInsert(
-      "INSERT INTO situacionRutina (enunciado, personajeImg, grupoId, fecha) VALUES (?, ?, ?, ?)",
+      "INSERT INTO preguntaSentimiento (enunciado, imagen, grupoId, fecha) VALUES (?, ?, ?, ?)",
       [
         enunciado,
         bytes,
@@ -158,17 +160,17 @@ Future<int> insertSituacionRutinaInitialData(
   return id;
 }
 
-Future<void> removePregunta(int situacionRutinaId) async {
+Future<void> removePregunta(int preguntaSentimientoId) async {
   try {
     final Database db = await initializeDB();
     await db.delete(
-      'situacionRutina',
+      'preguntaSentimiento',
       where: 'id = ?',
-      whereArgs: [situacionRutinaId],
+      whereArgs: [preguntaSentimientoId],
     );
-    print('Situación rutina eliminada con éxito');
+    print('Pregunta sentimiento eliminada con éxito');
   } catch (e) {
-    print('Error al eliminar la situación rutina: $e');
+    print('Error al eliminar la pregunta sentimiento: $e');
   }
 }
 
@@ -176,10 +178,10 @@ Future<void> updatePregunta(Database database, int id, String enunciado,
     List<int> imgPersonaje, int grupoId) async {
   if (imgPersonaje.isEmpty)
     await database.update(
-      'situacionRutina',
+      'preguntaSentimiento',
       {
         'enunciado': enunciado,
-        'personajeImg': null,
+        'imagen': null,
         'grupoId': grupoId,
         'fecha': DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
       },
@@ -188,10 +190,10 @@ Future<void> updatePregunta(Database database, int id, String enunciado,
     );
   else
     await database.update(
-      'situacionRutina',
+      'preguntaSentimiento',
       {
         'enunciado': enunciado,
-        'personajeImg': imgPersonaje,
+        'imagen': imgPersonaje,
         'grupoId': grupoId,
         'fecha': DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())
       },
@@ -200,8 +202,8 @@ Future<void> updatePregunta(Database database, int id, String enunciado,
     );
 }
 
-void insertRutinas(Database database) {
-  insertPreguntaRutinaInitialDataAtencionT(database);
-  insertPreguntaRutinaInitialDataInfancia(database);
-  insertPreguntaRutinaInitialDataAdolescencia(database);
+void insertSentimientos(Database database) {
+  insertPreguntaSentimientoInitialDataAtencionT(database);
+  insertPreguntaSentimientoInitialDataInfancia(database);
+  insertPreguntaSentimientoInitialDataAdolescencia(database);
 }

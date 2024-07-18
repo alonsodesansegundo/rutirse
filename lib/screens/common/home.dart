@@ -1,4 +1,5 @@
 import 'package:TresEnUno/screens/humor/jugarHumor.dart';
+import 'package:TresEnUno/screens/sentimientos/jugarSentimientos.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -259,7 +260,13 @@ class _HomeState extends State<Home> {
                                   builder: (context) => JugarHumor()),
                             );
                           }
-                          if (widget.juego == 'sentimientos') {}
+                          if (widget.juego == 'sentimientos') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => JugarSentimientos()),
+                            );
+                          }
                         } else {
                           showDialog(
                             context: context,

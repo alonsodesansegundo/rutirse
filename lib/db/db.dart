@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 
 import 'obj/accion.dart';
 import 'obj/grupo.dart';
+import 'obj/preguntaSentimiento.dart';
 import 'obj/situacionIronia.dart';
 import 'obj/situacionRutina.dart';
 import 'obj/terapeuta.dart';
@@ -23,6 +24,7 @@ Future<Database> initializeDB() async {
       insertGrupos(database);
       insertRutinas(database);
       insertIronias(database);
+      insertSentimientos(database);
     },
     version: 1,
   );
@@ -130,6 +132,33 @@ void createTableRespuestaIronia(Database database) {
     )""");
 }
 
+void createTablePreguntaSentimiento(Database database) {
+  database.execute("""
+    CREATE TABLE preguntaSentimiento (
+      id INTEGER PRIMARY KEY AUTOINCREMENT, 
+      enunciado TEXT NOT NULL,
+      imagen BLOB,
+      grupoId INTEGER NOT NULL,
+      fecha TEXT NOT NULL,
+      byTerapeuta INTEGER DEFAULT 0 NOT NULL,
+      FOREIGN KEY (grupoId) REFERENCES grupo(id)
+      ON DELETE CASCADE 
+    )""");
+}
+
+void createTableSituacion(Database database) {
+  database.execute("""
+    CREATE TABLE situacion (
+      id INTEGER PRIMARY KEY AUTOINCREMENT, 
+      texto TEXT,
+      correcta INTEGER NOT NULL,
+      imagen BLOB NOT NULL,
+      preguntaSentimientoId INTEGER NOT NULL,
+      FOREIGN KEY (preguntaSentimientoId) REFERENCES preguntaSentimiento(id)
+      ON DELETE CASCADE 
+    )""");
+}
+
 void createTableTerapeuta(Database database) {
   database.execute("""
     CREATE TABLE terapeuta (
@@ -147,6 +176,8 @@ void createTables(Database database) {
   createTableTerapeuta(database);
   createTableSituacionIronia(database);
   createTableRespuestaIronia(database);
+  createTablePreguntaSentimiento(database);
+  createTableSituacion(database);
 }
 
 Future<void> addRutina(
