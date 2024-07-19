@@ -570,6 +570,7 @@ class _JugarSentimientos extends State<JugarSentimientos> {
     setState(() {
       // si la carta actualmente es pulsada
       if (cartaSituacion.selected) {
+        _speak(cartaSituacion.situacion.texto);
         cartaSituacion.backgroundColor = Colors.grey;
         var myProvider = Provider.of<MyProvider>(context, listen: false);
         if (myProvider.grupo.id == 1) {
