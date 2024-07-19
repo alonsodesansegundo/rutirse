@@ -4,6 +4,7 @@ import 'package:TresEnUno/screens/humor/userProgressHumor.dart';
 import 'package:TresEnUno/screens/rutinas/userProgressRutinas.dart';
 import 'package:TresEnUno/screens/sentimientos/ayudaSentimientos.dart';
 import 'package:TresEnUno/screens/sentimientos/jugarSentimientos.dart';
+import 'package:TresEnUno/screens/sentimientos/userProgressSentimientos.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/ExitDialog.dart';
@@ -275,6 +276,12 @@ class _MenuJugadorState extends State<MenuJugador> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => UserProgressHumor()),
+          );
+
+        if (widget.juego == 'sentimientos')
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => UserProgressSentimientos()),
           );
       },
     );

@@ -1,16 +1,18 @@
-import 'package:TresEnUno/db/obj/partidaIronias.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../db/obj/partida.dart';
+import '../../db/obj/partidaSentimientos.dart';
 import '../../provider/MyProvider.dart';
 import '../../widgets/ImageTextButton.dart';
 
-class UserProgressHumor extends StatefulWidget {
+class UserProgressSentimientos extends StatefulWidget {
   @override
-  _UserProgressHumorState createState() => _UserProgressHumorState();
+  _UserProgressSentimientosState createState() =>
+      _UserProgressSentimientosState();
 }
 
-class _UserProgressHumorState extends State<UserProgressHumor> {
+class _UserProgressSentimientosState extends State<UserProgressSentimientos> {
   late bool loadPartidas, loadData;
 
   late double titleSize,
@@ -30,7 +32,7 @@ class _UserProgressHumorState extends State<UserProgressHumor> {
   late ImageTextButton btnVolver;
 
   // lista de partidas
-  List<PartidaIronias>? partidas;
+  List<Partida>? partidas;
 
   @override
   void initState() {
@@ -62,7 +64,7 @@ class _UserProgressHumorState extends State<UserProgressHumor> {
                         .start, // Alinea los elementos a la izquierda
                     children: [
                       Text(
-                        'Humor',
+                        'Sentimientos',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: titleSize,
@@ -102,7 +104,7 @@ class _UserProgressHumorState extends State<UserProgressHumor> {
                   Expanded(
                     child: Text(
                       'En esta pantalla puedes observar tus progresos o resultados en el'
-                      ' juego \'Humor\'.\n'
+                      ' juego \'Sentimientos\'.\n'
                       'Dichos resultados están ordenados de más reciente a más antiguo.',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
@@ -142,7 +144,7 @@ class _UserProgressHumorState extends State<UserProgressHumor> {
                             width: imgWidth),
                         SizedBox(height: espacioAlto * 0.25),
                         Text(
-                          'Preguntas\nacertadas',
+                          'Situaciones\nacertadas',
                           style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: textHeaderSize,
@@ -359,8 +361,8 @@ class _UserProgressHumorState extends State<UserProgressHumor> {
       try {
         var myProvider = Provider.of<MyProvider>(context);
         // obtengo las partidas del jugador correspondiente
-        List<PartidaIronias> partidasList =
-            await getPartidasIroniasByUserId(myProvider.jugador.id!);
+        List<Partida> partidasList =
+            await getPartidasSentimientosByUserId(myProvider.jugador.id!);
         setState(() {
           partidas = partidasList; // actualizo la lista
         });
