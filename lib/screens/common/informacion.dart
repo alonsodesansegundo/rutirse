@@ -39,7 +39,7 @@ class _InformacionState extends State<Informacion> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'TresEnUno',
+                          'Rutirse',
                           style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: titleSize,

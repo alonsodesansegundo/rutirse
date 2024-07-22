@@ -1,11 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:TresEnUno/db/obj/grupo.dart';
-import 'package:TresEnUno/db/obj/situacionRutina.dart';
-import 'package:TresEnUno/widgets/ArasaacAccionDialog.dart';
-import 'package:TresEnUno/widgets/ArasaacPersonajeDialog.dart';
-import 'package:TresEnUno/widgets/ElementAccion.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,6 +8,11 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../db/obj/grupo.dart';
+import '../../db/obj/situacionRutina.dart';
+import '../../widgets/ArasaacAccionDialog.dart';
+import '../../widgets/ArasaacPersonajeDialog.dart';
+import '../../widgets/ElementAccion.dart';
 import '../../widgets/ImageTextButton.dart';
 
 class AddRutina extends StatefulWidget {

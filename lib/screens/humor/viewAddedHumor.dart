@@ -1,8 +1,8 @@
-import 'package:TresEnUno/obj/SituacionIroniaPaginacion.dart';
 import 'package:flutter/material.dart';
 
 import '../../db/obj/grupo.dart';
 import '../../db/obj/situacionIronia.dart';
+import '../../obj/SituacionIroniaPaginacion.dart';
 import '../../widgets/ImageTextButton.dart';
 import 'editHumor.dart';
 

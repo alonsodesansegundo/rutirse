@@ -1,4 +1,4 @@
-import 'package:TresEnUno/db/obj/partidaView.dart';
+import '../db/obj/partidaView.dart';
 
 class PartidasPaginacion {
   List<PartidaView> partidas;

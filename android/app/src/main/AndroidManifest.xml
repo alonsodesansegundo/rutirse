@@ -6,7 +6,7 @@
     </queries>
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="TresEnUno"
+        android:label="Rutirse"
         android:name="${applicationName}"
         android:icon="@drawable/icon">
         <activity

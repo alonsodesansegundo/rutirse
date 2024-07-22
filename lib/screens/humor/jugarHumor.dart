@@ -1,13 +1,13 @@
 import 'dart:math';
 
-import 'package:TresEnUno/db/obj/partidaIronias.dart';
-import 'package:TresEnUno/db/obj/respuestaIronia.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../db/obj/jugador.dart';
+import '../../db/obj/partidaIronias.dart';
+import '../../db/obj/respuestaIronia.dart';
 import '../../db/obj/situacionIronia.dart';
 import '../../obj/CartaRespuestaIronia.dart';
 import '../../provider/MyProvider.dart';

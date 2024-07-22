@@ -1,10 +1,10 @@
-import 'package:TresEnUno/db/obj/terapeuta.dart';
-import 'package:TresEnUno/screens/common/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../db/obj/terapeuta.dart';
 import '../provider/MyProvider.dart';
 import '../widgets/ImageTextButton.dart';
+import 'common/home.dart';
 import 'common/homeTerapeuta.dart';
 import 'common/informacion.dart';
 
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Rutinas',
+      title: 'Rutirse',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Main(),
     );
@@ -112,7 +112,7 @@ class _MainState extends State<Main> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'TresEnUno',
+                          'Rutirse',
                           style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: titleSize,

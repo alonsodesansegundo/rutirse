@@ -1,7 +1,7 @@
-import 'package:TresEnUno/db/obj/partidaIronias.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../db/obj/partidaIronias.dart';
 import '../../provider/MyProvider.dart';
 import '../../widgets/ImageTextButton.dart';
 

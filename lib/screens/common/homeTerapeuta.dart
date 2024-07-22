@@ -1,10 +1,10 @@
-import 'package:TresEnUno/screens/common/removePlayer.dart';
-import 'package:TresEnUno/screens/humor/menuTerapeutaHumor.dart';
-import 'package:TresEnUno/screens/rutinas/menuTerapeutaRutinas.dart';
+import 'package:Rutirse/screens/common/removePlayer.dart';
 import 'package:flutter/material.dart';
 
 import '../../db/obj/terapeuta.dart';
 import '../../widgets/ImageTextButton.dart';
+import '../humor/menuTerapeutaHumor.dart';
+import '../rutinas/menuTerapeutaRutinas.dart';
 
 class HomeTerapeuta extends StatefulWidget {
   @override
@@ -68,7 +68,7 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'TresEnUno',
+                        'Rutirse',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: titleSize,

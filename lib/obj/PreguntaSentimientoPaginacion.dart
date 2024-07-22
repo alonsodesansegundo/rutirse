@@ -1,4 +1,4 @@
-import 'package:TresEnUno/db/obj/preguntaSentimiento.dart';
+import '../db/obj/preguntaSentimiento.dart';
 
 class PreguntaSentimientoPaginacion {
   List<PreguntaSentimiento> preguntas;

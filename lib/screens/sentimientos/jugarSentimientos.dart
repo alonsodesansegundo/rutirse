@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:TresEnUno/db/obj/preguntaSentimiento.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:intl/intl.dart';
@@ -9,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../db/obj/jugador.dart';
 import '../../db/obj/partida.dart';
 import '../../db/obj/partidaSentimientos.dart';
+import '../../db/obj/preguntaSentimiento.dart';
 import '../../db/obj/situacion.dart';
 import '../../obj/CartaSituacion.dart';
 import '../../provider/MyProvider.dart';

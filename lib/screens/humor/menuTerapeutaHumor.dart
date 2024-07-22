@@ -1,9 +1,9 @@
-import 'package:TresEnUno/screens/humor/addHumor.dart';
-import 'package:TresEnUno/screens/humor/allProgressHumor.dart';
-import 'package:TresEnUno/screens/humor/viewAddedHumor.dart';
+import 'package:Rutirse/screens/humor/viewAddedHumor.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/ImageTextButton.dart';
+import 'addHumor.dart';
+import 'allProgressHumor.dart';
 
 class MenuTerapeutaHumor extends StatefulWidget {
   @override

@@ -1,7 +1,7 @@
 // PREGUNTAS IRONIAS PARA EL GRUPO DE ATENCIÓN T.
-import 'package:TresEnUno/db/obj/respuestaIronia.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../obj/respuestaIronia.dart';
 import '../obj/situacionIronia.dart';
 
 String pathIronias = 'assets/img/humor/';

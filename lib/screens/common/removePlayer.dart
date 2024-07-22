@@ -1,7 +1,7 @@
-import 'package:TresEnUno/db/obj/jugador.dart';
 import 'package:flutter/material.dart';
 
 import '../../db/obj/grupo.dart';
+import '../../db/obj/jugador.dart';
 import '../../db/obj/jugadorView.dart';
 import '../../obj/JugadoresPaginacion.dart';
 import '../../widgets/ImageTextButton.dart';
@@ -68,7 +68,7 @@ class _RemovePlayerState extends State<RemovePlayer> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'TresEnUno',
+                          'Rutirse',
                           style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: titleSize,

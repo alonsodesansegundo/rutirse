@@ -1,16 +1,16 @@
-import 'package:TresEnUno/screens/humor/ayudaHumor.dart';
-import 'package:TresEnUno/screens/humor/jugarHumor.dart';
-import 'package:TresEnUno/screens/humor/userProgressHumor.dart';
-import 'package:TresEnUno/screens/rutinas/userProgressRutinas.dart';
-import 'package:TresEnUno/screens/sentimientos/ayudaSentimientos.dart';
-import 'package:TresEnUno/screens/sentimientos/jugarSentimientos.dart';
-import 'package:TresEnUno/screens/sentimientos/userProgressSentimientos.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
+import '../humor/ayudaHumor.dart';
+import '../humor/jugarHumor.dart';
+import '../humor/userProgressHumor.dart';
 import '../rutinas/ayudaRutinas.dart';
 import '../rutinas/jugarRutinas.dart';
+import '../rutinas/userProgressRutinas.dart';
+import '../sentimientos/ayudaSentimientos.dart';
+import '../sentimientos/jugarSentimientos.dart';
+import '../sentimientos/userProgressSentimientos.dart';
 import 'opciones.dart';
 
 class MenuJugador extends StatefulWidget {

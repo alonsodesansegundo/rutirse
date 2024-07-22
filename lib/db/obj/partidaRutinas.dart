@@ -1,4 +1,4 @@
-import 'package:TresEnUno/db/obj/partida.dart';
+import 'package:Rutirse/db/obj/partida.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../db.dart';

@@ -1,5 +1,6 @@
-import 'package:TresEnUno/db/obj/respuestaIronia.dart';
 import 'package:flutter/material.dart';
+
+import '../db/obj/respuestaIronia.dart';
 
 class CartaRespuestaIronia {
   final RespuestaIronia respuesta;

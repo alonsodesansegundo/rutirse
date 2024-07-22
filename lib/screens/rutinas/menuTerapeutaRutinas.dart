@@ -1,9 +1,9 @@
-import 'package:TresEnUno/screens/rutinas/addRutina.dart';
-import 'package:TresEnUno/screens/rutinas/allProgressRutinas.dart';
-import 'package:TresEnUno/screens/rutinas/viewAddedRutinas.dart';
+import 'package:Rutirse/screens/rutinas/viewAddedRutinas.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/ImageTextButton.dart';
+import 'addRutina.dart';
+import 'allProgressRutinas.dart';
 
 class MenuTerapeuta extends StatefulWidget {
   @override

@@ -1,6 +1,3 @@
-import 'package:TresEnUno/screens/humor/jugarHumor.dart';
-import 'package:TresEnUno/screens/sentimientos/ayudaSentimientos.dart';
-import 'package:TresEnUno/screens/sentimientos/jugarSentimientos.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,8 +6,11 @@ import '../../db/obj/jugador.dart';
 import '../../provider/MyProvider.dart';
 import '../../widgets/ImageTextButton.dart';
 import '../humor/ayudaHumor.dart';
+import '../humor/jugarHumor.dart';
 import '../rutinas/ayudaRutinas.dart';
 import '../rutinas/jugarRutinas.dart';
+import '../sentimientos/ayudaSentimientos.dart';
+import '../sentimientos/jugarSentimientos.dart';
 
 class Home extends StatefulWidget {
   // string que nos indica en que juego estamos
