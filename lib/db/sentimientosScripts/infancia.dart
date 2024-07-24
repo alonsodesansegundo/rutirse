@@ -12,19 +12,17 @@ void insertPreguntaSentimientoInitialDataInfancia(Database database) async {
 
   int id_P1 = await insertPreguntaSituacionInitialData(
       database,
-      'Normalmente Jaime está contento cuando va a ir a...',
-      pathPersonaje + 'contento.png',
+      'Cuando alguien esta alegre puede...',
+      pathPersonaje + 'contenta.png',
       grupoInfancia);
   insertSituacionInitialData(
-      database, "Fiesta", 1, pathSentimientos + "fiesta.png", id_P1);
+      database, "Gritar", 0, pathSentimientos + "gritar.png", id_P1);
   insertSituacionInitialData(
-      database, "Cine", 1, pathSentimientos + "cine.png", id_P1);
+      database, "Reír", 1, pathSentimientos + "reir.png", id_P1);
   insertSituacionInitialData(
-      database, "Parque", 1, pathSentimientos + "parque.png", id_P1);
+      database, "Discutir", 0, pathSentimientos + "discutir.png", id_P1);
   insertSituacionInitialData(
-      database, "Dentista", 0, pathSentimientos + "dentista.png", id_P1);
-  insertSituacionInitialData(
-      database, "Hospital", 0, pathSentimientos + "hospital.png", id_P1);
+      database, "Abrazar", 1, pathSentimientos + "abrazo.png", id_P1);
 
   int id_P2 = await insertPreguntaSituacionInitialData(
       database,
@@ -85,18 +83,4 @@ void insertPreguntaSentimientoInitialDataInfancia(Database database) async {
       database, "Discutir", 1, pathSentimientos + "discutir.png", id_P5);
   insertSituacionInitialData(
       database, "Abrazar", 0, pathSentimientos + "abrazo.png", id_P5);
-
-  int id_P6 = await insertPreguntaSituacionInitialData(
-      database,
-      'Cuando alguien esta alegre puede...',
-      pathPersonaje + 'contenta.png',
-      grupoInfancia);
-  insertSituacionInitialData(
-      database, "Gritar", 0, pathSentimientos + "gritar.png", id_P6);
-  insertSituacionInitialData(
-      database, "Reír", 1, pathSentimientos + "reir.png", id_P6);
-  insertSituacionInitialData(
-      database, "Discutir", 0, pathSentimientos + "discutir.png", id_P6);
-  insertSituacionInitialData(
-      database, "Abrazar", 1, pathSentimientos + "abrazo.png", id_P6);
 }

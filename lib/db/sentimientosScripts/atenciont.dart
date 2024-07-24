@@ -32,23 +32,23 @@ void insertPreguntaSentimientoInitialDataAtencionT(Database database) async {
 
   int id_P3 = await insertPreguntaSituacionInitialData(
       database,
-      'Hoy María está enfadada porque sus padres la van a llevar al...',
-      pathPersonaje + 'enfadada.png',
+      'Jesús se ha asustado al ver...',
+      pathPersonaje + 'asustado.png',
       grupoAtencionT);
   insertSituacionInitialData(
-      database, "Dentista", 1, pathSentimientos + "dentista.png", id_P3);
+      database, "Monstruo", 1, pathSentimientos + "monstruo.png", id_P3);
   insertSituacionInitialData(
-      database, "Parque", 0, pathSentimientos + "parque.png", id_P3);
+      database, "Peluche", 0, pathSentimientos + "peluche.png", id_P3);
 
   int id_P4 = await insertPreguntaSituacionInitialData(
       database,
-      'Hoy María está contenta porque sus padres la van a llevar al...',
+      'Celia se ha puesto contenta al ver...',
       pathPersonaje + 'contenta.png',
       grupoAtencionT);
   insertSituacionInitialData(
-      database, "Dentista", 0, pathSentimientos + "dentista.png", id_P4);
+      database, "Monstruo", 0, pathSentimientos + "monstruo.png", id_P4);
   insertSituacionInitialData(
-      database, "Parque", 1, pathSentimientos + "parque.png", id_P4);
+      database, "Peluche", 1, pathSentimientos + "peluche.png", id_P4);
 
   int id_P5 = await insertPreguntaSituacionInitialData(
       database,
@@ -69,24 +69,4 @@ void insertPreguntaSentimientoInitialDataAtencionT(Database database) async {
       database, "Abrazados", 0, pathSentimientos + "abrazo.png", id_P6);
   insertSituacionInitialData(
       database, "Discutiendo", 1, pathSentimientos + "discutir.png", id_P6);
-
-  int id_P7 = await insertPreguntaSituacionInitialData(
-      database,
-      'Jesús se ha asustado al ver...',
-      pathPersonaje + 'asustado.png',
-      grupoAtencionT);
-  insertSituacionInitialData(
-      database, "Monstruo", 1, pathSentimientos + "monstruo.png", id_P7);
-  insertSituacionInitialData(
-      database, "Peluche", 0, pathSentimientos + "peluche.png", id_P7);
-
-  int id_P8 = await insertPreguntaSituacionInitialData(
-      database,
-      'Celia se ha puesto contenta al ver...',
-      pathPersonaje + 'contenta.png',
-      grupoAtencionT);
-  insertSituacionInitialData(
-      database, "Monstruo", 0, pathSentimientos + "monstruo.png", id_P8);
-  insertSituacionInitialData(
-      database, "Peluche", 1, pathSentimientos + "peluche.png", id_P8);
 }
