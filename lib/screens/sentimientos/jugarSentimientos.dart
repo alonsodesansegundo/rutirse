@@ -173,7 +173,6 @@ class _JugarSentimientos extends State<JugarSentimientos> {
                   }
                 },
               ),
-              //mostrar cada una de las CartaAccion de la lista cartaAcciones
               SizedBox(
                 height: _calcularAltura(
                     ancho,
@@ -425,7 +424,7 @@ class _JugarSentimientos extends State<JugarSentimientos> {
         title: '¡Fantástico!',
         titleSize: titleSize,
         content: "¡Enhorabuena, lo has hecho excelente! "
-            "\nHas ordenado todas las acciones de manera perfecta.\n"
+            "\nHas contestado a la pregunta perfectamente.\n"
             "¡Gran trabajo!",
         contentSize: textSize,
         leftImageTextButton: btnSeguirJugandoCambiaPregunta,
@@ -501,7 +500,7 @@ class _JugarSentimientos extends State<JugarSentimientos> {
       });
     } catch (e) {
       // no se debe de producir ningún error al ser una BBDD local
-      print("Error al obtener la lista de acciones: $e");
+      print("Error al obtener la lista de respuestas: $e");
     }
   }
 
