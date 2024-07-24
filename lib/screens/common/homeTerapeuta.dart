@@ -1,4 +1,5 @@
 import 'package:Rutirse/screens/common/removePlayer.dart';
+import 'package:Rutirse/screens/sentimientos/menuTerapeutaSentimientos.dart';
 import 'package:flutter/material.dart';
 
 import '../../db/obj/terapeuta.dart';
@@ -178,7 +179,13 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
           style: TextStyle(
               fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
         ),
-        onPressed: () {});
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MenuTerapeutaSentimientos()),
+          );
+        });
 
     btnIronias = ImageTextButton(
       image: Image.asset(
