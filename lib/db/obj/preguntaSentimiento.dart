@@ -115,7 +115,7 @@ Future<int> insertPreguntaSentimiento(Database database, String enunciado,
   await database.transaction((txn) async {
     if (imgPersonaje.isEmpty)
       id = await txn.rawInsert(
-        "INSERT INTO preguntaSituacion (enunciado, imagen, grupoId, byTerapeuta, fecha) VALUES (?, ?, ?, ?, ?)",
+        "INSERT INTO preguntaSentimiento (enunciado, imagen, grupoId, byTerapeuta, fecha) VALUES (?, ?, ?, ?, ?)",
         [
           enunciado,
           null,
@@ -126,7 +126,7 @@ Future<int> insertPreguntaSentimiento(Database database, String enunciado,
       );
     else
       id = await txn.rawInsert(
-        "INSERT INTO preguntaSituacion (enunciado, imagen, grupoId, byTerapeuta, fecha) VALUES (?, ?, ?, ?, ?)",
+        "INSERT INTO preguntaSentimiento (enunciado, imagen, grupoId, byTerapeuta, fecha) VALUES (?, ?, ?, ?, ?)",
         [
           enunciado,
           imgPersonaje,
