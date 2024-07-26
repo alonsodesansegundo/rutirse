@@ -9,7 +9,6 @@ class ElementRespuestaSentimientos extends StatefulWidget {
   double espacioAlto;
   double btnWidth;
   double btnHeight;
-  double textRespuestaWidth;
   final Function() onPressedGaleria;
   final Function() onPressedArasaac;
   String respuestaText;
@@ -28,7 +27,6 @@ class ElementRespuestaSentimientos extends StatefulWidget {
     required this.espacioAlto,
     required this.btnWidth,
     required this.btnHeight,
-    required this.textRespuestaWidth,
     required this.onPressedGaleria,
     required this.onPressedArasaac,
     this.respuestaText = "",
@@ -59,16 +57,28 @@ class _ElementRespuestaSentimientosState
                 children: [
                   Column(
                     children: [
-                      Container(
-                        width: widget.espacioPadding,
-                        child: Text(
-                          widget.text1,
-                          style: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: widget.textSize,
+                      if (!widget.flagAdolescencia && widget.isCorrect)
+                        Container(
+                          width: widget.espacioPadding,
+                          child: Text(
+                            widget.text1 + "\ncorrecta*:",
+                            style: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: widget.textSize,
+                            ),
                           ),
                         ),
-                      ),
+                      if (!widget.flagAdolescencia && !widget.isCorrect)
+                        Container(
+                          width: widget.espacioPadding,
+                          child: Text(
+                            widget.text1 + "\nincorrecta*:",
+                            style: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: widget.textSize,
+                            ),
+                          ),
+                        ),
                       Container(
                         width: widget.espacioPadding,
                         child: Text(

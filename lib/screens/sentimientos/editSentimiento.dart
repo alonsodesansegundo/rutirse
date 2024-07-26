@@ -10,15 +10,21 @@ import 'package:sqflite/sqflite.dart';
 
 import '../../db/obj/grupo.dart';
 import '../../db/obj/preguntaSentimiento.dart';
+import '../../db/obj/situacion.dart';
 import '../../widgets/ArasaacImageDialog.dart';
 import '../../widgets/ImageTextButton.dart';
 
-class AddSentimiento extends StatefulWidget {
+class EditSentimiento extends StatefulWidget {
+  PreguntaSentimiento preguntaSentimiento;
+  Grupo grupo;
+
+  EditSentimiento({required this.preguntaSentimiento, required this.grupo});
+
   @override
-  _AddSentimientoState createState() => _AddSentimientoState();
+  _EditSentimientoState createState() => _EditSentimientoState();
 }
 
-class _AddSentimientoState extends State<AddSentimiento> {
+class _EditSentimientoState extends State<EditSentimiento> {
   late double titleSize,
       textSize,
       espacioPadding,
@@ -46,11 +52,11 @@ class _AddSentimientoState extends State<AddSentimiento> {
       completedParamsDialog,
       noInternetDialog;
 
-  late bool firstLoad, esIronia, noEsIronia;
+  late bool firstLoad = true, changeGrupo;
 
   late List<int> image;
 
-  late List<ElementRespuestaSentimientos> respuestas;
+  late List<ElementRespuestaSentimientos> respuestas, situacionesToDelete;
 
   late Color colorSituacion,
       colorGrupo,
@@ -58,16 +64,19 @@ class _AddSentimientoState extends State<AddSentimiento> {
       colorBordeImagen,
       colorCheckbox;
 
+  late Grupo defaultGrupo;
+
+  late int sizeRespuestasInitial;
+
   @override
   void initState() {
     super.initState();
-    firstLoad = false;
-
+    defaultGrupo = widget.grupo;
     grupos = [];
     preguntaText = "";
     correctText = "";
     respuestas = [];
-    firstLoad = false;
+    situacionesToDelete = [];
     image = [];
     selectedGrupo = null;
     colorSituacion = Colors.transparent;
@@ -75,15 +84,26 @@ class _AddSentimientoState extends State<AddSentimiento> {
     colorGrupo = Colors.transparent;
     colorBordeImagen = Colors.transparent;
     colorCheckbox = Colors.transparent;
-    esIronia = false;
-    noEsIronia = false;
+    changeGrupo = false;
 
+    if (firstLoad) {
+      firstLoad = false;
+      _getGrupos();
+      preguntaText = widget.preguntaSentimiento.enunciado;
+      if (widget.preguntaSentimiento.imagen != null) {
+        setState(() {
+          image = widget.preguntaSentimiento.imagen!;
+        });
+      } else
+        image = [];
+
+      _loadRespuestas();
+    }
     _initializeState();
   }
 
   Future<void> _initializeState() async {
     await _getGrupos();
-
     _createDialogs();
   }
 
@@ -116,7 +136,7 @@ class _AddSentimientoState extends State<AddSentimiento> {
                         ),
                       ),
                       Text(
-                        'Añadir pregunta',
+                        'Editar pregunta',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: titleSize / 2,
@@ -132,7 +152,7 @@ class _AddSentimientoState extends State<AddSentimiento> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Aquí puedes crear nuevas preguntas para el juego de Sentimientos.',
+                      'Aquí tienes la posibilidad de editar la pregunta y sus posibles respuestas, incluso el grupo al que pertenece.',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: textSize,
@@ -163,7 +183,7 @@ class _AddSentimientoState extends State<AddSentimiento> {
                             left: espacioPadding,
                           ),
                           hint: Text(
-                            'Selecciona el grupo',
+                            widget.grupo.nombre,
                             style: TextStyle(
                               fontFamily: 'ComicNeue',
                               fontSize: textSize,
@@ -184,43 +204,30 @@ class _AddSentimientoState extends State<AddSentimiento> {
                           }).toList(),
                           onChanged: (Grupo? grupo) {
                             setState(() {
+                              changeGrupo = true;
                               selectedGrupo = grupo;
-                              respuestas = [];
-                              setState(() {
-                                respuestas.add(new ElementRespuestaSentimientos(
-                                  text1: "Respuesta",
-                                  isCorrect: true,
-                                  textSize: textSize,
-                                  espacioPadding: espacioPadding * 4.5,
-                                  espacioAlto: espacioAlto,
-                                  btnWidth: btnWidth,
-                                  btnHeight: btnHeight,
+                              respuestas = respuestas.map((respuesta) {
+                                return ElementRespuestaSentimientos(
+                                  id: respuesta.id,
+                                  text1: respuesta.text1,
+                                  respuestaText: respuesta.respuestaText,
+                                  respuestaImage:
+                                      respuesta.respuestaImage!.toList(),
+                                  isCorrect: respuesta.isCorrect,
+                                  textSize: respuesta.textSize,
+                                  espacioPadding: respuesta.espacioPadding,
+                                  espacioAlto: respuesta.espacioAlto,
+                                  btnWidth: respuesta.btnWidth,
+                                  btnHeight: respuesta.btnHeight,
                                   onPressedGaleria: () =>
-                                      _selectNewActionGallery(0),
+                                      respuesta.onPressedGaleria,
                                   onPressedArasaac: () =>
-                                      _selectNewRespuestaArasaac(0),
-                                  showPregunta: false,
+                                      respuesta.onPressedArasaac,
+                                  showPregunta: respuesta.showPregunta,
                                   flagAdolescencia:
                                       (selectedGrupo!.nombre == "Adolescencia"),
-                                ));
-
-                                respuestas.add(new ElementRespuestaSentimientos(
-                                  text1: "Respuesta",
-                                  isCorrect: false,
-                                  textSize: textSize,
-                                  espacioPadding: espacioPadding * 4.5,
-                                  espacioAlto: espacioAlto,
-                                  btnWidth: btnWidth,
-                                  btnHeight: btnHeight,
-                                  onPressedGaleria: () =>
-                                      _selectNewActionGallery(1),
-                                  onPressedArasaac: () =>
-                                      _selectNewRespuestaArasaac(1),
-                                  showPregunta: false,
-                                  flagAdolescencia:
-                                      (selectedGrupo!.nombre == "Adolescencia"),
-                                ));
-                              });
+                                );
+                              }).toList();
                             });
                           },
                         ),
@@ -244,14 +251,11 @@ class _AddSentimientoState extends State<AddSentimiento> {
                   color: colorSituacion,
                 ),
                 child: TextField(
+                  controller: TextEditingController(text: this.preguntaText),
                   onChanged: (text) {
                     this.preguntaText = text;
                   },
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize * 0.75,
-                  ),
-                  maxLines: 3,
+                  maxLines: 5,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                   ),
@@ -344,22 +348,21 @@ class _AddSentimientoState extends State<AddSentimiento> {
                   );
                 },
               ),
-              if (selectedGrupo != null)
+              if ((changeGrupo && selectedGrupo!.nombre != "Atención T.") ||
+                  (!changeGrupo && defaultGrupo!.nombre != "Atención T."))
                 Row(
                   children: [
-                    if (selectedGrupo != null &&
-                        selectedGrupo!.nombre != "Atención T.")
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          textStyle: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: textSize,
-                          ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        textStyle: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: textSize,
                         ),
-                        onPressed: _addRespuesta,
-                        child: Text("Añadir respuesta"),
                       ),
+                      onPressed: _addRespuesta,
+                      child: Text("Añadir respuesta"),
+                    ),
                     SizedBox(width: espacioPadding),
                     if (respuestas.length > 2)
                       ElevatedButton(
@@ -390,6 +393,14 @@ class _AddSentimientoState extends State<AddSentimiento> {
                       ),
                     ),
                     onPressed: () {
+                      if (!changeGrupo) {
+                        for (Grupo grupo in grupos) {
+                          if (grupo.nombre == widget.grupo.nombre) {
+                            selectedGrupo = grupo;
+                            break;
+                          }
+                        }
+                      }
                       if (!_completedParams()) {
                         showDialog(
                           context: context,
@@ -398,7 +409,7 @@ class _AddSentimientoState extends State<AddSentimiento> {
                           },
                         );
                       } else {
-                        _addPreguntaSentimientos();
+                        _editSentimiento();
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -407,7 +418,7 @@ class _AddSentimientoState extends State<AddSentimiento> {
                         );
                       }
                     },
-                    child: Text("Añadir pregunta"),
+                    child: Text("Editar pregunta"),
                   ),
                 ],
               ),
@@ -422,27 +433,110 @@ class _AddSentimientoState extends State<AddSentimiento> {
   void _addRespuesta() {
     setState(() {
       respuestas.add(new ElementRespuestaSentimientos(
-        text1: "Respuesta",
-        textSize: textSize,
-        espacioPadding: espacioPadding * 4.5,
-        espacioAlto: espacioAlto,
-        btnWidth: btnWidth,
-        btnHeight: btnHeight,
-        onPressedGaleria: () => _selectNewActionGallery(respuestas.length - 1),
-        onPressedArasaac: () =>
-            _selectNewRespuestaArasaac(respuestas.length - 1),
-        isCorrect: true,
-        showPregunta: true,
-        flagAdolescencia: (selectedGrupo!.nombre == "Adolescencia"),
-      ));
+          text1: "Respuesta",
+          textSize: textSize,
+          espacioPadding: espacioPadding * 4.5,
+          espacioAlto: espacioAlto,
+          btnWidth: btnWidth,
+          btnHeight: btnHeight,
+          onPressedGaleria: () =>
+              _selectNewActionGallery(respuestas.length - 1),
+          onPressedArasaac: () =>
+              _selectNewRespuestaArasaac(respuestas.length - 1),
+          isCorrect: true,
+          showPregunta: true,
+          flagAdolescencia:
+              (!changeGrupo && defaultGrupo!.nombre == "Adolescencia") ||
+                  (changeGrupo && selectedGrupo!.nombre == "Adolescencia")));
     });
   }
 
-  // método para eliminar el ultimo ElementAccion
+  // método para eliminar la ultima respuesta
   void _removeRespuesta() {
     setState(() {
+      situacionesToDelete.add(respuestas[respuestas.length - 1]);
       respuestas.removeLast();
     });
+  }
+
+  // Método para editar una pregunta y sus respuestas
+  Future<void> _editSentimiento() async {
+    _editPregunta();
+    _editRespuestas();
+  }
+
+  // Método para editar una pregunta de la BBDD
+  Future<void> _editPregunta() async {
+    Database db = await openDatabase('rutinas.db');
+    await updatePregunta(db, widget.preguntaSentimiento.id!, preguntaText,
+        Uint8List.fromList(image), selectedGrupo!.id);
+  }
+
+  // Método para editar respuestas de la BBDD
+  Future<void> _editRespuestas() async {
+    Database db = await openDatabase('rutinas.db');
+    for (int i = 0; i < respuestas.length; i++) {
+      print("probando: " + respuestas[i].respuestaText);
+      if (i < this.sizeRespuestasInitial) {
+        if (selectedGrupo!.nombre != "Adolescencia") {
+          print("update: " + respuestas[i].respuestaText);
+
+          await db.update(
+            'situacion',
+            {
+              'texto': respuestas[i].respuestaText,
+              'correcta': respuestas[i].isCorrect ? 1 : 0,
+              'imagen': respuestas[i].respuestaImage,
+              'preguntaSentimientoId': widget.preguntaSentimiento.id,
+            },
+            where: 'id = ?',
+            whereArgs: [respuestas[i].id],
+          );
+        } else {
+          print("update : " +
+              respuestas[i].id.toString() +
+              " - " +
+              respuestas[i].respuestaText);
+
+          await db.update(
+            'situacion',
+            {
+              'texto': "",
+              'correcta': respuestas[i].isCorrect ? 1 : 0,
+              'imagen': respuestas[i].respuestaImage,
+              'preguntaSentimientoId': widget.preguntaSentimiento.id,
+            },
+            where: 'id = ?',
+            whereArgs: [respuestas[i].id],
+          );
+        }
+      } else {
+        if (selectedGrupo!.nombre != "Adolescencia") {
+          await db.insert(
+            'situacion',
+            {
+              'texto': respuestas[i].respuestaText,
+              'correcta': respuestas[i].isCorrect ? 1 : 0,
+              'imagen': respuestas[i].respuestaImage,
+              'preguntaSentimientoId': widget.preguntaSentimiento.id,
+            },
+          );
+        } else {
+          await db.insert(
+            'situacion',
+            {
+              'texto': "",
+              'correcta': respuestas[i].isCorrect ? 1 : 0,
+              'imagen': respuestas[i].respuestaImage,
+              'preguntaSentimientoId': widget.preguntaSentimiento.id,
+            },
+          );
+        }
+      }
+    }
+    for (int i = 0; i < situacionesToDelete.length; i++) {
+      deleteSituacion(db, situacionesToDelete[i].id!);
+    }
   }
 
   // Método para obtener la lista de grupos de la BBDD
@@ -589,7 +683,7 @@ class _AddSentimientoState extends State<AddSentimiento> {
         ),
       ),
       content: Text(
-        'La pregunta no se ha podido añadir. Por favor, revisa que has completado todos los campos obligatorios e inténtalo de nuevo.\n',
+        'La pregunta no se ha podido editar. Por favor, revisa que has completado todos los campos obligatorios e inténtalo de nuevo.\n',
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,
@@ -623,7 +717,7 @@ class _AddSentimientoState extends State<AddSentimiento> {
         ),
       ),
       content: Text(
-        'La pregunta se ha añadido con éxito. Agradecemos tu colaboración, y los jugadores seguro que todavía más!',
+        'La pregunta se ha editado con éxito. Agradecemos tu colaboración, y los jugadores seguro que todavía más!',
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,
@@ -790,49 +884,31 @@ class _AddSentimientoState extends State<AddSentimiento> {
     return correct;
   }
 
-  Future<void> _addRespuestas(int preguntaId) async {
-    Database db = await openDatabase('rutinas.db');
-    for (int i = 0; i < respuestas.length; i++) {
-      if (selectedGrupo!.nombre != "Adolescencia")
-        await db.rawInsert(
-          'INSERT INTO situacion (texto, correcta, imagen, preguntaSentimientoId) VALUES (?,?,?,?)',
-          [
-            respuestas[i].respuestaText,
-            respuestas[i].isCorrect,
-            Uint8List.fromList(respuestas[i].respuestaImage),
-            preguntaId
-          ],
-        );
-      else
-        await db.rawInsert(
-          'INSERT INTO situacion (texto, correcta, imagen, preguntaSentimientoId) VALUES (?,?,?,?)',
-          [
-            "",
-            respuestas[i].isCorrect,
-            Uint8List.fromList(respuestas[i].respuestaImage),
-            preguntaId
-          ],
-        );
+  // Método para cargar las respuestas de la pregunta seleccionada
+  void _loadRespuestas() async {
+    List<Situacion> aux = await getSituaciones(widget.preguntaSentimiento.id!);
+    for (int i = 0; i < aux.length; i++) {
+      ElementRespuestaSentimientos elementRespuestaSentimientos =
+          new ElementRespuestaSentimientos(
+        id: aux[i].id,
+        text1: "Respuesta",
+        isCorrect: aux[i].correcta == 1,
+        textSize: textSize,
+        espacioPadding: espacioPadding * 4.5,
+        espacioAlto: espacioAlto,
+        btnWidth: btnWidth,
+        btnHeight: btnHeight,
+        respuestaText: aux[i].texto,
+        respuestaImage: aux[i].imagen!.toList(),
+        onPressedGaleria: () => _selectNewActionGallery(i),
+        onPressedArasaac: () => _selectNewRespuestaArasaac(i),
+        showPregunta: (i != 0 && i != 1),
+        flagAdolescencia: (widget.grupo.nombre == "Adolescencia"),
+      );
+      setState(() {
+        this.respuestas.add(elementRespuestaSentimientos);
+      });
     }
-  }
-
-  // Método para añadir una pregunta y sus acciones
-  Future<void> _addPreguntaSentimientos() async {
-    int preguntaId = await _addPregunta();
-    _addRespuestas(preguntaId);
-  }
-
-  // Método para añadir una pregunta a la BBDD
-  Future<int> _addPregunta() async {
-    int preguntaId;
-    Database db = await openDatabase('rutinas.db');
-
-    if (image.isEmpty)
-      preguntaId = await insertPreguntaSentimiento(
-          db, preguntaText, [], selectedGrupo!.id);
-    else
-      preguntaId = await insertPreguntaSentimiento(
-          db, preguntaText, Uint8List.fromList(image), selectedGrupo!.id);
-    return preguntaId;
+    this.sizeRespuestasInitial = this.respuestas.length;
   }
 }

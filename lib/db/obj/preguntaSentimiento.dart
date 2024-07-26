@@ -68,7 +68,7 @@ Future<List<PreguntaSentimiento>> getPreguntasSentimiento(int grupoId) async {
   }
 }
 
-Future<PreguntaSentimientoPaginacion> getPreguntasSentimientoCreatedByTerapeuta(
+Future<PreguntaSentimientoPaginacion> getPreguntaSentimientoPaginacion(
     int pageNumber, int pageSize, String txtBuscar, Grupo? grupo) async {
   try {
     final Database db = await initializeDB();
@@ -160,7 +160,7 @@ Future<int> insertPreguntaSituacionInitialData(
   return id;
 }
 
-Future<void> removePregunta(int preguntaSentimientoId) async {
+Future<void> removePreguntaSentimiento(int preguntaSentimientoId) async {
   try {
     final Database db = await initializeDB();
     await db.delete(
