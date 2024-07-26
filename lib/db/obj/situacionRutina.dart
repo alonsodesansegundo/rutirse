@@ -158,7 +158,7 @@ Future<int> insertSituacionRutinaInitialData(
   return id;
 }
 
-Future<void> removePregunta(int situacionRutinaId) async {
+Future<void> removePreguntaRutinas(int situacionRutinaId) async {
   try {
     final Database db = await initializeDB();
     await db.delete(

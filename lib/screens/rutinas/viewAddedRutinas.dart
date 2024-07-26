@@ -688,6 +688,6 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
   }
 
   void _removePreguntaSelected(int preguntaId) {
-    removePregunta(preguntaId);
+    removePreguntaRutinas(preguntaId);
   }
 }

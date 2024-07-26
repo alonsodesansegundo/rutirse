@@ -1144,7 +1144,7 @@ class _EditRutinaState extends State<EditRutina> {
   }
 
   void _removePregunta(int preguntaId) {
-    removePregunta(preguntaId);
+    removePreguntaRutinas(preguntaId);
   }
 
   // Método para obtener todos los path de los personajes
