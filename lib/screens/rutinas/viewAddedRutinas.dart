@@ -243,7 +243,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
                   thickness: 1,
                 ),
                 FutureBuilder<SituacionRutinaPaginacion>(
-                  future: getSituacionesRutinasCreatedByTerapeuta(
+                  future: getSituacionRutinaPaginacion(
                       paginaActual, preguntasPagina, txtBuscar, selectedGrupo),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -662,9 +662,8 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
   }
 
   Future<void> _loadPreguntas() async {
-    SituacionRutinaPaginacion aux =
-        await getSituacionesRutinasCreatedByTerapeuta(
-            paginaActual, preguntasPagina, txtBuscar, selectedGrupo);
+    SituacionRutinaPaginacion aux = await getSituacionRutinaPaginacion(
+        paginaActual, preguntasPagina, txtBuscar, selectedGrupo);
 
     setState(() {
       this.situaciones = aux.situaciones;

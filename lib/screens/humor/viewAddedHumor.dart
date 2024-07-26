@@ -243,7 +243,7 @@ class _ViewAddedHumorState extends State<ViewAddedHumor> {
                   thickness: 1,
                 ),
                 FutureBuilder<SituacionIroniaPaginacion>(
-                  future: getSituacionesIroniasCreatedByTerapeuta(
+                  future: getSituacionIroniaPaginacion(
                       paginaActual, preguntasPagina, txtBuscar, selectedGrupo),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -661,9 +661,8 @@ class _ViewAddedHumorState extends State<ViewAddedHumor> {
   }
 
   Future<void> _loadPreguntas() async {
-    SituacionIroniaPaginacion aux =
-        await getSituacionesIroniasCreatedByTerapeuta(
-            paginaActual, preguntasPagina, txtBuscar, selectedGrupo);
+    SituacionIroniaPaginacion aux = await getSituacionIroniaPaginacion(
+        paginaActual, preguntasPagina, txtBuscar, selectedGrupo);
 
     setState(() {
       this.situaciones = aux.situaciones;

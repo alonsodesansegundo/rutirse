@@ -66,7 +66,7 @@ Future<List<SituacionRutina>> getSituacionesRutinas(int grupoId) async {
   }
 }
 
-Future<SituacionRutinaPaginacion> getSituacionesRutinasCreatedByTerapeuta(
+Future<SituacionRutinaPaginacion> getSituacionRutinaPaginacion(
     int pageNumber, int pageSize, String txtBuscar, Grupo? grupo) async {
   try {
     final Database db = await initializeDB();
