@@ -86,7 +86,7 @@ void insertIroniasInitialDataAdolescencia(Database database) async {
       id_P3);
   insertRespuestaIronia(
       database,
-      "Es una ironía, realmente es una mala manera de empezar el día",
+      "Es una ironía, realmente es una mala manera de empezar el día.",
       1,
       id_P3);
 
@@ -183,7 +183,7 @@ void insertIroniasInitialDataAdolescencia(Database database) async {
   insertRespuestaIronia(
       database, "No es una ironía, realmente ha sido un buen tiro.", 0, id_P8);
   insertRespuestaIronia(
-      database, "No es una ironía, realmente ha sido un mal tiro", 0, id_P8);
+      database, "No es una ironía, realmente ha sido un mal tiro.", 0, id_P8);
   insertRespuestaIronia(
       database, "Es una ironía, realmente ha sido un buen tiro.", 0, id_P8);
   insertRespuestaIronia(
@@ -197,8 +197,8 @@ void insertIroniasInitialDataAdolescencia(Database database) async {
       grupoAdolescencia);
   insertRespuestaIronia(
       database, "No es una ironía, realmente ha tenido mala suerte.", 0, id_P9);
-  insertRespuestaIronia(
-      database, "No es una ironía, realmente ha tenido buena suerte", 0, id_P9);
+  insertRespuestaIronia(database,
+      "No es una ironía, realmente ha tenido buena suerte.", 0, id_P9);
   insertRespuestaIronia(
       database, "Es una ironía, realmente ha tenido buena suerte.", 0, id_P9);
   insertRespuestaIronia(
@@ -213,7 +213,7 @@ void insertIroniasInitialDataAdolescencia(Database database) async {
   insertRespuestaIronia(database,
       "No es una ironía, realmente ha tenido mala suerte.", 0, id_P10);
   insertRespuestaIronia(database,
-      "No es una ironía, realmente ha tenido buena suerte", 1, id_P10);
+      "No es una ironía, realmente ha tenido buena suerte.", 1, id_P10);
   insertRespuestaIronia(
       database, "Es una ironía, realmente ha tenido buena suerte.", 0, id_P10);
   insertRespuestaIronia(
