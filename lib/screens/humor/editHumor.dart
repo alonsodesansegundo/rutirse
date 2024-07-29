@@ -157,7 +157,7 @@ class _EditIroniaState extends State<EditHumor> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Aquí tienes la posibilidad de editar la situación y las respuestas de la pregunta, incluso el grupo al que pertenece.',
+                      'Aquí tienes la posibilidad de editar la pregunta y sus respuestas, incluso el grupo al que pertenece.',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: textSize,
@@ -233,7 +233,7 @@ class _EditIroniaState extends State<EditHumor> {
               ),
               SizedBox(height: espacioAlto),
               Text(
-                'Situación*:',
+                'Pregunta*:',
                 style: TextStyle(
                   fontFamily: 'ComicNeue',
                   fontSize: textSize,
@@ -556,13 +556,12 @@ class _EditIroniaState extends State<EditHumor> {
                 ],
               ),
               SizedBox(height: espacioAlto / 3),
-
               Row(
                 children: [
                   const Spacer(), // Agrega un espacio flexible
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(btnWidth, btnHeight),
+                      minimumSize: Size(btnWidth, btnHeight / 2),
                       backgroundColor: Colors.red,
                       textStyle: TextStyle(
                         fontFamily: 'ComicNeue',

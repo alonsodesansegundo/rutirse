@@ -68,6 +68,8 @@ class _EditSentimientoState extends State<EditSentimiento> {
 
   late int sizeRespuestasInitial;
 
+  late AlertDialog removePreguntaOk;
+
   @override
   void initState() {
     super.initState();
@@ -422,6 +424,92 @@ class _EditSentimientoState extends State<EditSentimiento> {
                   ),
                 ],
               ),
+              SizedBox(height: espacioAlto / 3),
+              Row(
+                children: [
+                  const Spacer(), // Agrega un espacio flexible
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(btnWidth, btnHeight / 2),
+                      backgroundColor: Colors.red,
+                      textStyle: TextStyle(
+                        fontFamily: 'ComicNeue',
+                        fontSize: textSize,
+                      ),
+                    ),
+                    onPressed: () {
+                      AlertDialog aux = AlertDialog(
+                        title: Text(
+                          'Aviso',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize * 0.75,
+                          ),
+                        ),
+                        content: Text(
+                          'Estás a punto de eliminar la siguiente pregunta del grupo ${widget.grupo.nombre}:\n'
+                          '${widget.preguntaSentimiento.enunciado}\n'
+                          '¿Estás seguro de ello?',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
+                          ),
+                        ),
+                        actions: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  _removePregunta(
+                                      widget.preguntaSentimiento.id!);
+                                  Navigator.of(context).pop();
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return removePreguntaOk;
+                                    },
+                                  );
+                                },
+                                child: Text(
+                                  'Sí, eliminar',
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: espacioPadding,
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text(
+                                  'Cancelar',
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return aux;
+                        },
+                      );
+                    },
+                    child: Text("Eliminar pregunta"),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -463,6 +551,10 @@ class _EditSentimientoState extends State<EditSentimiento> {
   Future<void> _editSentimiento() async {
     _editPregunta();
     _editRespuestas();
+  }
+
+  void _removePregunta(int preguntaId) {
+    removePreguntaSentimiento(preguntaId);
   }
 
   // Método para editar una pregunta de la BBDD
@@ -657,6 +749,44 @@ class _EditSentimientoState extends State<EditSentimiento> {
 
   // Metodo para crear los cuadros de dialogo necesarios
   void _createDialogs() {
+    removePreguntaOk = AlertDialog(
+      title: Text(
+        'Éxito',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: titleSize * 0.75,
+        ),
+      ),
+      content: Text(
+        'La pregunta ha sido eliminada correctamente.\n'
+        '¡Muchas gracias por tu colaboración!',
+        style: TextStyle(
+          fontFamily: 'ComicNeue',
+          fontSize: textSize,
+        ),
+      ),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Aceptar',
+                style: TextStyle(
+                  fontFamily: 'ComicNeue',
+                  fontSize: textSize,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+
     // cuadro de dialogo para escoger un personaje de arasaac
     arasaacImageDialog = ArasaacImageDialog(
       espacioAlto: espacioAlto,

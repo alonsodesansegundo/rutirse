@@ -95,7 +95,7 @@ class _ViewAddedHumorState extends State<ViewAddedHumor> {
                             ),
                           ),
                           Text(
-                            'Situaciones añadidas',
+                            'Preguntas añadidas',
                             style: TextStyle(
                               fontFamily: 'ComicNeue',
                               fontSize: titleSize / 2,
@@ -227,7 +227,7 @@ class _ViewAddedHumorState extends State<ViewAddedHumor> {
                     Container(
                       width: enunciadoWidth,
                       child: Text(
-                        'Situación',
+                        'Pregunta',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: columnText,
@@ -368,7 +368,7 @@ class _ViewAddedHumorState extends State<ViewAddedHumor> {
                                                             ),
                                                           ),
                                                           content: Text(
-                                                            'Estás a punto de eliminar la siguiente situación del grupo ${grupo.nombre}:\n'
+                                                            'Estás a punto de eliminar la siguiente pregunta del grupo ${grupo.nombre}:\n'
                                                             '${situacion.enunciado}\n'
                                                             '¿Estás seguro de ello?',
                                                             style: TextStyle(
@@ -473,7 +473,7 @@ class _ViewAddedHumorState extends State<ViewAddedHumor> {
                     } else {
                       return Text(
                         "No hemos encontrado resultados.\n"
-                        "¡Te ánimamos a que crees nuevas situaciones!",
+                        "¡Te ánimamos a que crees nuevas preguntas!",
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: textSize,
@@ -619,7 +619,7 @@ class _ViewAddedHumorState extends State<ViewAddedHumor> {
         ),
       ),
       content: Text(
-        'La situación ha sido eliminada correctamente.\n'
+        'La pregunta ha sido eliminada correctamente.\n'
         '¡Muchas gracias por tu colaboración!',
         style: TextStyle(
           fontFamily: 'ComicNeue',

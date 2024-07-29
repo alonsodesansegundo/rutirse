@@ -117,7 +117,7 @@ class _AddHumorState extends State<AddHumor> {
                         ),
                       ),
                       Text(
-                        'Añadir situación',
+                        'Añadir pregunta',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: titleSize / 2,
@@ -133,7 +133,7 @@ class _AddHumorState extends State<AddHumor> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Aquí puedes crear nuevas situaciones para el juego de Humor.',
+                      'Aquí puedes crear nuevas preguntas para el juego de Humor.',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: textSize,
@@ -208,7 +208,7 @@ class _AddHumorState extends State<AddHumor> {
               ),
               SizedBox(height: espacioAlto),
               Text(
-                'Situación*:',
+                'Pregunta*:',
                 style: TextStyle(
                   fontFamily: 'ComicNeue',
                   fontSize: textSize,
@@ -495,7 +495,7 @@ class _AddHumorState extends State<AddHumor> {
                         );
                       }
                     },
-                    child: Text("Añadir situación"),
+                    child: Text("Añadir pregunta"),
                   ),
                 ],
               ),
@@ -668,7 +668,7 @@ class _AddHumorState extends State<AddHumor> {
         ),
       ),
       content: Text(
-        'La situación no se ha podido añadir. Por favor, revisa que has completado todos los campos obligatorios e inténtalo de nuevo.\n',
+        'La pregunta no se ha podido añadir. Por favor, revisa que has completado todos los campos obligatorios e inténtalo de nuevo.\n',
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,
@@ -702,7 +702,7 @@ class _AddHumorState extends State<AddHumor> {
         ),
       ),
       content: Text(
-        'La situación se ha añadido con éxito. Agradecemos tu colaboración, y los jugadores seguro que todavía más!',
+        'La pregunta se ha añadido con éxito. Agradecemos tu colaboración, y los jugadores seguro que todavía más!',
         style: TextStyle(
           fontFamily: 'ComicNeue',
           fontSize: textSize,
