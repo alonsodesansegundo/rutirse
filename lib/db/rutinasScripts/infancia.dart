@@ -187,10 +187,10 @@ void insertPreguntaRutinaInitialDataInfancia(Database database) async {
 
   insertAccionInitialData(database, 'Ir al centro de salud', 0,
       pathRutinas + "vidaSocial/medico/5.Ir.png", id_P11);
-  insertAccionInitialData(database, 'Saludar al llegar', 1,
-      pathRutinas + "vidaSocial/medico/1.Saludar.png", id_P11);
-  insertAccionInitialData(database, 'Buscar la consulta', 2,
+  insertAccionInitialData(database, 'Buscar la consulta', 1,
       pathRutinas + "vidaSocial/medico/2.Buscar.png", id_P11);
+  insertAccionInitialData(database, 'Saludar al llegar', 2,
+      pathRutinas + "vidaSocial/medico/1.Saludar.png", id_P11);
   insertAccionInitialData(database, 'Esperar', 3,
       pathRutinas + "vidaSocial/medico/3.Esperar.png", id_P11);
   insertAccionInitialData(database, 'Hablar con el médico/a', 4,

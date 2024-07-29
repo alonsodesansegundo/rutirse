@@ -13,12 +13,10 @@ void insertPreguntaRutinaInitialDataAtencionT(Database database) async {
   int id_P1 = await insertSituacionRutinaInitialData(
       database,
       'Por favor, pon en orden lo que tiene que hacer el cerdito Pepe para lavarse los dientes.',
-      pathPersonaje + 'abuela.png',
+      pathPersonaje + 'cerdo.png',
       grupoAtencionT);
-
   insertAccionInitialData(database, "Echar la pasta de dientes", 0,
       pathRutinas + "higiene/lavarDientes/2.LavarDientes.png", id_P1);
-
   insertAccionInitialData(database, "Cepillarse", 1,
       pathRutinas + "higiene/lavarDientes/3.LavarDientes.png", id_P1);
   insertAccionInitialData(database, "Lavar el cepillo", 2,
@@ -45,7 +43,6 @@ void insertPreguntaRutinaInitialDataAtencionT(Database database) async {
       'Por favor, pon en orden lo que tiene que hacer la perra Layka para lavarse la cara.',
       pathPersonaje + 'perro.png',
       grupoAtencionT);
-
   insertAccionInitialData(database, 'Abrir el grifo', 0,
       pathRutinas + "higiene/lavarCara/1.AbrirGrifo.png", id_P3);
   insertAccionInitialData(database, 'Lavar la cara', 1,
@@ -148,10 +145,10 @@ void insertPreguntaRutinaInitialDataAtencionT(Database database) async {
       'Por favor, pon en orden lo que tenemos que hacer para ir al médico.',
       pathPersonaje + 'chico.png',
       grupoAtencionT);
-  insertAccionInitialData(database, 'Saludar al llegar', 0,
-      pathRutinas + "vidaSocial/medico/1.Saludar.png", id_P11);
-  insertAccionInitialData(database, 'Buscar la consulta', 1,
+  insertAccionInitialData(database, 'Buscar la consulta', 0,
       pathRutinas + "vidaSocial/medico/2.Buscar.png", id_P11);
+  insertAccionInitialData(database, 'Saludar al llegar', 1,
+      pathRutinas + "vidaSocial/medico/1.Saludar.png", id_P11);
   insertAccionInitialData(database, 'Esperar', 2,
       pathRutinas + "vidaSocial/medico/3.Esperar.png", id_P11);
 
