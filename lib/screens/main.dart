@@ -1,41 +1,36 @@
+// lib/main.dart
+import 'package:Rutirse/provider/MyProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../db/obj/terapeuta.dart';
-import '../provider/MyProvider.dart';
 import '../widgets/ImageTextButton.dart';
 import 'common/home.dart';
 import 'common/homeTerapeuta.dart';
 import 'common/informacion.dart';
 
 void main() {
-  runApp(
-    ChangeNotifierProvider(
-      // Wrap tu aplicación con ChangeNotifierProvider
-      create: (context) => MyProvider(), // Crea una instancia de tu Provider
-      child: MyApp(),
-    ),
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Rutirse',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: Main(),
+    return ChangeNotifierProvider(
+      create: (context) => MyProvider(),
+      child: MaterialApp(
+        title: 'Rutirse',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MyHomePage(),
+      ),
     );
   }
 }
 
-class Main extends StatefulWidget {
-  @override
-  _MainState createState() => _MainState();
-}
-
-class _MainState extends State<Main> {
-  late int intentosPassword;
+class MyHomePage extends StatelessWidget {
+  late int intentosPassword = 0;
 
   late double titleSize,
       textSize,
@@ -54,134 +49,16 @@ class _MainState extends State<Main> {
 
   late String terapeutaPassword, terapeutaPista;
 
-  late TextEditingController _enterPasswordController,
-      _createPasswordController,
-      _confirmPasswordController,
-      _pistaController;
+  late TextEditingController _enterPasswordController = TextEditingController(),
+      _createPasswordController = TextEditingController(),
+      _confirmPasswordController = TextEditingController(),
+      _pistaController = TextEditingController();
 
-  late String _errorMessage;
-
-  late bool flag, loadData;
-
-  @override
-  void initState() {
-    super.initState();
-    loadData = false;
-
-    intentosPassword = 0;
-
-    _createPasswordController = TextEditingController();
-    _confirmPasswordController = TextEditingController();
-    _enterPasswordController = TextEditingController();
-    _pistaController = TextEditingController();
-
-    _errorMessage = "";
-    _getPassword();
-    _getPista();
-
-    flag = false;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (!loadData) {
-      loadData = true;
-      _createVariablesSize();
-      _createButtons();
-      _createDialogs();
-    }
-
-    if (!flag) {
-      flag = true;
-      _getPassword();
-      _getPista();
-    }
-
-    return MaterialApp(
-      home: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(espacioPadding),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Rutirse',
-                          style: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: titleSize,
-                          ),
-                        ),
-                        Image.asset(
-                          'assets/img/icon.png',
-                          height: imgHeight,
-                        ),
-                      ],
-                    ),
-                    Text(
-                      'Juegos de Habilidad Social',
-                      style: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: titleSize / 2,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: espacioAlto), // Espacio entre los textos
-                // Explicación pantalla
-                Text(
-                  '¡Hola! A continuación puedes elegir entre varios juegos. '
-                  'Con ellos queremos ayudarte a mejorar en diferentes situaciones '
-                  'que puedes encontrarte en tu día a día.\n'
-                  '¡Esperamos que disfrutes con esta experiencia!',
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize,
-                  ),
-                ),
-                SizedBox(height: espacioAlto), // Espacio entre los textos
-                Text(
-                  '¿A qué te apetece jugar?',
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize,
-                  ),
-                ),
-                SizedBox(height: espacioAlto), // Espacio entre los textos
-                Row(
-                  children: [btnRutinas, btnIronias, btnAnimo],
-                ),
-
-                SizedBox(height: espacioAcercaDe),
-                Text(
-                  'Otras opciones:',
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize,
-                  ),
-                ),
-                SizedBox(height: espacioAlto),
-                Row(
-                  children: [btnTerapeuta, btnInfo],
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  late String _errorMessage = "";
 
   // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
-  void _createVariablesSize() {
+  void _createVariablesSize(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
-
     titleSize = screenSize.width * 0.10;
     textSize = screenSize.width * 0.03;
     espacioPadding = screenSize.height * 0.03;
@@ -194,7 +71,7 @@ class _MainState extends State<Main> {
     maxWidth = MediaQuery.of(context).size.width * 0.8;
   }
 
-  void _createButtons() {
+  void _createButtons(BuildContext context) {
     btnRutinas = ImageTextButton(
       image: Image.asset(
         'assets/img/botones/rutinas.png',
@@ -259,7 +136,6 @@ class _MainState extends State<Main> {
             fontFamily: 'ComicNeue', fontSize: textSize, color: Colors.black),
       ),
       onPressed: () {
-        flag = false;
         intentosPassword = 0;
         _errorMessage = "";
         showDialog(
@@ -293,63 +169,7 @@ class _MainState extends State<Main> {
     );
   }
 
-  void _validateEnterPassword(StateSetter setState) {
-    String enterPassword = _enterPasswordController.text;
-
-    if (enterPassword != terapeutaPassword) {
-      setState(() {
-        _errorMessage = 'La contraseña es incorrecta';
-        intentosPassword++;
-      });
-      _enterPasswordController.text = "";
-    } else {
-      _errorMessage = "";
-      _enterPasswordController.text = "";
-      flag = false;
-
-      Navigator.pop(context);
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomeTerapeuta()),
-      );
-    }
-  }
-
-  void _validateCreatePassword(StateSetter setState) {
-    String password = _createPasswordController.text;
-    String confirmPassword = _confirmPasswordController.text;
-    String pista = _pistaController.text;
-
-    if (password.isEmpty || confirmPassword.isEmpty) {
-      setState(() {
-        _errorMessage = 'Las contraseñas no pueden estar vacías';
-      });
-    } else if (password != confirmPassword) {
-      setState(() {
-        _errorMessage = 'Las contraseñas no coinciden';
-      });
-    } else if (pista.isEmpty) {
-      setState(() {
-        _errorMessage = 'La pista es obligatoria';
-      });
-    } else {
-      updatePassword(password, pista);
-      _errorMessage = "";
-      _createPasswordController.text = "";
-      _confirmPasswordController.text = "";
-      flag = false;
-
-      Navigator.pop(context);
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomeTerapeuta()),
-      );
-    }
-  }
-
-  void _createDialogs() {
+  void _createDialogs(BuildContext context) {
     passwordDialog = StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
         return AlertDialog(
@@ -421,7 +241,7 @@ class _MainState extends State<Main> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    _validateEnterPassword(setState);
+                    _validateEnterPassword(setState, context);
                   },
                   child: Text(
                     'Confirmar',
@@ -528,7 +348,7 @@ class _MainState extends State<Main> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    _validateCreatePassword(setState);
+                    _validateCreatePassword(setState, context);
                   },
                   child: Text(
                     'Confirmar',
@@ -562,9 +382,7 @@ class _MainState extends State<Main> {
   Future<void> _getPassword() async {
     try {
       String aux = await getPassword();
-      setState(() {
-        terapeutaPassword = aux;
-      });
+      terapeutaPassword = aux;
     } catch (e) {
       print("Error al obtener la password de terapeuta: $e");
     }
@@ -574,11 +392,150 @@ class _MainState extends State<Main> {
   Future<void> _getPista() async {
     try {
       String aux = await getPista();
-      setState(() {
-        terapeutaPista = aux;
-      });
+      terapeutaPista = aux;
     } catch (e) {
       print("Error al obtener la pista de la contraseña de terapeuta: $e");
     }
+  }
+
+  void _validateEnterPassword(StateSetter setState, BuildContext context) {
+    String enterPassword = _enterPasswordController.text;
+
+    if (enterPassword != terapeutaPassword) {
+      setState(() {
+        _errorMessage = 'La contraseña es incorrecta';
+        intentosPassword++;
+      });
+      _enterPasswordController.text = "";
+    } else {
+      _errorMessage = "";
+      _enterPasswordController.text = "";
+
+      Navigator.pop(context);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeTerapeuta()),
+      );
+    }
+  }
+
+  void _validateCreatePassword(StateSetter setState, BuildContext context) {
+    String password = _createPasswordController.text;
+    String confirmPassword = _confirmPasswordController.text;
+    String pista = _pistaController.text;
+
+    if (password.isEmpty || confirmPassword.isEmpty) {
+      setState(() {
+        _errorMessage = 'Las contraseñas no pueden estar vacías';
+      });
+    } else if (password != confirmPassword) {
+      setState(() {
+        _errorMessage = 'Las contraseñas no coinciden';
+      });
+    } else if (pista.isEmpty) {
+      setState(() {
+        _errorMessage = 'La pista es obligatoria';
+      });
+    } else {
+      updatePassword(password, pista);
+      _errorMessage = "";
+      _createPasswordController.text = "";
+      _confirmPasswordController.text = "";
+
+      Navigator.pop(context);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeTerapeuta()),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _createVariablesSize(context);
+    _createButtons(context);
+    _createDialogs(context);
+    _getPassword();
+    _getPista();
+
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(espacioPadding),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Rutirse',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: titleSize,
+                        ),
+                      ),
+                      Image.asset(
+                        'assets/img/icon.png',
+                        height: imgHeight,
+                      ),
+                    ],
+                  ),
+                  Text(
+                    'Juegos de Habilidad Social',
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: titleSize / 2,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: espacioAlto), // Espacio entre los textos
+              // Explicación pantalla
+              Text(
+                '¡Hola! A continuación puedes elegir entre varios juegos. '
+                'Con ellos queremos ayudarte a mejorar en diferentes situaciones '
+                'que puedes encontrarte en tu día a día.\n'
+                '¡Esperamos que disfrutes con esta experiencia!',
+                style: TextStyle(
+                  fontFamily: 'ComicNeue',
+                  fontSize: textSize,
+                ),
+              ),
+              SizedBox(height: espacioAlto), // Espacio entre los textos
+              Text(
+                '¿A qué te apetece jugar?',
+                style: TextStyle(
+                  fontFamily: 'ComicNeue',
+                  fontSize: textSize,
+                ),
+              ),
+              SizedBox(height: espacioAlto), // Espacio entre los textos
+              Row(
+                children: [btnRutinas, btnIronias, btnAnimo],
+              ),
+
+              SizedBox(height: espacioAcercaDe),
+              Text(
+                'Otras opciones:',
+                style: TextStyle(
+                  fontFamily: 'ComicNeue',
+                  fontSize: textSize,
+                ),
+              ),
+              SizedBox(height: espacioAlto),
+              Row(
+                children: [btnTerapeuta, btnInfo],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
