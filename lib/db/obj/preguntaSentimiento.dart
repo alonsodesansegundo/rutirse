@@ -43,6 +43,26 @@ class PreguntaSentimiento {
   }
 
   @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is PreguntaSentimiento &&
+        other.id == id &&
+        other.enunciado == enunciado &&
+        other.grupoId == grupoId &&
+        other.fecha == fecha &&
+        other.byTerapeuta == byTerapeuta;
+  }
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      enunciado.hashCode ^
+      grupoId.hashCode ^
+      fecha.hashCode ^
+      byTerapeuta.hashCode;
+
+  @override
   String toString() {
     return 'PreguntaSentimiento {id: $id, enunciado: $enunciado,'
         ' imagen: $imagen, '
@@ -52,10 +72,11 @@ class PreguntaSentimiento {
   }
 }
 
-Future<List<PreguntaSentimiento>> getPreguntasSentimiento(int grupoId) async {
+Future<List<PreguntaSentimiento>> getPreguntasSentimiento(int grupoId,
+    [Database? db]) async {
   try {
-    final Database db = await initializeDB();
-    final List<Map<String, dynamic>> preguntasMap = await db.query(
+    final Database database = db ?? await initializeDB();
+    final List<Map<String, dynamic>> preguntasMap = await database.query(
         'preguntaSentimiento',
         where: 'grupoId = ?',
         whereArgs: [grupoId]);
@@ -69,9 +90,10 @@ Future<List<PreguntaSentimiento>> getPreguntasSentimiento(int grupoId) async {
 }
 
 Future<PreguntaSentimientoPaginacion> getPreguntaSentimientoPaginacion(
-    int pageNumber, int pageSize, String txtBuscar, Grupo? grupo) async {
+    int pageNumber, int pageSize, String txtBuscar, Grupo? grupo,
+    [Database? db]) async {
   try {
-    final Database db = await initializeDB();
+    final Database database = db ?? await initializeDB();
     int offset = (pageNumber - 1) * pageSize;
     String whereClause = '';
 
@@ -84,7 +106,7 @@ Future<PreguntaSentimientoPaginacion> getPreguntaSentimientoPaginacion(
           (whereClause.isNotEmpty ? ' AND ' : '') + "grupoId = ${grupo.id}";
     }
 
-    final List<Map<String, dynamic>> preguntasMap = await db.query(
+    final List<Map<String, dynamic>> preguntasMap = await database.query(
       'preguntaSentimiento',
       where: whereClause.isEmpty ? null : whereClause,
       orderBy: 'id DESC',
@@ -96,7 +118,7 @@ Future<PreguntaSentimientoPaginacion> getPreguntaSentimientoPaginacion(
         .toList();
 
     // Comprobar si hay más preguntas disponibles
-    final List<Map<String, dynamic>> totalSituacionesMap = await db.query(
+    final List<Map<String, dynamic>> totalSituacionesMap = await database.query(
         'preguntaSentimiento',
         where: whereClause.isEmpty ? null : whereClause);
     final bool hayMasPreguntas =
@@ -140,7 +162,7 @@ Future<int> insertPreguntaSentimiento(Database database, String enunciado,
   return id;
 }
 
-Future<int> insertPreguntaSituacionInitialData(
+Future<int> insertPreguntaSentimientoInitialData(
     Database database, String enunciado, String pathImg, int grupoId) async {
   int id = -1;
   ByteData imageData = await rootBundle.load(pathImg);
@@ -160,10 +182,11 @@ Future<int> insertPreguntaSituacionInitialData(
   return id;
 }
 
-Future<void> removePreguntaSentimiento(int preguntaSentimientoId) async {
+Future<void> removePreguntaSentimiento(int preguntaSentimientoId,
+    [Database? db]) async {
   try {
-    final Database db = await initializeDB();
-    await db.delete(
+    final Database database = db ?? await initializeDB();
+    await database.delete(
       'preguntaSentimiento',
       where: 'id = ?',
       whereArgs: [preguntaSentimientoId],
@@ -175,7 +198,9 @@ Future<void> removePreguntaSentimiento(int preguntaSentimientoId) async {
 }
 
 Future<void> updatePregunta(Database database, int id, String enunciado,
-    List<int> imgPersonaje, int grupoId) async {
+    List<int> imgPersonaje, int grupoId,
+    [Database? db]) async {
+  final Database database = db ?? await initializeDB();
   if (imgPersonaje.isEmpty)
     await database.update(
       'preguntaSentimiento',

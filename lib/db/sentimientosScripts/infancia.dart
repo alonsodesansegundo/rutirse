@@ -10,7 +10,7 @@ String pathPersonaje = 'assets/img/personajes/';
 void insertPreguntaSentimientoInitialDataInfancia(Database database) async {
   int grupoInfancia = 2;
 
-  int id_P1 = await insertPreguntaSituacionInitialData(
+  int id_P1 = await insertPreguntaSentimientoInitialData(
       database,
       'Cuando alguien esta alegre puede...',
       pathPersonaje + 'contenta.png',
@@ -24,7 +24,7 @@ void insertPreguntaSentimientoInitialDataInfancia(Database database) async {
   insertSituacionInitialData(
       database, "Abrazar", 1, pathSentimientos + "abrazo.png", id_P1);
 
-  int id_P2 = await insertPreguntaSituacionInitialData(
+  int id_P2 = await insertPreguntaSentimientoInitialData(
       database,
       '¿Qué puede hacer que nos sintamos tristes?',
       pathPersonaje + 'triste.png',
@@ -40,7 +40,7 @@ void insertPreguntaSentimientoInitialDataInfancia(Database database) async {
   insertSituacionInitialData(
       database, "Ganar una carrera", 0, pathSentimientos + "ganar.png", id_P2);
 
-  int id_P3 = await insertPreguntaSituacionInitialData(
+  int id_P3 = await insertPreguntaSentimientoInitialData(
       database,
       '¿Qué puede hacer que nos sintamos contentos?',
       pathPersonaje + 'contenta.png',
@@ -56,7 +56,7 @@ void insertPreguntaSentimientoInitialDataInfancia(Database database) async {
   insertSituacionInitialData(
       database, "Ganar una carrera", 1, pathSentimientos + "ganar.png", id_P3);
 
-  int id_P4 = await insertPreguntaSituacionInitialData(
+  int id_P4 = await insertPreguntaSentimientoInitialData(
       database,
       '¿Qué puede hacer que nos asustemos?',
       pathPersonaje + 'asustado.png',
@@ -70,7 +70,7 @@ void insertPreguntaSentimientoInitialDataInfancia(Database database) async {
   insertSituacionInitialData(
       database, "Serpiente", 1, pathSentimientos + "serpiente.png", id_P4);
 
-  int id_P5 = await insertPreguntaSituacionInitialData(
+  int id_P5 = await insertPreguntaSentimientoInitialData(
       database,
       'Cuando alguien está enfadado puede...',
       pathPersonaje + 'enfadada.png',
