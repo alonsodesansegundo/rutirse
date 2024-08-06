@@ -43,6 +43,26 @@ class SituacionRutina {
   }
 
   @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is SituacionRutina &&
+        other.id == id &&
+        other.enunciado == enunciado &&
+        other.grupoId == grupoId &&
+        other.fecha == fecha &&
+        other.byTerapeuta == byTerapeuta;
+  }
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      enunciado.hashCode ^
+      grupoId.hashCode ^
+      fecha.hashCode ^
+      byTerapeuta.hashCode;
+
+  @override
   String toString() {
     return 'SituacionRutina {id: $id, enunciado: $enunciado,'
         ' personajeImg: $personajeImg, '
@@ -52,10 +72,11 @@ class SituacionRutina {
   }
 }
 
-Future<List<SituacionRutina>> getSituacionesRutinas(int grupoId) async {
+Future<List<SituacionRutina>> getSituacionesRutinas(int grupoId,
+    [Database? db]) async {
   try {
-    final Database db = await initializeDB();
-    final List<Map<String, dynamic>> preguntasMap = await db
+    final Database database = db ?? await initializeDB();
+    final List<Map<String, dynamic>> preguntasMap = await database
         .query('situacionRutina', where: 'grupoId = ?', whereArgs: [grupoId]);
     return preguntasMap
         .map((map) => SituacionRutina.situacionesFromMap(map))
@@ -67,9 +88,10 @@ Future<List<SituacionRutina>> getSituacionesRutinas(int grupoId) async {
 }
 
 Future<SituacionRutinaPaginacion> getSituacionRutinaPaginacion(
-    int pageNumber, int pageSize, String txtBuscar, Grupo? grupo) async {
+    int pageNumber, int pageSize, String txtBuscar, Grupo? grupo,
+    [Database? db]) async {
   try {
-    final Database db = await initializeDB();
+    final Database database = db ?? await initializeDB();
     int offset = (pageNumber - 1) * pageSize;
     String whereClause = '';
 
@@ -82,7 +104,7 @@ Future<SituacionRutinaPaginacion> getSituacionRutinaPaginacion(
           (whereClause.isNotEmpty ? ' AND ' : '') + "grupoId = ${grupo.id}";
     }
 
-    final List<Map<String, dynamic>> situacionesMap = await db.query(
+    final List<Map<String, dynamic>> situacionesMap = await database.query(
       'situacionRutina',
       where: whereClause.isEmpty ? null : whereClause,
       orderBy: 'id DESC',
@@ -94,7 +116,7 @@ Future<SituacionRutinaPaginacion> getSituacionRutinaPaginacion(
         .toList();
 
     // Comprobar si hay más preguntas disponibles
-    final List<Map<String, dynamic>> totalSituacionesMap = await db.query(
+    final List<Map<String, dynamic>> totalSituacionesMap = await database.query(
         'situacionRutina',
         where: whereClause.isEmpty ? null : whereClause);
     final bool hayMasPreguntas =
@@ -158,15 +180,15 @@ Future<int> insertSituacionRutinaInitialData(
   return id;
 }
 
-Future<void> removePreguntaRutinas(int situacionRutinaId) async {
+Future<void> removePreguntaRutinas(int situacionRutinaId,
+    [Database? db]) async {
   try {
-    final Database db = await initializeDB();
-    await db.delete(
+    final Database database = db ?? await initializeDB();
+    await database.delete(
       'situacionRutina',
       where: 'id = ?',
       whereArgs: [situacionRutinaId],
     );
-    print('Situación rutina eliminada con éxito');
   } catch (e) {
     print('Error al eliminar la situación rutina: $e');
   }

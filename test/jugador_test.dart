@@ -16,7 +16,7 @@ void main() async {
     insertGrupos(database);
   });
 
-  // Elimino la tabla grupo después de cada prueba
+  // Elimino la tabla jugador después de cada prueba
   tearDown(() async {
     await database.delete('jugador');
     await database.close();
@@ -32,7 +32,7 @@ void main() async {
     expect(result.length, 1);
   });
 
-  // Test 3
+  // Test 2
   test('Test for check insert jugador (existent) length', () async {
     Jugador jugador = new Jugador(nombre: 'Jugador 1', grupoId: 1);
     await insertJugador(jugador, database);
@@ -57,7 +57,7 @@ void main() async {
     expect(jugadores[0].toString(), jugadorExpected.toString());
   });
 
-  // Test 3
+  // Test 4
   test('Test for check equals', () async {
     Jugador jugador = new Jugador(nombre: 'Jugador 1', grupoId: 1);
     Jugador jugadorExpected =
@@ -71,8 +71,8 @@ void main() async {
     expect(jugadores[0], jugadorExpected);
   });
 
-  // Test 3
-  test('Test for check equals', () async {
+  // Test 5
+  test('Test for check hashCode', () async {
     Jugador jugador = new Jugador(nombre: 'Jugador 1', grupoId: 1);
     Jugador jugadorExpected =
         new Jugador(id: 1, nombre: 'Jugador 1', grupoId: 1);
@@ -85,7 +85,7 @@ void main() async {
     expect(jugadores[0].hashCode, jugadorExpected.hashCode);
   });
 
-  // Test 4
+  // Test 6
   test('Test for check exiteJugador (true)', () async {
     Jugador jugador = new Jugador(nombre: 'Jugador 1', grupoId: 1);
     await insertJugador(jugador, database);
@@ -95,7 +95,7 @@ void main() async {
     expect(result, true);
   });
 
-  // Test 5
+  // Test 7
   test('Test for check exiteJugador (false)', () async {
     Jugador jugador = new Jugador(nombre: 'Jugador 1', grupoId: 1);
 
@@ -104,7 +104,7 @@ void main() async {
     expect(result, false);
   });
 
-  // Test 6
+  // Test 8
   test('Test for check deletePlayer (existent)', () async {
     Jugador jugador = new Jugador(nombre: 'Jugador 1', grupoId: 1);
     jugador = await insertJugador(jugador, database);
@@ -115,7 +115,7 @@ void main() async {
     expect(result.length, 0);
   });
 
-  // Test 7
+  // Test 9
   test('Test for check deletePlayer (not existent)', () async {
     expect(deletePlayer(-1, database), throwsA(isA<Exception>()));
   });
