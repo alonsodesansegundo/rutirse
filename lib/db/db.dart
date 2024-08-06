@@ -1,7 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'obj/accion.dart';
 import 'obj/grupo.dart';
 import 'obj/preguntaSentimiento.dart';
 import 'obj/situacionIronia.dart';
@@ -178,12 +177,4 @@ void createTables(Database database) {
   createTableRespuestaIronia(database);
   createTablePreguntaSentimiento(database);
   createTableSituacion(database);
-}
-
-Future<void> addRutina(
-    SituacionRutina situacionRutina, List<Accion> acciones) async {
-  Database database = await initializeDB();
-  await database.insert("situacionRutina", situacionRutina.situacionesToMap());
-  for (int i = 0; i < acciones.length; i++)
-    await database.insert("accion", acciones[i].accionesToMap());
 }

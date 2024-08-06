@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:Rutirse/db/obj/accion.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -946,20 +947,11 @@ class _AddRutinaState extends State<AddRutina> {
     Database db = await openDatabase('rutinas.db');
     for (int i = 0; i < acciones.length; i++) {
       if (selectedGrupo!.nombre != "Adolescencia")
-        await db.rawInsert(
-          'INSERT INTO accion (texto, orden, imagen, preguntaId) VALUES (?,?,?,?)',
-          [
-            acciones[i].accionText,
-            i,
-            Uint8List.fromList(acciones[i].accionImage),
-            preguntaId
-          ],
-        );
+        await insertAccion(db, acciones[i].accionText, i,
+            Uint8List.fromList(acciones[i].accionImage), preguntaId);
       else
-        await db.rawInsert(
-          'INSERT INTO accion (texto, orden, imagen, preguntaId) VALUES (?,?,?,?)',
-          ["", i, Uint8List.fromList(acciones[i].accionImage), preguntaId],
-        );
+        await insertAccion(
+            db, "", i, Uint8List.fromList(acciones[i].accionImage), preguntaId);
     }
   }
 }

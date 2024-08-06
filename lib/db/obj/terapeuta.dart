@@ -2,32 +2,14 @@ import 'package:sqflite/sqflite.dart';
 
 import '../db.dart';
 
-class Terapeuta {
-  final String texto;
-
-  Terapeuta({required this.texto});
-
-  Terapeuta.terapeutasFromMap(Map<String, dynamic> item)
-      : texto = item["texto"];
-
-  Map<String, Object> terapeutasToMap() {
-    return {'texto': texto};
-  }
-
-  @override
-  String toString() {
-    return 'Terapeuta {texto: $texto}';
-  }
-}
-
 void insertDefaultPassword(Database database) async {
   await database.transaction((txn) async {
     txn.rawInsert("INSERT INTO terapeuta (password,pista) VALUES ('','')");
   });
 }
 
-Future<String> getPassword() async {
-  final Database database = await initializeDB();
+Future<String> getPassword([Database? db]) async {
+  final Database database = db ?? await initializeDB();
 
   List<Map<String, dynamic>> result =
       await database.rawQuery('SELECT password FROM terapeuta');
@@ -38,8 +20,8 @@ Future<String> getPassword() async {
   }
 }
 
-Future<String> getPista() async {
-  final Database database = await initializeDB();
+Future<String> getPista([Database? db]) async {
+  final Database database = db ?? await initializeDB();
 
   List<Map<String, dynamic>> result =
       await database.rawQuery('SELECT pista FROM terapeuta');
@@ -50,8 +32,9 @@ Future<String> getPista() async {
   }
 }
 
-Future<void> updatePassword(String newPassword, String newPista) async {
-  final Database database = await initializeDB();
+Future<void> updatePassword(String newPassword, String newPista,
+    [Database? db]) async {
+  final Database database = db ?? await initializeDB();
 
   await database.rawUpdate(
       'UPDATE terapeuta SET password = ?, pista = ?', [newPassword, newPista]);
