@@ -19,15 +19,28 @@ class Grupo {
   }
 
   @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Grupo &&
+        other.id == id &&
+        other.nombre == nombre &&
+        other.edades == edades;
+  }
+
+  @override
+  int get hashCode => id.hashCode ^ nombre.hashCode ^ edades.hashCode;
+
+  @override
   String toString() {
     return 'Grupo {id: $id, name: $nombre, edades: $edades}';
   }
 }
 
-Future<List<Grupo>> getGrupos() async {
+Future<List<Grupo>> getGrupos([Database? db]) async {
   try {
-    final Database db = await initializeDB();
-    final List<Map<String, dynamic>> gruposMap = await db.query('grupo');
+    final Database database = db ?? await initializeDB();
+    final List<Map<String, dynamic>> gruposMap = await database.query('grupo');
     return gruposMap.map((map) => Grupo.gruposFromMap(map)).toList();
   } catch (e) {
     print("Error al obtener grupos: $e");
@@ -35,9 +48,12 @@ Future<List<Grupo>> getGrupos() async {
   }
 }
 
-Future<Grupo> getGrupoById(int groupId) async {
-  final Database db = await initializeDB();
-  final List<Map<String, dynamic>> grupoMap = await db.query(
+Future<Grupo> getGrupoById(int groupId, [Database? db]) async {
+  // Usa el parámetro db proporcionado o inicializa uno nuevo si db es null
+  final Database database = db ?? await initializeDB();
+
+  // Realiza la consulta en la base de datos
+  final List<Map<String, dynamic>> grupoMap = await database.query(
     'grupo',
     where: 'id = ?',
     whereArgs: [groupId],
