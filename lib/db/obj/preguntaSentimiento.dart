@@ -191,7 +191,6 @@ Future<void> removePreguntaSentimiento(int preguntaSentimientoId,
       where: 'id = ?',
       whereArgs: [preguntaSentimientoId],
     );
-    print('Pregunta sentimiento eliminada con éxito');
   } catch (e) {
     print('Error al eliminar la pregunta sentimiento: $e');
   }

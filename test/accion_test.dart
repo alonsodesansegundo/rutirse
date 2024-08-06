@@ -162,9 +162,7 @@ void main() async {
 
   test('Test for check getAcciones empty (without existent situacionRutina)',
       () async {
-    int id_P1 = await insertSituacionRutinaInitialData(
-        database, 'Enunciado rutina 1.', pathPersonaje + 'cerdo.png', 1);
-    List<Accion> acciones = await getAcciones(id_P1, database);
+    List<Accion> acciones = await getAcciones(-1, database);
     expect(acciones.length, 0);
   });
 
@@ -183,7 +181,7 @@ void main() async {
     expect(acciones.length, 3);
   });
 
-  test('Test for check getAcciones (length)', () async {
+  test('Test for check getAcciones (obj)', () async {
     int id_P1 = await insertSituacionRutinaInitialData(
         database, 'Enunciado rutina 1.', pathPersonaje + 'cerdo.png', 1);
     insertAccionInitialData(database, "Accion 0", 0,

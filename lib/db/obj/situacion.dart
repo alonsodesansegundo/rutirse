@@ -34,6 +34,24 @@ class Situacion {
   }
 
   @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Situacion &&
+        other.id == id &&
+        other.texto == texto &&
+        other.correcta == correcta &&
+        other.preguntaSentimientoId == preguntaSentimientoId;
+  }
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      texto.hashCode ^
+      correcta.hashCode ^
+      preguntaSentimientoId.hashCode;
+
+  @override
   String toString() {
     return 'Situación {id: $id, texto: $texto, correcta: $correcta, '
         'imagen: $imagen, preguntaSentimientoId: $preguntaSentimientoId}';
@@ -62,10 +80,11 @@ Future<void> insertSituacionInitialData(Database database, String texto,
   });
 }
 
-Future<List<Situacion>> getSituaciones(int preguntaSentimientoId) async {
+Future<List<Situacion>> getSituaciones(int preguntaSentimientoId,
+    [Database? db]) async {
   try {
-    final Database db = await initializeDB();
-    final List<Map<String, dynamic>> situacionesMap = await db.query(
+    final Database database = db ?? await initializeDB();
+    final List<Map<String, dynamic>> situacionesMap = await database.query(
         'situacion',
         where: 'preguntaSentimientoId = ?',
         whereArgs: [preguntaSentimientoId]);
@@ -85,7 +104,6 @@ void deleteSituacion(Database database, int situacionId) async {
       where: 'id = ?',
       whereArgs: [situacionId],
     );
-    print('Instancia de situación con ID $situacionId borrada correctamente.');
   } catch (e) {
     print('Error al borrar la instancia de situación: $e');
   }
