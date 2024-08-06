@@ -24,7 +24,7 @@ void main() async {
     insertGrupos(database);
   });
 
-  // Elimino la tabla grupo después de cada prueba
+  // Elimino la tabla situacionRutina después de cada prueba
   tearDown(() async {
     await database.delete('situacionRutina');
     await database.close();

@@ -34,6 +34,24 @@ class Accion {
   }
 
   @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Accion &&
+        other.id == id &&
+        other.texto == texto &&
+        other.orden == orden &&
+        other.situacionRutinaId == situacionRutinaId;
+  }
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      texto.hashCode ^
+      orden.hashCode ^
+      situacionRutinaId.hashCode;
+
+  @override
   String toString() {
     return 'Accion {id: $id, texto: $texto, orden: $orden, '
         'imagen: $imagen, situacionRutinaId: $situacionRutinaId}';
@@ -62,23 +80,13 @@ Future<void> insertAccionInitialData(Database database, String texto, int orden,
   });
 }
 
-Future<void> insertAccionInitialDataTerapeutaTest(Database database,
-    String texto, int orden, String pathImg, int situacionRutinaId) async {
-  ByteData imageData = await rootBundle.load(pathImg);
-  List<int> bytes = imageData.buffer.asUint8List();
-  await database.transaction((txn) async {
-    await txn.rawInsert(
-      "INSERT INTO accion (texto, orden, imagen, situacionRutinaId) VALUES (?, ?, ?, ?)",
-      [texto, orden, bytes, situacionRutinaId],
-    );
-  });
-}
-
-Future<List<Accion>> getAcciones(int situacionRutinaId) async {
+Future<List<Accion>> getAcciones(int situacionRutinaId, [Database? db]) async {
   try {
-    final Database db = await initializeDB();
-    final List<Map<String, dynamic>> accionesMap = await db.query('accion',
-        where: 'situacionRutinaId = ?', whereArgs: [situacionRutinaId]);
+    final Database database = db ?? await initializeDB();
+    final List<Map<String, dynamic>> accionesMap = await database.query(
+        'accion',
+        where: 'situacionRutinaId = ?',
+        whereArgs: [situacionRutinaId]);
     return accionesMap.map((map) => Accion.accionesFromMap(map)).toList();
   } catch (e) {
     print("Error al obtener acciones: $e");
@@ -93,7 +101,6 @@ void deleteAccion(Database database, int accionId) async {
       where: 'id = ?',
       whereArgs: [accionId],
     );
-    print('Instancia de accion con ID $accionId borrada correctamente.');
   } catch (e) {
     print('Error al borrar la instancia de accion: $e');
   }
