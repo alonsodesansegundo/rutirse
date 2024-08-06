@@ -20,14 +20,27 @@ class Jugador {
   }
 
   @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Jugador &&
+        other.id == id &&
+        other.nombre == nombre &&
+        other.grupoId == grupoId;
+  }
+
+  @override
+  int get hashCode => id.hashCode ^ nombre.hashCode ^ grupoId.hashCode;
+
+  @override
   String toString() {
     return 'Jugador {id: $id, nombre: $nombre, grupoId: $grupoId}';
   }
 }
 
 // metodo para insertar un jugador en la BBDD
-Future<Jugador> insertJugador(Jugador jugador) async {
-  Database database = await initializeDB();
+Future<Jugador> insertJugador(Jugador jugador, [Database? db]) async {
+  final Database database = db ?? await initializeDB();
   Jugador sol;
   // si el jugador aun no existe en la base de datos
   if (!await existeJugador(jugador, database)) {
@@ -55,30 +68,14 @@ Future<bool> existeJugador(Jugador jugador, Database database) async {
   return result.isNotEmpty;
 }
 
-Future<Jugador> insertJugadorDefault(Database database, Jugador jugador) async {
-  Jugador sol = jugador;
-  await database.transaction((txn) async {
-    int id = await txn.rawInsert(
-      "INSERT INTO jugador (nombre, grupoId) VALUES (?, ?)",
-      [
-        jugador.nombre,
-        jugador.grupoId,
-      ],
-    );
-    sol = Jugador(id: id, nombre: jugador.nombre, grupoId: jugador.grupoId);
-  });
-  return sol;
-}
+Future<void> deletePlayer(int playerId, [Database? db]) async {
+  final Database database = db ?? await initializeDB();
 
-Future<void> deletePlayer(int playerId) async {
-  Database database = await initializeDB();
+  int rowsAffected =
+      await database.rawDelete('DELETE FROM jugador WHERE id = ?', [playerId]);
 
-  try {
-    await database.transaction((txn) async {
-      await txn.rawDelete('DELETE FROM jugador WHERE id = ?', [playerId]);
-    });
-    print('Jugador eliminado con éxito');
-  } catch (e) {
-    print('Error al eliminar jugador: $e');
+  if (rowsAffected == 0) {
+    throw Exception(
+        'No se encontró ningún jugador con el ID especificado: $playerId');
   }
 }
