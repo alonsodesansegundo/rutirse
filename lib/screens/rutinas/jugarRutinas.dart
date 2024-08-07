@@ -245,6 +245,7 @@ class _JugarRutinas extends State<JugarRutinas> {
                       context: context,
                       builder: (BuildContext context) {
                         if (situacionRutinaList.length != 1) {
+                          _cambiarPregunta();
                           _speak('Fantástico');
                           return correctDialog;
                         } else {
@@ -319,7 +320,6 @@ class _JugarRutinas extends State<JugarRutinas> {
       ),
       onPressed: () {
         Navigator.of(context).pop();
-        _cambiarPregunta();
       },
     );
 
@@ -500,16 +500,14 @@ class _JugarRutinas extends State<JugarRutinas> {
 
   // método para cambiar la pregunta actual
   void _cambiarPregunta() {
-    setState(() {
-      if (situacionRutinaList.isNotEmpty) {
-        // si hay preguntas
-        // Elimino la pregunta actual de la lista
-        situacionRutinaList.removeAt(indiceActual);
-        indiceActual = random.nextInt(situacionRutinaList.length);
-        _speak(situacionRutinaList[indiceActual].enunciado);
-        _cargarAcciones();
-      }
-    });
+    if (situacionRutinaList.isNotEmpty) {
+      // si hay preguntas
+      // Elimino la pregunta actual de la lista
+      situacionRutinaList.removeAt(indiceActual);
+      indiceActual = random.nextInt(situacionRutinaList.length);
+      _speak(situacionRutinaList[indiceActual].enunciado);
+      _cargarAcciones();
+    }
   }
 
   // metodo para calcular la altura del gridview

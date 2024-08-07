@@ -261,6 +261,7 @@ class _JugarSentimientos extends State<JugarSentimientos> {
                         context: context,
                         builder: (BuildContext context) {
                           if (preguntaSentimientoList.length != 1) {
+                            _cambiarPregunta();
                             _speak('Fantástico');
                             return correctDialog;
                           } else {
@@ -336,7 +337,6 @@ class _JugarSentimientos extends State<JugarSentimientos> {
       ),
       onPressed: () {
         Navigator.of(context).pop();
-        _cambiarPregunta();
       },
     );
 
@@ -536,16 +536,14 @@ class _JugarSentimientos extends State<JugarSentimientos> {
 
   // método para cambiar la pregunta actual
   void _cambiarPregunta() {
-    setState(() {
-      if (preguntaSentimientoList.isNotEmpty) {
-        // si hay preguntas
-        // Elimino la pregunta actual de la lista
-        preguntaSentimientoList.removeAt(indiceActual);
-        indiceActual = random.nextInt(preguntaSentimientoList.length);
-        _speak(preguntaSentimientoList[indiceActual].enunciado);
-        _cargarSituaciones();
-      }
-    });
+    if (preguntaSentimientoList.isNotEmpty) {
+      // si hay preguntas
+      // Elimino la pregunta actual de la lista
+      preguntaSentimientoList.removeAt(indiceActual);
+      indiceActual = random.nextInt(preguntaSentimientoList.length);
+      _speak(preguntaSentimientoList[indiceActual].enunciado);
+      _cargarSituaciones();
+    }
   }
 
   // metodo para calcular la altura del gridview
