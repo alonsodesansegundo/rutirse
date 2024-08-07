@@ -30,6 +30,24 @@ class RespuestaIronia {
   }
 
   @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is RespuestaIronia &&
+        other.id == id &&
+        other.texto == texto &&
+        other.correcta == correcta &&
+        other.situacionIroniaId == situacionIroniaId;
+  }
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      texto.hashCode ^
+      correcta.hashCode ^
+      situacionIroniaId.hashCode;
+
+  @override
   String toString() {
     return 'Accion {id: $id, texto: $texto, correcta: $correcta, situacionIroniaId: $situacionIroniaId}';
   }
@@ -45,10 +63,11 @@ Future<void> insertRespuestaIronia(Database database, String texto,
   });
 }
 
-Future<List<RespuestaIronia>> getRespuestasIronia(int situacionId) async {
+Future<List<RespuestaIronia>> getRespuestasIronia(int situacionId,
+    [Database? db]) async {
   try {
-    final Database db = await initializeDB();
-    final List<Map<String, dynamic>> accionesMap = await db.query(
+    final Database database = db ?? await initializeDB();
+    final List<Map<String, dynamic>> accionesMap = await database.query(
         'respuestaIronia',
         where: 'situacionIroniaId = ?',
         whereArgs: [situacionId]);
@@ -69,7 +88,6 @@ Future<void> deleteRespuestasBySituacionIroniaId(
       where: 'situacionIroniaId = ?',
       whereArgs: [situacionIroniaId],
     );
-    print('Respuestas eliminadas con éxito');
   } catch (e) {
     print("Error al eliminar respuestas: $e");
   }
