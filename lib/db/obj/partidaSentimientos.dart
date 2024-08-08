@@ -39,8 +39,8 @@ class PartidaSentimientos extends Partida {
 }
 
 // metodo para insertar una partida de sentimientos en la BBDD
-Future<int> insertPartidaSentimientos(Partida partida) async {
-  Database database = await initializeDB();
+Future<int> insertPartidaSentimientos(Partida partida, [Database? db]) async {
+  final Database database = db ?? await initializeDB();
 
   // Insertar la partida en la tabla partida
   int partidaId = await database.insert("partida", partida.partidasToMap());
@@ -60,8 +60,9 @@ Future<int> insertPartidaSentimientos(Partida partida) async {
 }
 
 // Método para obtener las partidas de sentimientos de un jugador dado su userId
-Future<List<Partida>> getPartidasSentimientosByUserId(int jugadorId) async {
-  Database database = await initializeDB();
+Future<List<PartidaSentimientos>> getPartidasSentimientosByUserId(int jugadorId,
+    [Database? db]) async {
+  final Database database = db ?? await initializeDB();
 
   List<Map<String, dynamic>> result = await database.rawQuery('''
     SELECT partida.*
@@ -72,9 +73,9 @@ Future<List<Partida>> getPartidasSentimientosByUserId(int jugadorId) async {
   ''', [jugadorId]);
 
   // Mapear los resultados a objetos Partida
-  List<Partida> partidas = [];
+  List<PartidaSentimientos> partidas = [];
   for (Map<String, dynamic> row in result) {
-    partidas.add(Partida.partidasFromMap(row));
+    partidas.add(PartidaSentimientos.partidasFromMap(row));
   }
 
   return partidas;

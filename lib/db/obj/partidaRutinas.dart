@@ -39,8 +39,8 @@ class PartidaRutinas extends Partida {
 }
 
 // metodo para insertar una partida de rutinas en la BBDD
-Future<int> insertPartidaRutinas(Partida partida) async {
-  Database database = await initializeDB();
+Future<int> insertPartidaRutinas(Partida partida, [Database? db]) async {
+  final Database database = db ?? await initializeDB();
 
   // Insertar la partida en la tabla partida
   int partidaId = await database.insert("partida", partida.partidasToMap());
@@ -59,8 +59,9 @@ Future<int> insertPartidaRutinas(Partida partida) async {
 }
 
 // Método para obtener las partidas de rutinas de un jugador dado su userId
-Future<List<PartidaRutinas>> getPartidasRutinasByUserId(int jugadorId) async {
-  Database database = await initializeDB();
+Future<List<PartidaRutinas>> getPartidasRutinasByUserId(int jugadorId,
+    [Database? db]) async {
+  final Database database = db ?? await initializeDB();
 
   List<Map<String, dynamic>> result = await database.rawQuery('''
     SELECT partida.*

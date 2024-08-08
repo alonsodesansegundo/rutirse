@@ -43,8 +43,8 @@ class Partida {
   }
 }
 
-Future<void> deletePartidaById(int partidaId) async {
-  Database database = await initializeDB();
+Future<void> deletePartidaById(int partidaId, [Database? db]) async {
+  final Database database = db ?? await initializeDB();
 
   // Borrar la partida de la tabla partida
   await database.delete(
