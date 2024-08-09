@@ -24,7 +24,7 @@ class JugarRutinas extends StatefulWidget {
   _JugarRutinas createState() => _JugarRutinas();
 }
 
-class _JugarRutinas extends State<JugarRutinas> {
+class _JugarRutinas extends State<JugarRutinas> with WidgetsBindingObserver {
   late FlutterTts flutterTts; // para reproducir audio
 
   late bool flag, isSpeaking; // bandera para cargar las preguntas solo 1 vez
@@ -76,6 +76,19 @@ class _JugarRutinas extends State<JugarRutinas> {
     aciertos = 0;
     fallos = 0;
     loadProvider = false;
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused) _stopSpeaking();
   }
 
   @override
@@ -320,6 +333,7 @@ class _JugarRutinas extends State<JugarRutinas> {
       ),
       onPressed: () {
         Navigator.of(context).pop();
+        _speak(situacionRutinaList[indiceActual].enunciado);
       },
     );
 
@@ -505,7 +519,6 @@ class _JugarRutinas extends State<JugarRutinas> {
       // Elimino la pregunta actual de la lista
       situacionRutinaList.removeAt(indiceActual);
       indiceActual = random.nextInt(situacionRutinaList.length);
-      _speak(situacionRutinaList[indiceActual].enunciado);
       _cargarAcciones();
     }
   }
@@ -531,6 +544,7 @@ class _JugarRutinas extends State<JugarRutinas> {
     setState(() {
       // si la carta actualmente es pulsada
       if (cartasAccion.selected) {
+        _speak(cartasAccion.accion.texto);
         cartasAccion.backgroundColor = Colors.grey;
         // miro si hay otra que haya sido pulsada
         for (int i = 0; i < cartasAcciones.length; i++) {

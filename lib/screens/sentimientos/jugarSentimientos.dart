@@ -24,7 +24,8 @@ class JugarSentimientos extends StatefulWidget {
   _JugarSentimientos createState() => _JugarSentimientos();
 }
 
-class _JugarSentimientos extends State<JugarSentimientos> {
+class _JugarSentimientos extends State<JugarSentimientos>
+    with WidgetsBindingObserver {
   late FlutterTts flutterTts; // para reproducir audio
 
   late bool flag, isSpeaking; // bandera para cargar las preguntas solo 1 vez
@@ -95,6 +96,19 @@ class _JugarSentimientos extends State<JugarSentimientos> {
       var myProvider = Provider.of<MyProvider>(context);
       jugadorActual = myProvider.jugador;
       loadProvider = true;
+      WidgetsBinding.instance.addObserver(this);
+    }
+
+    @override
+    void dispose() {
+      WidgetsBinding.instance.removeObserver(this);
+      super.dispose();
+    }
+
+    @override
+    void didChangeAppLifecycleState(AppLifecycleState state) {
+      super.didChangeAppLifecycleState(state);
+      if (state == AppLifecycleState.paused) _stopSpeaking();
     }
 
     return Scaffold(
@@ -337,6 +351,7 @@ class _JugarSentimientos extends State<JugarSentimientos> {
       ),
       onPressed: () {
         Navigator.of(context).pop();
+        _speak(preguntaSentimientoList[indiceActual].enunciado);
       },
     );
 
@@ -541,7 +556,6 @@ class _JugarSentimientos extends State<JugarSentimientos> {
       // Elimino la pregunta actual de la lista
       preguntaSentimientoList.removeAt(indiceActual);
       indiceActual = random.nextInt(preguntaSentimientoList.length);
-      _speak(preguntaSentimientoList[indiceActual].enunciado);
       _cargarSituaciones();
     }
   }

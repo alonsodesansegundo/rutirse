@@ -23,7 +23,7 @@ class JugarHumor extends StatefulWidget {
   _JugarHumor createState() => _JugarHumor();
 }
 
-class _JugarHumor extends State<JugarHumor> {
+class _JugarHumor extends State<JugarHumor> with WidgetsBindingObserver {
   late FlutterTts flutterTts; // para reproducir audio
 
   late bool flag, isSpeaking; // bandera para cargar las preguntas solo 1 vez
@@ -82,6 +82,19 @@ class _JugarHumor extends State<JugarHumor> {
     aciertos = 0;
     fallos = 0;
     loadProvider = false;
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused) _stopSpeaking();
   }
 
   @override
