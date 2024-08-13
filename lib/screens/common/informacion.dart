@@ -96,7 +96,7 @@ class _InformacionState extends State<Informacion> {
                     'ComicNeue-Regular',
                     style: TextStyle(
                       fontFamily: 'ComicNeue',
-                      fontSize: textSize * 0.75,
+                      fontSize: textSize,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -107,7 +107,7 @@ class _InformacionState extends State<Informacion> {
                     '\nPropiedad: Craig Rozynski y Hrant Papazian.',
                     style: TextStyle(
                       fontFamily: 'ComicNeue',
-                      fontSize: textSize * 0.75,
+                      fontSize: textSize,
                     ),
                   ),
                 ),
@@ -116,7 +116,7 @@ class _InformacionState extends State<Informacion> {
                     'Pictogramas',
                     style: TextStyle(
                       fontFamily: 'ComicNeue',
-                      fontSize: textSize * 0.75,
+                      fontSize: textSize,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -127,7 +127,7 @@ class _InformacionState extends State<Informacion> {
                     '\nPropiedad: Gobierno de Aragón (España)',
                     style: TextStyle(
                       fontFamily: 'ComicNeue',
-                      fontSize: textSize * 0.75,
+                      fontSize: textSize,
                     ),
                   ),
                 ),
@@ -147,7 +147,7 @@ class _InformacionState extends State<Informacion> {
     titleSize = screenSize.width * 0.10;
     textSize = screenSize.width * 0.03;
     espacioPadding = screenSize.height * 0.03;
-    espacioAlto = screenSize.height * 0.03;
+    espacioAlto = screenSize.width * 0.03;
     imgHeight = screenSize.height / 32;
   }
 }

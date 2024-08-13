@@ -313,7 +313,7 @@ class _JugarSentimientos extends State<JugarSentimientos>
     titleSize = screenSize.width * 0.10;
     textSize = screenSize.width * 0.03;
     espacioPadding = screenSize.height * 0.03;
-    espacioAlto = screenSize.height * 0.01;
+    espacioAlto = screenSize.width * 0.01;
     espacioCartas = screenSize.height * 0.02;
     personajeWidth = screenSize.width / 4;
     imgVolverHeight = screenSize.height / 32;

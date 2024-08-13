@@ -336,7 +336,7 @@ class _AyudaSentimientosState extends State<AyudaSentimientos> {
     titleSize = screenSize.width * 0.10;
     textSize = screenSize.width * 0.04;
     espacioPadding = screenSize.height * 0.03;
-    espacioAlto = screenSize.height * 0.03;
+    espacioAlto = screenSize.width * 0.03;
     imgWidth = screenSize.width / 5;
     imgBtnWidth = screenSize.width / 5;
     imgVolverHeight = screenSize.height / 32;

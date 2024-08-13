@@ -113,7 +113,7 @@ class _MenuTerapeutaSentimientosState extends State<MenuTerapeutaSentimientos> {
     titleSize = screenSize.width * 0.10;
     textSize = screenSize.width * 0.03;
     espacioPadding = screenSize.height * 0.03;
-    espacioAlto = screenSize.height * 0.03;
+    espacioAlto = screenSize.width * 0.03;
     imgVolverHeight = screenSize.height / 32;
     btnWidth = screenSize.width / 2.5;
     btnHeight = screenSize.height / 14;

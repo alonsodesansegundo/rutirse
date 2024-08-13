@@ -39,8 +39,6 @@ class MyHomePage extends StatelessWidget {
       imgHeight,
       imgWidth,
       espacioAcercaDe,
-      dialogTextSize,
-      dialogTitleSize,
       maxWidth;
 
   late ImageTextButton btnRutinas, btnIronias, btnAnimo, btnTerapeuta, btnInfo;
@@ -62,12 +60,10 @@ class MyHomePage extends StatelessWidget {
     titleSize = screenSize.width * 0.10;
     textSize = screenSize.width * 0.03;
     espacioPadding = screenSize.height * 0.03;
-    espacioAlto = screenSize.height * 0.015;
+    espacioAlto = screenSize.width * 0.03;
     imgHeight = screenSize.height / 10;
     espacioAcercaDe = espacioAlto * 2;
     imgWidth = screenSize.width / 3 - espacioPadding * 2;
-    dialogTitleSize = titleSize * 0.75;
-    dialogTextSize = textSize * 0.85;
     maxWidth = MediaQuery.of(context).size.width * 0.8;
   }
 
@@ -177,63 +173,61 @@ class MyHomePage extends StatelessWidget {
             'Introducir contraseña',
             style: TextStyle(
               fontFamily: 'ComicNeue',
-              fontSize: dialogTitleSize * 0.75,
+              fontSize: titleSize * 0.75,
             ),
           ),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  "Para poder iniciar como terapeuta debes de introducir la contraseña correspondiente.",
-                  style: TextStyle(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                "Para poder iniciar como terapeuta debes de introducir la contraseña correspondiente.",
+                style: TextStyle(
+                  fontFamily: 'ComicNeue',
+                  fontSize: textSize,
+                ),
+              ),
+              TextField(
+                controller: _enterPasswordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  hintText: 'Introduce la contraseña',
+                  hintStyle: TextStyle(
                     fontFamily: 'ComicNeue',
-                    fontSize: dialogTextSize,
+                    fontSize: textSize,
                   ),
                 ),
-                TextField(
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: dialogTextSize,
-                  ),
-                  controller: _enterPasswordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: 'Introducir contraseña',
-                  ),
-                ),
-                if (_errorMessage.isNotEmpty)
-                  Padding(
-                    padding: EdgeInsets.only(top: espacioAlto),
-                    child: Text(
-                      _errorMessage,
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontFamily: 'ComicNeue',
-                        fontSize: textSize,
-                      ),
+              ),
+              if (_errorMessage.isNotEmpty)
+                Padding(
+                  padding: EdgeInsets.only(top: espacioAlto),
+                  child: Text(
+                    _errorMessage,
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize,
                     ),
                   ),
-                if (intentosPassword >= 3)
-                  Container(
-                    child: Row(
-                      children: [
-                        SizedBox(height: espacioAlto),
-                        Container(
-                          constraints: BoxConstraints(maxWidth: maxWidth),
-                          child: Text(
-                            "PISTA: " + terapeutaPista,
-                            style: TextStyle(
-                              fontFamily: 'ComicNeue',
-                              fontSize: textSize,
-                            ),
+                ),
+              if (intentosPassword >= 3)
+                Container(
+                  child: Row(
+                    children: [
+                      SizedBox(height: espacioAlto),
+                      Container(
+                        constraints: BoxConstraints(maxWidth: maxWidth),
+                        child: Text(
+                          "PISTA: " + terapeutaPista,
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-              ],
-            ),
+                ),
+            ],
           ),
           actions: <Widget>[
             ButtonBar(
@@ -247,7 +241,7 @@ class MyHomePage extends StatelessWidget {
                     'Confirmar',
                     style: TextStyle(
                       fontFamily: 'ComicNeue',
-                      fontSize: dialogTextSize,
+                      fontSize: textSize,
                     ),
                   ),
                 ),
@@ -259,7 +253,7 @@ class MyHomePage extends StatelessWidget {
                     'Cancelar',
                     style: TextStyle(
                       fontFamily: 'ComicNeue',
-                      fontSize: dialogTextSize,
+                      fontSize: textSize,
                     ),
                   ),
                 ),
@@ -277,7 +271,7 @@ class MyHomePage extends StatelessWidget {
             'Crear contraseña',
             style: TextStyle(
               fontFamily: 'ComicNeue',
-              fontSize: dialogTitleSize,
+              fontSize: titleSize,
             ),
           ),
           content: Column(
@@ -287,14 +281,14 @@ class MyHomePage extends StatelessWidget {
                 "Al ser la primera vez que inicias como terapeuta, debes de crear una contraseña.",
                 style: TextStyle(
                   fontFamily: 'ComicNeue',
-                  fontSize: dialogTextSize,
+                  fontSize: textSize,
                 ),
               ),
               TextField(
                 controller: _createPasswordController,
                 style: TextStyle(
                   fontFamily: 'ComicNeue',
-                  fontSize: dialogTextSize,
+                  fontSize: textSize,
                 ),
                 obscureText: true,
                 decoration: InputDecoration(
@@ -307,7 +301,7 @@ class MyHomePage extends StatelessWidget {
               TextField(
                 style: TextStyle(
                   fontFamily: 'ComicNeue',
-                  fontSize: dialogTextSize,
+                  fontSize: textSize,
                 ),
                 controller: _confirmPasswordController,
                 obscureText: true,
@@ -321,7 +315,7 @@ class MyHomePage extends StatelessWidget {
               TextField(
                 style: TextStyle(
                   fontFamily: 'ComicNeue',
-                  fontSize: dialogTextSize,
+                  fontSize: textSize,
                 ),
                 controller: _pistaController,
                 decoration: InputDecoration(
@@ -336,7 +330,7 @@ class MyHomePage extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.red,
                       fontFamily: 'ComicNeue',
-                      fontSize: dialogTextSize,
+                      fontSize: textSize,
                     ),
                   ),
                 ),
@@ -354,7 +348,7 @@ class MyHomePage extends StatelessWidget {
                     'Confirmar',
                     style: TextStyle(
                       fontFamily: 'ComicNeue',
-                      fontSize: dialogTextSize,
+                      fontSize: textSize,
                     ),
                   ),
                 ),
@@ -366,7 +360,7 @@ class MyHomePage extends StatelessWidget {
                     'Cancelar',
                     style: TextStyle(
                       fontFamily: 'ComicNeue',
-                      fontSize: dialogTextSize,
+                      fontSize: textSize,
                     ),
                   ),
                 ),

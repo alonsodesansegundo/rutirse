@@ -206,7 +206,7 @@ class _MenuJugadorState extends State<MenuJugador> {
     textSize = screenSize.width * 0.03;
     espacioPadding = screenSize.height * 0.03;
     espacioBotones = screenSize.height * 0.09;
-    espacioAlto = screenSize.height * 0.03;
+    espacioAlto = screenSize.width * 0.03;
     imgVolverHeight = screenSize.height / 32;
     imgBtnWidth = screenSize.width / 5;
   }

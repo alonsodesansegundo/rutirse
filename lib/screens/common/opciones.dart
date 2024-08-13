@@ -287,7 +287,7 @@ class _OpcionesState extends State<Opciones> {
     titleSize = screenSize.width * 0.10;
     textSize = screenSize.width * 0.03;
     espacioPadding = screenSize.height * 0.03;
-    espacioAlto = screenSize.height * 0.03;
+    espacioAlto = screenSize.width * 0.03;
     imgHeight = screenSize.height / 8;
     imgWidth = screenSize.width / 3 - espacioPadding * 2;
     imgVolverHeight = screenSize.height / 32;

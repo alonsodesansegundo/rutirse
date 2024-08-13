@@ -312,7 +312,7 @@ class _UserProgressRutinasState extends State<UserProgressRutinas> {
     titleSize = screenSize.width * 0.10;
     textSize = screenSize.width * 0.03;
     espacioPadding = screenSize.height * 0.03;
-    espacioAlto = screenSize.height * 0.03;
+    espacioAlto = screenSize.width * 0.03;
     imgWidth = screenSize.width / 6;
     imgVolverHeight = screenSize.height / 32;
     textHeaderSize = screenSize.width * 0.02;

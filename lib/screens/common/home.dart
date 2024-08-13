@@ -137,7 +137,7 @@ class _HomeState extends State<Home> {
                         fontSize: textSize,
                       ),
                     ),
-                    SizedBox(width: espacioAlto),
+                    SizedBox(width: espacioPadding),
                     Expanded(
                       child: TextField(
                         onChanged: (text) {
@@ -176,7 +176,7 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 ),
-                SizedBox(height: espacioAlto * 0.5),
+                SizedBox(height: espacioAlto),
                 // Fila para los botones de seleccionar grupo
                 Row(
                   children: gruposList.isNotEmpty
@@ -214,7 +214,7 @@ class _HomeState extends State<Home> {
                         }).toList()
                       : [Center(child: Text('No hay grupos disponibles'))],
                 ),
-                SizedBox(height: espacioAlto * 1.5),
+                SizedBox(height: espacioAlto * 2),
                 Text(
                   '¿Qué quieres hacer?',
                   style: TextStyle(
@@ -223,7 +223,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 SizedBox(
-                  height: espacioAlto * 0.5,
+                  height: espacioAlto,
                 ),
                 // Fila para los botones de Jugar, Ayuda y Terapeuta
                 Row(
@@ -329,7 +329,7 @@ class _HomeState extends State<Home> {
     titleSize = screenSize.width * 0.10;
     textSize = screenSize.width * 0.03;
     espacioPadding = screenSize.height * 0.03;
-    espacioAlto = screenSize.height * 0.03;
+    espacioAlto = screenSize.width * 0.03;
     imgWidth = screenSize.width / 3 - espacioPadding * 2;
     imgVolverHeight = screenSize.height / 10;
     imgVolverHomeHeight = screenSize.height / 32;

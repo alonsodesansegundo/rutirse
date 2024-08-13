@@ -464,7 +464,7 @@ class _AddSentimientoState extends State<AddSentimiento> {
     titleSize = screenSize.width * 0.10;
     textSize = screenSize.width * 0.03;
     espacioPadding = screenSize.height * 0.03;
-    espacioAlto = screenSize.height * 0.03;
+    espacioAlto = screenSize.width * 0.03;
     imgVolverHeight = screenSize.height / 32;
     textSituacionWidth = screenSize.width - espacioPadding * 2;
     btnWidth = screenSize.width / 3;

@@ -325,7 +325,7 @@ class _AyudaHumorState extends State<AyudaHumor> {
     gameTextSize = screenSize.width * 0.03;
 
     espacioPadding = screenSize.height * 0.03;
-    espacioAlto = screenSize.height * 0.03;
+    espacioAlto = screenSize.width * 0.03;
     espacioAltoAux = screenSize.height * 0.01;
 
     imgWidth = screenSize.width / 5;

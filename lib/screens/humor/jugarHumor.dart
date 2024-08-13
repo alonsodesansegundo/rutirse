@@ -273,7 +273,7 @@ class _JugarHumor extends State<JugarHumor> with WidgetsBindingObserver {
     titleSize = screenSize.width * 0.10;
     textSize = screenSize.width * 0.03;
     espacioPadding = screenSize.height * 0.03;
-    espacioAlto = screenSize.height * 0.01;
+    espacioAlto = screenSize.width * 0.01;
     espacioCartas = screenSize.height * 0.02;
     personajeWidth = screenSize.width / 4;
     btnRespuestaWidth = (screenSize.width - espacioPadding * 2) / 1.5;
