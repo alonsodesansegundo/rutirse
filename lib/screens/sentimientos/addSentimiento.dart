@@ -191,10 +191,13 @@ class _AddSentimientoState extends State<AddSentimiento> {
                                   text1: "Respuesta",
                                   isCorrect: true,
                                   textSize: textSize,
-                                  espacioPadding: espacioPadding * 4.5,
+                                  espacioPadding: getWidthOfText(
+                                          "(máx. 30 caracteres)", context) +
+                                      espacioPadding * 1.5,
                                   espacioAlto: espacioAlto,
                                   btnWidth: btnWidth,
                                   btnHeight: btnHeight,
+                                  imgWidth: imgWidth,
                                   onPressedGaleria: () =>
                                       _selectNewActionGallery(0),
                                   onPressedArasaac: () =>
@@ -208,10 +211,13 @@ class _AddSentimientoState extends State<AddSentimiento> {
                                   text1: "Respuesta",
                                   isCorrect: false,
                                   textSize: textSize,
-                                  espacioPadding: espacioPadding * 4.5,
+                                  espacioPadding: getWidthOfText(
+                                          "(máx. 30 caracteres)", context) +
+                                      espacioPadding * 1.5,
                                   espacioAlto: espacioAlto,
                                   btnWidth: btnWidth,
                                   btnHeight: btnHeight,
+                                  imgWidth: imgWidth,
                                   onPressedGaleria: () =>
                                       _selectNewActionGallery(1),
                                   onPressedArasaac: () =>
@@ -321,21 +327,6 @@ class _AddSentimientoState extends State<AddSentimiento> {
                         child: Row(
                           children: [
                             respuestas[index],
-                            if (respuestas[index].respuestaImage.isNotEmpty)
-                              Row(
-                                children: [
-                                  SizedBox(width: espacioPadding),
-                                  Container(
-                                    child: Align(
-                                        alignment: Alignment.center,
-                                        child: Image.memory(
-                                          Uint8List.fromList(
-                                              respuestas[index].respuestaImage),
-                                          width: imgWidth,
-                                        )),
-                                  ),
-                                ],
-                              ),
                           ],
                         ),
                       ),
@@ -424,10 +415,12 @@ class _AddSentimientoState extends State<AddSentimiento> {
       respuestas.add(new ElementRespuestaSentimientos(
         text1: "Respuesta",
         textSize: textSize,
-        espacioPadding: espacioPadding * 4.5,
+        espacioPadding: getWidthOfText("(máx. 30 caracteres)", context) +
+            espacioPadding * 1.5,
         espacioAlto: espacioAlto,
         btnWidth: btnWidth,
         btnHeight: btnHeight,
+        imgWidth: imgWidth,
         onPressedGaleria: () => _selectNewActionGallery(respuestas.length - 1),
         onPressedArasaac: () =>
             _selectNewRespuestaArasaac(respuestas.length - 1),
@@ -455,6 +448,23 @@ class _AddSentimientoState extends State<AddSentimiento> {
     } catch (e) {
       print("Error al obtener la lista de grupos: $e");
     }
+  }
+
+  double getWidthOfText(String text, BuildContext context) {
+    final TextSpan span = TextSpan(
+      text: text,
+      style: TextStyle(
+        fontFamily: 'ComicNeue',
+        fontSize: textSize * 0.5,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+    final TextPainter tp = TextPainter(
+      text: span,
+      textDirection: TextDirection.ltr,
+    );
+    tp.layout(maxWidth: MediaQuery.of(context).size.width);
+    return tp.width;
   }
 
   // Método para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
@@ -719,7 +729,21 @@ class _AddSentimientoState extends State<AddSentimiento> {
           final response = await http.get(Uri.parse(newValue));
           List<int> bytes = response.bodyBytes;
           setState(() {
-            respuestas[index].respuestaImage = bytes;
+            respuestas[index] = new ElementRespuestaSentimientos(
+                text1: respuestas[index].text1,
+                textSize: respuestas[index].textSize,
+                espacioPadding: respuestas[index].espacioPadding,
+                espacioAlto: respuestas[index].espacioAlto,
+                btnWidth: respuestas[index].btnWidth,
+                btnHeight: respuestas[index].btnHeight,
+                imgWidth: respuestas[index].imgWidth,
+                onPressedGaleria: () => _selectNewActionGallery(index),
+                onPressedArasaac: () => _selectNewRespuestaArasaac(index),
+                isCorrect: respuestas[index].isCorrect,
+                showPregunta: respuestas[index].showPregunta,
+                respuestaText: respuestas[index].respuestaText,
+                respuestaImage: bytes,
+                flagAdolescencia: respuestas[index].flagAdolescencia);
           });
         },
       );
@@ -741,7 +765,21 @@ class _AddSentimientoState extends State<AddSentimiento> {
       List<int> bytes = await imageFile.readAsBytes();
 
       setState(() {
-        respuestas[index].respuestaImage = bytes;
+        respuestas[index] = new ElementRespuestaSentimientos(
+            text1: respuestas[index].text1,
+            textSize: respuestas[index].textSize,
+            espacioPadding: respuestas[index].espacioPadding,
+            espacioAlto: respuestas[index].espacioAlto,
+            btnWidth: respuestas[index].btnWidth,
+            btnHeight: respuestas[index].btnHeight,
+            imgWidth: respuestas[index].imgWidth,
+            onPressedGaleria: () => _selectNewActionGallery(index),
+            onPressedArasaac: () => _selectNewRespuestaArasaac(index),
+            isCorrect: respuestas[index].isCorrect,
+            showPregunta: respuestas[index].showPregunta,
+            respuestaText: respuestas[index].respuestaText,
+            respuestaImage: bytes,
+            flagAdolescencia: respuestas[index].flagAdolescencia);
       });
     }
   }

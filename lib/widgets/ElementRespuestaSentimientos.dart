@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ElementRespuestaSentimientos extends StatefulWidget {
   int? id;
@@ -9,6 +10,7 @@ class ElementRespuestaSentimientos extends StatefulWidget {
   double espacioAlto;
   double btnWidth;
   double btnHeight;
+  double imgWidth;
   final Function() onPressedGaleria;
   final Function() onPressedArasaac;
   String respuestaText;
@@ -27,6 +29,7 @@ class ElementRespuestaSentimientos extends StatefulWidget {
     required this.espacioAlto,
     required this.btnWidth,
     required this.btnHeight,
+    required this.imgWidth,
     required this.onPressedGaleria,
     required this.onPressedArasaac,
     this.respuestaText = "",
@@ -92,7 +95,7 @@ class _ElementRespuestaSentimientosState
                     ],
                   ),
                   Container(
-                    width: widget.btnWidth,
+                    width: widget.btnWidth * 1.75,
                     height: widget.textSize * 4.5,
                     child: TextField(
                       controller:
@@ -103,6 +106,10 @@ class _ElementRespuestaSentimientosState
                       maxLines: 2,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
+                      ),
+                      style: TextStyle(
+                        fontFamily: 'ComicNeue',
+                        fontSize: widget.textSize,
                       ),
                     ),
                   ),
@@ -181,6 +188,27 @@ class _ElementRespuestaSentimientosState
                 ),
               ],
             ),
+            if (widget.respuestaImage.isNotEmpty)
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: widget.espacioAlto,
+                      ),
+                      Container(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Image.memory(
+                            Uint8List.fromList(widget.respuestaImage),
+                            width: widget.imgWidth,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              )
           ],
         ),
         if (widget.showPregunta)

@@ -33,9 +33,7 @@ class _EditSentimientoState extends State<EditSentimiento> {
       textSituacionWidth,
       btnWidth,
       btnHeight,
-      imgWidth,
-      widthTextImagen;
-
+      imgWidth;
   late ImageTextButton btnVolver;
 
   late List<Grupo> grupos;
@@ -221,6 +219,7 @@ class _EditSentimientoState extends State<EditSentimiento> {
                                   espacioAlto: respuesta.espacioAlto,
                                   btnWidth: respuesta.btnWidth,
                                   btnHeight: respuesta.btnHeight,
+                                  imgWidth: respuesta.imgWidth,
                                   onPressedGaleria: () =>
                                       respuesta.onPressedGaleria,
                                   onPressedArasaac: () =>
@@ -261,6 +260,10 @@ class _EditSentimientoState extends State<EditSentimiento> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                   ),
+                  style: TextStyle(
+                    fontFamily: 'ComicNeue',
+                    fontSize: textSize,
+                  ),
                 ),
               ),
               SizedBox(height: espacioAlto), // Espacio entre los textos
@@ -276,7 +279,8 @@ class _EditSentimientoState extends State<EditSentimiento> {
                   textBaseline: TextBaseline.alphabetic,
                   children: [
                     Container(
-                      width: widthTextImagen,
+                      width: getWidthOfText("(máx. 30 caracteres)", context) +
+                          espacioPadding * 1.5,
                       child: Text(
                         'Imagen*:',
                         style: TextStyle(
@@ -325,24 +329,7 @@ class _EditSentimientoState extends State<EditSentimiento> {
                           border: Border.all(color: respuestas[index].color),
                         ),
                         child: Row(
-                          children: [
-                            respuestas[index],
-                            if (respuestas[index].respuestaImage.isNotEmpty)
-                              Row(
-                                children: [
-                                  SizedBox(width: espacioPadding),
-                                  Container(
-                                    child: Align(
-                                        alignment: Alignment.center,
-                                        child: Image.memory(
-                                          Uint8List.fromList(
-                                              respuestas[index].respuestaImage),
-                                          width: imgWidth,
-                                        )),
-                                  ),
-                                ],
-                              ),
-                          ],
+                          children: [respuestas[index]],
                         ),
                       ),
                       SizedBox(height: espacioAlto),
@@ -523,10 +510,12 @@ class _EditSentimientoState extends State<EditSentimiento> {
       respuestas.add(new ElementRespuestaSentimientos(
           text1: "Respuesta",
           textSize: textSize,
-          espacioPadding: espacioPadding * 4.5,
+          espacioPadding: getWidthOfText("(máx. 30 caracteres)", context) +
+              espacioPadding * 1.5,
           espacioAlto: espacioAlto,
           btnWidth: btnWidth,
           btnHeight: btnHeight,
+          imgWidth: imgWidth,
           onPressedGaleria: () =>
               _selectNewActionGallery(respuestas.length - 1),
           onPressedArasaac: () =>
@@ -643,6 +632,23 @@ class _EditSentimientoState extends State<EditSentimiento> {
     }
   }
 
+  double getWidthOfText(String text, BuildContext context) {
+    final TextSpan span = TextSpan(
+      text: text,
+      style: TextStyle(
+        fontFamily: 'ComicNeue',
+        fontSize: textSize * 0.5,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+    final TextPainter tp = TextPainter(
+      text: span,
+      textDirection: TextDirection.ltr,
+    );
+    tp.layout(maxWidth: MediaQuery.of(context).size.width);
+    return tp.width;
+  }
+
   // Método para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
@@ -656,7 +662,6 @@ class _EditSentimientoState extends State<EditSentimiento> {
     btnWidth = screenSize.width / 3;
     btnHeight = screenSize.height / 15;
     imgWidth = screenSize.width / 4.5;
-    widthTextImagen = espacioPadding * 4.5;
   }
 
   // Método para crear los botones necesarios
@@ -943,7 +948,21 @@ class _EditSentimientoState extends State<EditSentimiento> {
           final response = await http.get(Uri.parse(newValue));
           List<int> bytes = response.bodyBytes;
           setState(() {
-            respuestas[index].respuestaImage = bytes;
+            respuestas[index] = new ElementRespuestaSentimientos(
+                text1: respuestas[index].text1,
+                textSize: respuestas[index].textSize,
+                espacioPadding: respuestas[index].espacioPadding,
+                espacioAlto: respuestas[index].espacioAlto,
+                btnWidth: respuestas[index].btnWidth,
+                btnHeight: respuestas[index].btnHeight,
+                imgWidth: respuestas[index].imgWidth,
+                onPressedGaleria: () => _selectNewActionGallery(index),
+                onPressedArasaac: () => _selectNewRespuestaArasaac(index),
+                isCorrect: respuestas[index].isCorrect,
+                showPregunta: respuestas[index].showPregunta,
+                respuestaText: respuestas[index].respuestaText,
+                respuestaImage: bytes,
+                flagAdolescencia: respuestas[index].flagAdolescencia);
           });
         },
       );
@@ -963,9 +982,22 @@ class _EditSentimientoState extends State<EditSentimiento> {
     if (image != null) {
       File imageFile = File(image!.path);
       List<int> bytes = await imageFile.readAsBytes();
-
       setState(() {
-        respuestas[index].respuestaImage = bytes;
+        respuestas[index] = new ElementRespuestaSentimientos(
+            text1: respuestas[index].text1,
+            textSize: respuestas[index].textSize,
+            espacioPadding: respuestas[index].espacioPadding,
+            espacioAlto: respuestas[index].espacioAlto,
+            btnWidth: respuestas[index].btnWidth,
+            btnHeight: respuestas[index].btnHeight,
+            imgWidth: respuestas[index].imgWidth,
+            onPressedGaleria: () => _selectNewActionGallery(index),
+            onPressedArasaac: () => _selectNewRespuestaArasaac(index),
+            isCorrect: respuestas[index].isCorrect,
+            showPregunta: respuestas[index].showPregunta,
+            respuestaText: respuestas[index].respuestaText,
+            respuestaImage: bytes,
+            flagAdolescencia: respuestas[index].flagAdolescencia);
       });
     }
   }
@@ -1024,12 +1056,14 @@ class _EditSentimientoState extends State<EditSentimiento> {
         text1: "Respuesta",
         isCorrect: aux[i].correcta == 1,
         textSize: textSize,
-        espacioPadding: espacioPadding * 4.5,
+        espacioPadding: getWidthOfText("(máx. 30 caracteres)", context) +
+            espacioPadding * 1.5,
         espacioAlto: espacioAlto,
         btnWidth: btnWidth,
         btnHeight: btnHeight,
         respuestaText: aux[i].texto,
         respuestaImage: aux[i].imagen!.toList(),
+        imgWidth: imgWidth,
         onPressedGaleria: () => _selectNewActionGallery(i),
         onPressedArasaac: () => _selectNewRespuestaArasaac(i),
         showPregunta: (i != 0 && i != 1),

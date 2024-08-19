@@ -225,6 +225,7 @@ class _EditRutinaState extends State<EditRutina> {
                                   btnWidth: accion.btnWidth,
                                   btnHeight: accion.btnHeight,
                                   textSituacionWidth: accion.textSituacionWidth,
+                                  imgWidth: imgWidth,
                                   onPressedGaleria: accion.onPressedGaleria,
                                   onPressedArasaac: accion.onPressedArasaac,
                                   accionText: accion.accionText,
@@ -264,6 +265,10 @@ class _EditRutinaState extends State<EditRutina> {
                   maxLines: 5,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
+                  ),
+                  style: TextStyle(
+                    fontFamily: 'ComicNeue',
+                    fontSize: textSize,
                   ),
                 ),
               ),
@@ -326,21 +331,6 @@ class _EditRutinaState extends State<EditRutina> {
                         child: Row(
                           children: [
                             acciones[index],
-                            if (acciones[index].accionImage.isNotEmpty)
-                              Row(
-                                children: [
-                                  SizedBox(width: espacioPadding),
-                                  Container(
-                                    child: Align(
-                                        alignment: Alignment.center,
-                                        child: Image.memory(
-                                          Uint8List.fromList(
-                                              acciones[index].accionImage),
-                                          width: imgWidth,
-                                        )),
-                                  ),
-                                ],
-                              ),
                           ],
                         ),
                       ),
@@ -911,7 +901,24 @@ class _EditRutinaState extends State<EditRutina> {
       List<int> bytes = await imageFile.readAsBytes();
 
       setState(() {
-        acciones[index].accionImage = bytes;
+        acciones[index] = ElementAccion(
+          id: acciones[index].id,
+          text1: acciones[index].text1,
+          numberAccion: acciones[index].numberAccion,
+          textSize: acciones[index].textSize,
+          espacioPadding: acciones[index].espacioPadding,
+          espacioAlto: acciones[index].espacioAlto,
+          btnWidth: acciones[index].btnWidth,
+          btnHeight: acciones[index].btnHeight,
+          textSituacionWidth: acciones[index].textSituacionWidth,
+          imgWidth: imgWidth,
+          onPressedGaleria: acciones[index].onPressedGaleria,
+          onPressedArasaac: acciones[index].onPressedArasaac,
+          accionText: acciones[index].accionText,
+          accionImage: bytes,
+          color: acciones[index].color,
+          flagAdolescencia: acciones[index].flagAdolescencia,
+        );
       });
     }
   }
@@ -939,7 +946,24 @@ class _EditRutinaState extends State<EditRutina> {
           final response = await http.get(Uri.parse(newValue));
           List<int> bytes = response.bodyBytes;
           setState(() {
-            acciones[index].accionImage = bytes;
+            acciones[index] = ElementAccion(
+              id: acciones[index].id,
+              text1: acciones[index].text1,
+              numberAccion: acciones[index].numberAccion,
+              textSize: acciones[index].textSize,
+              espacioPadding: acciones[index].espacioPadding,
+              espacioAlto: acciones[index].espacioAlto,
+              btnWidth: acciones[index].btnWidth,
+              btnHeight: acciones[index].btnHeight,
+              textSituacionWidth: acciones[index].textSituacionWidth,
+              imgWidth: imgWidth,
+              onPressedGaleria: acciones[index].onPressedGaleria,
+              onPressedArasaac: acciones[index].onPressedArasaac,
+              accionText: acciones[index].accionText,
+              accionImage: bytes,
+              color: acciones[index].color,
+              flagAdolescencia: acciones[index].flagAdolescencia,
+            );
           });
         },
       );
@@ -984,6 +1008,7 @@ class _EditRutinaState extends State<EditRutina> {
         btnWidth: btnWidth,
         btnHeight: btnHeight,
         textSituacionWidth: textSituacionWidth,
+        imgWidth: imgWidth,
         onPressedGaleria: () => _selectNewActionGallery(acciones.length - 1),
         onPressedArasaac: () => _selectNewActionArasaac(acciones.length - 1),
         flagAdolescencia: flag,
@@ -1130,6 +1155,7 @@ class _EditRutinaState extends State<EditRutina> {
         btnWidth: btnWidth,
         btnHeight: btnHeight,
         textSituacionWidth: textSituacionWidth,
+        imgWidth: imgWidth,
         onPressedGaleria: () => _selectNewActionGallery(i),
         onPressedArasaac: () => _selectNewActionArasaac(i),
         accionText: aux[i].texto,

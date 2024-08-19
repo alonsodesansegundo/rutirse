@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ElementAccion extends StatefulWidget {
   int? id;
@@ -10,6 +11,7 @@ class ElementAccion extends StatefulWidget {
   double btnWidth;
   double btnHeight;
   double textSituacionWidth;
+  double imgWidth;
   final Function() onPressedGaleria;
   final Function() onPressedArasaac;
   String accionText;
@@ -30,6 +32,7 @@ class ElementAccion extends StatefulWidget {
     required this.textSituacionWidth,
     required this.onPressedGaleria,
     required this.onPressedArasaac,
+    required this.imgWidth,
     this.accionText = "",
     this.accionImage = const [],
     this.color = Colors.transparent,
@@ -78,7 +81,7 @@ class _ElementAccionState extends State<ElementAccion> {
                     ],
                   ),
                   Container(
-                    width: widget.btnWidth,
+                    width: widget.btnWidth * 1.75,
                     height: widget.textSize * 4.5,
                     child: TextField(
                       controller:
@@ -89,6 +92,10 @@ class _ElementAccionState extends State<ElementAccion> {
                       maxLines: 2,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
+                      ),
+                      style: TextStyle(
+                        fontFamily: 'ComicNeue',
+                        fontSize: widget.textSize,
                       ),
                     ),
                   ),
@@ -144,6 +151,27 @@ class _ElementAccionState extends State<ElementAccion> {
                 ),
               ],
             ),
+            if (widget.accionImage.isNotEmpty)
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: widget.espacioAlto,
+                      ),
+                      Container(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Image.memory(
+                            Uint8List.fromList(widget.accionImage),
+                            width: widget.imgWidth,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              )
           ],
         ),
       ],
