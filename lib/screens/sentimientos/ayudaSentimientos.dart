@@ -428,7 +428,7 @@ class _AyudaSentimientosState extends State<AyudaSentimientos> {
         title: '¡Genial!',
         titleSize: titleSize,
         content:
-            "Si ya estás preparado para empezar a jugar, volverás al menú principal de \'Rutinas\'.\n"
+            "Si ya estás preparado para empezar a jugar, volverás al menú principal de \'Sentimientos\'.\n"
             "Si todavía no te sientes preparado, no te preocupes, puedes seguir viendo la explicación de cómo jugar.",
         contentSize: textSize,
         leftImageTextButton: btnSeguirAyuda,
