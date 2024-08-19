@@ -27,7 +27,9 @@ class JugarRutinas extends StatefulWidget {
 class _JugarRutinas extends State<JugarRutinas> with WidgetsBindingObserver {
   late FlutterTts flutterTts; // para reproducir audio
 
-  late bool flag, isSpeaking; // bandera para cargar las preguntas solo 1 vez
+  late bool flag,
+      isSpeaking,
+      reproduceVoice; // bandera para cargar las preguntas solo 1 vez
 
   late List<SituacionRutina> situacionRutinaList; // lista de preguntas
 
@@ -76,6 +78,7 @@ class _JugarRutinas extends State<JugarRutinas> with WidgetsBindingObserver {
     aciertos = 0;
     fallos = 0;
     loadProvider = false;
+    reproduceVoice = false;
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -541,10 +544,11 @@ class _JugarRutinas extends State<JugarRutinas> with WidgetsBindingObserver {
   // metodo para cuando pulso una carta, y de ser necesario, intercambiar
   void _cartaPulsada(CartaAccion cartasAccion) {
     cartasAccion.selected = !cartasAccion.selected;
+    reproduceVoice = !reproduceVoice;
     setState(() {
       // si la carta actualmente es pulsada
       if (cartasAccion.selected) {
-        _speak(cartasAccion.accion.texto);
+        if (reproduceVoice) _speak(cartasAccion.accion.texto);
         cartasAccion.backgroundColor = Colors.grey;
         // miro si hay otra que haya sido pulsada
         for (int i = 0; i < cartasAcciones.length; i++) {
