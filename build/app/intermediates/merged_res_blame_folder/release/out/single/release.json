@@ -1,0 +1,310 @@
+[
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xxhdpi-v4_ic_call_decline_low.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xxhdpi-v4/ic_call_decline_low.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/layout-v21_notification_action.xml.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-anydpi-v21_ic_call_answer_video.xml.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-anydpi-v21/ic_call_answer_video.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-v21_notification_action_background.xml.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-v21/notification_action_background.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-v21_launch_background.xml.flat",
+        "source": "alonso.lucas.rutinas.app-main-15:/drawable-v21/launch_background.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xxxhdpi-v4_ic_call_answer.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xxxhdpi-v4/ic_call_answer.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/layout_custom_dialog.xml.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/layout/custom_dialog.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-mdpi-v4_notify_panel_notification_icon_bg.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-mdpi-v4/notify_panel_notification_icon_bg.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xhdpi-v4_notification_bg_normal_pressed.9.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xhdpi-v4/notification_bg_normal_pressed.9.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-mdpi-v4_ic_call_decline.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-mdpi-v4/ic_call_decline.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/layout-v21_notification_action_tombstone.xml.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-mdpi-v4_ic_call_answer_video_low.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-mdpi-v4/ic_call_answer_video_low.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-mdpi-v4_ic_call_decline_low.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-mdpi-v4/ic_call_decline_low.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable_notification_icon_background.xml.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable/notification_icon_background.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/xml_flutter_image_picker_file_paths.xml.flat",
+        "source": "alonso.lucas.rutinas.app-packaged_res-26:/xml/flutter_image_picker_file_paths.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "alonso.lucas.rutinas.app-main-15:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable_notification_tile_bg.xml.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable/notification_tile_bg.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xxhdpi-v4_ic_call_answer_video_low.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xxhdpi-v4/ic_call_answer_video_low.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "alonso.lucas.rutinas.app-main-15:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xxxhdpi-v4_ic_call_answer_video.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xxxhdpi-v4/ic_call_answer_video.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-mdpi-v4_ic_call_answer_video.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-mdpi-v4/ic_call_answer_video.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-hdpi-v4_notify_panel_notification_icon_bg.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-hdpi-v4/notify_panel_notification_icon_bg.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xxxhdpi-v4_ic_call_decline_low.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xxxhdpi-v4/ic_call_decline_low.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xhdpi-v4_notify_panel_notification_icon_bg.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xhdpi-v4/notify_panel_notification_icon_bg.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-hdpi-v4_ic_call_answer_video_low.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-hdpi-v4/ic_call_answer_video_low.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-ldpi-v4_ic_call_answer_video.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-ldpi-v4/ic_call_answer_video.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xhdpi-v4_ic_call_answer_video_low.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xhdpi-v4/ic_call_answer_video_low.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-hdpi-v4_notification_bg_normal.9.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-hdpi-v4/notification_bg_normal.9.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-mdpi-v4_notification_bg_normal_pressed.9.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-mdpi-v4/notification_bg_normal_pressed.9.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xxhdpi-v4_ic_call_decline.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xxhdpi-v4/ic_call_decline.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-anydpi-v21_ic_call_decline.xml.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-anydpi-v21/ic_call_decline.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xhdpi-v4_ic_call_answer_video.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xhdpi-v4/ic_call_answer_video.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xxxhdpi-v4_ic_call_answer_low.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xxxhdpi-v4/ic_call_answer_low.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable_icon.png.flat",
+        "source": "alonso.lucas.rutinas.app-main-15:/drawable/icon.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "alonso.lucas.rutinas.app-main-15:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-anydpi-v21_ic_call_decline_low.xml.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-anydpi-v21/ic_call_decline_low.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-hdpi-v4_notification_bg_normal_pressed.9.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-hdpi-v4/notification_bg_normal_pressed.9.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-hdpi-v4_ic_call_answer.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-hdpi-v4/ic_call_answer.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-mdpi-v4_notification_bg_low_pressed.9.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-mdpi-v4/notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-mdpi-v4_notification_bg_normal.9.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-mdpi-v4/notification_bg_normal.9.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-hdpi-v4_ic_call_decline.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-hdpi-v4/ic_call_decline.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "alonso.lucas.rutinas.app-main-15:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xhdpi-v4_ic_call_answer_low.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xhdpi-v4/ic_call_answer_low.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "alonso.lucas.rutinas.app-main-15:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-ldpi-v4_ic_call_answer_low.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-ldpi-v4/ic_call_answer_low.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xhdpi-v4_notification_bg_low_normal.9.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xhdpi-v4/notification_bg_low_normal.9.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xhdpi-v4_ic_call_decline_low.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xhdpi-v4/ic_call_decline_low.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xhdpi-v4_notification_bg_low_pressed.9.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xhdpi-v4/notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xxhdpi-v4_ic_call_answer.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xxhdpi-v4/ic_call_answer.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/layout-v21_notification_template_custom_big.xml.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-mdpi-v4_ic_call_answer.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-mdpi-v4/ic_call_answer.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xxxhdpi-v4_ic_call_answer_video_low.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xxxhdpi-v4/ic_call_answer_video_low.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-anydpi-v21_ic_call_answer_video_low.xml.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-anydpi-v21/ic_call_answer_video_low.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-ldpi-v4_ic_call_answer_video_low.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-ldpi-v4/ic_call_answer_video_low.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-hdpi-v4_ic_call_decline_low.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-hdpi-v4/ic_call_decline_low.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-anydpi-v21_ic_call_answer_low.xml.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-anydpi-v21/ic_call_answer_low.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-anydpi-v21_ic_call_answer.xml.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-anydpi-v21/ic_call_answer.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-hdpi-v4_notification_bg_low_pressed.9.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-hdpi-v4/notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable_notification_bg_low.xml.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable/notification_bg_low.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/layout_notification_template_part_chronometer.xml.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-mdpi-v4_ic_call_answer_low.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-mdpi-v4/ic_call_answer_low.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xxxhdpi-v4_ic_call_decline.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xxxhdpi-v4/ic_call_decline.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable_notification_bg.xml.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable/notification_bg.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-mdpi-v4_notification_bg_low_normal.9.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-mdpi-v4/notification_bg_low_normal.9.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-hdpi-v4_notification_bg_low_normal.9.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-hdpi-v4/notification_bg_low_normal.9.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-hdpi-v4_ic_call_answer_video.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-hdpi-v4/ic_call_answer_video.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xhdpi-v4_ic_call_decline.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xhdpi-v4/ic_call_decline.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xhdpi-v4_ic_call_answer.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xhdpi-v4/ic_call_answer.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/layout_notification_template_part_time.xml.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/layout/notification_template_part_time.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xhdpi-v4_notification_bg_normal.9.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xhdpi-v4/notification_bg_normal.9.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xxhdpi-v4_ic_call_answer_low.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xxhdpi-v4/ic_call_answer_low.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-ldpi-v4_ic_call_decline.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-ldpi-v4/ic_call_decline.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-ldpi-v4_ic_call_answer.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-ldpi-v4/ic_call_answer.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-hdpi-v4_ic_call_answer_low.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-hdpi-v4/ic_call_answer_low.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/layout-v21_notification_template_icon_group.xml.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-ldpi-v4_ic_call_decline_low.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-ldpi-v4/ic_call_decline_low.png"
+    },
+    {
+        "merged": "alonso.lucas.rutinas.app-merged_res-22:/drawable-xxhdpi-v4_ic_call_answer_video.png.flat",
+        "source": "alonso.lucas.rutinas.app-core-1.10.1-13:/drawable-xxhdpi-v4/ic_call_answer_video.png"
+    }
+]

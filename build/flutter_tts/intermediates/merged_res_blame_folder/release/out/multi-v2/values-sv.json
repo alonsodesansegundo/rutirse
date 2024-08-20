@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.tundralabs.fluttertts.flutter_tts-merged_res-11:/values-sv/values-sv.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\alons\\.gradle\\caches\\transforms-3\\65b3d5c1373d06b1114bd5862bba863c\\transformed\\core-1.8.0\\res\\values-sv\\values-sv.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.tundralabs.fluttertts.flutter_tts-mergeReleaseResources-9:/values-sv/values-sv.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\alons\\.gradle\\caches\\transforms-3\\65b3d5c1373d06b1114bd5862bba863c\\transformed\\core-1.8.0\\res\\values-sv\\values-sv.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}

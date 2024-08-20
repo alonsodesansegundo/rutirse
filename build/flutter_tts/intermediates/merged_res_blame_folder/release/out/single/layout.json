@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "com.tundralabs.fluttertts.flutter_tts-merged_res-11:/layout/custom_dialog.xml",
+        "source": "com.tundralabs.fluttertts.flutter_tts-core-1.8.0-1:/layout/custom_dialog.xml"
+    },
+    {
+        "merged": "com.tundralabs.fluttertts.flutter_tts-merged_res-11:/layout/notification_template_part_time.xml",
+        "source": "com.tundralabs.fluttertts.flutter_tts-core-1.8.0-1:/layout/notification_template_part_time.xml"
+    },
+    {
+        "merged": "com.tundralabs.fluttertts.flutter_tts-merged_res-11:/layout/notification_template_part_chronometer.xml",
+        "source": "com.tundralabs.fluttertts.flutter_tts-core-1.8.0-1:/layout/notification_template_part_chronometer.xml"
+    }
+]

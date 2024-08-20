@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "com.tundralabs.fluttertts.flutter_tts-merged_res-11:/layout-v21/notification_template_custom_big.xml",
+        "source": "com.tundralabs.fluttertts.flutter_tts-core-1.8.0-1:/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "com.tundralabs.fluttertts.flutter_tts-merged_res-11:/layout-v21/notification_action.xml",
+        "source": "com.tundralabs.fluttertts.flutter_tts-core-1.8.0-1:/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "com.tundralabs.fluttertts.flutter_tts-merged_res-11:/layout-v21/notification_action_tombstone.xml",
+        "source": "com.tundralabs.fluttertts.flutter_tts-core-1.8.0-1:/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "com.tundralabs.fluttertts.flutter_tts-merged_res-11:/layout-v21/notification_template_icon_group.xml",
+        "source": "com.tundralabs.fluttertts.flutter_tts-core-1.8.0-1:/layout-v21/notification_template_icon_group.xml"
+    }
+]
