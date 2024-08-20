@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:smooth_scroll_multiplatform/smooth_scroll_multiplatform.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../db/obj/grupo.dart';
@@ -15,6 +16,7 @@ import '../../widgets/ArasaacAccionDialog.dart';
 import '../../widgets/ArasaacPersonajeDialog.dart';
 import '../../widgets/ElementAccion.dart';
 import '../../widgets/ImageTextButton.dart';
+import '../main.dart';
 
 class AddRutina extends StatefulWidget {
   @override
@@ -129,279 +131,287 @@ class _AddRutinaState extends State<AddRutina> {
     }
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(espacioPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Rutinas',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: titleSize,
+      body: DynMouseScroll(
+        durationMS: myDurationMS,
+        scrollSpeed: myScrollSpeed,
+        animationCurve: Curves.easeOutQuart,
+        builder: (context, controller, physics) => SingleChildScrollView(
+          controller: controller,
+          physics: physics,
+          child: Padding(
+            padding: EdgeInsets.all(espacioPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Rutinas',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize,
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Añadir rutina',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: titleSize / 2,
+                        Text(
+                          'Añadir rutina',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize / 2,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  btnVolver,
-                ],
-              ),
-              SizedBox(height: espacioAlto), // Espacio entre los textos
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Aquí puedes crear nuevas rutinas para el juego.',
-                      style: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: textSize,
-                      ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: espacioAlto), // Espacio
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        'Grupo*:',
+                    btnVolver,
+                  ],
+                ),
+                SizedBox(height: espacioAlto), // Espacio entre los textos
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Aquí puedes crear nuevas rutinas para el juego.',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: textSize,
                         ),
                       ),
-                      SizedBox(width: espacioPadding),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: colorGrupo,
-                        ),
-                        child: DropdownButton<Grupo>(
-                          padding: EdgeInsets.only(
-                            left: espacioPadding,
+                    ),
+                  ],
+                ),
+                SizedBox(height: espacioAlto), // Espacio
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          'Grupo*:',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
                           ),
-                          hint: Text(
-                            'Selecciona el grupo',
-                            style: TextStyle(
-                              fontFamily: 'ComicNeue',
-                              fontSize: textSize,
+                        ),
+                        SizedBox(width: espacioPadding),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: colorGrupo,
+                          ),
+                          child: DropdownButton<Grupo>(
+                            padding: EdgeInsets.only(
+                              left: espacioPadding,
                             ),
-                          ),
-                          value: selectedGrupo,
-                          items: grupos.map((Grupo grupo) {
-                            return DropdownMenuItem<Grupo>(
-                              value: grupo,
-                              child: Text(
-                                grupo.nombre,
-                                style: TextStyle(
-                                  fontFamily: 'ComicNeue',
-                                  fontSize: textSize,
-                                ),
+                            hint: Text(
+                              'Selecciona el grupo',
+                              style: TextStyle(
+                                fontFamily: 'ComicNeue',
+                                fontSize: textSize,
                               ),
-                            );
-                          }).toList(),
-                          onChanged: (Grupo? grupo) {
-                            setState(() {
-                              selectedGrupo = grupo;
-                              acciones = acciones.map((accion) {
-                                return ElementAccion(
-                                  text1: accion.text1,
-                                  numberAccion: accion.numberAccion,
-                                  textSize: accion.textSize,
-                                  espacioPadding: accion.espacioPadding,
-                                  espacioAlto: accion.espacioAlto,
-                                  btnWidth: accion.btnWidth,
-                                  btnHeight: accion.btnHeight,
-                                  textSituacionWidth: accion.textSituacionWidth,
-                                  imgWidth: imgWidth,
-                                  onPressedGaleria: accion.onPressedGaleria,
-                                  onPressedArasaac: accion.onPressedArasaac,
-                                  accionText: accion.accionText,
-                                  accionImage: accion.accionImage,
-                                  color: accion.color,
-                                  flagAdolescencia:
-                                      selectedGrupo?.nombre == "Adolescencia",
-                                );
-                              }).toList();
-                            });
-                          },
+                            ),
+                            value: selectedGrupo,
+                            items: grupos.map((Grupo grupo) {
+                              return DropdownMenuItem<Grupo>(
+                                value: grupo,
+                                child: Text(
+                                  grupo.nombre,
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (Grupo? grupo) {
+                              setState(() {
+                                selectedGrupo = grupo;
+                                acciones = acciones.map((accion) {
+                                  return ElementAccion(
+                                    text1: accion.text1,
+                                    numberAccion: accion.numberAccion,
+                                    textSize: accion.textSize,
+                                    espacioPadding: accion.espacioPadding,
+                                    espacioAlto: accion.espacioAlto,
+                                    btnWidth: accion.btnWidth,
+                                    btnHeight: accion.btnHeight,
+                                    textSituacionWidth:
+                                        accion.textSituacionWidth,
+                                    imgWidth: imgWidth,
+                                    onPressedGaleria: accion.onPressedGaleria,
+                                    onPressedArasaac: accion.onPressedArasaac,
+                                    accionText: accion.accionText,
+                                    accionImage: accion.accionImage,
+                                    color: accion.color,
+                                    flagAdolescencia:
+                                        selectedGrupo?.nombre == "Adolescencia",
+                                  );
+                                }).toList();
+                              });
+                            },
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(height: espacioAlto),
-              Text(
-                'Situación*:',
-                style: TextStyle(
-                  fontFamily: 'ComicNeue',
-                  fontSize: textSize,
+                      ],
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(height: espacioAlto / 2),
-              Container(
-                width: textSituacionWidth,
-                decoration: BoxDecoration(
-                  color: colorSituacion,
-                ),
-                child: TextField(
-                  onChanged: (text) {
-                    this.situacionText = text;
-                  },
-                  maxLines: 5,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                SizedBox(height: espacioAlto),
+                Text(
+                  'Situación*:',
+                  style: TextStyle(
+                    fontFamily: 'ComicNeue',
+                    fontSize: textSize,
                   ),
                 ),
-              ),
+                SizedBox(height: espacioAlto / 2),
+                Container(
+                  width: textSituacionWidth,
+                  decoration: BoxDecoration(
+                    color: colorSituacion,
+                  ),
+                  child: TextField(
+                    onChanged: (text) {
+                      this.situacionText = text;
+                    },
+                    maxLines: 5,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
 
-              SizedBox(height: espacioAlto), // Espacio entre los textos
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.baseline,
-                textBaseline: TextBaseline.alphabetic,
-                children: [
-                  Container(
-                    width: widthTxtPersonaje,
-                    child: Text(
-                      'Personaje:',
-                      style: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: textSize,
-                      ),
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      btnPersonajeExistente,
-                      SizedBox(height: espacioAlto / 3),
-                      btnGaleria,
-                      SizedBox(height: espacioAlto / 3),
-                      btnArasaac,
-                      if (personajeImage.isNotEmpty)
-                        Column(
-                          children: [
-                            SizedBox(height: espacioAlto / 3),
-                            btnEliminarPersonaje,
-                          ],
-                        )
-                    ],
-                  ),
-                  SizedBox(width: espacioPadding),
-                  if (personajeImage.isNotEmpty)
+                SizedBox(height: espacioAlto), // Espacio entre los textos
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  textBaseline: TextBaseline.alphabetic,
+                  children: [
                     Container(
-                      child: Align(
-                          alignment: Alignment.center,
-                          child: Image.memory(
-                            Uint8List.fromList(personajeImage),
-                            width: imgWidth,
-                          )),
+                      width: widthTxtPersonaje,
+                      child: Text(
+                        'Personaje:',
+                        style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: textSize,
+                        ),
+                      ),
                     ),
-                ],
-              ),
-              SizedBox(height: espacioAlto),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: acciones.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [
+                    Column(
+                      children: [
+                        btnPersonajeExistente,
+                        SizedBox(height: espacioAlto / 3),
+                        btnGaleria,
+                        SizedBox(height: espacioAlto / 3),
+                        btnArasaac,
+                        if (personajeImage.isNotEmpty)
+                          Column(
+                            children: [
+                              SizedBox(height: espacioAlto / 3),
+                              btnEliminarPersonaje,
+                            ],
+                          )
+                      ],
+                    ),
+                    SizedBox(width: espacioPadding),
+                    if (personajeImage.isNotEmpty)
                       Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: acciones[index].color),
-                        ),
-                        child: Row(
-                          children: [
-                            acciones[index],
-                          ],
-                        ),
+                        child: Align(
+                            alignment: Alignment.center,
+                            child: Image.memory(
+                              Uint8List.fromList(personajeImage),
+                              width: imgWidth,
+                            )),
                       ),
-                      SizedBox(height: espacioAlto * 2),
-                    ],
-                  );
-                },
-              ),
-              Row(
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      textStyle: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: textSize,
-                      ),
-                    ),
-                    onPressed: _addAccion,
-                    child: Text("Añadir acción"),
-                  ),
-                  SizedBox(width: espacioPadding),
-                  if (acciones.length > 2)
+                  ],
+                ),
+                SizedBox(height: espacioAlto),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: acciones.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: acciones[index].color),
+                          ),
+                          child: Row(
+                            children: [
+                              acciones[index],
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: espacioAlto * 2),
+                      ],
+                    );
+                  },
+                ),
+                Row(
+                  children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
+                        backgroundColor: Colors.green,
+                        textStyle: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: textSize,
+                        ),
+                      ),
+                      onPressed: _addAccion,
+                      child: Text("Añadir acción"),
+                    ),
+                    SizedBox(width: espacioPadding),
+                    if (acciones.length > 2)
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          textStyle: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
+                            color: Colors.blue,
+                          ),
+                        ),
+                        onPressed: _removeAccion,
+                        child: Text("Eliminar acción"),
+                      ),
+                  ],
+                ),
+                SizedBox(height: espacioAlto),
+                Row(
+                  children: [
+                    const Spacer(), // Agrega un espacio flexible
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(btnWidth, btnHeight),
                         textStyle: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: textSize,
                           color: Colors.blue,
                         ),
                       ),
-                      onPressed: _removeAccion,
-                      child: Text("Eliminar acción"),
+                      onPressed: () {
+                        if (!_completedParams()) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return incompletedParamsDialog;
+                            },
+                          );
+                        } else {
+                          _addRutina();
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return completedParamsDialog;
+                            },
+                          );
+                        }
+                      },
+                      child: Text("Añadir rutina"),
                     ),
-                ],
-              ),
-              SizedBox(height: espacioAlto),
-              Row(
-                children: [
-                  const Spacer(), // Agrega un espacio flexible
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(btnWidth, btnHeight),
-                      textStyle: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: textSize,
-                        color: Colors.blue,
-                      ),
-                    ),
-                    onPressed: () {
-                      if (!_completedParams()) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return incompletedParamsDialog;
-                          },
-                        );
-                      } else {
-                        _addRutina();
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return completedParamsDialog;
-                          },
-                        );
-                      }
-                    },
-                    child: Text("Añadir rutina"),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

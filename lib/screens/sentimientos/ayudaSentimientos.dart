@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:smooth_scroll_multiplatform/smooth_scroll_multiplatform.dart';
 
 import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
+import '../main.dart';
 
 class AyudaSentimientos extends StatefulWidget {
   // string que nos indica si la pantalla de origen es 'home' o 'menu'
@@ -58,270 +60,278 @@ class _AyudaSentimientosState extends State<AyudaSentimientos> {
 
     return MaterialApp(
       home: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(espacioPadding),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment
-                          .start, // Alinea los elementos a la izquierda
-                      children: [
-                        Text(
-                          'Sentimientos',
-                          style: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: titleSize,
+        body: DynMouseScroll(
+          durationMS: myDurationMS,
+          scrollSpeed: myScrollSpeed,
+          animationCurve: Curves.easeOutQuart,
+          builder: (context, controller, physics) => SingleChildScrollView(
+            controller: controller,
+            physics: physics,
+            child: Padding(
+              padding: EdgeInsets.all(espacioPadding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment
+                            .start, // Alinea los elementos a la izquierda
+                        children: [
+                          Text(
+                            'Sentimientos',
+                            style: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: titleSize,
+                            ),
                           ),
-                        ),
-                        Text(
-                          'Ayuda',
-                          style: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: titleSize / 2,
+                          Text(
+                            'Ayuda',
+                            style: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: titleSize / 2,
+                            ),
                           ),
+                        ],
+                      ),
+                      ImageTextButton(
+                        image: Image.asset('assets/img/botones/volver.png',
+                            height: imgVolverHeight),
+                        text: Text(
+                          'Volver',
+                          style: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: textSize,
+                              color: Colors.black),
                         ),
-                      ],
-                    ),
-                    ImageTextButton(
-                      image: Image.asset('assets/img/botones/volver.png',
-                          height: imgVolverHeight),
-                      text: Text(
-                        'Volver',
-                        style: TextStyle(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              if (origen == 'home')
+                                return exitDialogFromHome;
+                              else
+                                return exitDialogFromMenu;
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: espacioAlto), // Espacio entre los textos
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Aquí descubrirás cómo jugar a \'Sentimientos\', '
+                          'un juego que consiste en indicar las respuestas correctas (situaciones) '
+                          'correspondientes a una pregunta (sentimiento o estado anímico). '
+                          '\nAquí tienes un ejemplo:',
+                          style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: textSize,
-                            color: Colors.black),
-                      ),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            if (origen == 'home')
-                              return exitDialogFromHome;
-                            else
-                              return exitDialogFromMenu;
-                          },
-                        );
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(height: espacioAlto), // Espacio entre los textos
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Aquí descubrirás cómo jugar a \'Sentimientos\', '
-                        'un juego que consiste en indicar las respuestas correctas (situaciones) '
-                        'correspondientes a una pregunta (sentimiento o estado anímico). '
-                        '\nAquí tienes un ejemplo:',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: textSize,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(height: espacioAlto),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Jaime está contento después de acabar la carrera, ¿por qué?',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: textSize,
-                        ),
-                      ),
-                    ),
-                    Image.asset(
-                      'assets/img/personajes/corredor.png',
-                      width: imgWidth * 1.3,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            'assets/img/sentimientos/perder.png',
-                            width: imgWidth,
                           ),
-                          Text(
-                            'Perdió la\ncarrera',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'ComicNeue',
-                              fontSize: textSize,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(width: imgWidth),
-                    Container(
-                      padding: EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            'assets/img/sentimientos/ganar.png',
-                            width: imgWidth,
-                          ),
-                          Text(
-                            'Ganó la\ncarrera',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'ComicNeue',
-                              fontSize: textSize,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: espacioAlto * 1.5), // Espacio entre los textos
-                Text(
-                  'Una vez hemos leído la pregunta, seleccionamos o marcamos la respuesta(s) correcta(s). En el caso '
-                  'de ser una pregunta de Atención Temprana solamente habrá una respuesta correcta, de ser otro grupo puede haber más de una.',
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize,
+                      )
+                    ],
                   ),
-                ),
-
-                SizedBox(height: espacioAlto), // Espacio entre los textos
-                Text(
-                  'En este caso seleccionamos la segunda carta, por lo que se pondrá de color gris.',
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize,
-                  ),
-                ),
-                SizedBox(height: espacioAlto), // Espacio entre los textos
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 2.0,
+                  SizedBox(height: espacioAlto),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Jaime está contento después de acabar la carrera, ¿por qué?',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
+                          ),
                         ),
-                        borderRadius: BorderRadius.circular(10.0),
                       ),
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            'assets/img/sentimientos/perder.png',
-                            width: imgWidth,
-                          ),
-                          Text(
-                            'Perdió la\ncarrera',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'ComicNeue',
-                              fontSize: textSize,
-                            ),
-                          ),
-                        ],
+                      Image.asset(
+                        'assets/img/personajes/corredor.png',
+                        width: imgWidth * 1.3,
                       ),
-                    ),
-                    SizedBox(width: imgWidth),
-                    Container(
-                      padding: EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 2.0,
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            'assets/img/sentimientos/ganar.png',
-                            width: imgWidth,
-                          ),
-                          Text(
-                            'Ganó la\ncarrera',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'ComicNeue',
-                              fontSize: textSize,
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/img/sentimientos/perder.png',
+                              width: imgWidth,
                             ),
-                          ),
-                        ],
+                            Text(
+                              'Perdió la\ncarrera',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'ComicNeue',
+                                fontSize: textSize,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-
-                SizedBox(height: espacioAlto / 2), // Espacio entre los textos
-                Text(
-                  'Para confirmar nuestras respuestas debemos de pulsar el botón \'Confirmar\' que se encuentra en la parte de abajo.',
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize,
+                      SizedBox(width: imgWidth),
+                      Container(
+                        padding: EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/img/sentimientos/ganar.png',
+                              width: imgWidth,
+                            ),
+                            Text(
+                              'Ganó la\ncarrera',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'ComicNeue',
+                                fontSize: textSize,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                SizedBox(height: espacioAlto),
-                Text(
-                  'Esperamos que esta ayuda te haya sido de utilidad.\n¡Muchas gracias por tu atención!',
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize,
-                  ),
-                ),
-                SizedBox(height: espacioAlto * 2),
-
-                ImageTextButton(
-                  image: Image.asset('assets/img/botones/fin.png',
-                      width: imgWidth * 0.75),
-                  text: Text(
-                    'Ayuda completada',
+                  SizedBox(
+                      height: espacioAlto * 1.5), // Espacio entre los textos
+                  Text(
+                    'Una vez hemos leído la pregunta, seleccionamos o marcamos la respuesta(s) correcta(s). En el caso '
+                    'de ser una pregunta de Atención Temprana solamente habrá una respuesta correcta, de ser otro grupo puede haber más de una.',
                     style: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: textSize,
-                        color: Colors.black),
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize,
+                    ),
                   ),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        if (origen == 'home')
-                          return helpCompletedDialogFromMenu;
-                        else
-                          return helpCompletedDialogFromHome;
-                      },
-                    );
-                  },
-                ),
-              ],
+
+                  SizedBox(height: espacioAlto), // Espacio entre los textos
+                  Text(
+                    'En este caso seleccionamos la segunda carta, por lo que se pondrá de color gris.',
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize,
+                    ),
+                  ),
+                  SizedBox(height: espacioAlto), // Espacio entre los textos
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/img/sentimientos/perder.png',
+                              width: imgWidth,
+                            ),
+                            Text(
+                              'Perdió la\ncarrera',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'ComicNeue',
+                                fontSize: textSize,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: imgWidth),
+                      Container(
+                        padding: EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/img/sentimientos/ganar.png',
+                              width: imgWidth,
+                            ),
+                            Text(
+                              'Ganó la\ncarrera',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'ComicNeue',
+                                fontSize: textSize,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: espacioAlto / 2), // Espacio entre los textos
+                  Text(
+                    'Para confirmar nuestras respuestas debemos de pulsar el botón \'Confirmar\' que se encuentra en la parte de abajo.',
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize,
+                    ),
+                  ),
+                  SizedBox(height: espacioAlto),
+                  Text(
+                    'Esperamos que esta ayuda te haya sido de utilidad.\n¡Muchas gracias por tu atención!',
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize,
+                    ),
+                  ),
+                  SizedBox(height: espacioAlto * 2),
+
+                  ImageTextButton(
+                    image: Image.asset('assets/img/botones/fin.png',
+                        width: imgWidth * 0.75),
+                    text: Text(
+                      'Ayuda completada',
+                      style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: textSize,
+                          color: Colors.black),
+                    ),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          if (origen == 'home')
+                            return helpCompletedDialogFromMenu;
+                          else
+                            return helpCompletedDialogFromHome;
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

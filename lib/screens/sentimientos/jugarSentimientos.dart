@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:smooth_scroll_multiplatform/smooth_scroll_multiplatform.dart';
 
 import '../../db/obj/jugador.dart';
 import '../../db/obj/partida.dart';
@@ -16,6 +17,7 @@ import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
 import '../../widgets/PreguntaWidget.dart';
 import '../common/menuJugador.dart';
+import '../main.dart';
 
 Random random = Random(); // para generar numeros aleatorios
 
@@ -112,192 +114,198 @@ class _JugarSentimientos extends State<JugarSentimientos>
     }
 
     return Scaffold(
-      body: SingleChildScrollView(
-        physics:
-            AlwaysScrollableScrollPhysics(), // Habilita el scroll vertical siempre
-        child: Padding(
-          padding: EdgeInsets.all(espacioPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment
-                        .start, // Alinea los elementos a la izquierda
-                    children: [
-                      Text(
-                        'Sentimientos',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: titleSize,
+      body: DynMouseScroll(
+        durationMS: myDurationMS,
+        scrollSpeed: myScrollSpeed,
+        animationCurve: Curves.easeOutQuart,
+        builder: (context, controller, physics) => SingleChildScrollView(
+          controller: controller,
+          physics: physics,
+          child: Padding(
+            padding: EdgeInsets.all(espacioPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment
+                          .start, // Alinea los elementos a la izquierda
+                      children: [
+                        Text(
+                          'Sentimientos',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize,
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Juego',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: titleSize / 2,
+                        Text(
+                          'Juego',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize / 2,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  ImageTextButton(
-                    image: Image.asset('assets/img/botones/salir.png',
-                        height: imgVolverHeight * 1.5),
-                    text: Text(
-                      'Salir',
-                      style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: textSize,
-                          color: Colors.black),
+                      ],
                     ),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return exitDialog;
+                    ImageTextButton(
+                      image: Image.asset('assets/img/botones/salir.png',
+                          height: imgVolverHeight * 1.5),
+                      text: Text(
+                        'Salir',
+                        style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
+                            color: Colors.black),
+                      ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return exitDialog;
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                FutureBuilder<void>(
+                  future: _cargarPreguntas(),
+                  builder: (context, snapshot) {
+                    if (preguntaSentimientoList.isEmpty) {
+                      return Text("Cargando...");
+                    } else {
+                      return Column(
+                        children: [
+                          PreguntaWidget(
+                            enunciado:
+                                preguntaSentimientoList[indiceActual].enunciado,
+                            isLoading: false,
+                            subtextSize: textSize,
+                            imgWidth: personajeWidth,
+                            personajeImg:
+                                preguntaSentimientoList[indiceActual].imagen,
+                            rightSpace: espacioPadding,
+                          ),
+                        ],
+                      );
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: _calcularAltura(
+                      ancho,
+                      cartasFila,
+                      espacioPadding,
+                      espacioCartas,
+                      (cartasSituaciones.length / cartasFila).ceil()),
+                  child: GridView.builder(
+                    physics:
+                        NeverScrollableScrollPhysics(), // Deshabilita el scroll vertical
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: cartasFila,
+                      crossAxisSpacing: espacioCartas,
+                      mainAxisSpacing: espacioCartas,
+                      childAspectRatio: (1 / 1.6),
+                    ),
+                    itemCount: cartasSituaciones.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          _cartaPulsada(cartasSituaciones[index]);
                         },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: cartasSituaciones[index].backgroundColor,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                child: Image.memory(
+                                    cartasSituaciones[index].situacion.imagen!),
+                                width: imgWidth,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color:
+                                      cartasSituaciones[index].backgroundColor,
+                                ),
+                                padding: EdgeInsets.all(espacioPadding / 3),
+                                child: Text(
+                                  cartasSituaciones[index].situacion.texto,
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       );
                     },
                   ),
-                ],
-              ),
-              FutureBuilder<void>(
-                future: _cargarPreguntas(),
-                builder: (context, snapshot) {
-                  if (preguntaSentimientoList.isEmpty) {
-                    return Text("Cargando...");
-                  } else {
-                    return Column(
-                      children: [
-                        PreguntaWidget(
-                          enunciado:
-                              preguntaSentimientoList[indiceActual].enunciado,
-                          isLoading: false,
-                          subtextSize: textSize,
-                          imgWidth: personajeWidth,
-                          personajeImg:
-                              preguntaSentimientoList[indiceActual].imagen,
-                          rightSpace: espacioPadding,
-                        ),
-                      ],
-                    );
-                  }
-                },
-              ),
-              SizedBox(
-                height: _calcularAltura(
-                    ancho,
-                    cartasFila,
-                    espacioPadding,
-                    espacioCartas,
-                    (cartasSituaciones.length / cartasFila).ceil()),
-                child: GridView.builder(
-                  physics:
-                      NeverScrollableScrollPhysics(), // Deshabilita el scroll vertical
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: cartasFila,
-                    crossAxisSpacing: espacioCartas,
-                    mainAxisSpacing: espacioCartas,
-                    childAspectRatio: (1 / 1.6),
+                ),
+                SizedBox(
+                  height: espacioAlto,
+                ),
+                ImageTextButton(
+                  image: Image.asset(
+                    'assets/img/botones/fin.png',
+                    width: imgWidth * 0.75,
                   ),
-                  itemCount: cartasSituaciones.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        _cartaPulsada(cartasSituaciones[index]);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 2.0,
-                          ),
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: cartasSituaciones[index].backgroundColor,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              child: Image.memory(
-                                  cartasSituaciones[index].situacion.imagen!),
-                              width: imgWidth,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: cartasSituaciones[index].backgroundColor,
-                              ),
-                              padding: EdgeInsets.all(espacioPadding / 3),
-                              child: Text(
-                                cartasSituaciones[index].situacion.texto,
-                                style: TextStyle(
-                                  fontFamily: 'ComicNeue',
-                                  fontSize: textSize,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
+                  text: Text(
+                    'Confirmar',
+                    style: TextStyle(
+                        fontFamily: 'ComicNeue',
+                        fontSize: textSize,
+                        color: Colors.black),
+                  ),
+                  onPressed: () {
+                    if (!_comprobarSelected()) {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            _speak("Vaya...");
+                            return this.notSelectedDialog;
+                          });
+                    } else {
+                      if (_comprobarRespuestas()) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            if (preguntaSentimientoList.length != 1) {
+                              _cambiarPregunta();
+                              _speak('Fantástico');
+                              return correctDialog;
+                            } else {
+                              _speak("¡Enhorabuena!");
+                              return this.endGameDialog;
+                            }
+                          },
+                        );
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            _speak('¡Oops!');
+                            return incorrectDialog;
+                          },
+                        );
+                      }
+                    }
                   },
                 ),
-              ),
-              SizedBox(
-                height: espacioAlto,
-              ),
-              ImageTextButton(
-                image: Image.asset(
-                  'assets/img/botones/fin.png',
-                  width: imgWidth * 0.75,
-                ),
-                text: Text(
-                  'Confirmar',
-                  style: TextStyle(
-                      fontFamily: 'ComicNeue',
-                      fontSize: textSize,
-                      color: Colors.black),
-                ),
-                onPressed: () {
-                  if (!_comprobarSelected()) {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          _speak("Vaya...");
-                          return this.notSelectedDialog;
-                        });
-                  } else {
-                    if (_comprobarRespuestas()) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          if (preguntaSentimientoList.length != 1) {
-                            _cambiarPregunta();
-                            _speak('Fantástico');
-                            return correctDialog;
-                          } else {
-                            _speak("¡Enhorabuena!");
-                            return this.endGameDialog;
-                          }
-                        },
-                      );
-                    } else {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          _speak('¡Oops!');
-                          return incorrectDialog;
-                        },
-                      );
-                    }
-                  }
-                },
-              ),
-              SizedBox(height: espacioAlto),
-            ],
+                SizedBox(height: espacioAlto),
+              ],
+            ),
           ),
         ),
       ),

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:smooth_scroll_multiplatform/smooth_scroll_multiplatform.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../db/obj/grupo.dart';
@@ -13,6 +14,7 @@ import '../../db/obj/preguntaSentimiento.dart';
 import '../../db/obj/situacion.dart';
 import '../../widgets/ArasaacImageDialog.dart';
 import '../../widgets/ImageTextButton.dart';
+import '../main.dart';
 
 class EditSentimiento extends StatefulWidget {
   PreguntaSentimiento preguntaSentimiento;
@@ -116,388 +118,395 @@ class _EditSentimientoState extends State<EditSentimiento> {
     }
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(espacioPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Sentimientos',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: titleSize,
+      body: DynMouseScroll(
+        durationMS: myDurationMS,
+        scrollSpeed: myScrollSpeed,
+        animationCurve: Curves.easeOutQuart,
+        builder: (context, controller, physics) => SingleChildScrollView(
+          controller: controller,
+          physics: physics,
+          child: Padding(
+            padding: EdgeInsets.all(espacioPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Sentimientos',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize,
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Editar pregunta',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: titleSize / 2,
+                        Text(
+                          'Editar pregunta',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize / 2,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  btnVolver,
-                ],
-              ),
-              SizedBox(height: espacioAlto), // Espacio entre los textos
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Aquí tienes la posibilidad de editar la pregunta y sus posibles respuestas, incluso el grupo al que pertenece.',
-                      style: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: textSize,
-                      ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: espacioAlto), // Espacio
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        'Grupo*:',
+                    btnVolver,
+                  ],
+                ),
+                SizedBox(height: espacioAlto), // Espacio entre los textos
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Aquí tienes la posibilidad de editar la pregunta y sus posibles respuestas, incluso el grupo al que pertenece.',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: textSize,
                         ),
                       ),
-                      SizedBox(width: espacioPadding),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: colorGrupo,
-                        ),
-                        child: DropdownButton<Grupo>(
-                          padding: EdgeInsets.only(
-                            left: espacioPadding,
+                    ),
+                  ],
+                ),
+                SizedBox(height: espacioAlto), // Espacio
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          'Grupo*:',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
                           ),
-                          hint: Text(
-                            widget.grupo.nombre,
-                            style: TextStyle(
-                              fontFamily: 'ComicNeue',
-                              fontSize: textSize,
+                        ),
+                        SizedBox(width: espacioPadding),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: colorGrupo,
+                          ),
+                          child: DropdownButton<Grupo>(
+                            padding: EdgeInsets.only(
+                              left: espacioPadding,
                             ),
-                          ),
-                          value: selectedGrupo,
-                          items: grupos.map((Grupo grupo) {
-                            return DropdownMenuItem<Grupo>(
-                              value: grupo,
-                              child: Text(
-                                grupo.nombre,
-                                style: TextStyle(
-                                  fontFamily: 'ComicNeue',
-                                  fontSize: textSize,
-                                ),
+                            hint: Text(
+                              widget.grupo.nombre,
+                              style: TextStyle(
+                                fontFamily: 'ComicNeue',
+                                fontSize: textSize,
                               ),
-                            );
-                          }).toList(),
-                          onChanged: (Grupo? grupo) {
-                            setState(() {
-                              changeGrupo = true;
-                              selectedGrupo = grupo;
-                              respuestas = respuestas.map((respuesta) {
-                                return ElementRespuestaSentimientos(
-                                  id: respuesta.id,
-                                  text1: respuesta.text1,
-                                  respuestaText: respuesta.respuestaText,
-                                  respuestaImage:
-                                      respuesta.respuestaImage!.toList(),
-                                  isCorrect: respuesta.isCorrect,
-                                  textSize: respuesta.textSize,
-                                  espacioPadding: respuesta.espacioPadding,
-                                  espacioAlto: respuesta.espacioAlto,
-                                  btnWidth: respuesta.btnWidth,
-                                  btnHeight: respuesta.btnHeight,
-                                  imgWidth: respuesta.imgWidth,
-                                  onPressedGaleria: () =>
-                                      respuesta.onPressedGaleria,
-                                  onPressedArasaac: () =>
-                                      respuesta.onPressedArasaac,
-                                  showPregunta: respuesta.showPregunta,
-                                  flagAdolescencia:
-                                      (selectedGrupo!.nombre == "Adolescencia"),
-                                );
-                              }).toList();
-                            });
-                          },
+                            ),
+                            value: selectedGrupo,
+                            items: grupos.map((Grupo grupo) {
+                              return DropdownMenuItem<Grupo>(
+                                value: grupo,
+                                child: Text(
+                                  grupo.nombre,
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (Grupo? grupo) {
+                              setState(() {
+                                changeGrupo = true;
+                                selectedGrupo = grupo;
+                                respuestas = respuestas.map((respuesta) {
+                                  return ElementRespuestaSentimientos(
+                                    id: respuesta.id,
+                                    text1: respuesta.text1,
+                                    respuestaText: respuesta.respuestaText,
+                                    respuestaImage:
+                                        respuesta.respuestaImage!.toList(),
+                                    isCorrect: respuesta.isCorrect,
+                                    textSize: respuesta.textSize,
+                                    espacioPadding: respuesta.espacioPadding,
+                                    espacioAlto: respuesta.espacioAlto,
+                                    btnWidth: respuesta.btnWidth,
+                                    btnHeight: respuesta.btnHeight,
+                                    imgWidth: respuesta.imgWidth,
+                                    onPressedGaleria: () =>
+                                        respuesta.onPressedGaleria,
+                                    onPressedArasaac: () =>
+                                        respuesta.onPressedArasaac,
+                                    showPregunta: respuesta.showPregunta,
+                                    flagAdolescencia: (selectedGrupo!.nombre ==
+                                        "Adolescencia"),
+                                  );
+                                }).toList();
+                              });
+                            },
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(height: espacioAlto),
-              Text(
-                'Pregunta*:',
-                style: TextStyle(
-                  fontFamily: 'ComicNeue',
-                  fontSize: textSize,
+                      ],
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(height: espacioAlto / 2),
-              Container(
-                width: textSituacionWidth,
-                decoration: BoxDecoration(
-                  color: colorSituacion,
-                ),
-                child: TextField(
-                  controller: TextEditingController(text: this.preguntaText),
-                  onChanged: (text) {
-                    this.preguntaText = text;
-                  },
-                  maxLines: 5,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                  ),
+                SizedBox(height: espacioAlto),
+                Text(
+                  'Pregunta*:',
                   style: TextStyle(
                     fontFamily: 'ComicNeue',
                     fontSize: textSize,
                   ),
                 ),
-              ),
-              SizedBox(height: espacioAlto), // Espacio entre los textos
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: colorBordeImagen, // Color del borde verde
-                    width: 1.0,
+                SizedBox(height: espacioAlto / 2),
+                Container(
+                  width: textSituacionWidth,
+                  decoration: BoxDecoration(
+                    color: colorSituacion,
+                  ),
+                  child: TextField(
+                    controller: TextEditingController(text: this.preguntaText),
+                    onChanged: (text) {
+                      this.preguntaText = text;
+                    },
+                    maxLines: 5,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                    ),
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize,
+                    ),
                   ),
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                  textBaseline: TextBaseline.alphabetic,
-                  children: [
-                    Container(
-                      width: getWidthOfText("(máx. 30 caracteres)", context) +
-                          espacioPadding * 1.5,
-                      child: Text(
-                        'Imagen*:',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: textSize,
-                        ),
-                      ),
+                SizedBox(height: espacioAlto), // Espacio entre los textos
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: colorBordeImagen, // Color del borde verde
+                      width: 1.0,
                     ),
-                    Column(
-                      children: [
-                        btnGaleria,
-                        SizedBox(height: espacioAlto / 3),
-                        btnArasaac,
-                        if (image.isNotEmpty)
-                          Column(
-                            children: [
-                              SizedBox(height: espacioAlto / 3),
-                              btnEliminarImage,
-                            ],
-                          )
-                      ],
-                    ),
-                    SizedBox(width: espacioPadding),
-                    if (image.isNotEmpty)
-                      Container(
-                        child: Align(
-                            alignment: Alignment.center,
-                            child: Image.memory(
-                              Uint8List.fromList(image),
-                              width: imgWidth,
-                            )),
-                      ),
-                  ],
-                ),
-              ),
-              SizedBox(height: espacioAlto),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: respuestas.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
                     children: [
                       Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: respuestas[index].color),
-                        ),
-                        child: Row(
-                          children: [respuestas[index]],
+                        width: getWidthOfText("(máx. 30 caracteres)", context) +
+                            espacioPadding * 1.5,
+                        child: Text(
+                          'Imagen*:',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
+                          ),
                         ),
                       ),
-                      SizedBox(height: espacioAlto),
+                      Column(
+                        children: [
+                          btnGaleria,
+                          SizedBox(height: espacioAlto / 3),
+                          btnArasaac,
+                          if (image.isNotEmpty)
+                            Column(
+                              children: [
+                                SizedBox(height: espacioAlto / 3),
+                                btnEliminarImage,
+                              ],
+                            )
+                        ],
+                      ),
+                      SizedBox(width: espacioPadding),
+                      if (image.isNotEmpty)
+                        Container(
+                          child: Align(
+                              alignment: Alignment.center,
+                              child: Image.memory(
+                                Uint8List.fromList(image),
+                                width: imgWidth,
+                              )),
+                        ),
                     ],
-                  );
-                },
-              ),
-              if ((changeGrupo && selectedGrupo!.nombre != "Atención T.") ||
-                  (!changeGrupo && defaultGrupo!.nombre != "Atención T."))
+                  ),
+                ),
+                SizedBox(height: espacioAlto),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: respuestas.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: respuestas[index].color),
+                          ),
+                          child: Row(
+                            children: [respuestas[index]],
+                          ),
+                        ),
+                        SizedBox(height: espacioAlto),
+                      ],
+                    );
+                  },
+                ),
+                if ((changeGrupo && selectedGrupo!.nombre != "Atención T.") ||
+                    (!changeGrupo && defaultGrupo!.nombre != "Atención T."))
+                  Row(
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          textStyle: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
+                          ),
+                        ),
+                        onPressed: _addRespuesta,
+                        child: Text("Añadir respuesta"),
+                      ),
+                      SizedBox(width: espacioPadding),
+                      if (respuestas.length > 2)
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            textStyle: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: textSize,
+                              color: Colors.blue,
+                            ),
+                          ),
+                          onPressed: _removeRespuesta,
+                          child: Text("Eliminar respuesta"),
+                        ),
+                    ],
+                  ),
+                SizedBox(height: espacioAlto),
                 Row(
                   children: [
+                    const Spacer(), // Agrega un espacio flexible
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
+                        minimumSize: Size(btnWidth, btnHeight),
+                        textStyle: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: textSize,
+                          color: Colors.blue,
+                        ),
+                      ),
+                      onPressed: () {
+                        if (!changeGrupo) {
+                          for (Grupo grupo in grupos) {
+                            if (grupo.nombre == widget.grupo.nombre) {
+                              selectedGrupo = grupo;
+                              break;
+                            }
+                          }
+                        }
+                        if (!_completedParams()) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return incompletedParamsDialog;
+                            },
+                          );
+                        } else {
+                          _editSentimiento();
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return completedParamsDialog;
+                            },
+                          );
+                        }
+                      },
+                      child: Text("Editar pregunta"),
+                    ),
+                  ],
+                ),
+                SizedBox(height: espacioAlto / 3),
+                Row(
+                  children: [
+                    const Spacer(), // Agrega un espacio flexible
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(btnWidth, btnHeight / 2),
+                        backgroundColor: Colors.red,
                         textStyle: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: textSize,
                         ),
                       ),
-                      onPressed: _addRespuesta,
-                      child: Text("Añadir respuesta"),
-                    ),
-                    SizedBox(width: espacioPadding),
-                    if (respuestas.length > 2)
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
-                          textStyle: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: textSize,
-                            color: Colors.blue,
+                      onPressed: () {
+                        AlertDialog aux = AlertDialog(
+                          title: Text(
+                            'Aviso',
+                            style: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: titleSize * 0.75,
+                            ),
                           ),
-                        ),
-                        onPressed: _removeRespuesta,
-                        child: Text("Eliminar respuesta"),
-                      ),
+                          content: Text(
+                            'Estás a punto de eliminar la siguiente pregunta del grupo ${widget.grupo.nombre}:\n'
+                            '${widget.preguntaSentimiento.enunciado}\n'
+                            '¿Estás seguro de ello?',
+                            style: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: textSize,
+                            ),
+                          ),
+                          actions: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    _removePregunta(
+                                        widget.preguntaSentimiento.id!);
+                                    Navigator.of(context).pop();
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return removePreguntaOk;
+                                      },
+                                    );
+                                  },
+                                  child: Text(
+                                    'Sí, eliminar',
+                                    style: TextStyle(
+                                      fontFamily: 'ComicNeue',
+                                      fontSize: textSize,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: espacioPadding,
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    'Cancelar',
+                                    style: TextStyle(
+                                      fontFamily: 'ComicNeue',
+                                      fontSize: textSize,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return aux;
+                          },
+                        );
+                      },
+                      child: Text("Eliminar pregunta"),
+                    ),
                   ],
                 ),
-              SizedBox(height: espacioAlto),
-              Row(
-                children: [
-                  const Spacer(), // Agrega un espacio flexible
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(btnWidth, btnHeight),
-                      textStyle: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: textSize,
-                        color: Colors.blue,
-                      ),
-                    ),
-                    onPressed: () {
-                      if (!changeGrupo) {
-                        for (Grupo grupo in grupos) {
-                          if (grupo.nombre == widget.grupo.nombre) {
-                            selectedGrupo = grupo;
-                            break;
-                          }
-                        }
-                      }
-                      if (!_completedParams()) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return incompletedParamsDialog;
-                          },
-                        );
-                      } else {
-                        _editSentimiento();
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return completedParamsDialog;
-                          },
-                        );
-                      }
-                    },
-                    child: Text("Editar pregunta"),
-                  ),
-                ],
-              ),
-              SizedBox(height: espacioAlto / 3),
-              Row(
-                children: [
-                  const Spacer(), // Agrega un espacio flexible
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(btnWidth, btnHeight / 2),
-                      backgroundColor: Colors.red,
-                      textStyle: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: textSize,
-                      ),
-                    ),
-                    onPressed: () {
-                      AlertDialog aux = AlertDialog(
-                        title: Text(
-                          'Aviso',
-                          style: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: titleSize * 0.75,
-                          ),
-                        ),
-                        content: Text(
-                          'Estás a punto de eliminar la siguiente pregunta del grupo ${widget.grupo.nombre}:\n'
-                          '${widget.preguntaSentimiento.enunciado}\n'
-                          '¿Estás seguro de ello?',
-                          style: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: textSize,
-                          ),
-                        ),
-                        actions: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  _removePregunta(
-                                      widget.preguntaSentimiento.id!);
-                                  Navigator.of(context).pop();
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return removePreguntaOk;
-                                    },
-                                  );
-                                },
-                                child: Text(
-                                  'Sí, eliminar',
-                                  style: TextStyle(
-                                    fontFamily: 'ComicNeue',
-                                    fontSize: textSize,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: espacioPadding,
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text(
-                                  'Cancelar',
-                                  style: TextStyle(
-                                    fontFamily: 'ComicNeue',
-                                    fontSize: textSize,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      );
-
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return aux;
-                        },
-                      );
-                    },
-                    child: Text("Eliminar pregunta"),
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

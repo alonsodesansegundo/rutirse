@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:smooth_scroll_multiplatform/smooth_scroll_multiplatform.dart';
 
 import '../../db/obj/jugador.dart';
 import '../../db/obj/partidaIronias.dart';
@@ -15,6 +16,7 @@ import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
 import '../../widgets/PreguntaWidget.dart';
 import '../common/menuJugador.dart';
+import '../main.dart';
 
 Random random = Random(); // para generar numeros aleatorios
 
@@ -112,153 +114,158 @@ class _JugarHumor extends State<JugarHumor> with WidgetsBindingObserver {
     }
 
     return Scaffold(
-      body: SingleChildScrollView(
-        physics:
-            AlwaysScrollableScrollPhysics(), // Habilita el scroll vertical siempre
-        child: Padding(
-          padding: EdgeInsets.all(espacioPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment
-                        .start, // Alinea los elementos a la izquierda
-                    children: [
-                      Text(
-                        'Humor',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: titleSize,
-                        ),
-                      ),
-                      Text(
-                        'Juego',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: titleSize / 2,
-                        ),
-                      ),
-                    ],
-                  ),
-                  ImageTextButton(
-                    image: Image.asset('assets/img/botones/salir.png',
-                        height: imgVolverHeight * 1.5),
-                    text: Text(
-                      'Salir',
-                      style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: textSize,
-                          color: Colors.black),
-                    ),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return exitDialog;
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
-              FutureBuilder<void>(
-                future: _cargarPreguntas(),
-                builder: (context, snapshot) {
-                  if (situacionIroniaList.isEmpty) {
-                    return Text("Cargando...");
-                  } else {
-                    return Column(
+      body: DynMouseScroll(
+        durationMS: myDurationMS,
+        scrollSpeed: myScrollSpeed,
+        animationCurve: Curves.easeOutQuart,
+        builder: (context, controller, physics) => SingleChildScrollView(
+          controller: controller,
+          physics: physics,
+          child: Padding(
+            padding: EdgeInsets.all(espacioPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment
+                          .start, // Alinea los elementos a la izquierda
                       children: [
-                        PreguntaWidget(
-                          enunciado:
-                              situacionIroniaList[indiceActual].enunciado,
-                          isLoading: false,
-                          subtextSize: textSize,
-                          imgWidth: personajeWidth,
-                          personajeImg:
-                              situacionIroniaList[indiceActual].imagen,
-                          rightSpace: espacioPadding,
+                        Text(
+                          'Humor',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize,
+                          ),
                         ),
-                        SizedBox(height: espacioAlto * 2),
-                        Column(
-                          children: respuestasActuales.map((respuesta) {
-                            return Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      width: btnRespuestaWidth,
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          respuesta.selected =
-                                              !respuesta.selected;
-                                          if (respuesta.selected) {
-                                            _speak(respuesta.respuesta.texto);
-                                            for (int i = 0;
-                                                i < respuestasActuales.length;
-                                                i++) {
-                                              respuestasActuales[i]
-                                                      .backgroundColor =
-                                                  Colors.redAccent;
-                                              if (respuesta !=
-                                                  respuestasActuales[i])
-                                                respuestasActuales[i].selected =
-                                                    false;
-                                            }
-                                            setState(() {
-                                              respuesta.backgroundColor =
-                                                  Colors.lightGreen;
-                                              respuestaSelected =
-                                                  respuesta.respuesta;
-                                            });
-                                          } else {
-                                            _stopSpeaking();
-                                            respuestaSelected = null;
-                                            for (int i = 0;
-                                                i < respuestasActuales.length;
-                                                i++) {
-                                              setState(() {
+                        Text(
+                          'Juego',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize / 2,
+                          ),
+                        ),
+                      ],
+                    ),
+                    ImageTextButton(
+                      image: Image.asset('assets/img/botones/salir.png',
+                          height: imgVolverHeight * 1.5),
+                      text: Text(
+                        'Salir',
+                        style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
+                            color: Colors.black),
+                      ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return exitDialog;
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                FutureBuilder<void>(
+                  future: _cargarPreguntas(),
+                  builder: (context, snapshot) {
+                    if (situacionIroniaList.isEmpty) {
+                      return Text("Cargando...");
+                    } else {
+                      return Column(
+                        children: [
+                          PreguntaWidget(
+                            enunciado:
+                                situacionIroniaList[indiceActual].enunciado,
+                            isLoading: false,
+                            subtextSize: textSize,
+                            imgWidth: personajeWidth,
+                            personajeImg:
+                                situacionIroniaList[indiceActual].imagen,
+                            rightSpace: espacioPadding,
+                          ),
+                          SizedBox(height: espacioAlto * 2),
+                          Column(
+                            children: respuestasActuales.map((respuesta) {
+                              return Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width: btnRespuestaWidth,
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            respuesta.selected =
+                                                !respuesta.selected;
+                                            if (respuesta.selected) {
+                                              _speak(respuesta.respuesta.texto);
+                                              for (int i = 0;
+                                                  i < respuestasActuales.length;
+                                                  i++) {
                                                 respuestasActuales[i]
                                                         .backgroundColor =
-                                                    Colors.blue;
+                                                    Colors.redAccent;
+                                                if (respuesta !=
+                                                    respuestasActuales[i])
+                                                  respuestasActuales[i]
+                                                      .selected = false;
+                                              }
+                                              setState(() {
+                                                respuesta.backgroundColor =
+                                                    Colors.lightGreen;
+                                                respuestaSelected =
+                                                    respuesta.respuesta;
                                               });
+                                            } else {
+                                              _stopSpeaking();
+                                              respuestaSelected = null;
+                                              for (int i = 0;
+                                                  i < respuestasActuales.length;
+                                                  i++) {
+                                                setState(() {
+                                                  respuestasActuales[i]
+                                                          .backgroundColor =
+                                                      Colors.blue;
+                                                });
+                                              }
                                             }
-                                          }
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          primary: respuesta
-                                              .backgroundColor, // Aquí establecemos el color de fondo gris
-                                        ),
-                                        child: Text(
-                                          respuesta.respuesta.texto,
-                                          style: TextStyle(
-                                            fontFamily: 'ComicNeue',
-                                            fontSize: textSize,
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            primary: respuesta
+                                                .backgroundColor, // Aquí establecemos el color de fondo gris
+                                          ),
+                                          child: Text(
+                                            respuesta.respuesta.texto,
+                                            style: TextStyle(
+                                              fontFamily: 'ComicNeue',
+                                              fontSize: textSize,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                    height:
-                                        espacioAlto), // Espacio fijo entre filas
-                              ],
-                            );
-                          }).toList(),
-                        ),
-                        SizedBox(height: espacioAlto * 2),
-                      ],
-                    );
-                  }
-                },
-              ),
-              SizedBox(height: espacioAlto),
-              btnConfirmar
-            ],
+                                    ],
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          espacioAlto), // Espacio fijo entre filas
+                                ],
+                              );
+                            }).toList(),
+                          ),
+                          SizedBox(height: espacioAlto * 2),
+                        ],
+                      );
+                    }
+                  },
+                ),
+                SizedBox(height: espacioAlto),
+                btnConfirmar
+              ],
+            ),
           ),
         ),
       ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:smooth_scroll_multiplatform/smooth_scroll_multiplatform.dart';
 
 import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
+import '../main.dart';
 
 class AyudaRutinas extends StatefulWidget {
   // string que nos indica si la pantalla de origen es 'home' o 'menu'
@@ -58,134 +60,112 @@ class _AyudaRutinasState extends State<AyudaRutinas> {
 
     return MaterialApp(
       home: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(espacioPadding),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment
-                          .start, // Alinea los elementos a la izquierda
-                      children: [
-                        Text(
-                          'Rutinas',
-                          style: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: titleSize,
+        body: DynMouseScroll(
+          durationMS: myDurationMS,
+          scrollSpeed: myScrollSpeed,
+          animationCurve: Curves.easeOutQuart,
+          builder: (context, controller, physics) => SingleChildScrollView(
+            controller: controller,
+            physics: physics,
+            child: Padding(
+              padding: EdgeInsets.all(espacioPadding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment
+                            .start, // Alinea los elementos a la izquierda
+                        children: [
+                          Text(
+                            'Rutinas',
+                            style: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: titleSize,
+                            ),
                           ),
-                        ),
-                        Text(
-                          'Ayuda',
-                          style: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: titleSize / 2,
+                          Text(
+                            'Ayuda',
+                            style: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: titleSize / 2,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    ImageTextButton(
-                      image: Image.asset('assets/img/botones/volver.png',
-                          height: imgVolverHeight),
-                      text: Text(
-                        'Volver',
-                        style: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: textSize,
-                            color: Colors.black),
+                        ],
                       ),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            if (origen == 'home')
-                              return exitDialogFromHome;
-                            else
-                              return exitDialogFromMenu;
-                          },
-                        );
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(height: espacioAlto), // Espacio entre los textos
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Aquí descubrirás cómo jugar a \'Rutinas\', '
-                        'un juego que consiste en ordenar las acciones. '
-                        '\nAquí tienes un ejemplo:',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: textSize,
+                      ImageTextButton(
+                        image: Image.asset('assets/img/botones/volver.png',
+                            height: imgVolverHeight),
+                        text: Text(
+                          'Volver',
+                          style: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: textSize,
+                              color: Colors.black),
                         ),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              if (origen == 'home')
+                                return exitDialogFromHome;
+                              else
+                                return exitDialogFromMenu;
+                            },
+                          );
+                        },
                       ),
-                    )
-                  ],
-                ),
-                SizedBox(height: espacioAlto),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Por favor, pon en orden lo que tiene que hacer Pepe para lavarse los dientes.',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: textSize,
-                        ),
-                      ),
-                    ),
-                    Image.asset(
-                      'assets/img/personajes/cerdo.png',
-                      width: imgWidth * 1.3,
-                    ),
-                  ],
-                ),
-                SizedBox(height: espacioAlto * 2), // Espacio entre los textos
-                // AYUDA 1
-                Row(
-                  children: [
-                    // Echar pasta de dientes
-                    Column(
-                      children: [
-                        Image.asset(
-                          'assets/img/rutinas/higiene/lavarDientes/2.LavarDientes.png',
-                          width: imgWidth,
-                        ),
-                        Text(
-                          'Echar pasta \nde dientes',
-                          textAlign: TextAlign.center,
+                    ],
+                  ),
+                  SizedBox(height: espacioAlto), // Espacio entre los textos
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Aquí descubrirás cómo jugar a \'Rutinas\', '
+                          'un juego que consiste en ordenar las acciones. '
+                          '\nAquí tienes un ejemplo:',
                           style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: textSize,
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(width: imgWidth),
-                    // Coger cepillo
-                    Container(
-                      padding: EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 2.0,
+                      )
+                    ],
+                  ),
+                  SizedBox(height: espacioAlto),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Por favor, pon en orden lo que tiene que hacer Pepe para lavarse los dientes.',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
+                          ),
                         ),
-                        borderRadius: BorderRadius.circular(10.0),
                       ),
-                      child: Column(
+                      Image.asset(
+                        'assets/img/personajes/cerdo.png',
+                        width: imgWidth * 1.3,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: espacioAlto * 2), // Espacio entre los textos
+                  // AYUDA 1
+                  Row(
+                    children: [
+                      // Echar pasta de dientes
+                      Column(
                         children: [
                           Image.asset(
-                            'assets/img/rutinas/higiene/lavarDientes/1.LavarDientes.png',
+                            'assets/img/rutinas/higiene/lavarDientes/2.LavarDientes.png',
                             width: imgWidth,
                           ),
                           Text(
-                            'Coger cepillo',
+                            'Echar pasta \nde dientes',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: 'ComicNeue',
@@ -194,33 +174,114 @@ class _AyudaRutinasState extends State<AyudaRutinas> {
                           ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: espacioAlto / 2), // Espacio entre los textos
-                Text(
-                  'Para ordenar correctamente, comencemos pulsando en la acción \'Coger cepillo\'.',
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize,
-                  ),
-                ),
-                SizedBox(height: espacioAlto * 2), // Espacio entre los textos
-                // AYUDA 2
-                Row(
-                  children: [
-                    // Echar pasta de dientes
-                    Container(
-                      padding: EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 2.0,
+                      SizedBox(width: imgWidth),
+                      // Coger cepillo
+                      Container(
+                        padding: EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
-                        borderRadius: BorderRadius.circular(10.0),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/img/rutinas/higiene/lavarDientes/1.LavarDientes.png',
+                              width: imgWidth,
+                            ),
+                            Text(
+                              'Coger cepillo',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'ComicNeue',
+                                fontSize: textSize,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      child: Column(
+                    ],
+                  ),
+                  SizedBox(height: espacioAlto / 2), // Espacio entre los textos
+                  Text(
+                    'Para ordenar correctamente, comencemos pulsando en la acción \'Coger cepillo\'.',
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize,
+                    ),
+                  ),
+                  SizedBox(height: espacioAlto * 2), // Espacio entre los textos
+                  // AYUDA 2
+                  Row(
+                    children: [
+                      // Echar pasta de dientes
+                      Container(
+                        padding: EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/img/rutinas/higiene/lavarDientes/2.LavarDientes.png',
+                              width: imgWidth,
+                            ),
+                            Text(
+                              'Echar pasta \nde dientes.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'ComicNeue',
+                                fontSize: textSize,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Coger cepillo
+                      SizedBox(width: imgWidth),
+                      Column(
+                        children: [
+                          Image.asset(
+                            'assets/img/rutinas/higiene/lavarDientes/1.LavarDientes.png',
+                            width: imgWidth,
+                          ),
+                          Text(
+                            'Coger cepillo.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: textSize,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: espacioAlto / 2), // Espacio entre los textos
+
+                  Text(
+                    'Después de elegir la acción \'Coger cepillo\', '
+                    'pulsamos en su posición correcta, '
+                    'que en este caso es la que ocupa la acción \'Echar pasta de dientes\'.',
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize,
+                    ),
+                  ),
+
+                  SizedBox(height: espacioAlto * 2), // Espacio entre los textos
+                  Row(
+                    children: [
+                      // Echar pasta de dientes
+                      Column(
                         children: [
                           Image.asset(
                             'assets/img/rutinas/higiene/lavarDientes/2.LavarDientes.png',
@@ -236,128 +297,76 @@ class _AyudaRutinasState extends State<AyudaRutinas> {
                           ),
                         ],
                       ),
-                    ),
-                    // Coger cepillo
-                    SizedBox(width: imgWidth),
-                    Column(
-                      children: [
-                        Image.asset(
-                          'assets/img/rutinas/higiene/lavarDientes/1.LavarDientes.png',
-                          width: imgWidth,
-                        ),
-                        Text(
-                          'Coger cepillo.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: textSize,
+                      SizedBox(width: imgWidth),
+                      //Coger cepillo
+                      Column(
+                        children: [
+                          Image.asset(
+                            'assets/img/rutinas/higiene/lavarDientes/1.LavarDientes.png',
+                            width: imgWidth,
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: espacioAlto / 2), // Espacio entre los textos
-
-                Text(
-                  'Después de elegir la acción \'Coger cepillo\', '
-                  'pulsamos en su posición correcta, '
-                  'que en este caso es la que ocupa la acción \'Echar pasta de dientes\'.',
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize,
-                  ),
-                ),
-
-                SizedBox(height: espacioAlto * 2), // Espacio entre los textos
-                Row(
-                  children: [
-                    // Echar pasta de dientes
-                    Column(
-                      children: [
-                        Image.asset(
-                          'assets/img/rutinas/higiene/lavarDientes/2.LavarDientes.png',
-                          width: imgWidth,
-                        ),
-                        Text(
-                          'Echar pasta \nde dientes.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: textSize,
+                          Text(
+                            'Coger cepillo.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: textSize,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: imgWidth),
-                    //Coger cepillo
-                    Column(
-                      children: [
-                        Image.asset(
-                          'assets/img/rutinas/higiene/lavarDientes/1.LavarDientes.png',
-                          width: imgWidth,
-                        ),
-                        Text(
-                          'Coger cepillo.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: textSize,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: espacioAlto / 2), // Espacio entre los textos
-                Text(
-                  'Después de intercambiar las acciones de posición, ahora se encuentran en el orden correcto.',
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize,
+                        ],
+                      ),
+                    ],
                   ),
-                ),
-                SizedBox(height: espacioAlto / 2), // Espacio entre los textos
-                Text(
-                  'Para confirmar nuestras respuestas debemos de pulsar el botón \'Confirmar\' que se encuentra en la parte de abajo.',
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize,
-                  ),
-                ),
-                SizedBox(height: espacioAlto),
-                Text(
-                  'Esperamos que esta ayuda te haya sido de utilidad.\n¡Muchas gracias por tu atención!',
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize,
-                  ),
-                ),
-                SizedBox(height: espacioAlto * 2),
-
-                ImageTextButton(
-                  image: Image.asset('assets/img/botones/fin.png',
-                      width: imgWidth * 0.75),
-                  text: Text(
-                    'Ayuda completada',
+                  SizedBox(height: espacioAlto / 2), // Espacio entre los textos
+                  Text(
+                    'Después de intercambiar las acciones de posición, ahora se encuentran en el orden correcto.',
                     style: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: textSize,
-                        color: Colors.black),
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize,
+                    ),
                   ),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        if (origen == 'home')
-                          return helpCompletedDialogFromMenu;
-                        else
-                          return helpCompletedDialogFromHome;
-                      },
-                    );
-                  },
-                ),
-              ],
+                  SizedBox(height: espacioAlto / 2), // Espacio entre los textos
+                  Text(
+                    'Para confirmar nuestras respuestas debemos de pulsar el botón \'Confirmar\' que se encuentra en la parte de abajo.',
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize,
+                    ),
+                  ),
+                  SizedBox(height: espacioAlto),
+                  Text(
+                    'Esperamos que esta ayuda te haya sido de utilidad.\n¡Muchas gracias por tu atención!',
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize,
+                    ),
+                  ),
+                  SizedBox(height: espacioAlto * 2),
+
+                  ImageTextButton(
+                    image: Image.asset('assets/img/botones/fin.png',
+                        width: imgWidth * 0.75),
+                    text: Text(
+                      'Ayuda completada',
+                      style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: textSize,
+                          color: Colors.black),
+                    ),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          if (origen == 'home')
+                            return helpCompletedDialogFromMenu;
+                          else
+                            return helpCompletedDialogFromHome;
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

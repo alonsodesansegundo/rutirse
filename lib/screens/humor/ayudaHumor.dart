@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:smooth_scroll_multiplatform/smooth_scroll_multiplatform.dart';
 
 import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
+import '../main.dart';
 
 class AyudaHumor extends StatefulWidget {
   // string que nos indica si la pantalla de origen es 'home' o 'menu'
@@ -61,254 +63,261 @@ class _AyudaHumorState extends State<AyudaHumor> {
 
     return MaterialApp(
       home: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(espacioPadding),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment
-                          .start, // Alinea los elementos a la izquierda
-                      children: [
-                        Text(
-                          'Humor',
-                          style: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: titleSize,
+        body: DynMouseScroll(
+          durationMS: myDurationMS,
+          scrollSpeed: myScrollSpeed,
+          animationCurve: Curves.easeOutQuart,
+          builder: (context, controller, physics) => SingleChildScrollView(
+            controller: controller,
+            physics: physics,
+            child: Padding(
+              padding: EdgeInsets.all(espacioPadding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment
+                            .start, // Alinea los elementos a la izquierda
+                        children: [
+                          Text(
+                            'Humor',
+                            style: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: titleSize,
+                            ),
                           ),
-                        ),
-                        Text(
-                          'Ayuda',
-                          style: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: titleSize / 2,
+                          Text(
+                            'Ayuda',
+                            style: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: titleSize / 2,
+                            ),
                           ),
+                        ],
+                      ),
+                      ImageTextButton(
+                        image: Image.asset('assets/img/botones/volver.png',
+                            height: imgVolverHeight),
+                        text: Text(
+                          'Volver',
+                          style: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: textSize,
+                              color: Colors.black),
                         ),
-                      ],
-                    ),
-                    ImageTextButton(
-                      image: Image.asset('assets/img/botones/volver.png',
-                          height: imgVolverHeight),
-                      text: Text(
-                        'Volver',
-                        style: TextStyle(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              if (origen == 'home')
+                                return exitDialogFromHome;
+                              else
+                                return exitDialogFromMenu;
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: espacioAlto), // Espacio entre los textos
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Aquí descubrirás cómo jugar a \'Humor\', '
+                          'un juego que consiste en indicar si una frase en una situación dada se trata de una ironía o no. '
+                          '\nAquí tienes un ejemplo:',
+                          style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: textSize,
-                            color: Colors.black),
-                      ),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            if (origen == 'home')
-                              return exitDialogFromHome;
-                            else
-                              return exitDialogFromMenu;
-                          },
-                        );
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(height: espacioAlto), // Espacio entre los textos
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Aquí descubrirás cómo jugar a \'Humor\', '
-                        'un juego que consiste en indicar si una frase en una situación dada se trata de una ironía o no. '
-                        '\nAquí tienes un ejemplo:',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: textSize,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: espacioAlto),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          '¡Qué alegría, que buen día!',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
+                          ),
                         ),
                       ),
-                    )
-                  ],
-                ),
-                SizedBox(height: espacioAlto),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        '¡Qué alegría, que buen día!',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: textSize,
-                        ),
+                      Image.asset(
+                        'assets/img/humor/sol.png',
+                        width: imgWidth * 1.3,
                       ),
-                    ),
-                    Image.asset(
-                      'assets/img/humor/sol.png',
-                      width: imgWidth * 1.3,
-                    ),
-                  ],
-                ),
-                Container(
-                  width: btnRespuestaWidth,
-                  child: ElevatedButton(
-                    onPressed: () {},
+                    ],
+                  ),
+                  Container(
+                    width: btnRespuestaWidth,
+                    child: ElevatedButton(
+                      onPressed: () {},
 
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.blue,
-                    ), // Esto desactiva el botón
-                    child: Text(
-                      'No, no es una ironía.',
-                      style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: gameTextSize,
-                          color: Colors.white),
-                    ),
-                  ),
-                ),
-                SizedBox(height: espacioAlto),
-                Container(
-                  width: btnRespuestaWidth,
-                  padding: EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.blue,
-                    ),
-                    child: Text(
-                      'Sí, es una ironía.',
-                      style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: gameTextSize,
-                          color: Colors.white),
-                    ),
-                  ),
-                ),
-                SizedBox(height: espacioAlto / 2), // Espacio entre los textos
-                Text(
-                  'Debemos de pulsar la opción que creemos que es correcta.',
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize,
-                  ),
-                ),
-                SizedBox(height: espacioAlto / 2), // Espacio entre los textos
-                Text(
-                  'Por ejemplo, si creemos que la opción correcta es \'Sí, es una ironía.\' la pulsamos. '
-                  'Una vez pulsada esta se pondrá en verde y las demás en rojo.',
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize,
-                  ),
-                ),
-                SizedBox(
-                  height: espacioAlto * 2,
-                ),
-                Row(
-                  children: [
-                    Expanded(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blue,
+                      ), // Esto desactiva el botón
                       child: Text(
-                        '¡Qué alegría, que buen día!',
+                        'No, no es una ironía.',
                         style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: textSize,
-                        ),
+                            fontFamily: 'ComicNeue',
+                            fontSize: gameTextSize,
+                            color: Colors.white),
                       ),
                     ),
-                    Image.asset(
-                      'assets/img/humor/sol.png',
-                      width: imgWidth * 1.3,
-                    ),
-                  ],
-                ),
-                Container(
-                  width: btnRespuestaWidth,
-                  child: ElevatedButton(
-                    onPressed: () {},
-
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.redAccent,
-                    ), // Esto desactiva el botón
-                    child: Text(
-                      'No, no es una ironía.',
-                      style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: gameTextSize,
-                          color: Colors.white),
-                    ),
                   ),
-                ),
-                SizedBox(height: espacioAlto),
-                Container(
-                  width: btnRespuestaWidth,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.lightGreen,
+                  SizedBox(height: espacioAlto),
+                  Container(
+                    width: btnRespuestaWidth,
+                    padding: EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
-                    child: Text(
-                      'Sí, es una ironía.',
-                      style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: gameTextSize,
-                          color: Colors.white),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blue,
+                      ),
+                      child: Text(
+                        'Sí, es una ironía.',
+                        style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: gameTextSize,
+                            color: Colors.white),
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: espacioAlto / 2), // Espacio entre los textos
-                Text(
-                  'En este momento nuestra opción seleccionada es \'Sí, es una ironía.\'',
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize,
-                  ),
-                ),
-                SizedBox(height: espacioAlto / 2), // Espacio entre los textos
-                Text(
-                  'Para confirmar nuestra respuesta debemos de pulsar el botón \'Confirmar\' que se encuentra en la parte de abajo.',
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize,
-                  ),
-                ),
-                SizedBox(height: espacioAlto),
-                Text(
-                  'Esperamos que esta ayuda te haya sido de utilidad.\n¡Muchas gracias por tu atención!',
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize,
-                  ),
-                ),
-                SizedBox(height: espacioAlto * 2),
-                ImageTextButton(
-                  image: Image.asset('assets/img/botones/fin.png',
-                      width: imgWidth * 0.75),
-                  text: Text(
-                    'Ayuda completada',
+                  SizedBox(height: espacioAlto / 2), // Espacio entre los textos
+                  Text(
+                    'Debemos de pulsar la opción que creemos que es correcta.',
                     style: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: textSize,
-                        color: Colors.black),
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize,
+                    ),
                   ),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        if (origen == 'home')
-                          return helpCompletedDialogFromMenu;
-                        else
-                          return helpCompletedDialogFromHome;
-                      },
-                    );
-                  },
-                ),
-              ],
+                  SizedBox(height: espacioAlto / 2), // Espacio entre los textos
+                  Text(
+                    'Por ejemplo, si creemos que la opción correcta es \'Sí, es una ironía.\' la pulsamos. '
+                    'Una vez pulsada esta se pondrá en verde y las demás en rojo.',
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize,
+                    ),
+                  ),
+                  SizedBox(
+                    height: espacioAlto * 2,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          '¡Qué alegría, que buen día!',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
+                          ),
+                        ),
+                      ),
+                      Image.asset(
+                        'assets/img/humor/sol.png',
+                        width: imgWidth * 1.3,
+                      ),
+                    ],
+                  ),
+                  Container(
+                    width: btnRespuestaWidth,
+                    child: ElevatedButton(
+                      onPressed: () {},
+
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.redAccent,
+                      ), // Esto desactiva el botón
+                      child: Text(
+                        'No, no es una ironía.',
+                        style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: gameTextSize,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: espacioAlto),
+                  Container(
+                    width: btnRespuestaWidth,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.lightGreen,
+                      ),
+                      child: Text(
+                        'Sí, es una ironía.',
+                        style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: gameTextSize,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: espacioAlto / 2), // Espacio entre los textos
+                  Text(
+                    'En este momento nuestra opción seleccionada es \'Sí, es una ironía.\'',
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize,
+                    ),
+                  ),
+                  SizedBox(height: espacioAlto / 2), // Espacio entre los textos
+                  Text(
+                    'Para confirmar nuestra respuesta debemos de pulsar el botón \'Confirmar\' que se encuentra en la parte de abajo.',
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize,
+                    ),
+                  ),
+                  SizedBox(height: espacioAlto),
+                  Text(
+                    'Esperamos que esta ayuda te haya sido de utilidad.\n¡Muchas gracias por tu atención!',
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize,
+                    ),
+                  ),
+                  SizedBox(height: espacioAlto * 2),
+                  ImageTextButton(
+                    image: Image.asset('assets/img/botones/fin.png',
+                        width: imgWidth * 0.75),
+                    text: Text(
+                      'Ayuda completada',
+                      style: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: textSize,
+                          color: Colors.black),
+                    ),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          if (origen == 'home')
+                            return helpCompletedDialogFromMenu;
+                          else
+                            return helpCompletedDialogFromHome;
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

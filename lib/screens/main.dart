@@ -1,4 +1,3 @@
-// lib/main.dart
 import 'package:Rutirse/provider/MyProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +7,9 @@ import '../widgets/ImageTextButton.dart';
 import 'common/home.dart';
 import 'common/homeTerapeuta.dart';
 import 'common/informacion.dart';
+
+const int myDurationMS = 350;
+const double myScrollSpeed = 25;
 
 void main() {
   runApp(MyApp());

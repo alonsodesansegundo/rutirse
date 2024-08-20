@@ -6,12 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:smooth_scroll_multiplatform/smooth_scroll_multiplatform.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../db/obj/grupo.dart';
 import '../../db/obj/preguntaSentimiento.dart';
 import '../../widgets/ArasaacImageDialog.dart';
 import '../../widgets/ImageTextButton.dart';
+import '../main.dart';
 
 class AddSentimiento extends StatefulWidget {
   @override
@@ -96,313 +98,322 @@ class _AddSentimientoState extends State<AddSentimiento> {
     }
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(espacioPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Sentimientos',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: titleSize,
+      body: DynMouseScroll(
+        durationMS: myDurationMS,
+        scrollSpeed: myScrollSpeed,
+        animationCurve: Curves.easeOutQuart,
+        builder: (context, controller, physics) => SingleChildScrollView(
+          controller: controller,
+          physics: physics,
+          child: Padding(
+            padding: EdgeInsets.all(espacioPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Sentimientos',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize,
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Añadir pregunta',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: titleSize / 2,
+                        Text(
+                          'Añadir pregunta',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: titleSize / 2,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  btnVolver,
-                ],
-              ),
-              SizedBox(height: espacioAlto), // Espacio entre los textos
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Aquí puedes crear nuevas preguntas para el juego de Sentimientos.',
-                      style: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: textSize,
-                      ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: espacioAlto), // Espacio
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        'Grupo*:',
+                    btnVolver,
+                  ],
+                ),
+                SizedBox(height: espacioAlto), // Espacio entre los textos
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Aquí puedes crear nuevas preguntas para el juego de Sentimientos.',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: textSize,
                         ),
                       ),
-                      SizedBox(width: espacioPadding),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: colorGrupo,
-                        ),
-                        child: DropdownButton<Grupo>(
-                          padding: EdgeInsets.only(
-                            left: espacioPadding,
+                    ),
+                  ],
+                ),
+                SizedBox(height: espacioAlto), // Espacio
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          'Grupo*:',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
                           ),
-                          hint: Text(
-                            'Selecciona el grupo',
-                            style: TextStyle(
+                        ),
+                        SizedBox(width: espacioPadding),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: colorGrupo,
+                          ),
+                          child: DropdownButton<Grupo>(
+                            padding: EdgeInsets.only(
+                              left: espacioPadding,
+                            ),
+                            hint: Text(
+                              'Selecciona el grupo',
+                              style: TextStyle(
+                                fontFamily: 'ComicNeue',
+                                fontSize: textSize,
+                              ),
+                            ),
+                            value: selectedGrupo,
+                            items: grupos.map((Grupo grupo) {
+                              return DropdownMenuItem<Grupo>(
+                                value: grupo,
+                                child: Text(
+                                  grupo.nombre,
+                                  style: TextStyle(
+                                    fontFamily: 'ComicNeue',
+                                    fontSize: textSize,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (Grupo? grupo) {
+                              setState(() {
+                                selectedGrupo = grupo;
+                                respuestas = [];
+                                setState(() {
+                                  respuestas
+                                      .add(new ElementRespuestaSentimientos(
+                                    text1: "Respuesta",
+                                    isCorrect: true,
+                                    textSize: textSize,
+                                    espacioPadding: getWidthOfText(
+                                            "(máx. 30 caracteres)", context) +
+                                        espacioPadding * 1.5,
+                                    espacioAlto: espacioAlto,
+                                    btnWidth: btnWidth,
+                                    btnHeight: btnHeight,
+                                    imgWidth: imgWidth,
+                                    onPressedGaleria: () =>
+                                        _selectNewActionGallery(0),
+                                    onPressedArasaac: () =>
+                                        _selectNewRespuestaArasaac(0),
+                                    showPregunta: false,
+                                    flagAdolescencia: (selectedGrupo!.nombre ==
+                                        "Adolescencia"),
+                                  ));
+
+                                  respuestas
+                                      .add(new ElementRespuestaSentimientos(
+                                    text1: "Respuesta",
+                                    isCorrect: false,
+                                    textSize: textSize,
+                                    espacioPadding: getWidthOfText(
+                                            "(máx. 30 caracteres)", context) +
+                                        espacioPadding * 1.5,
+                                    espacioAlto: espacioAlto,
+                                    btnWidth: btnWidth,
+                                    btnHeight: btnHeight,
+                                    imgWidth: imgWidth,
+                                    onPressedGaleria: () =>
+                                        _selectNewActionGallery(1),
+                                    onPressedArasaac: () =>
+                                        _selectNewRespuestaArasaac(1),
+                                    showPregunta: false,
+                                    flagAdolescencia: (selectedGrupo!.nombre ==
+                                        "Adolescencia"),
+                                  ));
+                                });
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: espacioAlto),
+                Text(
+                  'Pregunta*:',
+                  style: TextStyle(
+                    fontFamily: 'ComicNeue',
+                    fontSize: textSize,
+                  ),
+                ),
+                SizedBox(height: espacioAlto / 2),
+                Container(
+                  width: textSituacionWidth,
+                  decoration: BoxDecoration(
+                    color: colorSituacion,
+                  ),
+                  child: TextField(
+                    onChanged: (text) {
+                      this.preguntaText = text;
+                    },
+                    style: TextStyle(
+                      fontFamily: 'ComicNeue',
+                      fontSize: textSize * 0.75,
+                    ),
+                    maxLines: 3,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+                SizedBox(height: espacioAlto), // Espacio entre los textos
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: colorBordeImagen, // Color del borde verde
+                      width: 1.0,
+                    ),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: [
+                      Container(
+                        width: widthTextImagen,
+                        child: Text(
+                          'Imagen*:',
+                          style: TextStyle(
+                            fontFamily: 'ComicNeue',
+                            fontSize: textSize,
+                          ),
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          btnGaleria,
+                          SizedBox(height: espacioAlto / 3),
+                          btnArasaac,
+                          if (image.isNotEmpty)
+                            Column(
+                              children: [
+                                SizedBox(height: espacioAlto / 3),
+                                btnEliminarImage,
+                              ],
+                            )
+                        ],
+                      ),
+                      SizedBox(width: espacioPadding),
+                      if (image.isNotEmpty)
+                        Container(
+                          child: Align(
+                              alignment: Alignment.center,
+                              child: Image.memory(
+                                Uint8List.fromList(image),
+                                width: imgWidth,
+                              )),
+                        ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: espacioAlto),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: respuestas.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: respuestas[index].color),
+                          ),
+                          child: Row(
+                            children: [
+                              respuestas[index],
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: espacioAlto),
+                      ],
+                    );
+                  },
+                ),
+                if (selectedGrupo != null)
+                  Row(
+                    children: [
+                      if (selectedGrupo != null &&
+                          selectedGrupo!.nombre != "Atención T.")
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            textStyle: TextStyle(
                               fontFamily: 'ComicNeue',
                               fontSize: textSize,
                             ),
                           ),
-                          value: selectedGrupo,
-                          items: grupos.map((Grupo grupo) {
-                            return DropdownMenuItem<Grupo>(
-                              value: grupo,
-                              child: Text(
-                                grupo.nombre,
-                                style: TextStyle(
-                                  fontFamily: 'ComicNeue',
-                                  fontSize: textSize,
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (Grupo? grupo) {
-                            setState(() {
-                              selectedGrupo = grupo;
-                              respuestas = [];
-                              setState(() {
-                                respuestas.add(new ElementRespuestaSentimientos(
-                                  text1: "Respuesta",
-                                  isCorrect: true,
-                                  textSize: textSize,
-                                  espacioPadding: getWidthOfText(
-                                          "(máx. 30 caracteres)", context) +
-                                      espacioPadding * 1.5,
-                                  espacioAlto: espacioAlto,
-                                  btnWidth: btnWidth,
-                                  btnHeight: btnHeight,
-                                  imgWidth: imgWidth,
-                                  onPressedGaleria: () =>
-                                      _selectNewActionGallery(0),
-                                  onPressedArasaac: () =>
-                                      _selectNewRespuestaArasaac(0),
-                                  showPregunta: false,
-                                  flagAdolescencia:
-                                      (selectedGrupo!.nombre == "Adolescencia"),
-                                ));
-
-                                respuestas.add(new ElementRespuestaSentimientos(
-                                  text1: "Respuesta",
-                                  isCorrect: false,
-                                  textSize: textSize,
-                                  espacioPadding: getWidthOfText(
-                                          "(máx. 30 caracteres)", context) +
-                                      espacioPadding * 1.5,
-                                  espacioAlto: espacioAlto,
-                                  btnWidth: btnWidth,
-                                  btnHeight: btnHeight,
-                                  imgWidth: imgWidth,
-                                  onPressedGaleria: () =>
-                                      _selectNewActionGallery(1),
-                                  onPressedArasaac: () =>
-                                      _selectNewRespuestaArasaac(1),
-                                  showPregunta: false,
-                                  flagAdolescencia:
-                                      (selectedGrupo!.nombre == "Adolescencia"),
-                                ));
-                              });
-                            });
-                          },
+                          onPressed: _addRespuesta,
+                          child: Text("Añadir respuesta"),
                         ),
-                      ),
+                      SizedBox(width: espacioPadding),
+                      if (respuestas.length > 2)
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            textStyle: TextStyle(
+                              fontFamily: 'ComicNeue',
+                              fontSize: textSize,
+                              color: Colors.blue,
+                            ),
+                          ),
+                          onPressed: _removeRespuesta,
+                          child: Text("Eliminar respuesta"),
+                        ),
                     ],
                   ),
-                ],
-              ),
-              SizedBox(height: espacioAlto),
-              Text(
-                'Pregunta*:',
-                style: TextStyle(
-                  fontFamily: 'ComicNeue',
-                  fontSize: textSize,
-                ),
-              ),
-              SizedBox(height: espacioAlto / 2),
-              Container(
-                width: textSituacionWidth,
-                decoration: BoxDecoration(
-                  color: colorSituacion,
-                ),
-                child: TextField(
-                  onChanged: (text) {
-                    this.preguntaText = text;
-                  },
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize * 0.75,
-                  ),
-                  maxLines: 3,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              SizedBox(height: espacioAlto), // Espacio entre los textos
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: colorBordeImagen, // Color del borde verde
-                    width: 1.0,
-                  ),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                  textBaseline: TextBaseline.alphabetic,
-                  children: [
-                    Container(
-                      width: widthTextImagen,
-                      child: Text(
-                        'Imagen*:',
-                        style: TextStyle(
-                          fontFamily: 'ComicNeue',
-                          fontSize: textSize,
-                        ),
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        btnGaleria,
-                        SizedBox(height: espacioAlto / 3),
-                        btnArasaac,
-                        if (image.isNotEmpty)
-                          Column(
-                            children: [
-                              SizedBox(height: espacioAlto / 3),
-                              btnEliminarImage,
-                            ],
-                          )
-                      ],
-                    ),
-                    SizedBox(width: espacioPadding),
-                    if (image.isNotEmpty)
-                      Container(
-                        child: Align(
-                            alignment: Alignment.center,
-                            child: Image.memory(
-                              Uint8List.fromList(image),
-                              width: imgWidth,
-                            )),
-                      ),
-                  ],
-                ),
-              ),
-              SizedBox(height: espacioAlto),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: respuestas.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: respuestas[index].color),
-                        ),
-                        child: Row(
-                          children: [
-                            respuestas[index],
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: espacioAlto),
-                    ],
-                  );
-                },
-              ),
-              if (selectedGrupo != null)
+                SizedBox(height: espacioAlto),
                 Row(
                   children: [
-                    if (selectedGrupo != null &&
-                        selectedGrupo!.nombre != "Atención T.")
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          textStyle: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: textSize,
-                          ),
+                    const Spacer(), // Agrega un espacio flexible
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(btnWidth, btnHeight),
+                        textStyle: TextStyle(
+                          fontFamily: 'ComicNeue',
+                          fontSize: textSize,
+                          color: Colors.blue,
                         ),
-                        onPressed: _addRespuesta,
-                        child: Text("Añadir respuesta"),
                       ),
-                    SizedBox(width: espacioPadding),
-                    if (respuestas.length > 2)
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
-                          textStyle: TextStyle(
-                            fontFamily: 'ComicNeue',
-                            fontSize: textSize,
-                            color: Colors.blue,
-                          ),
-                        ),
-                        onPressed: _removeRespuesta,
-                        child: Text("Eliminar respuesta"),
-                      ),
+                      onPressed: () {
+                        if (!_completedParams()) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return incompletedParamsDialog;
+                            },
+                          );
+                        } else {
+                          _addPreguntaSentimientos();
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return completedParamsDialog;
+                            },
+                          );
+                        }
+                      },
+                      child: Text("Añadir pregunta"),
+                    ),
                   ],
                 ),
-              SizedBox(height: espacioAlto),
-              Row(
-                children: [
-                  const Spacer(), // Agrega un espacio flexible
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(btnWidth, btnHeight),
-                      textStyle: TextStyle(
-                        fontFamily: 'ComicNeue',
-                        fontSize: textSize,
-                        color: Colors.blue,
-                      ),
-                    ),
-                    onPressed: () {
-                      if (!_completedParams()) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return incompletedParamsDialog;
-                          },
-                        );
-                      } else {
-                        _addPreguntaSentimientos();
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return completedParamsDialog;
-                          },
-                        );
-                      }
-                    },
-                    child: Text("Añadir pregunta"),
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
