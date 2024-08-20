@@ -29,8 +29,7 @@ class _AddSentimientoState extends State<AddSentimiento> {
       textSituacionWidth,
       btnWidth,
       btnHeight,
-      imgWidth,
-      widthTextImagen;
+      imgWidth;
 
   late ImageTextButton btnVolver;
 
@@ -286,7 +285,8 @@ class _AddSentimientoState extends State<AddSentimiento> {
                     textBaseline: TextBaseline.alphabetic,
                     children: [
                       Container(
-                        width: widthTextImagen,
+                        width: getWidthOfText("(máx. 30 caracteres)", context) +
+                            espacioPadding * 1.5,
                         child: Text(
                           'Imagen*:',
                           style: TextStyle(
@@ -491,7 +491,6 @@ class _AddSentimientoState extends State<AddSentimiento> {
     btnWidth = screenSize.width / 3;
     btnHeight = screenSize.height / 15;
     imgWidth = screenSize.width / 4.5;
-    widthTextImagen = espacioPadding * 4.5;
   }
 
   // Método para crear los botones necesarios
