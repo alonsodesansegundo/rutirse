@@ -84,6 +84,41 @@ class _InformacionState extends State<Informacion> {
                 ),
                 SizedBox(height: espacioAlto),
                 Text(
+                  'Nombre de la app: ',
+                  style: TextStyle(
+                    fontFamily: 'ComicNeue',
+                    fontSize: textSize,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'Rutirse',
+                  style: TextStyle(
+                    fontFamily: 'ComicNeue',
+                    fontSize: textSize,
+                  ),
+                ),
+                SizedBox(height: espacioAlto),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  textBaseline: TextBaseline.alphabetic,
+                  children: [
+                    Text(
+                      'Logo o icono: ',
+                      style: TextStyle(
+                        fontFamily: 'ComicNeue',
+                        fontSize: textSize,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Image.asset(
+                      'assets/img/icon.png',
+                      height: imgHeight * 5,
+                    ),
+                  ],
+                ),
+                SizedBox(height: espacioAlto),
+                Text(
                   'Recursos utilizados:',
                   style: TextStyle(
                     fontFamily: 'ComicNeue',
