@@ -1,4 +1,4 @@
-#Tue Aug 20 17:52:27 CEST 2024
+#Wed Aug 21 17:16:35 CEST 2024
 base.0=C\:\\Users\\alons\\StudioProjects\\rutirse\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=C\:\\Users\\alons\\StudioProjects\\rutirse\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
 base.2=C\:\\Users\\alons\\StudioProjects\\rutirse\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex

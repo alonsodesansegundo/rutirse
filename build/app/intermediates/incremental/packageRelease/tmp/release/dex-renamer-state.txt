@@ -1,4 +1,4 @@
-#Tue Aug 20 18:02:13 CEST 2024
+#Wed Aug 21 17:20:17 CEST 2024
 base.0=C\:\\Users\\alons\\StudioProjects\\rutirse\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
