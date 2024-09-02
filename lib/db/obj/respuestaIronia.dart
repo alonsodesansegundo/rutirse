@@ -2,24 +2,29 @@ import 'package:sqflite/sqflite.dart';
 
 import '../db.dart';
 
+///Clase relativa a la tabla RespuestaIronia
 class RespuestaIronia {
   final int id;
   String texto;
   final int correcta;
   final int situacionIroniaId;
 
+  ///Constructor de la clase RespuestaIronia
   RespuestaIronia(
       {required this.id,
       required this.texto,
       required this.correcta,
       required this.situacionIroniaId});
 
+  ///Crea una instancia de RespuestaIronia a partir de un mapa de datos, dicho mapa debe contener:
+  ///id, texto, correcta y situacionIroniaId
   RespuestaIronia.respuestasFromMap(Map<String, dynamic> item)
       : id = item["id"],
         texto = item["texto"],
         correcta = item["correcta"],
         situacionIroniaId = item["situacionIroniaId"];
 
+  ///Convierte una instancia de RespuestaIronia a un mapa de datos
   Map<String, Object> respuestasToMap() {
     return {
       'id': id,
@@ -29,6 +34,7 @@ class RespuestaIronia {
     };
   }
 
+  ///Sobreescritura del método equals
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -40,6 +46,7 @@ class RespuestaIronia {
         other.situacionIroniaId == situacionIroniaId;
   }
 
+  ///Sobreescritura del método hashCode
   @override
   int get hashCode =>
       id.hashCode ^
@@ -47,12 +54,19 @@ class RespuestaIronia {
       correcta.hashCode ^
       situacionIroniaId.hashCode;
 
+  ///Sobreescritura del método toString
   @override
   String toString() {
     return 'Accion {id: $id, texto: $texto, correcta: $correcta, situacionIroniaId: $situacionIroniaId}';
   }
 }
 
+///Método que nos permite añadir una respuesta a una pregunta del juego Humor
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecutan las insercciones<br>
+///[texto] Texto de la respuesta<br>
+///[correcta] Valor 1 si la respuesta es correcta, valor 0 si la respuesta es incorrecta<br>
+///[situacionIroniaId] Identificador de la pregunta a la que pertenece la respuesta
 Future<void> insertRespuestaIronia(Database database, String texto,
     int correcta, int situacionIroniaId) async {
   await database.transaction((txn) async {
@@ -63,6 +77,12 @@ Future<void> insertRespuestaIronia(Database database, String texto,
   });
 }
 
+///Método que nos permite obtener todas las respuestas de una pregunta del juego Humor
+///<br><b>Parámetros</b><br>
+///[situacionId] Identificador de la pregunta que queremos obtener las respuestas<br>
+///[db] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
+///<br><b>Salida</b><br>
+///Una lista con las respuestas pertenecientes a la pregunta dada
 Future<List<RespuestaIronia>> getRespuestasIronia(int situacionId,
     [Database? db]) async {
   try {
@@ -80,6 +100,10 @@ Future<List<RespuestaIronia>> getRespuestasIronia(int situacionId,
   }
 }
 
+///Método que nos permite eliminar las respuestas pertenecientes a una pregunta del juego Humor
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecutan la operación de delete<br>
+///[situacionIroniaId] Identificador de la pregunta de la que queremos eliminar las respuestas
 Future<void> deleteRespuestasBySituacionIroniaId(
     Database db, int situacionIroniaId) async {
   try {

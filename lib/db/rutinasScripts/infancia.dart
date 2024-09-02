@@ -4,9 +4,15 @@ import 'package:sqflite/sqflite.dart';
 import '../obj/accion.dart';
 import '../obj/situacionRutina.dart';
 
+///Path correspondiente a donde se almacenan las imágenes de las preguntas del juego Rutinas
 String pathRutinas = 'assets/img/rutinas/';
+
+///Path correspondiente a donde se almacenan las imágenes de los personajes del juego Rutinas
 String pathPersonaje = 'assets/img/personajes/';
 
+///Método encargado de las insercciones de preguntas predeterminadas para el juego Rutinas del grupo Infancia
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecutan las insercciones
 void insertPreguntaRutinaInitialDataInfancia(Database database) async {
   int grupoInfancia = 2;
 

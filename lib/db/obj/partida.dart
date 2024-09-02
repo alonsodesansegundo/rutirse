@@ -2,6 +2,7 @@ import 'package:sqflite/sqflite.dart';
 
 import '../db.dart';
 
+///Clase relativa a la tabla Partida
 class Partida {
   final int? id;
   final String fechaFin;
@@ -10,6 +11,7 @@ class Partida {
   final int fallos;
   final int jugadorId;
 
+  ///Constructor de la clase Partida
   Partida(
       {this.id,
       required this.fechaFin,
@@ -18,6 +20,8 @@ class Partida {
       required this.fallos,
       required this.jugadorId});
 
+  ///Crea una instancia de Partida a partir de un mapa de datos, dicho mapa debe contener:
+  ///id, fechaFin, duracionSegundos, aciertos, fallos y jugadorId
   Partida.partidasFromMap(Map<String, dynamic> item)
       : id = item["id"],
         fechaFin = item["fechaFin"],
@@ -26,6 +30,7 @@ class Partida {
         fallos = item["fallos"],
         jugadorId = item["jugadorId"];
 
+  ///Convierte una instancia de Partida a un mapa de datos
   Map<String, Object> partidasToMap() {
     return {
       'fechaFin': fechaFin,
@@ -36,6 +41,7 @@ class Partida {
     };
   }
 
+  ///Sobreescritura del método toString
   @override
   String toString() {
     return 'Partida {id: $id, fechaFin: $fechaFin, duracionSegundos: $duracionSegundos,'
@@ -43,6 +49,10 @@ class Partida {
   }
 }
 
+///Método que nos permite eliminar una partida a partir de su identificador
+///<br><b>Parámetros</b><br>
+///[partidaId] Identificador de la partida que queremos eliminar<br>
+///[database] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
 Future<void> deletePartidaById(int partidaId, [Database? db]) async {
   final Database database = db ?? await initializeDB();
 

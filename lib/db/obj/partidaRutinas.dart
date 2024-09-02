@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 
 import '../db.dart';
 
+///Clase relativa a la tabla PartidaRutinas
 class PartidaRutinas extends Partida {
   final int? id;
   final String fechaFin;
@@ -11,6 +12,7 @@ class PartidaRutinas extends Partida {
   final int fallos;
   final int jugadorId;
 
+  /// Constructor de la clase PartidaRutinas
   PartidaRutinas({
     this.id,
     required this.fechaFin,
@@ -26,6 +28,8 @@ class PartidaRutinas extends Partida {
           jugadorId: jugadorId,
         );
 
+  ///Crea una instancia de PartidaRutinas a partir de un mapa de datos, dicho mapa debe contener:
+  ///id, fechaFin, duracionSegundos, aciertos, fallos y jugadorId
   factory PartidaRutinas.partidasFromMap(Map<String, dynamic> item) {
     return PartidaRutinas(
       id: item["id"],
@@ -38,7 +42,12 @@ class PartidaRutinas extends Partida {
   }
 }
 
-// metodo para insertar una partida de rutinas en la BBDD
+///Método que nos permite insertar una partida del juego Rutinas en la base de datos
+///<br><b>Parámetros</b><br>
+///[partida] Partida que queremos insertar en la base de datos<br>
+///[db] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
+///<br><b>Salida</b><br>
+///Identificador de la partida que se ha insertado en la base de datos
 Future<int> insertPartidaRutinas(Partida partida, [Database? db]) async {
   final Database database = db ?? await initializeDB();
 
@@ -58,7 +67,12 @@ Future<int> insertPartidaRutinas(Partida partida, [Database? db]) async {
   return partidaId;
 }
 
-// Método para obtener las partidas de rutinas de un jugador dado su userId
+///Método que nos permite obtener todas las partidas de un jugador en el juego Rutinas
+///<br><b>Parámetros</b><br>
+///[jugadorId] Identificador del jugador del que queremos obtener las partidas<br>
+///[db] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
+///<br><b>Salida</b><br>
+///Lista de las partidas del jugador en el juego Rutinas
 Future<List<PartidaRutinas>> getPartidasRutinasByUserId(int jugadorId,
     [Database? db]) async {
   final Database database = db ?? await initializeDB();

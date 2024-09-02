@@ -9,6 +9,7 @@ import '../ironiasScripts/atenciont.dart';
 import '../ironiasScripts/infancia.dart';
 import 'grupo.dart';
 
+///Clase relativa a la tabla SituacionIronia
 class SituacionIronia {
   final int? id;
   final String enunciado;
@@ -17,6 +18,7 @@ class SituacionIronia {
   final String fecha;
   final int byTerapeuta;
 
+  ///Constructor de la clase SituacionIronia
   SituacionIronia(
       {this.id,
       required this.enunciado,
@@ -25,6 +27,8 @@ class SituacionIronia {
       required this.fecha,
       required this.byTerapeuta});
 
+  ///Crea una instancia de SituacionIronia a partir de un mapa de datos, dicho mapa debe contener:
+  ///id, enunciado, imagen, grupoId, fecha y byTerapeuta
   SituacionIronia.situacionesFromMap(Map<String, dynamic> item)
       : id = item["id"],
         enunciado = item["enunciado"],
@@ -33,6 +37,7 @@ class SituacionIronia {
         fecha = item["fecha"],
         byTerapeuta = item["byTerapeuta"];
 
+  ///Convierte una instancia de SituacionIronia a un mapa de datos
   Map<String, Object> situacionesToMap() {
     return {
       'enunciado': enunciado,
@@ -42,6 +47,7 @@ class SituacionIronia {
     };
   }
 
+  ///Sobreescritura del método equals
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -54,6 +60,7 @@ class SituacionIronia {
         other.byTerapeuta == byTerapeuta;
   }
 
+  ///Sobreescritura del método hashCode
   @override
   int get hashCode =>
       id.hashCode ^
@@ -62,6 +69,7 @@ class SituacionIronia {
       fecha.hashCode ^
       byTerapeuta.hashCode;
 
+  ///Sobreescritura del método toString
   @override
   String toString() {
     return 'SituacionIronia {id: $id, enunciado: $enunciado,'
@@ -72,6 +80,12 @@ class SituacionIronia {
   }
 }
 
+///Método que nos permite obtener las preguntas del juego Humor
+///<br><b>Parámetros</b><br>
+///[grupoId] Identificador del grupo del que queremos obtener las preguntas<br>
+///[db] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
+///<br><b>Salida</b><br>
+///Lista de preguntas del juego Humor pertenecientes al grupoId
 Future<List<SituacionIronia>> getSituacionesIronias(int grupoId,
     [Database? db]) async {
   try {
@@ -87,6 +101,16 @@ Future<List<SituacionIronia>> getSituacionesIronias(int grupoId,
   }
 }
 
+///Método que nos permite obtener las preguntas del juego Humor de forma paginada. Usado para el
+///punto de vista del terapeuta
+///<br><b>Parámetros</b><br>
+///[pageNumber] Página de la que queremos obtener los resultados. Comenzamos en la página 1<br>
+///[pageSize] Cantidad de resultados que queremos obtener por página<br>
+///[txtBuscar] Texto de la pregunta para filtrar la búsqueda<br>
+///[grupo] Grupo para filtrar la búsqueda<br>
+///[db] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
+///<br><b>Salida</b><br>
+///Resultado de la búsqueda con paginación
 Future<SituacionIroniaPaginacion> getSituacionIroniaPaginacion(
     int pageNumber, int pageSize, String txtBuscar, Grupo? grupo,
     [Database? db]) async {
@@ -129,6 +153,14 @@ Future<SituacionIroniaPaginacion> getSituacionIroniaPaginacion(
   }
 }
 
+///Método que nos permite insertar una nueva pregunta al juego Humor
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecutan las insercciones<br>
+///[enunciado] Enunciado de la pregunta<br>
+///[imagen] Lista de enteros que es la imagen<br>
+///[grupoId] Identificador del grupo al que va a pertenecer la pregunta
+///<br><b>Salida</b><br>
+///Identificador de la pregunta añadida
 Future<int> insertSituacionIronia(
     Database database, String enunciado, List<int> imagen, int grupoId) async {
   int id = -1;
@@ -160,6 +192,14 @@ Future<int> insertSituacionIronia(
   return id;
 }
 
+///Método que nos permite insertar las preguntas por defecto del juego Humor
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecutan las insercciones<br>
+///[enunciado] Enunciado de la pregunta<br>
+///[pathImg] Ruta en la que se encuentra la imagen<br>
+///[grupoId] Identificador del grupo al que va a pertenecer la pregunta
+///<br><b>Salida</b><br>
+///Identificador de la pregunta añadida
 Future<int> insertSituacionIroniaInitialData(
     Database database, String enunciado, String pathImg, int grupoId) async {
   int id = -1;
@@ -180,6 +220,10 @@ Future<int> insertSituacionIroniaInitialData(
   return id;
 }
 
+///Método que nos permite eliminar una pregunta del juego Humor a partir de su identificador
+///<br><b>Parámetros</b><br>
+///[preguntaSentimientoId] Identificador de la pregunta del juego Humor que queremos eliminar<br>
+///[db] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
 Future<void> removePreguntaIronia(int situacionIroniaId, [Database? db]) async {
   try {
     final Database database = db ?? await initializeDB();
@@ -193,6 +237,15 @@ Future<void> removePreguntaIronia(int situacionIroniaId, [Database? db]) async {
   }
 }
 
+///Método que nos permite actualizar una pregunta del juego Humor
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecuta la actualización<br>
+///[id] Identificador de la pregunta que queremos actualizar<br>
+///[enunciado] Nuevo valor del enunciado<br>
+///[imagen] Nueva lista de enteros que representa la imagen<br>
+///[grupoId] Nuevo valor del grupo al que pertenece la pregunta
+///<br><b>Salida</b><br>
+///Identificador de la pregunta que ha sido actualizada
 Future<int> updatePreguntaIronia(Database database, int id, String enunciado,
     List<int> imagen, int grupoId) async {
   return await database.update(
@@ -208,6 +261,9 @@ Future<int> updatePreguntaIronia(Database database, int id, String enunciado,
   );
 }
 
+///Método que se encarga de hacer la insercción de las preguntas del juego Humor que están presentes inicialmente
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecutan las insercciones
 void insertIronias(Database database) {
   insertIroniasInitialDataAtencionT(database);
   insertIroniasInitialDataInfancia(database);

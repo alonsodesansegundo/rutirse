@@ -4,9 +4,15 @@ import 'package:sqflite/sqflite.dart';
 import '../obj/preguntaSentimiento.dart';
 import '../obj/situacion.dart';
 
+///Path correspondiente a donde se almacenan las imágenes de las preguntas del juego Sentimientos
 String pathSentimientos = 'assets/img/sentimientos/';
+
+/// Path correspondiente a donde se almacenan las imágenes de los personajes del juego Rutinas
 String pathPersonaje = 'assets/img/personajes/';
 
+///Método encargado de las insercciones de preguntas predeterminadas para el juego Sentimientos del grupo Atención Temprana
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecutan las insercciones
 void insertPreguntaSentimientoInitialDataAtencionT(Database database) async {
   int grupoAtencionT = 1;
 

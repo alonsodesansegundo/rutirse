@@ -4,8 +4,12 @@ import 'package:sqflite/sqflite.dart';
 import '../obj/respuestaIronia.dart';
 import '../obj/situacionIronia.dart';
 
+///Path correspondiente a donde se almacenan las imágenes del juego Humor
 String pathIronias = 'assets/img/humor/';
 
+///Método encargado de las insercciones de preguntas predeterminadas para el juego Humor del grupo Infancia
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecutan las insercciones
 void insertIroniasInitialDataInfancia(Database database) async {
   int grupoInfancia = 2;
 

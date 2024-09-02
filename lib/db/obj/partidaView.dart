@@ -4,6 +4,7 @@ import '../../obj/PartidasPaginacion.dart';
 import '../db.dart';
 import 'grupo.dart';
 
+///Clase que nos permite obtener los datos que queremos mostrar de una partida
 class PartidaView {
   final int? id;
   final String fechaFin;
@@ -13,6 +14,7 @@ class PartidaView {
   final String jugadorName;
   final String grupoName;
 
+  ///Constructor de la clase PartidaView
   PartidaView(
       {this.id,
       required this.fechaFin,
@@ -22,6 +24,8 @@ class PartidaView {
       required this.jugadorName,
       required this.grupoName});
 
+  ///Crea una instancia de PartidaView a partir de un mapa de datos, dicho mapa debe contener:
+  ///id, fechaFin, duracionSegundos, aciertos, fallos, jugadorName y grupoName
   PartidaView.partidasFromMap(Map<String, dynamic> item)
       : id = item["id"],
         fechaFin = item["fechaFin"],
@@ -31,6 +35,7 @@ class PartidaView {
         jugadorName = item["jugadorName"],
         grupoName = item["grupoName"];
 
+  /// Convierte una instancia de PartidaView a un mapa de datos
   Map<String, Object> partidasToMap() {
     return {
       'fechaFin': fechaFin,
@@ -42,6 +47,7 @@ class PartidaView {
     };
   }
 
+  ///Sobreescritura del método toString
   @override
   String toString() {
     return 'Partida {id: $id, fechaFin: $fechaFin, duracionSegundos: $duracionSegundos,'
@@ -49,6 +55,16 @@ class PartidaView {
   }
 }
 
+///Método que nos permite obtener las partidas de forma paginada del juego que deseamos.
+///Es para el punto de vista del terapeuta
+///<br><b>Parámetros</b><br>
+///[pageNumber] Página de la que queremos obtener los resultados. Comenzamos en la página 1<br>
+///[pageSize] Cantidad de resultados que queremos obtener por página<br>
+///[txtNombre] Nombre del jugador para filtrar la búsqueda<br>
+///[grupo] Grupo para filtrar la búsqueda<br>
+///[game] Juego sobre el que queremos obtener las partidas. Posibles valores: Ironias, Rutinas o Sentimientos
+///<br><b>Salida</b><br>
+///Lista de las partidas de forma paginada
 Future<PartidasPaginacion> getAllPartidasView(int pageNumber, int pageSize,
     String txtNombre, Grupo? grupo, String game) async {
   try {

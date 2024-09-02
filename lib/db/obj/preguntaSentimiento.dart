@@ -9,6 +9,7 @@ import '../sentimientosScripts/atenciont.dart';
 import '../sentimientosScripts/infancia.dart';
 import 'grupo.dart';
 
+///Clase relativa a la tabla PreguntaSentimiento
 class PreguntaSentimiento {
   final int? id;
   final String enunciado;
@@ -17,6 +18,7 @@ class PreguntaSentimiento {
   final String fecha;
   final int byTerapeuta;
 
+  ///Constructor de la clase PreguntaSentimiento
   PreguntaSentimiento(
       {this.id,
       required this.enunciado,
@@ -25,6 +27,8 @@ class PreguntaSentimiento {
       required this.fecha,
       required this.byTerapeuta});
 
+  ///Crea una instancia de PreguntaSentimiento a partir de un mapa de datos, dicho mapa debe contener:
+  ///id, enunciado, imagen, grupoId, fecha y byTerapeuta
   PreguntaSentimiento.sentimientosFromMap(Map<String, dynamic> item)
       : id = item["id"],
         enunciado = item["enunciado"],
@@ -33,6 +37,7 @@ class PreguntaSentimiento {
         fecha = item["fecha"],
         byTerapeuta = item["byTerapeuta"];
 
+  ///Convierte una instancia de PreguntaSentimientos a un mapa de datos
   Map<String, Object> sentimientosToMap() {
     return {
       'enunciado': enunciado,
@@ -42,6 +47,7 @@ class PreguntaSentimiento {
     };
   }
 
+  ///Sobreescritura del método equals
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -54,6 +60,7 @@ class PreguntaSentimiento {
         other.byTerapeuta == byTerapeuta;
   }
 
+  ///Sobreescritura del método hashCode
   @override
   int get hashCode =>
       id.hashCode ^
@@ -62,6 +69,7 @@ class PreguntaSentimiento {
       fecha.hashCode ^
       byTerapeuta.hashCode;
 
+  ///Sobreescritura del método toString
   @override
   String toString() {
     return 'PreguntaSentimiento {id: $id, enunciado: $enunciado,'
@@ -72,6 +80,12 @@ class PreguntaSentimiento {
   }
 }
 
+///Método que nos permite obtener todas las preguntas de un grupo del juego Sentimientos
+///<br><b>Parámetros</b><br>
+///[grupoId] Identificador del grupo que queremos obtener las preguntas<br>
+///[database] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
+///<br><b>Salida</b><br>
+///Lista de las preguntas del juego Sentimientos
 Future<List<PreguntaSentimiento>> getPreguntasSentimiento(int grupoId,
     [Database? db]) async {
   try {
@@ -89,6 +103,16 @@ Future<List<PreguntaSentimiento>> getPreguntasSentimiento(int grupoId,
   }
 }
 
+///Método que nos permite obtener las preguntas del juego Sentimientos de forma paginada. Usado para el
+///punto de vista del terapeuta
+///<br><b>Parámetros</b><br>
+///[pageNumber] Página de la que queremos obtener los resultados. Comenzamos en la página 1<br>
+///[pageSize] Cantidad de resultados que queremos obtener por página<br>
+///[txtBuscar] Texto de la pregunta para filtrar la búsqueda<br>
+///[grupo] Grupo para filtrar la búsqueda<br>
+///[db] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
+///<br><b>Salida</b><br>
+///Resultado de la búsqueda con paginación
 Future<PreguntaSentimientoPaginacion> getPreguntaSentimientoPaginacion(
     int pageNumber, int pageSize, String txtBuscar, Grupo? grupo,
     [Database? db]) async {
@@ -131,6 +155,14 @@ Future<PreguntaSentimientoPaginacion> getPreguntaSentimientoPaginacion(
   }
 }
 
+///Método que nos permite insertar una nueva pregunta al juego Sentimientos
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecutan las insercciones<br>
+///[enunciado] Enunciado de la pregunta<br>
+///[imgPersonaje] Lista de enteros que es la imagen del personaje<br>
+///[grupoId] Identificador del grupo al que va a pertenecer la pregunta
+///<br><b>Salida</b><br>
+///Identificador de la pregunta que ha sido añadida
 Future<int> insertPreguntaSentimiento(Database database, String enunciado,
     List<int> imgPersonaje, int grupoId) async {
   int id = -1;
@@ -162,6 +194,14 @@ Future<int> insertPreguntaSentimiento(Database database, String enunciado,
   return id;
 }
 
+///Método que nos permite insertar las preguntas por defecto del juego Sentimientos
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecutan las insercciones<br>
+///[enunciado] Enunciado de la pregunta<br>
+///[pathImg] Ruta en la que se encuentra la imagen del personaje<br>
+///[grupoId] Identificador del grupo al que va a pertenecer la pregunta
+///<br><b>Salida</b><br>
+///Identificador de la pregunta que ha sido añadida
 Future<int> insertPreguntaSentimientoInitialData(
     Database database, String enunciado, String pathImg, int grupoId) async {
   int id = -1;
@@ -182,6 +222,10 @@ Future<int> insertPreguntaSentimientoInitialData(
   return id;
 }
 
+///Método que nos permite eliminar una pregunta del juego Sentimientos a partir de su identificador
+///<br><b>Parámetros</b><br>
+///[preguntaSentimientoId] Identificador de la pregunta del juego Sentimientos que queremos eliminar<br>
+///[db] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
 Future<void> removePreguntaSentimiento(int preguntaSentimientoId,
     [Database? db]) async {
   try {
@@ -196,6 +240,13 @@ Future<void> removePreguntaSentimiento(int preguntaSentimientoId,
   }
 }
 
+///Método que nos permite actualizar una pregunta del juego Sentimientos
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecuta la actualización<br>
+///[id Identificador] de la pregunta que queremos actualizar<br>
+///[enunciado] Nuevo valor del enunciado<br>
+///[imgPersonaje] Nueva lista de enteros que representa la imagen del personaje<br>
+///[grupoId] Nuevo valor del grupo al que pertenece la pregunta
 Future<void> updatePregunta(Database database, int id, String enunciado,
     List<int> imgPersonaje, int grupoId,
     [Database? db]) async {
@@ -226,6 +277,9 @@ Future<void> updatePregunta(Database database, int id, String enunciado,
     );
 }
 
+///Método que se encarga de hacer la insercción de las preguntas del juego Sentimientos que están presentes inicialmente
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecutan las insercciones
 void insertSentimientos(Database database) {
   insertPreguntaSentimientoInitialDataAtencionT(database);
   insertPreguntaSentimientoInitialDataInfancia(database);

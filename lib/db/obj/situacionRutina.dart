@@ -9,6 +9,7 @@ import '../rutinasScripts/atenciont.dart';
 import '../rutinasScripts/infancia.dart';
 import 'grupo.dart';
 
+///Clase relativa a la tabla SituacionRutina
 class SituacionRutina {
   final int? id;
   final String enunciado;
@@ -17,6 +18,7 @@ class SituacionRutina {
   final String fecha;
   final int byTerapeuta;
 
+  ///Constructor de la clase SituacionRutina
   SituacionRutina(
       {this.id,
       required this.enunciado,
@@ -25,6 +27,8 @@ class SituacionRutina {
       required this.fecha,
       required this.byTerapeuta});
 
+  ///Crea una instancia de SituacionRutina a partir de un mapa de datos, dicho mapa debe contener:
+  ///id, enunciado, personajeImg, grupoId, fecha y byTerapeuta
   SituacionRutina.situacionesFromMap(Map<String, dynamic> item)
       : id = item["id"],
         enunciado = item["enunciado"],
@@ -33,6 +37,8 @@ class SituacionRutina {
         fecha = item["fecha"],
         byTerapeuta = item["byTerapeuta"];
 
+  ///Crea una instancia de SituacionIronia a partir de un mapa de datos, dicho mapa debe contener:
+  ///id, enunciado, imagen, grupoId, fecha y byTerapeuta
   Map<String, Object> situacionesToMap() {
     return {
       'enunciado': enunciado,
@@ -42,6 +48,7 @@ class SituacionRutina {
     };
   }
 
+  ///Sobreescritura del método equals
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -54,6 +61,7 @@ class SituacionRutina {
         other.byTerapeuta == byTerapeuta;
   }
 
+  ///Sobreescritura del método hashCode
   @override
   int get hashCode =>
       id.hashCode ^
@@ -62,6 +70,7 @@ class SituacionRutina {
       fecha.hashCode ^
       byTerapeuta.hashCode;
 
+  ///Sobreescritura del método toString
   @override
   String toString() {
     return 'SituacionRutina {id: $id, enunciado: $enunciado,'
@@ -72,6 +81,12 @@ class SituacionRutina {
   }
 }
 
+///Método que nos permite obtener las preguntas del juego Rutinas
+///<br><b>Parámetros</b><br>
+///[grupoId] Identificador del grupo del que queremos obtener las preguntas<br>
+///[db] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
+///<br><b>Salida</b><br>
+///Lista de preguntas del juego Rutinas pertenecientes al grupoId
 Future<List<SituacionRutina>> getSituacionesRutinas(int grupoId,
     [Database? db]) async {
   try {
@@ -87,6 +102,16 @@ Future<List<SituacionRutina>> getSituacionesRutinas(int grupoId,
   }
 }
 
+///Método que nos permite obtener las preguntas del juego Rutinas de forma paginada. Usado para el
+///punto de vista del terapeuta
+///<br><b>Parámetros</b><br>
+///[pageNumber] Página de la que queremos obtener los resultados. Comenzamos en la página 1<br>
+///[pageSize] Cantidad de resultados que queremos obtener por página<br>
+///[txtBuscar] Texto de la pregunta para filtrar la búsqueda<br>
+///[grupo] Grupo para filtrar la búsqueda<br>
+///[db] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
+///<br><b>Salida</b><br>
+///Resultado de la búsqueda con paginación
 Future<SituacionRutinaPaginacion> getSituacionRutinaPaginacion(
     int pageNumber, int pageSize, String txtBuscar, Grupo? grupo,
     [Database? db]) async {
@@ -129,6 +154,14 @@ Future<SituacionRutinaPaginacion> getSituacionRutinaPaginacion(
   }
 }
 
+///Método que nos permite insertar una nueva pregunta al juego Rutinas
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecutan las insercciones<br>
+///[enunciado] Enunciado de la pregunta<br>
+///[imgPersonaje] Lista de enteros que es la imagen<br>
+///[grupoId] Identificador del grupo al que va a pertenecer la pregunta
+///<br><b>Salida</b><br>
+///Identificador de la pregunta que se ha añadido
 Future<int> insertSituacionRutina(Database database, String enunciado,
     List<int> imgPersonaje, int grupoId) async {
   int id = -1;
@@ -160,6 +193,14 @@ Future<int> insertSituacionRutina(Database database, String enunciado,
   return id;
 }
 
+///Método que nos permite insertar las preguntas por defecto del juego Rutinas
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecutan las insercciones<br>
+///[enunciado] Enunciado de la pregunta<br>
+///[pathImg] Ruta en la que se encuentra la imagen<br>
+///[grupoId] Identificador del grupo al que va a pertenecer la pregunta
+///<br><b>Salida</b><br>
+///Identificador de la pregunta que se ha añadido
 Future<int> insertSituacionRutinaInitialData(
     Database database, String enunciado, String pathImg, int grupoId) async {
   int id = -1;
@@ -180,6 +221,10 @@ Future<int> insertSituacionRutinaInitialData(
   return id;
 }
 
+///Método que nos permite eliminar una pregunta del juego Rutinas a partir de su identificador
+///<br><b>Parámetros</b><br>
+///[situacionRutinaId] Identificador de la pregunta del juego Rutinas que queremos eliminar<br>
+///[db] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
 Future<void> removePreguntaRutinas(int situacionRutinaId,
     [Database? db]) async {
   try {
@@ -194,6 +239,13 @@ Future<void> removePreguntaRutinas(int situacionRutinaId,
   }
 }
 
+///Método que nos permite actualizar una pregunta del juego Rutinas
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecuta la actualización<br>
+///[id] Identificador de la pregunta que queremos actualizar<br>
+///[enunciado] Nuevo valor del enunciado<br>
+///[imgPersonaje] Nueva lista de enteros que representa la imagen<br>
+///[grupoId] Nuevo valor del grupo al que pertenece la pregunta<br>
 Future<void> updatePregunta(Database database, int id, String enunciado,
     List<int> imgPersonaje, int grupoId) async {
   if (imgPersonaje.isEmpty)
@@ -222,6 +274,9 @@ Future<void> updatePregunta(Database database, int id, String enunciado,
     );
 }
 
+///Método que se encarga de hacer la insercción de las preguntas del juego Rutinas que están presentes inicialmente
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecutan las insercciones
 void insertRutinas(Database database) {
   insertPreguntaRutinaInitialDataAtencionT(database);
   insertPreguntaRutinaInitialDataInfancia(database);

@@ -7,8 +7,9 @@ import 'obj/situacionIronia.dart';
 import 'obj/situacionRutina.dart';
 import 'obj/terapeuta.dart';
 
-String pathPersonajes = "assets/img/personajes/";
-
+///Método que inicializa la base de datos sqflite
+///<br><b>Salida</b><br>
+///El objeto Database que se ha creado
 Future<Database> initializeDB() async {
   String path = await getDatabasesPath();
 
@@ -29,6 +30,9 @@ Future<Database> initializeDB() async {
   );
 }
 
+///Método para crear la tabla grupo
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se crea la tabla
 void createTableGrupo(Database database) {
   database.execute(
     """CREATE TABLE grupo (
@@ -38,6 +42,9 @@ void createTableGrupo(Database database) {
   );
 }
 
+///Método para crear la tabla jugador
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se crea la tabla
 void createTableJugador(Database database) {
   database.execute("""
     CREATE TABLE jugador (
@@ -47,6 +54,9 @@ void createTableJugador(Database database) {
       FOREIGN KEY (grupoId) REFERENCES grupo(id))""");
 }
 
+///Método para crear la tabla partida
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se crea la tabla
 void createTablePartida(Database database) {
   database.execute("""
     CREATE TABLE partida (
@@ -78,6 +88,9 @@ void createTablePartida(Database database) {
     )""");
 }
 
+///Método para crear la tabla situacionRutina
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se crea la tabla
 void createTableSituacionRutina(Database database) {
   database.execute("""
     CREATE TABLE situacionRutina (
@@ -92,6 +105,9 @@ void createTableSituacionRutina(Database database) {
     )""");
 }
 
+///Método para crear la tabla accion
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se crea la tabla
 void createTableAccion(Database database) {
   database.execute("""
     CREATE TABLE accion (
@@ -105,6 +121,9 @@ void createTableAccion(Database database) {
     )""");
 }
 
+///Método para crear la tabla situacionIronia
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se crea la tabla
 void createTableSituacionIronia(Database database) {
   database.execute("""
     CREATE TABLE situacionIronia (
@@ -119,6 +138,9 @@ void createTableSituacionIronia(Database database) {
     )""");
 }
 
+///Método para crear la tabla respuestaIronia
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se crea la tabla
 void createTableRespuestaIronia(Database database) {
   database.execute("""
     CREATE TABLE respuestaIronia (
@@ -131,6 +153,9 @@ void createTableRespuestaIronia(Database database) {
     )""");
 }
 
+///Método para crear la tabla preguntaSentimiento
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se crea la tabla
 void createTablePreguntaSentimiento(Database database) {
   database.execute("""
     CREATE TABLE preguntaSentimiento (
@@ -145,6 +170,9 @@ void createTablePreguntaSentimiento(Database database) {
     )""");
 }
 
+///Método para crear la tabla situacion
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se crea la tabla
 void createTableSituacion(Database database) {
   database.execute("""
     CREATE TABLE situacion (
@@ -158,6 +186,9 @@ void createTableSituacion(Database database) {
     )""");
 }
 
+///Método para crear la tabla terapeuta
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se crea la tabla
 void createTableTerapeuta(Database database) {
   database.execute("""
     CREATE TABLE terapeuta (
@@ -166,6 +197,9 @@ void createTableTerapeuta(Database database) {
     )""");
 }
 
+///Método que recoge todas las creaciones de tablas
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se crean la tablas
 void createTables(Database database) {
   createTableGrupo(database);
   createTableJugador(database);

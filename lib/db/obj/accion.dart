@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 
 import '../db.dart';
 
+///Clase relativa a la tabla accion
 class Accion {
   final int id;
   final String texto;
@@ -10,6 +11,7 @@ class Accion {
   final Uint8List? imagen;
   final int situacionRutinaId;
 
+  ///Constructor de la clase Accion
   Accion(
       {required this.id,
       required this.texto,
@@ -17,6 +19,8 @@ class Accion {
       this.imagen,
       required this.situacionRutinaId});
 
+  ///Crea una instancia de Accion a partir de un mapa de datos, dicho mapa debe contener:
+  ///id, texto, orden, imagen y situacionRutinaId
   Accion.accionesFromMap(Map<String, dynamic> item)
       : id = item["id"],
         texto = item["texto"],
@@ -24,6 +28,7 @@ class Accion {
         imagen = item["imagen"],
         situacionRutinaId = item["situacionRutinaId"];
 
+  ///Convierte una instancia de Accion a un mapa de datos
   Map<String, Object> accionesToMap() {
     return {
       'id': id,
@@ -33,6 +38,7 @@ class Accion {
     };
   }
 
+  ///Sobreescritura del método equals
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -44,6 +50,7 @@ class Accion {
         other.situacionRutinaId == situacionRutinaId;
   }
 
+  ///Sobreescritura del método hashCode
   @override
   int get hashCode =>
       id.hashCode ^
@@ -51,6 +58,7 @@ class Accion {
       orden.hashCode ^
       situacionRutinaId.hashCode;
 
+  ///Sobreescritura del método toString
   @override
   String toString() {
     return 'Accion {id: $id, texto: $texto, orden: $orden, '
@@ -58,6 +66,13 @@ class Accion {
   }
 }
 
+/// Método que se engarga de realizar una insercción en la tabla accion
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecutan las insercciones<br>
+///[texto] Texto correspondiente a la accion<br>
+///[orden] Posición correcta de la accion<br>
+///[imgAccion] Array de enteros que es la imagen de la accion<br>
+///[situacionRutinaId] Referencia a la pregunta rutina que pertenece dicha accion
 Future<void> insertAccion(Database database, String texto, int orden,
     List<int> imgAccion, int situacionRutinaId) async {
   await database.transaction((txn) async {
@@ -68,6 +83,13 @@ Future<void> insertAccion(Database database, String texto, int orden,
   });
 }
 
+/// Método que se engarga de realizar una insercción de los datos por defecto en la tabla accion
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecutan las insercciones<br>
+///[texto] Texto correspondiente a la accion<br>
+///[orden] Posición correcta de la accion<br>
+///[pathImg] Path que hace referencia a donde se encuentra la imagen de la accion<br>
+///[situacionRutinaId] Referencia a la pregunta rutina que pertenece dicha accion
 Future<void> insertAccionInitialData(Database database, String texto, int orden,
     String pathImg, int situacionRutinaId) async {
   ByteData imageData = await rootBundle.load(pathImg);
@@ -80,6 +102,12 @@ Future<void> insertAccionInitialData(Database database, String texto, int orden,
   });
 }
 
+///Método que se encarga de obtener las acciones pertenecientes a una pregunta sobre rutinas
+///<br><b>Parámetros</b><br>
+///[situacionRutinaId] Identificador de la pregunta rutina sobre la que queremos obtener las acciones<br>
+///[db] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
+///<br><b>Salida</b><br>
+///La lista de acciones relativas a la pregunta que le pasamos por parametro
 Future<List<Accion>> getAcciones(int situacionRutinaId, [Database? db]) async {
   try {
     final Database database = db ?? await initializeDB();
@@ -94,6 +122,10 @@ Future<List<Accion>> getAcciones(int situacionRutinaId, [Database? db]) async {
   }
 }
 
+///Método que elimina una fila de la tabla accion
+///<br><b>Parámetros</b><br>
+///[database] Objeto Database sobre la cual se ejecutan las insercciones<br>
+///[accionId] Identificador de la fila de la tabla accion que queremos eliminar
 void deleteAccion(Database database, int accionId) async {
   try {
     await database.delete(
