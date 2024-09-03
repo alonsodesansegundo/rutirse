@@ -36,10 +36,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// Pantalla principal de la aplicación.<br>
-/// La clase está dividida en dos partes:<br>
-/// - La clase [MyHomePage], que define el widget.<br>
-/// - La clase privada [_MyHomePageState], que maneja el estado del widget.
+/// Pantalla principal de la aplicación.
 class MyHomePage extends StatelessWidget {
   late int intentosPassword = 0;
 

@@ -30,7 +30,7 @@ class PictogramasPaginacion {
 
   ///Método que nos permite conocer si hay más páginas (para poder mostrar el botón Siguiente de ser necesario)
   ///<br><b>Salida</b><br>
-  ///Valor booleano que es [true] si hay más páginas hacia adelante, [false] en caso contrario
+  ///Valor booleano que es true si hay más páginas hacia adelante, false en caso contrario
   bool hayMasPaginas() {
     return paginaActual < calcularTotalPaginas();
   }

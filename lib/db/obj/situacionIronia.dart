@@ -222,7 +222,7 @@ Future<int> insertSituacionIroniaInitialData(
 
 ///Método que nos permite eliminar una pregunta del juego Humor a partir de su identificador
 ///<br><b>Parámetros</b><br>
-///[preguntaSentimientoId] Identificador de la pregunta del juego Humor que queremos eliminar<br>
+///[situacionIroniaId] Identificador de la pregunta del juego Humor que queremos eliminar<br>
 ///[db] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
 Future<void> removePreguntaIronia(int situacionIroniaId, [Database? db]) async {
   try {

@@ -14,7 +14,7 @@ import '../sentimientos/jugarSentimientos.dart';
 
 ///Pantalla que se muestra cuando un usuario selecciona un juego para comenzar a jugar
 class Home extends StatefulWidget {
-  ///Variable que puede tener 3 posibles valores: [rutinas], [humor] o [sentimientos]. Dependiendo de ello
+  ///Variable que puede tener 3 posibles valores: rutinas, humor o sentimientos. Dependiendo de ello
   ///se mostrarán ciertos textos y seremos redirigidos a distintas pantallas
   final String juego;
 

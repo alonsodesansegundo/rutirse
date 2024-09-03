@@ -48,7 +48,7 @@ class Jugador {
 ///Método que nos permite insertar un nuevo jugador
 ///<br><b>Parámetros</b><br>
 ///[jugador] Jugador que queremos insertar en la base de datos<br>
-///[database] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
+///[db] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
 ///<br><b>Salida</b><br>
 ///Objeto Jugador que resulta de haber realizado la insercción
 Future<Jugador> insertJugador(Jugador jugador, [Database? db]) async {
@@ -75,7 +75,7 @@ Future<Jugador> insertJugador(Jugador jugador, [Database? db]) async {
 ///[jugador] Jugador que queremos consultar si está presente en la base de datos<br>
 ///[database] Objeto Database sobre la cual se ejecuta la consulta
 ///<br><b>Salida</b><br>
-///Booleano que nos indica si el jugador existe [true] o no [false]
+///Booleano que nos indica si el jugador existe true o no false
 Future<bool> existeJugador(Jugador jugador, Database database) async {
   List<Map<String, dynamic>> result = await database.query(
     'jugador',
@@ -88,7 +88,7 @@ Future<bool> existeJugador(Jugador jugador, Database database) async {
 ///Método que nos permite eliminar a un jugador a través de su identificador
 ///<br><b>Parámetros</b><br>
 ///[playerId] Identificador del jugador que queremos eliminar de la base de datos<br>
-///[database] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
+///[db] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
 Future<void> deletePlayer(int playerId, [Database? db]) async {
   final Database database = db ?? await initializeDB();
 

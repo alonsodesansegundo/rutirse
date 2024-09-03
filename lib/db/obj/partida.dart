@@ -52,7 +52,7 @@ class Partida {
 ///Método que nos permite eliminar una partida a partir de su identificador
 ///<br><b>Parámetros</b><br>
 ///[partidaId] Identificador de la partida que queremos eliminar<br>
-///[database] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
+///[db] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
 Future<void> deletePartidaById(int partidaId, [Database? db]) async {
   final Database database = db ?? await initializeDB();
 

@@ -102,7 +102,7 @@ Future<List<RespuestaIronia>> getRespuestasIronia(int situacionId,
 
 ///Método que nos permite eliminar las respuestas pertenecientes a una pregunta del juego Humor
 ///<br><b>Parámetros</b><br>
-///[database] Objeto Database sobre la cual se ejecutan la operación de delete<br>
+///[db] Objeto Database sobre la cual se ejecutan la operación de delete<br>
 ///[situacionIroniaId] Identificador de la pregunta de la que queremos eliminar las respuestas
 Future<void> deleteRespuestasBySituacionIroniaId(
     Database db, int situacionIroniaId) async {

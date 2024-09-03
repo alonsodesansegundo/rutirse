@@ -83,7 +83,7 @@ class PreguntaSentimiento {
 ///Método que nos permite obtener todas las preguntas de un grupo del juego Sentimientos
 ///<br><b>Parámetros</b><br>
 ///[grupoId] Identificador del grupo que queremos obtener las preguntas<br>
-///[database] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
+///[db] Parámetro opcional. Le pasamos un objeto Database en caso de estar probando dicho método
 ///<br><b>Salida</b><br>
 ///Lista de las preguntas del juego Sentimientos
 Future<List<PreguntaSentimiento>> getPreguntasSentimiento(int grupoId,
@@ -243,7 +243,7 @@ Future<void> removePreguntaSentimiento(int preguntaSentimientoId,
 ///Método que nos permite actualizar una pregunta del juego Sentimientos
 ///<br><b>Parámetros</b><br>
 ///[database] Objeto Database sobre la cual se ejecuta la actualización<br>
-///[id Identificador] de la pregunta que queremos actualizar<br>
+///[id] Identificador de la pregunta que queremos actualizar<br>
 ///[enunciado] Nuevo valor del enunciado<br>
 ///[imgPersonaje] Nueva lista de enteros que representa la imagen del personaje<br>
 ///[grupoId] Nuevo valor del grupo al que pertenece la pregunta
