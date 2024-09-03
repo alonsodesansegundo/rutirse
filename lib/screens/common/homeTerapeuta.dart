@@ -10,12 +10,12 @@ import '../rutinas/menuTerapeutaRutinas.dart';
 ///Pantalla que se corresponde con el menú de terapeuta una vez ha logrado pasar el login correctamente
 class HomeTerapeuta extends StatefulWidget {
   @override
-  _HomeTerapeutaState createState() => _HomeTerapeutaState();
+  HomeTerapeutaState createState() => HomeTerapeutaState();
 }
 
 /// Estado asociado a la pantalla [HomeTerapeuta] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _HomeTerapeutaState extends State<HomeTerapeuta> {
+class HomeTerapeutaState extends State<HomeTerapeuta> {
   late double titleSize,
       textSize,
       espacioPadding,

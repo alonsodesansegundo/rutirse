@@ -24,12 +24,13 @@ Random random = Random(); // para generar numeros aleatorios
 ///Pantalla de juego del juego Rutinas
 class JugarRutinas extends StatefulWidget {
   @override
-  _JugarRutinas createState() => _JugarRutinas();
+  JugarRutinasState createState() => JugarRutinasState();
 }
 
 /// Estado asociado a la pantalla [JugarRutinas] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _JugarRutinas extends State<JugarRutinas> with WidgetsBindingObserver {
+class JugarRutinasState extends State<JugarRutinas>
+    with WidgetsBindingObserver {
   late FlutterTts flutterTts; // para reproducir audio
 
   late bool flag,

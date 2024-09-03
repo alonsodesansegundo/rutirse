@@ -8,12 +8,12 @@ import '../../widgets/ImageTextButton.dart';
 ///Pantalla que le permite a un jugador ver sus partidas en el juego Humor
 class UserProgressHumor extends StatefulWidget {
   @override
-  _UserProgressHumorState createState() => _UserProgressHumorState();
+  UserProgressHumorState createState() => UserProgressHumorState();
 }
 
 /// Estado asociado a la pantalla [UserProgressHumor] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _UserProgressHumorState extends State<UserProgressHumor> {
+class UserProgressHumorState extends State<UserProgressHumor> {
   late bool loadPartidas, loadData;
 
   late double titleSize,

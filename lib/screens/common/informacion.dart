@@ -5,12 +5,12 @@ import '../../widgets/ImageTextButton.dart';
 ///Pantalla correspondiente a la información de recursos, persona partícipe del desarrollo, etc. de la aplicación
 class Informacion extends StatefulWidget {
   @override
-  _InformacionState createState() => _InformacionState();
+  InformacionState createState() => InformacionState();
 }
 
 /// Estado asociado a la pantalla [Informacion] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _InformacionState extends State<Informacion> {
+class InformacionState extends State<Informacion> {
   late double titleSize, textSize, espacioPadding, espacioAlto, imgHeight;
   late bool loadData;
 

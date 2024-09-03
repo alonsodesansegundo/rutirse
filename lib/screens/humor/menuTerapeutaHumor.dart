@@ -8,12 +8,12 @@ import 'allProgressHumor.dart';
 ///Pantalla menú para el terapeuta en el juego Humor
 class MenuTerapeutaHumor extends StatefulWidget {
   @override
-  _MenuTerapeutaHumorState createState() => _MenuTerapeutaHumorState();
+  MenuTerapeutaHumorState createState() => MenuTerapeutaHumorState();
 }
 
 /// Estado asociado a la pantalla [MenuTerapeutaHumor] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _MenuTerapeutaHumorState extends State<MenuTerapeutaHumor> {
+class MenuTerapeutaHumorState extends State<MenuTerapeutaHumor> {
   late double titleSize,
       textSize,
       espacioPadding,

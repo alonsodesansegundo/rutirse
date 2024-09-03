@@ -8,13 +8,13 @@ import 'allProgressSentimiento.dart';
 ///Pantalla menú para el terapeuta en el juego Sentimientos
 class MenuTerapeutaSentimientos extends StatefulWidget {
   @override
-  _MenuTerapeutaSentimientosState createState() =>
-      _MenuTerapeutaSentimientosState();
+  MenuTerapeutaSentimientosState createState() =>
+      MenuTerapeutaSentimientosState();
 }
 
 /// Estado asociado a la pantalla [MenuTerapeutaSentimientos] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _MenuTerapeutaSentimientosState extends State<MenuTerapeutaSentimientos> {
+class MenuTerapeutaSentimientosState extends State<MenuTerapeutaSentimientos> {
   late double titleSize,
       textSize,
       espacioPadding,

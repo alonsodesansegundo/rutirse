@@ -24,12 +24,12 @@ Random random = Random(); // para generar numeros aleatorios
 ///Pantalla de juego del juego Sentimientos
 class JugarSentimientos extends StatefulWidget {
   @override
-  _JugarSentimientos createState() => _JugarSentimientos();
+  JugarSentimientosState createState() => JugarSentimientosState();
 }
 
 /// Estado asociado a la pantalla [JugarSentimientos] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _JugarSentimientos extends State<JugarSentimientos>
+class JugarSentimientosState extends State<JugarSentimientos>
     with WidgetsBindingObserver {
   late FlutterTts flutterTts; // para reproducir audio
 

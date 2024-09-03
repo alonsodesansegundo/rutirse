@@ -10,12 +10,12 @@ import '../../widgets/ImageTextButton.dart';
 ///del enunciado y/o grupo al que pertenece
 class ViewAddedSentimiento extends StatefulWidget {
   @override
-  _ViewAddedSentimientoState createState() => _ViewAddedSentimientoState();
+  ViewAddedSentimientoState createState() => ViewAddedSentimientoState();
 }
 
 /// Estado asociado a la pantalla [ViewAddedSentimiento] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _ViewAddedSentimientoState extends State<ViewAddedSentimiento> {
+class ViewAddedSentimientoState extends State<ViewAddedSentimiento> {
   late double titleSize,
       textSize,
       espacioPadding,

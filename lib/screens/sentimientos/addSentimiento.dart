@@ -18,12 +18,12 @@ import '../main.dart';
 ///Pantalla que nos permite añadir una nueva pregunta, con sus correspondientes respuestas al juego Sentimientos
 class AddSentimiento extends StatefulWidget {
   @override
-  _AddSentimientoState createState() => _AddSentimientoState();
+  AddSentimientoState createState() => AddSentimientoState();
 }
 
 /// Estado asociado a la pantalla [AddSentimiento] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _AddSentimientoState extends State<AddSentimiento> {
+class AddSentimientoState extends State<AddSentimiento> {
   late double titleSize,
       textSize,
       espacioPadding,

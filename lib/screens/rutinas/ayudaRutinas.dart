@@ -14,12 +14,12 @@ class AyudaRutinas extends StatefulWidget {
   AyudaRutinas({required this.origen});
 
   @override
-  _AyudaRutinasState createState() => _AyudaRutinasState();
+  AyudaRutinasState createState() => AyudaRutinasState();
 }
 
 /// Estado asociado a la pantalla [AyudaRutinas] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _AyudaRutinasState extends State<AyudaRutinas> {
+class AyudaRutinasState extends State<AyudaRutinas> {
   // string que nos indica si la pantalla de origen es 'home' o 'menu'
   // para dependiendo de eso, mostrar un cuadro de dialogo u otro (exitDialogFromHome o exitDialogFromMenu)
   late String origen;

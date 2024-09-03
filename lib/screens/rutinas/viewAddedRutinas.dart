@@ -10,12 +10,12 @@ import 'editRutina.dart';
 ///del enunciado y/o grupo al que pertenece
 class ViewAddedRutinas extends StatefulWidget {
   @override
-  _ViewAddedRutinasState createState() => _ViewAddedRutinasState();
+  ViewAddedRutinasState createState() => ViewAddedRutinasState();
 }
 
 /// Estado asociado a la pantalla [ViewAddedRutinas] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
+class ViewAddedRutinasState extends State<ViewAddedRutinas> {
   late double titleSize,
       textSize,
       espacioPadding,

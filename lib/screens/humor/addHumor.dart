@@ -19,12 +19,12 @@ import '../main.dart';
 ///Pantalla que nos permite añadir una nueva pregunta, con sus correspondientes respuestas al juego Humor
 class AddHumor extends StatefulWidget {
   @override
-  _AddHumorState createState() => _AddHumorState();
+  AddHumorState createState() => AddHumorState();
 }
 
 /// Estado asociado a la pantalla [AddHumor] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _AddHumorState extends State<AddHumor> {
+class AddHumorState extends State<AddHumor> {
   late double titleSize,
       textSize,
       espacioPadding,

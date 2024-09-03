@@ -15,12 +15,12 @@ class Opciones extends StatefulWidget {
 
   Opciones({required this.juego});
   @override
-  _OpcionesState createState() => _OpcionesState();
+  OpcionesState createState() => OpcionesState();
 }
 
 /// Estado asociado a la pantalla [Opciones] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _OpcionesState extends State<Opciones> {
+class OpcionesState extends State<Opciones> {
   late bool loadProvider, loadData;
   late List<Grupo> gruposList; // lista de grupos obtenidos de la BBDD
   late String txtGrupo; // texto del grupo seleccionado

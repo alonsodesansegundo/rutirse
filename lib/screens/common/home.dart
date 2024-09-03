@@ -21,12 +21,12 @@ class Home extends StatefulWidget {
   Home({required this.juego});
 
   @override
-  _HomeState createState() => _HomeState();
+  HomeState createState() => HomeState();
 }
 
 /// Estado asociado a la pantalla [Home] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _HomeState extends State<Home> {
+class HomeState extends State<Home> {
   late List<Grupo> gruposList; // lista de grupos obtenidos de la BBDD
   late String txtGrupo; // texto del grupo seleccionado
   late List<bool>

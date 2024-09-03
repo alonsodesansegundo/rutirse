@@ -23,12 +23,12 @@ Random random = Random(); // para generar numeros aleatorios
 ///Pantalla de juego del juego Humor
 class JugarHumor extends StatefulWidget {
   @override
-  _JugarHumor createState() => _JugarHumor();
+  JugarHumorState createState() => JugarHumorState();
 }
 
 /// Estado asociado a la pantalla [JugarHumor] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _JugarHumor extends State<JugarHumor> with WidgetsBindingObserver {
+class JugarHumorState extends State<JugarHumor> with WidgetsBindingObserver {
   late FlutterTts flutterTts; // para reproducir audio
 
   late bool flag, isSpeaking; // bandera para cargar las preguntas solo 1 vez

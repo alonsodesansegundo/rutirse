@@ -8,12 +8,12 @@ import 'allProgressRutinas.dart';
 ///Pantalla menú para el terapeuta en el juego Rutinas
 class MenuTerapeuta extends StatefulWidget {
   @override
-  _MenuTerapeutaState createState() => _MenuTerapeutaState();
+  MenuTerapeutaState createState() => MenuTerapeutaState();
 }
 
 /// Estado asociado a la pantalla [MenuTerapeuta] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _MenuTerapeutaState extends State<MenuTerapeuta> {
+class MenuTerapeutaState extends State<MenuTerapeuta> {
   late double titleSize,
       textSize,
       espacioPadding,

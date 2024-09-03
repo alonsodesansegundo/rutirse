@@ -25,12 +25,12 @@ class EditHumor extends StatefulWidget {
   EditHumor({required this.situacionIronia, required this.grupo});
 
   @override
-  _EditIroniaState createState() => _EditIroniaState();
+  EditIroniaState createState() => EditIroniaState();
 }
 
 /// Estado asociado a la pantalla [EditHumor] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _EditIroniaState extends State<EditHumor> {
+class EditIroniaState extends State<EditHumor> {
   late ImageTextButton btnVolver;
 
   late double titleSize,

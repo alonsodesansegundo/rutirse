@@ -24,12 +24,12 @@ class EditSentimiento extends StatefulWidget {
   EditSentimiento({required this.preguntaSentimiento, required this.grupo});
 
   @override
-  _EditSentimientoState createState() => _EditSentimientoState();
+  EditSentimientoState createState() => EditSentimientoState();
 }
 
 /// Estado asociado a la pantalla [EditSentimiento] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _EditSentimientoState extends State<EditSentimiento> {
+class EditSentimientoState extends State<EditSentimiento> {
   late double titleSize,
       textSize,
       espacioPadding,

@@ -10,12 +10,12 @@ import 'editHumor.dart';
 ///del enunciado y/o grupo al que pertenece
 class ViewAddedHumor extends StatefulWidget {
   @override
-  _ViewAddedHumorState createState() => _ViewAddedHumorState();
+  ViewAddedHumorState createState() => ViewAddedHumorState();
 }
 
 /// Estado asociado a la pantalla [ViewAddedHumor] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _ViewAddedHumorState extends State<ViewAddedHumor> {
+class ViewAddedHumorState extends State<ViewAddedHumor> {
   late double titleSize,
       textSize,
       espacioPadding,

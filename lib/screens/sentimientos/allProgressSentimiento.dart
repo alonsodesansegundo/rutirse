@@ -10,12 +10,12 @@ import '../../widgets/ImageTextButton.dart';
 ///por nombre de jugador y/o grupo
 class AllProgressSentimiento extends StatefulWidget {
   @override
-  _AllProgressSentimientoState createState() => _AllProgressSentimientoState();
+  AllProgressSentimientoState createState() => AllProgressSentimientoState();
 }
 
 /// Estado asociado a la pantalla [AllProgressSentimiento] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _AllProgressSentimientoState extends State<AllProgressSentimiento> {
+class AllProgressSentimientoState extends State<AllProgressSentimiento> {
   late bool loadPartidas, loadData;
 
   late double titleSize,

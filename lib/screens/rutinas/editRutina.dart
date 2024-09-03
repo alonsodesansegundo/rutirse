@@ -26,12 +26,12 @@ class EditRutina extends StatefulWidget {
   EditRutina({required this.situacionRutina, required this.grupo});
 
   @override
-  _EditRutinaState createState() => _EditRutinaState();
+  EditRutinaState createState() => EditRutinaState();
 }
 
 /// Estado asociado a la pantalla [EditRutina] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _EditRutinaState extends State<EditRutina> {
+class EditRutinaState extends State<EditRutina> {
   late ImageTextButton btnVolver;
 
   late Color colorSituacion, colorGrupo;

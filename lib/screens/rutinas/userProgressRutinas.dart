@@ -8,12 +8,12 @@ import '../../widgets/ImageTextButton.dart';
 ///Pantalla que le permite a un jugador ver sus partidas en el juego Rutinas
 class UserProgressRutinas extends StatefulWidget {
   @override
-  _UserProgressRutinasState createState() => _UserProgressRutinasState();
+  UserProgressRutinasState createState() => UserProgressRutinasState();
 }
 
 /// Estado asociado a la pantalla [UserProgressRutinas] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _UserProgressRutinasState extends State<UserProgressRutinas> {
+class UserProgressRutinasState extends State<UserProgressRutinas> {
   late bool loadPartidas, loadData;
 
   late double titleSize,

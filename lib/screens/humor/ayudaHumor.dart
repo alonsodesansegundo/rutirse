@@ -14,12 +14,12 @@ class AyudaHumor extends StatefulWidget {
   AyudaHumor({required this.origen});
 
   @override
-  _AyudaHumorState createState() => _AyudaHumorState();
+  AyudaHumorState createState() => AyudaHumorState();
 }
 
 /// Estado asociado a la pantalla [AyudaHumor] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _AyudaHumorState extends State<AyudaHumor> {
+class AyudaHumorState extends State<AyudaHumor> {
   // string que nos indica si la pantalla de origen es 'home' o 'menu'
   // para dependiendo de eso, mostrar un cuadro de dialogo u otro (exitDialogFromHome o exitDialogFromMenu)
   late String origen;

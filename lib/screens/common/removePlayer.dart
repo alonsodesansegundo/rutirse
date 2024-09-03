@@ -9,12 +9,12 @@ import '../../widgets/ImageTextButton.dart';
 ///Pantalla que nos brinda la posibilidad de buscar un jugador a través de su nombre y/o grupo y poder eliminarlo
 class RemovePlayer extends StatefulWidget {
   @override
-  _RemovePlayerState createState() => _RemovePlayerState();
+  RemovePlayerState createState() => RemovePlayerState();
 }
 
 /// Estado asociado a la pantalla [RemovePlayer] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _RemovePlayerState extends State<RemovePlayer> {
+class RemovePlayerState extends State<RemovePlayer> {
   late double titleSize,
       textSize,
       espacioPadding,

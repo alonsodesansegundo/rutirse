@@ -21,12 +21,12 @@ import '../main.dart';
 ///Pantalla que nos permite añadir una nueva pregunta, con sus correspondientes respuestas al juego Rutinas
 class AddRutina extends StatefulWidget {
   @override
-  _AddRutinaState createState() => _AddRutinaState();
+  AddRutinaState createState() => AddRutinaState();
 }
 
 /// Estado asociado a la pantalla [AddRutina] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _AddRutinaState extends State<AddRutina> {
+class AddRutinaState extends State<AddRutina> {
   late double titleSize,
       textSize,
       espacioPadding,

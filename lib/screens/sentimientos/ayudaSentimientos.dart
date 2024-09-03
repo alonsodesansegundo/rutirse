@@ -14,12 +14,12 @@ class AyudaSentimientos extends StatefulWidget {
   AyudaSentimientos({required this.origen});
 
   @override
-  _AyudaSentimientosState createState() => _AyudaSentimientosState();
+  AyudaSentimientosState createState() => AyudaSentimientosState();
 }
 
 /// Estado asociado a la pantalla [AyudaSentimientos] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _AyudaSentimientosState extends State<AyudaSentimientos> {
+class AyudaSentimientosState extends State<AyudaSentimientos> {
   // string que nos indica si la pantalla de origen es 'home' o 'menu'
   // para dependiendo de eso, mostrar un cuadro de dialogo u otro (exitDialogFromHome o exitDialogFromMenu)
   late String origen;

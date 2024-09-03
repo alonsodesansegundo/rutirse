@@ -9,13 +9,13 @@ import '../../widgets/ImageTextButton.dart';
 ///Pantalla que le permite a un jugador ver sus partidas en el juego Sentimientos
 class UserProgressSentimientos extends StatefulWidget {
   @override
-  _UserProgressSentimientosState createState() =>
-      _UserProgressSentimientosState();
+  UserProgressSentimientosState createState() =>
+      UserProgressSentimientosState();
 }
 
 /// Estado asociado a la pantalla [UserProgressSentimientos] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _UserProgressSentimientosState extends State<UserProgressSentimientos> {
+class UserProgressSentimientosState extends State<UserProgressSentimientos> {
   late bool loadPartidas, loadData;
 
   late double titleSize,

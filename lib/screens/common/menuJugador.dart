@@ -22,12 +22,12 @@ class MenuJugador extends StatefulWidget {
   MenuJugador({required this.juego});
 
   @override
-  _MenuJugadorState createState() => _MenuJugadorState();
+  MenuJugadorState createState() => MenuJugadorState();
 }
 
 /// Estado asociado a la pantalla [MenuJugador] que gestiona la lógica
 /// y la interfaz de usuario de la pantalla
-class _MenuJugadorState extends State<MenuJugador> {
+class MenuJugadorState extends State<MenuJugador> {
   late double titleSize,
       textSize,
       espacioPadding,
