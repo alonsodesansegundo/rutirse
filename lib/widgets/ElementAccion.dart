@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+///Widget que consiste en un conjunto de widgets necesarios para la creación de una nueva acción a la hora de crear una nueva pregunta
+///para el juego Rutinas
 class ElementAccion extends StatefulWidget {
   int? id;
   String text1;
@@ -20,6 +22,7 @@ class ElementAccion extends StatefulWidget {
   final TextEditingController accionTextController = TextEditingController();
   bool flagAdolescencia;
 
+  ///Constructor de la clase ElementAccion
   ElementAccion({
     this.id = -1,
     required this.text1,
@@ -43,6 +46,8 @@ class ElementAccion extends StatefulWidget {
   _ElementAccionState createState() => _ElementAccionState();
 }
 
+/// Estado asociado al widget [ElementAccion] que gestiona la lógica
+/// y la interfaz de usuario del widget
 class _ElementAccionState extends State<ElementAccion> {
   @override
   Widget build(BuildContext context) {

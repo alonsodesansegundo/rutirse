@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import '../obj/Pictograma.dart';
 import '../obj/PictogramasPaginacion.dart';
 
+///Widget que consiste en un cuadro de diálogo para seleccionar un pictograma como imagen para un personaje haciendo uso de la API de ARASAAC
 class ArasaacPersonajeDialog extends StatefulWidget {
   double espacioAlto;
   double espacioPadding;
@@ -14,6 +15,7 @@ class ArasaacPersonajeDialog extends StatefulWidget {
   double imgWidth;
   final Function(String) onPersonajeArasaacChanged; // Nuevo Callback
 
+  ///Constructor de la clase ArasaacPersonajeDialog
   ArasaacPersonajeDialog({
     required this.espacioAlto,
     required this.espacioPadding,
@@ -27,6 +29,8 @@ class ArasaacPersonajeDialog extends StatefulWidget {
   _ArasaacPersonajeDialogState createState() => _ArasaacPersonajeDialogState();
 }
 
+/// Estado asociado al widget [ArasaacPersonajeDialog] que gestiona la lógica
+/// y la interfaz de usuario del cuadro de diálogo para seleccionar pictogramas
 class _ArasaacPersonajeDialogState extends State<ArasaacPersonajeDialog> {
   PictogramasPaginacion pictogramas =
       PictogramasPaginacion(listaPictogramas: [], elementosPorPagina: 15);
@@ -235,6 +239,7 @@ class _ArasaacPersonajeDialogState extends State<ArasaacPersonajeDialog> {
     );
   }
 
+  ///Método que nos permite desplazarnos a la parte superior del cuadro de dialogo
   void _scrollToTop() {
     _scrollController.animateTo(
       0.0,
@@ -243,6 +248,9 @@ class _ArasaacPersonajeDialogState extends State<ArasaacPersonajeDialog> {
     );
   }
 
+  ///Método que nos permite realizar una búsqueda de pictogramas a través de una API de ARASAAC a través de palabras clave
+  ///<br><b>Parámetros</b><br>
+  ///[keywords] Palabras clave con las que queremos realizar la búsqueda
   Future<void> _getPictogramas(String keywords) async {
     final response = await http.get(Uri.parse(
         'https://api.arasaac.org/v1/pictograms/es/search/' + keywords));

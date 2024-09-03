@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+///Widget que consiste en un conjunto de widgets necesarios para la creación de una respuesta a la hora de crear una nueva pregunta
+///para el juego Sentimientos
 class ElementRespuestaSentimientos extends StatefulWidget {
   int? id;
   String text1;
@@ -20,6 +22,7 @@ class ElementRespuestaSentimientos extends StatefulWidget {
   bool flagAdolescencia;
   bool showPregunta;
 
+  ///Constructor de la clase ElementRespuestaSentimientos
   ElementRespuestaSentimientos({
     this.id = -1,
     required this.text1,
@@ -44,6 +47,8 @@ class ElementRespuestaSentimientos extends StatefulWidget {
       _ElementRespuestaSentimientosState();
 }
 
+/// Estado asociado al widget [ElementRespuestaSentimientos] que gestiona la lógica
+/// y la interfaz de usuario del widget
 class _ElementRespuestaSentimientosState
     extends State<ElementRespuestaSentimientos> {
   @override

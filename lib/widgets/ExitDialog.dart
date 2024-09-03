@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'ImageTextButton.dart';
 
+///Widget que consiste en un cuadro de dialogo de salida de una pantalla
 class ExitDialog extends StatefulWidget {
   final String title;
   final double titleSize;
@@ -11,6 +12,7 @@ class ExitDialog extends StatefulWidget {
   final ImageTextButton? rightImageTextButton; // Cambiado a tipo opcional
   final Image? optionalImage;
 
+  ///Constructor de la clase ExitDialog
   ExitDialog({
     required this.title,
     required this.titleSize,
@@ -25,6 +27,8 @@ class ExitDialog extends StatefulWidget {
   _ExitDialogState createState() => _ExitDialogState();
 }
 
+/// Estado asociado al widget [ExitDialog] que gestiona la lógica
+/// y la interfaz de usuario del widget
 class _ExitDialogState extends State<ExitDialog> {
   @override
   Widget build(BuildContext context) {
