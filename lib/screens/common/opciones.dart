@@ -7,8 +7,10 @@ import '../../provider/MyProvider.dart';
 import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
 
+///Pantalla de opciones, la cual nos permite cambiar el nombre del jugador o grupo al que pertenecemos sin necesidad de salir del juego actual
 class Opciones extends StatefulWidget {
-  // string que nos indica en que juego estamos
+  ///Variable que nos indica cual es el juego actual, el valor debe ser: rutinas, humor o sentimientos. Dependiendo de este valor se mostrarán unos textos u otros
+  ///y seremos redirigidos a las pantallas que correspondan
   final String juego;
 
   Opciones({required this.juego});
@@ -16,6 +18,8 @@ class Opciones extends StatefulWidget {
   _OpcionesState createState() => _OpcionesState();
 }
 
+/// Estado asociado a la pantalla [Opciones] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _OpcionesState extends State<Opciones> {
   late bool loadProvider, loadData;
   late List<Grupo> gruposList; // lista de grupos obtenidos de la BBDD
@@ -280,7 +284,7 @@ class _OpcionesState extends State<Opciones> {
     );
   }
 
-  // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
@@ -295,7 +299,7 @@ class _OpcionesState extends State<Opciones> {
     imgBtnWidth = screenSize.width / 5;
   }
 
-  // metodo para crear los cuadro de dialogos
+  ///Método encargado de inicializar los cuadros de dialogo que tendrá la pantalla
   void _createDialogs() {
     // CUADROS DE DIALOGO
     // cuadro de dialogo para cuando quiere jugar pero los datos son incompletos
@@ -378,8 +382,7 @@ class _OpcionesState extends State<Opciones> {
         leftImageTextButton: btnVolver);
   }
 
-  // metodo para crear los botones necesarios
-
+  ///Método encargado de inicializar los botones que tendrá la pantalla
   void _createButtons() {
     // boton para seguir en opciones
     btnSeguir = ImageTextButton(
@@ -482,7 +485,7 @@ class _OpcionesState extends State<Opciones> {
         });
   }
 
-  // Método para obtener la lista de grupos de la BBDD
+  ///Método que nos permite obtener los grupos con los que cuenta la aplicación y almacenarlos en la variable [gruposList]
   Future<void> _getGrupos() async {
     try {
       List<Grupo> grupos = await getGrupos();
@@ -494,7 +497,8 @@ class _OpcionesState extends State<Opciones> {
     }
   }
 
-  // Método para cuando se selecciona un grupo
+  ///Método que se encarga de que haya únicamente un [selectedGrupo], es decir, no puede haber más de un grupo
+  ///seleccionado a la vez
   void _selectGroup(int index) {
     btnGruposFlags[index] = !btnGruposFlags[index]; // se actualiza su pulsación
     if (btnGruposFlags[index]) {

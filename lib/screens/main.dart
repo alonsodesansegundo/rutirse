@@ -8,13 +8,18 @@ import 'common/home.dart';
 import 'common/homeTerapeuta.dart';
 import 'common/informacion.dart';
 
+///Constante para darle un valor de duración (en ms) a la animación de desplazamiento
 const int myDurationMS = 350;
+
+///Constante para darle un valor a la velocidad de desplazamiento
 const double myScrollSpeed = 25;
 
+///Método que se corresponde con el punto de partida o inicial de la aplicación
 void main() {
   runApp(MyApp());
 }
 
+///Clase principal de la aplicación, la que se lanza al comienzo
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -31,6 +36,10 @@ class MyApp extends StatelessWidget {
   }
 }
 
+/// Pantalla principal de la aplicación.<br>
+/// La clase está dividida en dos partes:<br>
+/// - La clase [MyHomePage], que define el widget.<br>
+/// - La clase privada [_MyHomePageState], que maneja el estado del widget.
 class MyHomePage extends StatelessWidget {
   late int intentosPassword = 0;
 
@@ -56,7 +65,10 @@ class MyHomePage extends StatelessWidget {
 
   late String _errorMessage = "";
 
-  // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
+  ///<br><b>Parámetros</b><br>
+  ///[context] El contexto de la aplicación, que proporciona acceso a información
+  ///sobre el entorno en el que se está ejecutando el widget, incluyendo el tamañode la pantalla
   void _createVariablesSize(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
     titleSize = screenSize.width * 0.10;
@@ -69,6 +81,10 @@ class MyHomePage extends StatelessWidget {
     maxWidth = MediaQuery.of(context).size.width * 0.8;
   }
 
+  ///Método encargado de inicializar los botones que tendrá la pantalla
+  ///<br><b>Parámetros</b><br>
+  ///[context] El contexto de la aplicación, que proporciona acceso a información
+  ///sobre el entorno en el que se está ejecutando el widget, incluyendo el tamañode la pantalla
   void _createButtons(BuildContext context) {
     btnRutinas = ImageTextButton(
       image: Image.asset(
@@ -167,6 +183,10 @@ class MyHomePage extends StatelessWidget {
     );
   }
 
+  ///Método encargado de inicializar los cuadros de dialogo que tendrá la pantalla
+  ///<br><b>Parámetros</b><br>
+  ///[context] El contexto de la aplicación, que proporciona acceso a información
+  ///sobre el entorno en el que se está ejecutando el widget, incluyendo el tamañode la pantalla
   void _createDialogs(BuildContext context) {
     passwordDialog = StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
@@ -374,7 +394,7 @@ class MyHomePage extends StatelessWidget {
     );
   }
 
-  // Método para obtener la contraseña de terapeuta
+  ///Método que nos permite obtener la contraseña de terapeuta y almacenarla en la variable [terapeutaPassword]
   Future<void> _getPassword() async {
     try {
       String aux = await getPassword();
@@ -384,7 +404,7 @@ class MyHomePage extends StatelessWidget {
     }
   }
 
-  // Método para obtener la contraseña de terapeuta
+  ///Método que nos permite obtener la pista de la contraseña y almacenarla en la variable [terapeutaPista]
   Future<void> _getPista() async {
     try {
       String aux = await getPista();
@@ -394,6 +414,12 @@ class MyHomePage extends StatelessWidget {
     }
   }
 
+  ///Método que nos permite comprobar si la contraseña introducida es correcta o no.<br>
+  ///En caso de ser incorrecta se guarda el mensaje correspondiente en [_errorMessage], de ser correcta pasamos a la pantalla [HomeTerapeuta]
+  ///<br><b>Parámetros</b><br>
+  ///[setState] Función proporcionada por Flutter que permite actualizar el estado del widget asociado.
+  /// Se usa para mostrar el mensaje de error y aumentar el contador de intentos si la contraseña es incorrecta.<br>
+  ///[context] El contexto de la aplicación, usado para la navegación entre pantallas
   void _validateEnterPassword(StateSetter setState, BuildContext context) {
     String enterPassword = _enterPasswordController.text;
 
@@ -416,6 +442,12 @@ class MyHomePage extends StatelessWidget {
     }
   }
 
+  ///Método encargado de comprobar que a la hora de crear una contraseña se realiza correctamente, de no ser así se mostrará el
+  ///[_errorMessage] adecuado a dicho error. En caso de crearla correctamente seremos redirigidos a [HomeTerapeuta]
+  ///<br><b>Parámetros</b><br>
+  ///[setState] Función proporcionada por Flutter que permite actualizar el estado del widget asociado.
+  /// Se usa para mostrar el mensaje de error<br>
+  ///[context] El contexto de la aplicación, usado para la navegación entre pantallas
   void _validateCreatePassword(StateSetter setState, BuildContext context) {
     String password = _createPasswordController.text;
     String confirmPassword = _confirmPasswordController.text;

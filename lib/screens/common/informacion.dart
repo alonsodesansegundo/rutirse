@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../widgets/ImageTextButton.dart';
 
+///Pantalla correspondiente a la información de recursos, persona partícipe del desarrollo, etc. de la aplicación
 class Informacion extends StatefulWidget {
   @override
   _InformacionState createState() => _InformacionState();
 }
 
+/// Estado asociado a la pantalla [Informacion] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _InformacionState extends State<Informacion> {
   late double titleSize, textSize, espacioPadding, espacioAlto, imgHeight;
   late bool loadData;
@@ -175,7 +178,7 @@ class _InformacionState extends State<Informacion> {
     );
   }
 
-  // Método para asignar valores a las variables relacionadas con tamaños de fuente, imágenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // Tamaño del dispositivo
 

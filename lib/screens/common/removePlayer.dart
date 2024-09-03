@@ -6,11 +6,14 @@ import '../../db/obj/jugadorView.dart';
 import '../../obj/JugadoresPaginacion.dart';
 import '../../widgets/ImageTextButton.dart';
 
+///Pantalla que nos brinda la posibilidad de buscar un jugador a través de su nombre y/o grupo y poder eliminarlo
 class RemovePlayer extends StatefulWidget {
   @override
   _RemovePlayerState createState() => _RemovePlayerState();
 }
 
+/// Estado asociado a la pantalla [RemovePlayer] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _RemovePlayerState extends State<RemovePlayer> {
   late double titleSize,
       textSize,
@@ -383,11 +386,14 @@ class _RemovePlayerState extends State<RemovePlayer> {
     );
   }
 
+  ///Método que elimina a un jugador a través de su identificador
+  ///<br><b>Parámetros</b><br>
+  ///[jugadorId] Identificador del jugador que vamos a eliminar
   void _removePlayer(int jugadorId) {
     deletePlayer(jugadorId);
   }
 
-  // Método para obtener la lista de grupos de la BBDD
+  ///Método que nos permite obtener los grupos con los que cuenta la aplicación y almacenarlos en la variable [grupos]
   Future<void> _getGrupos() async {
     try {
       List<Grupo> gruposList = await getGrupos();
@@ -399,7 +405,7 @@ class _RemovePlayerState extends State<RemovePlayer> {
     }
   }
 
-  // Método para asignar valores a las variables relacionadas con tamaños de fuente, imágenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // Tamaño del dispositivo
 
@@ -411,6 +417,7 @@ class _RemovePlayerState extends State<RemovePlayer> {
     widthColumn = screenSize.width * 0.4 - 24;
   }
 
+  ///Método encargado de inicializar los botones que tendrá la pantalla
   void _createButtons() {
     btnAnterior = ElevatedButton(
       style: ElevatedButton.styleFrom(
@@ -456,7 +463,7 @@ class _RemovePlayerState extends State<RemovePlayer> {
     );
   }
 
-  // Metodo para crear los cuadros de dialogo necesarios
+  ///Método encargado de inicializar los cuadros de dialogo que tendrá la pantalla
   void _createDialogs() {
     removePlayerOk = AlertDialog(
       title: Text(
@@ -496,6 +503,8 @@ class _RemovePlayerState extends State<RemovePlayer> {
     );
   }
 
+  ///Método que nos permite carcar y realizar la búsqueda de jugadores de forma paginada, para ello se tienen en cuenta las variables:
+  ///[paginaActual], [jugadoresPagina], [txtBuscar] y [selectedGrupo]
   Future<void> _loadJugadores() async {
     JugadoresPaginacion aux = await getAllJugadoresView(
         paginaActual, jugadoresPagina, txtBuscar, selectedGrupo);
@@ -506,6 +515,7 @@ class _RemovePlayerState extends State<RemovePlayer> {
     });
   }
 
+  ///Método que nos permite ir a la página anterior
   void _previousPage() {
     if (paginaActual > 1) {
       setState(() {
@@ -515,6 +525,7 @@ class _RemovePlayerState extends State<RemovePlayer> {
     }
   }
 
+  ///Método que nos permite ir a la página siguiente
   void _nextPage() {
     setState(() {
       paginaActual++;

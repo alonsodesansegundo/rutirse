@@ -12,8 +12,10 @@ import '../rutinas/jugarRutinas.dart';
 import '../sentimientos/ayudaSentimientos.dart';
 import '../sentimientos/jugarSentimientos.dart';
 
+///Pantalla que se muestra cuando un usuario selecciona un juego para comenzar a jugar
 class Home extends StatefulWidget {
-  // string que nos indica en que juego estamos
+  ///Variable que puede tener 3 posibles valores: [rutinas], [humor] o [sentimientos]. Dependiendo de ello
+  ///se mostrarán ciertos textos y seremos redirigidos a distintas pantallas
   final String juego;
 
   Home({required this.juego});
@@ -22,6 +24,8 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
+/// Estado asociado a la pantalla [Home] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _HomeState extends State<Home> {
   late List<Grupo> gruposList; // lista de grupos obtenidos de la BBDD
   late String txtGrupo; // texto del grupo seleccionado
@@ -322,7 +326,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
@@ -335,7 +339,7 @@ class _HomeState extends State<Home> {
     imgVolverHomeHeight = screenSize.height / 32;
   }
 
-  // metodo para crear los cuadro de dialogos
+  ///Método encargado de inicializar los cuadros de dialogo que tendrá la pantalla
   void _createDialogs() {
     // CUADROS DE DIALOGO
     // cuadro de dialogo para cuando quiere jugar pero los datos son incompletos
@@ -378,7 +382,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // Método para obtener la lista de grupos de la BBDD
+  ///Método que nos permite obtener los grupos con los que cuenta la aplicación y almacenarlos en la variable [gruposList]
   Future<void> _getGrupos() async {
     try {
       List<Grupo> grupos = await getGrupos();
@@ -390,7 +394,8 @@ class _HomeState extends State<Home> {
     }
   }
 
-  // Método para cuando se selecciona un grupo
+  ///Método que se encarga de que haya únicamente un [selectedGrupo], es decir, no puede haber más de un grupo
+  ///seleccionado a la vez
   void _selectGroup(int index) {
     btnGruposFlags[index] = !btnGruposFlags[index]; // se actualiza su pulsación
     if (btnGruposFlags[index]) {

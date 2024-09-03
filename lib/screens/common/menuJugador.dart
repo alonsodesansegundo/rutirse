@@ -13,8 +13,10 @@ import '../sentimientos/jugarSentimientos.dart';
 import '../sentimientos/userProgressSentimientos.dart';
 import 'opciones.dart';
 
+///Pantalla que le aparece a un jugador a modo de menú tras finalizar una partida, a través de ella puede: Jugar, Ver partidas, Opciones o Ayuda del juego actual
 class MenuJugador extends StatefulWidget {
-  // string que nos indica en que juego estamos
+  ///Variable que nos indica cual es el juego actual, el valor debe ser: rutinas, humor o sentimientos. Dependiendo de este valor se mostrarán unos textos u otros
+  ///y seremos redirigidos a las pantallas que correspondan
   final String juego;
 
   MenuJugador({required this.juego});
@@ -23,6 +25,8 @@ class MenuJugador extends StatefulWidget {
   _MenuJugadorState createState() => _MenuJugadorState();
 }
 
+/// Estado asociado a la pantalla [MenuJugador] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _MenuJugadorState extends State<MenuJugador> {
   late double titleSize,
       textSize,
@@ -198,7 +202,7 @@ class _MenuJugadorState extends State<MenuJugador> {
     );
   }
 
-  // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
@@ -211,7 +215,7 @@ class _MenuJugadorState extends State<MenuJugador> {
     imgBtnWidth = screenSize.width / 5;
   }
 
-  // metodo para crear los cuadro de dialogos
+  ///Método encargado de inicializar los cuadros de dialogo que tendrá la pantalla
   void _createDialogs() {
     // CUADROS DE DIALOGO
     // cuadro de dialogo para cuando quiere jugar pero los datos son incompletos
@@ -226,7 +230,7 @@ class _MenuJugadorState extends State<MenuJugador> {
         rightImageTextButton: btnSalir);
   }
 
-  // metodo para crear los botones necesarios
+  ///Método encargado de inicializar los botones que tendrá la pantalla
   void _createButtons() {
     // boton para dar la opcion de jugar
     btnJugar = ImageTextButton(

@@ -7,11 +7,14 @@ import '../../widgets/ImageTextButton.dart';
 import '../humor/menuTerapeutaHumor.dart';
 import '../rutinas/menuTerapeutaRutinas.dart';
 
+///Pantalla que se corresponde con el menú de terapeuta una vez ha logrado pasar el login correctamente
 class HomeTerapeuta extends StatefulWidget {
   @override
   _HomeTerapeutaState createState() => _HomeTerapeutaState();
 }
 
+/// Estado asociado a la pantalla [HomeTerapeuta] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _HomeTerapeutaState extends State<HomeTerapeuta> {
   late double titleSize,
       textSize,
@@ -136,7 +139,7 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
     );
   }
 
-  // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
@@ -150,7 +153,7 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
     dialogTextSize = textSize * 0.85;
   }
 
-  // metodo para crear los botones necesarios
+  ///Método encargado de inicializar los botones que tendrá la pantalla
   void _createButtons() {
     btnRutinas = ImageTextButton(
       image: Image.asset(
@@ -264,6 +267,7 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
     );
   }
 
+  ///Método encargado de inicializar los cuadros de dialogo que tendrá la pantalla
   void _createDialogs() {
     changePasswordDialog = StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
@@ -428,6 +432,12 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
     );
   }
 
+  ///Método que se encarga de comprobar que el cambio de contraseña se puede llevar a cabo, o no
+  ///<br><b>Parámetros</b><br>
+  ///[setState] Función proporcionada por Flutter que permite actualizar el estado del widget asociado.
+  /// Se usa para mostrar el mensaje de error
+  ///<br><b>Salida</b><br>
+  ///Valor bool que es [true] si el cambio de contraseña es posible efectuarlo, y [false] en caso contrario
   Future<bool> _validateChangePassword(StateSetter setState) async {
     await _getPassword();
     if (terapeutaPassword != _enterPasswordController.text) {
@@ -463,7 +473,7 @@ class _HomeTerapeutaState extends State<HomeTerapeuta> {
     return true;
   }
 
-  // Método para obtener la lista de grupos de la BBDD
+  ///Método que nos permite obtener la contraseña de terapeuta y almacenarla en la variable [terapeutaPassword]
   Future<void> _getPassword() async {
     try {
       String aux = await getPassword();
