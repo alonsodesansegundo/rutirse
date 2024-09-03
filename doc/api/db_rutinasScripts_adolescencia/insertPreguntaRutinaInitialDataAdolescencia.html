@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the insertPreguntaRutinaInitialDataAdolescencia function from the adolescencia library, for the Dart programming language.">
+  <title>insertPreguntaRutinaInitialDataAdolescencia function - adolescencia library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">Rutirse</a></li>
+    <li><a href="../db_rutinasScripts_adolescencia/db_rutinasScripts_adolescencia-library.html">adolescencia</a></li>
+    <li class="self-crumb">insertPreguntaRutinaInitialDataAdolescencia function</li>
+  </ol>
+  <div class="self-name">insertPreguntaRutinaInitialDataAdolescencia</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="db_rutinasScripts_adolescencia&#47;db_rutinasScripts_adolescencia-library-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-function">insertPreguntaRutinaInitialDataAdolescencia</span> function 
+ 
+</h1></div>
+
+    <section class="multi-line-signature">
+        
+
+<span class="returntype">void</span>
+<span class="name ">insertPreguntaRutinaInitialDataAdolescencia</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="insertPreguntaRutinaInitialDataAdolescencia-param-database"><span class="type-annotation"><a href="https://pub.dev/documentation/sqflite_common/2.5.3/sqlite_api/Database-class.html">Database</a></span> <span class="parameter-name">database</span></span></li>
+</ol>)
+
+        
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Método encargado de las insercciones de preguntas predeterminadas para el juego Rutinas del grupo Adolescencia
+<br><b>Parámetros</b><br>
+<code>database</code> Objeto Database sobre la cual se ejecutan las insercciones</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">void insertPreguntaRutinaInitialDataAdolescencia(Database database) async {
+  int grupoAdolescencia = 3;
+
+  &#47;&#47; LAVAR DIENTES
+  int id_P1 = await insertSituacionRutinaInitialData(
+      database,
+      &#39;Por favor, pon en orden lo que tiene que hacer el bailador Adrián para lavarse los dientes.&#39;,
+      pathPersonaje + &#39;bailador.png&#39;,
+      grupoAdolescencia);
+  insertAccionInitialData(database, &quot;&quot;, 0,
+      pathRutinas + &quot;higiene&#47;lavarDientes&#47;1.LavarDientes.png&quot;, id_P1);
+  insertAccionInitialData(database, &quot;&quot;, 1,
+      pathRutinas + &quot;higiene&#47;lavarDientes&#47;6.LavarDientes.png&quot;, id_P1);
+  insertAccionInitialData(database, &quot;&quot;, 2,
+      pathRutinas + &quot;higiene&#47;lavarDientes&#47;2.LavarDientes.png&quot;, id_P1);
+  insertAccionInitialData(database, &quot;&quot;, 3,
+      pathRutinas + &quot;higiene&#47;lavarDientes&#47;3.LavarDientes.png&quot;, id_P1);
+  insertAccionInitialData(database, &quot;&quot;, 4,
+      pathRutinas + &quot;higiene&#47;lavarDientes&#47;4.LavarDientes.png&quot;, id_P1);
+  insertAccionInitialData(database, &quot;&quot;, 5,
+      pathRutinas + &quot;higiene&#47;lavarDientes&#47;5.LavarDientes.png&quot;, id_P1);
+
+  &#47;&#47; PEINARSE
+  int id_P2 = await insertSituacionRutinaInitialData(
+      database,
+      &#39;Por favor, pon en orden lo que tiene que hacer la bailarina Marina para peinarse.&#39;,
+      pathPersonaje + &#39;bailarina.png&#39;,
+      grupoAdolescencia);
+  insertAccionInitialData(database, &#39;&#39;, 0,
+      pathRutinas + &quot;higiene&#47;peinarse&#47;1.CogerPeine.png&quot;, id_P2);
+  insertAccionInitialData(
+      database, &#39;&#39;, 1, pathRutinas + &quot;higiene&#47;peinarse&#47;2.Peinarse.png&quot;, id_P2);
+  insertAccionInitialData(database, &#39;&#39;, 2,
+      pathRutinas + &quot;higiene&#47;peinarse&#47;4.LimpiarPeine.png&quot;, id_P2);
+  insertAccionInitialData(database, &#39;&#39;, 3,
+      pathRutinas + &quot;higiene&#47;peinarse&#47;3.GuardarPeine.png&quot;, id_P2);
+
+  &#47;&#47; LAVAR CARA
+  int id_P3 = await insertSituacionRutinaInitialData(
+      database,
+      &#39;Por favor, pon en orden lo que tiene que hacer la abuela Carmen para lavarse la cara.&#39;,
+      pathPersonaje + &#39;abuela.png&#39;,
+      grupoAdolescencia);
+
+  insertAccionInitialData(database, &#39;&#39;, 0,
+      pathRutinas + &quot;higiene&#47;lavarCara&#47;1.AbrirGrifo.png&quot;, id_P3);
+  insertAccionInitialData(database, &#39;&#39;, 1,
+      pathRutinas + &quot;higiene&#47;lavarCara&#47;2.MojarManos.png&quot;, id_P3);
+  insertAccionInitialData(database, &#39;&#39;, 2,
+      pathRutinas + &quot;higiene&#47;lavarCara&#47;4.LavarCara.png&quot;, id_P3);
+  insertAccionInitialData(database, &#39;&#39;, 3,
+      pathRutinas + &quot;higiene&#47;lavarCara&#47;3.CerrarGrifo.png&quot;, id_P3);
+  insertAccionInitialData(database, &#39;&#39;, 4,
+      pathRutinas + &quot;higiene&#47;lavarCara&#47;5.SecarCara.png&quot;, id_P3);
+  insertAccionInitialData(database, &#39;&#39;, 5,
+      pathRutinas + &quot;higiene&#47;lavarCara&#47;6.SecarManos.png&quot;, id_P3);
+
+  &#47;&#47; CALZARSE
+  int id_P4 = await insertSituacionRutinaInitialData(
+      database,
+      &#39;Por favor, pon en orden lo que tiene que hacer el futbolista David para calzarse.&#39;,
+      pathPersonaje + &#39;futbolista2.png&#39;,
+      grupoAdolescencia);
+  insertAccionInitialData(database, &#39;&#39;, 0,
+      pathRutinas + &quot;vestimenta&#47;calzarse&#47;1.PonerCalcetines.png&quot;, id_P4);
+  insertAccionInitialData(database, &#39;&#39;, 1,
+      pathRutinas + &quot;vestimenta&#47;calzarse&#47;2.PonerCalzado.png&quot;, id_P4);
+  insertAccionInitialData(database, &#39;&#39;, 2,
+      pathRutinas + &quot;vestimenta&#47;calzarse&#47;3.AtarCalzado.png&quot;, id_P4);
+
+  &#47;&#47; PONER PARTE DE ARRIBA
+  int id_P5 = await insertSituacionRutinaInitialData(
+      database,
+      &#39;Por favor, pon en orden lo que tendría que hacer nuestro amigo Jaime si quisiera vestirse la parte de arriba.&#39;,
+      pathPersonaje + &#39;chico.png&#39;,
+      grupoAdolescencia);
+  insertAccionInitialData(database, &#39;&#39;, 0,
+      pathRutinas + &quot;vestimenta&#47;ponerParteArriba&#47;1.CogerCamiseta.png&quot;, id_P5);
+  insertAccionInitialData(database, &#39;&#39;, 1,
+      pathRutinas + &quot;vestimenta&#47;ponerParteArriba&#47;2.PonerCamiseta.png&quot;, id_P5);
+  insertAccionInitialData(database, &#39;&#39;, 2,
+      pathRutinas + &quot;vestimenta&#47;ponerParteArriba&#47;3.CogerSudadera.png&quot;, id_P5);
+  insertAccionInitialData(database, &#39;&#39;, 3,
+      pathRutinas + &quot;vestimenta&#47;ponerParteArriba&#47;4.PonerSudadera.png&quot;, id_P5);
+
+  &#47;&#47; QUITAR PARTE DE ARRIBA
+  int id_P6 = await insertSituacionRutinaInitialData(
+      database,
+      &#39;Por favor, pon en orden lo que tendría que hacer nuestro amigo Jaime si quisiera desvestirse la parte de arriba.&#39;,
+      pathPersonaje + &#39;chico.png&#39;,
+      grupoAdolescencia);
+  insertAccionInitialData(database, &#39;&#39;, 0,
+      pathRutinas + &quot;vestimenta&#47;ponerParteArriba&#47;5.QuitarSudadera.png&quot;, id_P6);
+  insertAccionInitialData(database, &#39;&#39;, 1,
+      pathRutinas + &quot;vestimenta&#47;ponerParteArriba&#47;2.PonerCamiseta.png&quot;, id_P6);
+  insertAccionInitialData(database, &#39;&#39;, 2,
+      pathRutinas + &quot;vestimenta&#47;ponerParteArriba&#47;6.GuardarRopa.png&quot;, id_P6);
+
+  &#47;&#47; PONER PARTE DE ABAJO
+  int id_P7 = await insertSituacionRutinaInitialData(
+      database,
+      &#39;Por favor, pon en orden lo que hay que hacer para poner la parte de abajo.&#39;,
+      pathPersonaje + &#39;ambos.png&#39;,
+      grupoAdolescencia);
+  insertAccionInitialData(database, &#39;&#39;, 0,
+      pathRutinas + &quot;vestimenta&#47;ponerParteAbajo&#47;1.CogerRopa.png&quot;, id_P7);
+  insertAccionInitialData(database, &#39;&#39;, 1,
+      pathRutinas + &quot;vestimenta&#47;ponerParteAbajo&#47;2.RopaPuesta.png&quot;, id_P7);
+  insertAccionInitialData(database, &#39;&#39;, 2,
+      pathRutinas + &quot;vestimenta&#47;ponerParteAbajo&#47;3.CogerPantalon.png&quot;, id_P7);
+  insertAccionInitialData(database, &#39;&#39;, 3,
+      pathRutinas + &quot;vestimenta&#47;ponerParteAbajo&#47;4.SubirPantalon.png&quot;, id_P7);
+
+  &#47;&#47; QUITAR PARTE DE ABAJO
+  int id_P8 = await insertSituacionRutinaInitialData(
+      database,
+      &#39;Por favor, pon en orden lo que hay que hacer para quitarnos la parte de abajo.&#39;,
+      pathPersonaje + &#39;ambos.png&#39;,
+      grupoAdolescencia);
+  insertAccionInitialData(database, &#39;&#39;, 0,
+      pathRutinas + &quot;vestimenta&#47;ponerParteAbajo&#47;5.BajarPantalon.png&quot;, id_P8);
+  insertAccionInitialData(database, &#39;&#39;, 1,
+      pathRutinas + &quot;vestimenta&#47;ponerParteAbajo&#47;6.BajarRopa.png&quot;, id_P8);
+  insertAccionInitialData(database, &#39;&#39;, 2,
+      pathRutinas + &quot;vestimenta&#47;ponerParteArriba&#47;6.GuardarRopa.png&quot;, id_P8);
+
+  &#47;&#47; HACER COMPRA
+  int id_P9 = await insertSituacionRutinaInitialData(
+      database,
+      &#39;Por favor, pon en orden lo que tiene que hacer nuestra amigo Raúl cuando va a hacer la compra.&#39;,
+      pathPersonaje + &#39;chico.png&#39;,
+      grupoAdolescencia);
+  insertAccionInitialData(database, &#39;&#39;, 0,
+      pathRutinas + &quot;vidaSocial&#47;hacerCompra&#47;2.HacerLista.png&quot;, id_P9);
+  insertAccionInitialData(database, &#39;&#39;, 1,
+      pathRutinas + &quot;vidaSocial&#47;hacerCompra&#47;9.Supermercado.png&quot;, id_P9);
+  insertAccionInitialData(database, &#39;&#39;, 2,
+      pathRutinas + &quot;vidaSocial&#47;hacerCompra&#47;1.CogerCestaCarro.png&quot;, id_P9);
+  insertAccionInitialData(database, &#39;&#39;, 3,
+      pathRutinas + &quot;vidaSocial&#47;hacerCompra&#47;3.BuscarProducto.png&quot;, id_P9);
+  insertAccionInitialData(database, &#39;&#39;, 4,
+      pathRutinas + &quot;vidaSocial&#47;hacerCompra&#47;8.GuardarComida.png&quot;, id_P9);
+  insertAccionInitialData(database, &#39;&#39;, 5,
+      pathRutinas + &quot;vidaSocial&#47;hacerCompra&#47;4.HacerFila.png&quot;, id_P9);
+  insertAccionInitialData(database, &#39;&#39;, 6,
+      pathRutinas + &quot;vidaSocial&#47;hacerCompra&#47;6.Hola.png&quot;, id_P9);
+  insertAccionInitialData(database, &#39;&#39;, 7,
+      pathRutinas + &quot;vidaSocial&#47;hacerCompra&#47;5.Pagar.png&quot;, id_P9);
+  insertAccionInitialData(database, &#39;&#39;, 8,
+      pathRutinas + &quot;vidaSocial&#47;hacerCompra&#47;7.Adios.png&quot;, id_P9);
+
+  &#47;&#47; IR AL PARQUE
+  int id_P10 = await insertSituacionRutinaInitialData(
+      database,
+      &#39;Por favor, pon en orden lo que tenemos que hacer si queremos ir al parque.&#39;,
+      pathPersonaje + &#39;ambos.png&#39;,
+      grupoAdolescencia);
+
+  insertAccionInitialData(
+      database, &#39;&#39;, 0, pathRutinas + &quot;vidaSocial&#47;parque&#47;1.Escoger.png&quot;, id_P10);
+  insertAccionInitialData(
+      database, &#39;&#39;, 1, pathRutinas + &quot;vidaSocial&#47;parque&#47;2.Ir.png&quot;, id_P10);
+  insertAccionInitialData(database, &#39;&#39;, 2,
+      pathRutinas + &quot;vidaSocial&#47;hacerCompra&#47;6.Hola.png&quot;, id_P10);
+  insertAccionInitialData(database, &#39;&#39;, 3,
+      pathRutinas + &quot;vidaSocial&#47;parque&#47;3.Preguntar.png&quot;, id_P10);
+  insertAccionInitialData(
+      database, &#39;&#39;, 4, pathRutinas + &quot;vidaSocial&#47;parque&#47;4.Jugar.png&quot;, id_P10);
+  insertAccionInitialData(database, &#39;&#39;, 5,
+      pathRutinas + &quot;vidaSocial&#47;hacerCompra&#47;7.Adios.png&quot;, id_P10);
+
+  &#47;&#47; IR AL MÉDICO
+  int id_P11 = await insertSituacionRutinaInitialData(
+      database,
+      &#39;Por favor, pon en orden lo que tenemos que hacer para ir al médico.&#39;,
+      pathPersonaje + &#39;ambos.png&#39;,
+      grupoAdolescencia);
+
+  insertAccionInitialData(
+      database, &#39;&#39;, 0, pathRutinas + &quot;vidaSocial&#47;medico&#47;5.Ir.png&quot;, id_P11);
+  insertAccionInitialData(
+      database, &#39;&#39;, 1, pathRutinas + &quot;vidaSocial&#47;medico&#47;2.Buscar.png&quot;, id_P11);
+  insertAccionInitialData(
+      database, &#39;&#39;, 2, pathRutinas + &quot;vidaSocial&#47;medico&#47;1.Saludar.png&quot;, id_P11);
+  insertAccionInitialData(
+      database, &#39;&#39;, 3, pathRutinas + &quot;vidaSocial&#47;medico&#47;3.Esperar.png&quot;, id_P11);
+  insertAccionInitialData(database, &#39;&#39;, 4,
+      pathRutinas + &quot;vidaSocial&#47;medico&#47;4.Consulta.png&quot;, id_P11);
+
+  &#47;&#47; MOCHILA COLE
+  int id_P12 = await insertSituacionRutinaInitialData(
+      database,
+      &#39;Por favor, pon en orden lo que tiene que hacer el mago Harry para preparar la mochila del cole.&#39;,
+      pathPersonaje + &#39;mago.png&#39;,
+      grupoAdolescencia);
+  insertAccionInitialData(database, &#39;&#39;, 0,
+      pathRutinas + &quot;vidaDiaria&#47;mochilaCole&#47;1.Horario.png&quot;, id_P12);
+  insertAccionInitialData(database, &#39;&#39;, 1,
+      pathRutinas + &quot;vidaDiaria&#47;mochilaCole&#47;6.AbrirMochila.png&quot;, id_P12);
+  insertAccionInitialData(database, &#39;&#39;, 2,
+      pathRutinas + &quot;vidaDiaria&#47;mochilaCole&#47;2.Libros.png&quot;, id_P12);
+  insertAccionInitialData(database, &#39;&#39;, 3,
+      pathRutinas + &quot;vidaDiaria&#47;mochilaCole&#47;3.Cuadernos.png&quot;, id_P12);
+  insertAccionInitialData(database, &#39;&#39;, 4,
+      pathRutinas + &quot;vidaDiaria&#47;mochilaCole&#47;4.Estuche.png&quot;, id_P12);
+  insertAccionInitialData(database, &#39;&#39;, 5,
+      pathRutinas + &quot;vidaDiaria&#47;mochilaCole&#47;5.Mochila.png&quot;, id_P12);
+  insertAccionInitialData(database, &#39;&#39;, 6,
+      pathRutinas + &quot;vidaDiaria&#47;mochilaCole&#47;7.CerrarMochila.png&quot;, id_P12);
+
+  &#47;&#47; IR AL BAÑO (chico)
+  int id_P13 = await insertSituacionRutinaInitialData(
+      database,
+      &#39;Por favor, pon en orden lo que tiene que hacer nuestro amigo Pepe para hacer sus necesidades (ir al baño).&#39;,
+      pathPersonaje + &#39;chico.png&#39;,
+      grupoAdolescencia);
+
+  insertAccionInitialData(
+      database, &#39;&#39;, 0, pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;1.Baño.png&quot;, id_P13);
+  insertAccionInitialData(database, &#39;&#39;, 1,
+      pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;3.LevantarTapa.png&quot;, id_P13);
+  insertAccionInitialData(database, &#39;&#39;, 2,
+      pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;6.BajarPantalon.png&quot;, id_P13);
+  insertAccionInitialData(database, &#39;&#39;, 3,
+      pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;10.BajarRopaO.png&quot;, id_P13);
+  insertAccionInitialData(
+      database, &#39;&#39;, 4, pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;12.Vater.png&quot;, id_P13);
+  insertAccionInitialData(
+      database, &#39;&#39;, 5, pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;4.Papel.png&quot;, id_P13);
+  insertAccionInitialData(database, &#39;&#39;, 6,
+      pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;2.BajarTapa.png&quot;, id_P13);
+  insertAccionInitialData(database, &#39;&#39;, 7,
+      pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;9.TirarCisterna.png&quot;, id_P13);
+  insertAccionInitialData(database, &#39;&#39;, 8,
+      pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;13.SubirRopaO.png&quot;, id_P13);
+  insertAccionInitialData(database, &#39;&#39;, 9,
+      pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;7.SubirPantalon.png&quot;, id_P13);
+  insertAccionInitialData(database, &#39;&#39;, 10,
+      pathRutinas + &quot;higiene&#47;lavarCara&#47;2.MojarManos.png&quot;, id_P13);
+
+  &#47;&#47; IR AL BAÑO (chica)
+  int id_P14 = await insertSituacionRutinaInitialData(
+      database,
+      &#39;Por favor, pon en orden lo que tiene que hacer nuestra amiga Iria para hacer sus necesidades (ir al baño).&#39;,
+      pathPersonaje + &#39;chica.png&#39;,
+      grupoAdolescencia);
+
+  insertAccionInitialData(
+      database, &#39;&#39;, 0, pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;1.Baño.png&quot;, id_P14);
+  insertAccionInitialData(database, &#39;&#39;, 1,
+      pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;3.LevantarTapa.png&quot;, id_P14);
+  insertAccionInitialData(database, &#39;&#39;, 2,
+      pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;15.SubirVestido.png&quot;, id_P14);
+  insertAccionInitialData(database, &#39;&#39;, 3,
+      pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;11.BajarRopaA.png&quot;, id_P14);
+  insertAccionInitialData(
+      database, &#39;&#39;, 4, pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;12.Vater.png&quot;, id_P14);
+  insertAccionInitialData(
+      database, &#39;&#39;, 5, pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;4.Papel.png&quot;, id_P14);
+  insertAccionInitialData(database, &#39;&#39;, 6,
+      pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;2.BajarTapa.png&quot;, id_P14);
+  insertAccionInitialData(database, &#39;&#39;, 7,
+      pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;9.TirarCisterna.png&quot;, id_P14);
+  insertAccionInitialData(database, &#39;&#39;, 8,
+      pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;14.SubirRopaA.png&quot;, id_P14);
+  insertAccionInitialData(database, &#39;&#39;, 9,
+      pathRutinas + &quot;vidaDiaria&#47;irBaño&#47;16.BajarVestido.png&quot;, id_P14);
+  insertAccionInitialData(database, &#39;&#39;, 10,
+      pathRutinas + &quot;higiene&#47;lavarCara&#47;2.MojarManos.png&quot;, id_P14);
+
+  &#47;&#47; DESCALZARSE
+  int id_P15 = await insertSituacionRutinaInitialData(
+      database,
+      &#39;Por favor, pon en orden lo que tiene que hacer el futbolista David para descalzarse.&#39;,
+      pathPersonaje + &#39;futbolista2.png&#39;,
+      grupoAdolescencia);
+  insertAccionInitialData(database, &#39;&#39;, 0,
+      pathRutinas + &quot;vestimenta&#47;calzarse&#47;3.AtarCalzado.png&quot;, id_P15);
+  insertAccionInitialData(database, &#39;&#39;, 1,
+      pathRutinas + &quot;vestimenta&#47;calzarse&#47;4.Descalzar.png&quot;, id_P15);
+  insertAccionInitialData(database, &#39;&#39;, 2,
+      pathRutinas + &quot;vestimenta&#47;calzarse&#47;1.PonerCalcetines.png&quot;, id_P15);
+  insertAccionInitialData(database, &#39;&#39;, 3,
+      pathRutinas + &quot;vestimenta&#47;calzarse&#47;5.Zapatillas.png&quot;, id_P15);
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">Rutirse</a></li>
+    <li><a href="../db_rutinasScripts_adolescencia/db_rutinasScripts_adolescencia-library.html">adolescencia</a></li>
+    <li class="self-crumb">insertPreguntaRutinaInitialDataAdolescencia function</li>
+</ol>
+
+
+    <h5>adolescencia library</h5>
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    Rutirse
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

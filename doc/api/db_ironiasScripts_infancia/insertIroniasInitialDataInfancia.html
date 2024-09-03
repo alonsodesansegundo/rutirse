@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the insertIroniasInitialDataInfancia function from the infancia library, for the Dart programming language.">
+  <title>insertIroniasInitialDataInfancia function - infancia library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">Rutirse</a></li>
+    <li><a href="../db_ironiasScripts_infancia/db_ironiasScripts_infancia-library.html">infancia</a></li>
+    <li class="self-crumb">insertIroniasInitialDataInfancia function</li>
+  </ol>
+  <div class="self-name">insertIroniasInitialDataInfancia</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="db_ironiasScripts_infancia&#47;db_ironiasScripts_infancia-library-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-function">insertIroniasInitialDataInfancia</span> function 
+ 
+</h1></div>
+
+    <section class="multi-line-signature">
+        
+
+<span class="returntype">void</span>
+<span class="name ">insertIroniasInitialDataInfancia</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="insertIroniasInitialDataInfancia-param-database"><span class="type-annotation"><a href="https://pub.dev/documentation/sqflite_common/2.5.3/sqlite_api/Database-class.html">Database</a></span> <span class="parameter-name">database</span></span></li>
+</ol>)
+
+        
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Método encargado de las insercciones de preguntas predeterminadas para el juego Humor del grupo Infancia
+<br><b>Parámetros</b><br>
+<code>database</code> Objeto Database sobre la cual se ejecutan las insercciones</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">void insertIroniasInitialDataInfancia(Database database) async {
+  int grupoInfancia = 2;
+
+  int id_P1 = await insertSituacionIroniaInitialData(
+      database,
+      &#39;Es un día de invierno, una madre ve que su hijo está a punto de salir de casa. &#39;
+      &#39;La madre dice: &quot;¡No te desabrigues que hace frío!&quot;&#39;,
+      pathIronias + &#39;frio.png&#39;,
+      grupoInfancia);
+  insertRespuestaIronia(
+      database, &quot;No es una ironía, realmente hace frío.&quot;, 1, id_P1);
+  insertRespuestaIronia(
+      database, &quot;Es una ironía, realmente no hace frío.&quot;, 0, id_P1);
+
+  int id_P2 = await insertSituacionIroniaInitialData(
+      database,
+      &#39;Es un día de verano, un padre ve a su hija que está a punto de salir de casa. &#39;
+      &#39;El padre dice: &quot;¡No te vayas a desabrigar que hace frío!&quot;&#39;,
+      pathIronias + &#39;calor.png&#39;,
+      grupoInfancia);
+  insertRespuestaIronia(
+      database, &quot;No es una ironía, realmente hace frío.&quot;, 0, id_P2);
+  insertRespuestaIronia(
+      database, &quot;Es una ironía, realmente no hace frío, hace calor.&quot;, 1, id_P2);
+
+  int id_P3 = await insertSituacionIroniaInitialData(
+      database,
+      &#39;Un padre entra a la habitación de su hija, la cual está estudiando. &#39;
+      &#39;El padre dice: &quot;¡Caray, cuánto estudiamos!&quot;&#39;,
+      pathIronias + &#39;estudiar.png&#39;,
+      grupoInfancia);
+  insertRespuestaIronia(
+      database,
+      &quot;No es una ironía, el padre realmente está soprendido de lo mucho que estudia su hija.&quot;,
+      1,
+      id_P3);
+  insertRespuestaIronia(
+      database,
+      &quot;Es una ironía, el padre realmente quiere decir que su hija debería de estar estudiando.&quot;,
+      0,
+      id_P3);
+
+  int id_P4 = await insertSituacionIroniaInitialData(
+      database,
+      &#39;Una madre entra a la habitación de su hijo, el cual está jugando. &#39;
+      &#39;La madre dice: &quot;¡Caray, cuánto estudiamos!&quot;&#39;,
+      pathIronias + &#39;jugar.png&#39;,
+      grupoInfancia);
+  insertRespuestaIronia(
+      database,
+      &quot;No es una ironía, la madre realmente está soprendida de lo mucho que estudia su hijo.&quot;,
+      0,
+      id_P4);
+  insertRespuestaIronia(
+      database,
+      &quot;Es una ironía, la madre realmente quiere decir que su hijo debería de estar estudiando.&quot;,
+      1,
+      id_P4);
+
+  int id_P5 = await insertSituacionIroniaInitialData(
+      database,
+      &#39;Un padre entra en la habitación de su hija y ve todo desordenado. &#39;
+      &#39;El padre dice: ¡Qué desorden, Dios mío!&#39;,
+      pathIronias + &#39;desordenado.png&#39;,
+      grupoInfancia);
+  insertRespuestaIronia(
+      database,
+      &quot;No es una ironía, la verdad es que la habitación está ordenada.&quot;,
+      0,
+      id_P5);
+  insertRespuestaIronia(
+      database,
+      &quot;No es una ironía, la verdad es que la habitación está desordenada.&quot;,
+      1,
+      id_P5);
+
+  int id_P6 = await insertSituacionIroniaInitialData(
+      database,
+      &#39;A una persona se le cae un jarrón, con la suerte de que el jarrón no se rompe. &#39;
+      &#39;La persona al ver el jarrón intacto dice: &quot;Uf, ¡qué buena suerte he tenido!&quot;&#39;,
+      pathIronias + &#39;jarron.png&#39;,
+      grupoInfancia);
+  insertRespuestaIronia(
+      database, &quot;No es una ironía, realmente ha tenido mala suerte.&quot;, 0, id_P6);
+  insertRespuestaIronia(database,
+      &quot;No es una ironía, realmente ha tenido buena suerte.&quot;, 1, id_P6);
+
+  int id_P7 = await insertSituacionIroniaInitialData(
+      database,
+      &#39;A una persona se le cae un jarrón, con tan mala suerte que el jarrón se rompe. &#39;
+      &#39;La persona al ver el jarrón roto dice: &quot;Caray, ¡qué buena suerte la mía!&quot;&#39;,
+      pathIronias + &#39;jarronroto.png&#39;,
+      grupoInfancia);
+  insertRespuestaIronia(database,
+      &quot;No es una ironía, realmente ha tenido buena suerte.&quot;, 0, id_P7);
+  insertRespuestaIronia(
+      database, &quot;Es una ironía, realmente ha tenido mala suerte.&quot;, 1, id_P7);
+
+  int id_P8 = await insertSituacionIroniaInitialData(
+      database,
+      &#39;Pepe ha visto una película de miedo por la tarde y ahora se encuentra en cama sin ser capaz de dormir. &#39;
+      &#39;Pepe piensa: &quot;No debí ver esa película de miedo&quot;.&#39;,
+      pathIronias + &#39;despierto.png&#39;,
+      grupoInfancia);
+  insertRespuestaIronia(
+      database,
+      &quot;No es una ironía, ver esa película de miedo no fue una buena idea.&quot;,
+      1,
+      id_P8);
+  insertRespuestaIronia(database,
+      &quot;Es una ironía, ver esa película de miedo fue una buena idea.&quot;, 0, id_P8);
+
+  int id_P9 = await insertSituacionIroniaInitialData(
+      database,
+      &#39;María ha visto una película de miedo por la tarde y ahora se encuentra en cama sin ser capaz de dormir. &#39;
+      &#39;María piensa: &quot;¡Qué buena idea ver esa película de miedo!&quot;.&#39;,
+      pathIronias + &#39;despierto.png&#39;,
+      grupoInfancia);
+  insertRespuestaIronia(
+      database,
+      &quot;No es una ironía, ver esa película de miedo fue una buena idea.&quot;,
+      0,
+      id_P9);
+  insertRespuestaIronia(
+      database,
+      &quot;Es una ironía, ver esa película de miedo no fue una buena idea.&quot;,
+      1,
+      id_P9);
+
+  int id_P10 = await insertSituacionIroniaInitialData(
+      database,
+      &#39;Una madre entra en la habitación de su hijo y ve todo desordenado. &#39;
+      &#39;La madre dice: ¡Qué ordenado está todo!&#39;,
+      pathIronias + &#39;desordenado.png&#39;,
+      grupoInfancia);
+  insertRespuestaIronia(
+      database,
+      &quot;No es una ironía, la verdad es que la habitación está ordenada.&quot;,
+      0,
+      id_P10);
+  insertRespuestaIronia(
+      database,
+      &quot;Es una ironía, la verdad es que la habitación está desordenada.&quot;,
+      1,
+      id_P10);
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">Rutirse</a></li>
+    <li><a href="../db_ironiasScripts_infancia/db_ironiasScripts_infancia-library.html">infancia</a></li>
+    <li class="self-crumb">insertIroniasInitialDataInfancia function</li>
+</ol>
+
+
+    <h5>infancia library</h5>
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    Rutirse
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

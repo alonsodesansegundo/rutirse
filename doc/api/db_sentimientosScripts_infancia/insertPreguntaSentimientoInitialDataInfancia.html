@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the insertPreguntaSentimientoInitialDataInfancia function from the infancia library, for the Dart programming language.">
+  <title>insertPreguntaSentimientoInitialDataInfancia function - infancia library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">Rutirse</a></li>
+    <li><a href="../db_sentimientosScripts_infancia/db_sentimientosScripts_infancia-library.html">infancia</a></li>
+    <li class="self-crumb">insertPreguntaSentimientoInitialDataInfancia function</li>
+  </ol>
+  <div class="self-name">insertPreguntaSentimientoInitialDataInfancia</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="db_sentimientosScripts_infancia&#47;db_sentimientosScripts_infancia-library-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-function">insertPreguntaSentimientoInitialDataInfancia</span> function 
+ 
+</h1></div>
+
+    <section class="multi-line-signature">
+        
+
+<span class="returntype">void</span>
+<span class="name ">insertPreguntaSentimientoInitialDataInfancia</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="insertPreguntaSentimientoInitialDataInfancia-param-database"><span class="type-annotation"><a href="https://pub.dev/documentation/sqflite_common/2.5.3/sqlite_api/Database-class.html">Database</a></span> <span class="parameter-name">database</span></span></li>
+</ol>)
+
+        
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Método encargado de las insercciones de preguntas predeterminadas para el juego Sentimientos del grupo Infancia
+<br><b>Parámetros</b><br>
+<code>database</code> Objeto Database sobre la cual se ejecutan las insercciones</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">void insertPreguntaSentimientoInitialDataInfancia(Database database) async {
+  int grupoInfancia = 2;
+
+  int id_P1 = await insertPreguntaSentimientoInitialData(
+      database,
+      &#39;Cuando alguien esta alegre puede...&#39;,
+      pathPersonaje + &#39;contenta.png&#39;,
+      grupoInfancia);
+  insertSituacionInitialData(
+      database, &quot;Gritar&quot;, 0, pathSentimientos + &quot;gritar.png&quot;, id_P1);
+  insertSituacionInitialData(
+      database, &quot;Reír&quot;, 1, pathSentimientos + &quot;reir.png&quot;, id_P1);
+  insertSituacionInitialData(
+      database, &quot;Discutir&quot;, 0, pathSentimientos + &quot;discutir.png&quot;, id_P1);
+  insertSituacionInitialData(
+      database, &quot;Abrazar&quot;, 1, pathSentimientos + &quot;abrazo.png&quot;, id_P1);
+
+  int id_P2 = await insertPreguntaSentimientoInitialData(
+      database,
+      &#39;¿Qué puede hacer que nos sintamos tristes?&#39;,
+      pathPersonaje + &#39;triste.png&#39;,
+      grupoInfancia);
+  insertSituacionInitialData(database, &quot;Perder una carrera&quot;, 1,
+      pathSentimientos + &quot;perder.png&quot;, id_P2);
+  insertSituacionInitialData(database, &quot;Perder el autobús&quot;, 1,
+      pathSentimientos + &quot;perderBus.png&quot;, id_P2);
+  insertSituacionInitialData(
+      database, &quot;Ir al parque&quot;, 0, pathSentimientos + &quot;parque.png&quot;, id_P2);
+  insertSituacionInitialData(
+      database, &quot;Ir al cine&quot;, 0, pathSentimientos + &quot;cine.png&quot;, id_P2);
+  insertSituacionInitialData(
+      database, &quot;Ganar una carrera&quot;, 0, pathSentimientos + &quot;ganar.png&quot;, id_P2);
+
+  int id_P3 = await insertPreguntaSentimientoInitialData(
+      database,
+      &#39;¿Qué puede hacer que nos sintamos contentos?&#39;,
+      pathPersonaje + &#39;contenta.png&#39;,
+      grupoInfancia);
+  insertSituacionInitialData(database, &quot;Perder una carrera&quot;, 0,
+      pathSentimientos + &quot;perder.png&quot;, id_P3);
+  insertSituacionInitialData(database, &quot;Perder el autobús&quot;, 0,
+      pathSentimientos + &quot;perderBus.png&quot;, id_P3);
+  insertSituacionInitialData(
+      database, &quot;Ir al parque&quot;, 1, pathSentimientos + &quot;parque.png&quot;, id_P3);
+  insertSituacionInitialData(
+      database, &quot;Ir al cine&quot;, 1, pathSentimientos + &quot;cine.png&quot;, id_P3);
+  insertSituacionInitialData(
+      database, &quot;Ganar una carrera&quot;, 1, pathSentimientos + &quot;ganar.png&quot;, id_P3);
+
+  int id_P4 = await insertPreguntaSentimientoInitialData(
+      database,
+      &#39;¿Qué puede hacer que nos asustemos?&#39;,
+      pathPersonaje + &#39;asustado.png&#39;,
+      grupoInfancia);
+  insertSituacionInitialData(
+      database, &quot;Fantasma&quot;, 1, pathSentimientos + &quot;fantasma.png&quot;, id_P4);
+  insertSituacionInitialData(
+      database, &quot;Peluche&quot;, 0, pathSentimientos + &quot;peluche.png&quot;, id_P4);
+  insertSituacionInitialData(
+      database, &quot;Monstruo&quot;, 1, pathSentimientos + &quot;monstruo.png&quot;, id_P4);
+  insertSituacionInitialData(
+      database, &quot;Serpiente&quot;, 1, pathSentimientos + &quot;serpiente.png&quot;, id_P4);
+
+  int id_P5 = await insertPreguntaSentimientoInitialData(
+      database,
+      &#39;Cuando alguien está enfadado puede...&#39;,
+      pathPersonaje + &#39;enfadada.png&#39;,
+      grupoInfancia);
+  insertSituacionInitialData(
+      database, &quot;Gritar&quot;, 1, pathSentimientos + &quot;gritar.png&quot;, id_P5);
+  insertSituacionInitialData(
+      database, &quot;Reír&quot;, 0, pathSentimientos + &quot;reir.png&quot;, id_P5);
+  insertSituacionInitialData(
+      database, &quot;Discutir&quot;, 1, pathSentimientos + &quot;discutir.png&quot;, id_P5);
+  insertSituacionInitialData(
+      database, &quot;Abrazar&quot;, 0, pathSentimientos + &quot;abrazo.png&quot;, id_P5);
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">Rutirse</a></li>
+    <li><a href="../db_sentimientosScripts_infancia/db_sentimientosScripts_infancia-library.html">infancia</a></li>
+    <li class="self-crumb">insertPreguntaSentimientoInitialDataInfancia function</li>
+</ol>
+
+
+    <h5>infancia library</h5>
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    Rutirse
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+
