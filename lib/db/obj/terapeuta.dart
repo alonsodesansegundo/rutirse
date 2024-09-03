@@ -13,7 +13,7 @@ void insertDefaultPassword(Database database) async {
 
 ///Método que nos permite obtener la contraseña
 ///<br><b>Parámetros</b><br>
-///[database] Objeto Database sobre la cual se ejecuta la consulta
+///[db] Objeto Database sobre la cual se ejecuta la consulta
 ///<br><b>Salida</b><br>
 ///Valor de la contraseña
 Future<String> getPassword([Database? db]) async {
