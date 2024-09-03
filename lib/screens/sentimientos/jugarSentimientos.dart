@@ -21,11 +21,14 @@ import '../main.dart';
 
 Random random = Random(); // para generar numeros aleatorios
 
+///Pantalla de juego del juego Sentimientos
 class JugarSentimientos extends StatefulWidget {
   @override
   _JugarSentimientos createState() => _JugarSentimientos();
 }
 
+/// Estado asociado a la pantalla [JugarSentimientos] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _JugarSentimientos extends State<JugarSentimientos>
     with WidgetsBindingObserver {
   late FlutterTts flutterTts; // para reproducir audio
@@ -312,7 +315,7 @@ class _JugarSentimientos extends State<JugarSentimientos>
     );
   }
 
-  // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size;
 
@@ -329,7 +332,7 @@ class _JugarSentimientos extends State<JugarSentimientos>
     imgBtnWidth = screenSize.width / 5;
   }
 
-  // metodo para crear los botones necesarios en los cuadros de dialogos
+  ///Método encargado de inicializar los botones que tendrán los cuadros de dialogo
   void _createButtonsFromDialogs() {
     // boton para seguir jugando
     btnSeguirJugando = ImageTextButton(
@@ -414,7 +417,7 @@ class _JugarSentimientos extends State<JugarSentimientos>
     );
   }
 
-  // metodo para crear los cuadros de dialogos
+  ///Método encargado de inicializar los cuadros de dialogo que tendrá la pantalla
   void _createDialogs() {
     // cuadro de dialogo para salir del juego o no
     exitDialog = ExitDialog(
@@ -484,7 +487,7 @@ class _JugarSentimientos extends State<JugarSentimientos>
         rightImageTextButton: btnSalir);
   }
 
-  // metodo para cargar todas las preguntas
+  ///Método para cargar todas las preguntas del juego Sentimientos en la variable [preguntaSentimientoList], desordenarlas y seleccionar una para comenzar [indiceActual]
   Future<void> _cargarPreguntas() async {
     if (!flag) {
       flag = true;
@@ -507,7 +510,7 @@ class _JugarSentimientos extends State<JugarSentimientos>
     }
   }
 
-  // método para cargar las acciones de la pregunta actual
+  ///Método que se encarga de cargar las respuestas de la pregunta actual en [cartasSituaciones]
   Future<void> _cargarSituaciones() async {
     try {
       List<Situacion> situaciones =
@@ -527,6 +530,8 @@ class _JugarSentimientos extends State<JugarSentimientos>
     }
   }
 
+  ///Método que nos permite comprobar que al menos se ha marcado una respuesta correcta
+  ///[true] si al menos se ha marcado una respuesta, [false] en caso contrario
   bool _comprobarSelected() {
     for (int i = 0; i < this.cartasSituaciones.length; i++) {
       if (this.cartasSituaciones[i].selected) return true;
@@ -534,7 +539,9 @@ class _JugarSentimientos extends State<JugarSentimientos>
     return false;
   }
 
-  // método para comprobar si las respuestas son correctas o no
+  ///Método que nos permite comprobar si las respuestas son correctas o no
+  ///<br><b>Salida</b><br>
+  ///[true] si todas las respuestas son correctas, [false] en caso contrario
   bool _comprobarRespuestas() {
     bool correcto = true;
     for (int i = 0; i < cartasSituaciones.length; i++) {
@@ -557,7 +564,7 @@ class _JugarSentimientos extends State<JugarSentimientos>
     return correcto;
   }
 
-  // método para cambiar la pregunta actual
+  ///Método que nos permite cambiar la pregunta actual
   void _cambiarPregunta() {
     if (preguntaSentimientoList.isNotEmpty) {
       // si hay preguntas
@@ -568,7 +575,7 @@ class _JugarSentimientos extends State<JugarSentimientos>
     }
   }
 
-  // metodo para calcular la altura del gridview
+  ///Método que nos permite calcular la altura aproximada del gridview
   double _calcularAltura(double ancho, int cartasFila, double espacioPadding,
       double espacioCartas, int filas) {
     double sol = 0;
@@ -583,7 +590,9 @@ class _JugarSentimientos extends State<JugarSentimientos>
     return sol;
   }
 
-  // metodo para cuando pulso una carta, y de ser necesario, intercambiar
+  ///Método que nos permite intercambiar o marcar una carta seleccionada según sea necesario
+  ///<br><b>Parámetros</b><br>
+  ///[cartaSituacion] Carta que acaba de ser pulsada o seleccionada
   void _cartaPulsada(CartaSituacion cartaSituacion) {
     cartaSituacion.selected = !cartaSituacion.selected;
     setState(() {
@@ -609,7 +618,9 @@ class _JugarSentimientos extends State<JugarSentimientos>
     });
   }
 
-  // método para reproducir un texto por audio
+  ///Método que permite la reproducción por audio de un texto
+  ///<br><b>Parámetros</b><br>
+  ///[texto] Cadena de texto que queremos reproducir por audio
   Future<void> _speak(String texto) async {
     await flutterTts.setLanguage("es-ES"); // Establecer el idioma a español
     await flutterTts.speak(texto);
@@ -628,6 +639,7 @@ class _JugarSentimientos extends State<JugarSentimientos>
     });
   }
 
+  ///Método que nos permite pausar o parar la reproducción por audio de texto
   Future<void> _stopSpeaking() async {
     if (isSpeaking) {
       await flutterTts.stop();
@@ -637,7 +649,7 @@ class _JugarSentimientos extends State<JugarSentimientos>
     }
   }
 
-  // metodo para guardar el progreso o partida
+  ///Método que nos permite guardar la partida del juego Sentimientos
   void saveProgreso() {
     timeFin = DateTime.now();
     Duration duracion = timeFin.difference(timeInicio);

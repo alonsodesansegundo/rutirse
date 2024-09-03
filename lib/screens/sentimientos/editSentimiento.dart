@@ -16,6 +16,7 @@ import '../../widgets/ArasaacImageDialog.dart';
 import '../../widgets/ImageTextButton.dart';
 import '../main.dart';
 
+///Pantalla que le permite al terapeuta la edición de una pregunta del juego Sentimientos y sus respuestas
 class EditSentimiento extends StatefulWidget {
   PreguntaSentimiento preguntaSentimiento;
   Grupo grupo;
@@ -26,6 +27,8 @@ class EditSentimiento extends StatefulWidget {
   _EditSentimientoState createState() => _EditSentimientoState();
 }
 
+/// Estado asociado a la pantalla [EditSentimiento] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _EditSentimientoState extends State<EditSentimiento> {
   late double titleSize,
       textSize,
@@ -513,7 +516,7 @@ class _EditSentimientoState extends State<EditSentimiento> {
     );
   }
 
-  // método para añadir un nuevo ElementAccion
+  ///Método que nos permite añadir un nuevo [ElementRespuestaSentimientos] para que haya más respuestas en la pregunta
   void _addRespuesta() {
     setState(() {
       respuestas.add(new ElementRespuestaSentimientos(
@@ -537,7 +540,7 @@ class _EditSentimientoState extends State<EditSentimiento> {
     });
   }
 
-  // método para eliminar la ultima respuesta
+  ///Método que nos permite eliminar el útlimo [ElementRespuestaSentimientos] para que haya menos respuestas en la pregunta
   void _removeRespuesta() {
     setState(() {
       situacionesToDelete.add(respuestas[respuestas.length - 1]);
@@ -545,24 +548,27 @@ class _EditSentimientoState extends State<EditSentimiento> {
     });
   }
 
-  // Método para editar una pregunta y sus respuestas
+  ///Método encargado de editar una pregunta y sus respectivas respuestas
   Future<void> _editSentimiento() async {
     _editPregunta();
     _editRespuestas();
   }
 
+  ///Metodo que nos permite eliminar una pregunta del juego Sentimientos a partir de su identificador
+  ///<br><b>Parámetros</b><br>
+  ///[preguntaId] Identificador de la pregunta que queremos eliminar
   void _removePregunta(int preguntaId) {
     removePreguntaSentimiento(preguntaId);
   }
 
-  // Método para editar una pregunta de la BBDD
+  ///Método encargado de editar una pregunta juego Sentimientos
   Future<void> _editPregunta() async {
     Database db = await openDatabase('rutinas.db');
     await updatePregunta(db, widget.preguntaSentimiento.id!, preguntaText,
         Uint8List.fromList(image), selectedGrupo!.id);
   }
 
-  // Método para editar respuestas de la BBDD
+  ///Método encargado de editar las respuestas a una pregunta del juego Sentimientos
   Future<void> _editRespuestas() async {
     Database db = await openDatabase('rutinas.db');
     for (int i = 0; i < respuestas.length; i++) {
@@ -629,7 +635,7 @@ class _EditSentimientoState extends State<EditSentimiento> {
     }
   }
 
-  // Método para obtener la lista de grupos de la BBDD
+  ///Método que nos permite obtener los grupos con los que cuenta la aplicación y almacenarlos en la variable [grupos]
   Future<void> _getGrupos() async {
     try {
       List<Grupo> gruposList = await getGrupos();
@@ -641,6 +647,11 @@ class _EditSentimientoState extends State<EditSentimiento> {
     }
   }
 
+  ///Método que nos permite obtener el ancho que se supone que ocuparía una cadena de texto
+  ///<br><b>Parámetros</b><br>
+  ///[text] Cadena de texto de la que queremos obtener el valor de ancho<br>
+  ///[context] El contexto de la aplicación, que proporciona acceso a información
+  ///sobre el entorno en el que se está ejecutando el widget, incluyendo el tamaño de la pantalla
   double getWidthOfText(String text, BuildContext context) {
     final TextSpan span = TextSpan(
       text: text,
@@ -658,7 +669,7 @@ class _EditSentimientoState extends State<EditSentimiento> {
     return tp.width;
   }
 
-  // Método para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
@@ -673,7 +684,7 @@ class _EditSentimientoState extends State<EditSentimiento> {
     imgWidth = screenSize.width / 4.5;
   }
 
-  // Método para crear los botones necesarios
+  ///Método encargado de inicializar los botones que tendrá la pantalla
   void _createButtons() {
     // boton para dar volver a la pantalla principal de ironías
     btnVolver = ImageTextButton(
@@ -761,7 +772,7 @@ class _EditSentimientoState extends State<EditSentimiento> {
     );
   }
 
-  // Metodo para crear los cuadros de dialogo necesarios
+  ///Método encargado de inicializar los cuadros de dialogo que tendrá la pantalla
   void _createDialogs() {
     removePreguntaOk = AlertDialog(
       title: Text(
@@ -921,7 +932,7 @@ class _EditSentimientoState extends State<EditSentimiento> {
     );
   }
 
-  // Método para seleccionar un nuevo personaje desde la galería
+  ///Método que nos permite seleccionar una nueva imagen para la pregunta a través de la galería
   Future<void> _selectNewImageGallery() async {
     final picker = ImagePicker();
     final imageAux = await picker.pickImage(source: ImageSource.gallery);
@@ -935,7 +946,8 @@ class _EditSentimientoState extends State<EditSentimiento> {
     }
   }
 
-  // Método para seleccionar una nueva imagen de respuesta desde ARASAAC
+  ///Método que nos permite seleccionar una nueva imagen para la respuesta [index] a través de un cuadro de
+  ///dialogo que muestra pictogramas de ARASAAC y permite la búsqueda por palabras clave
   Future<void> _selectNewRespuestaArasaac(int index) async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
@@ -984,7 +996,7 @@ class _EditSentimientoState extends State<EditSentimiento> {
     }
   }
 
-  // Método para seleccionar una nueva imagen de respuesta desde la galeria
+  ///Método que nos permite seleccionar una nueva imagen para la accion [index] a través de la galería
   Future<void> _selectNewActionGallery(int index) async {
     final picker = ImagePicker();
     final image = await picker.pickImage(source: ImageSource.gallery);
@@ -1011,7 +1023,9 @@ class _EditSentimientoState extends State<EditSentimiento> {
     }
   }
 
-  // Método para comprobar que los parametros obligatorios están completos
+  ///Método que se encarga de comprobar que están rellenados todos los campos y opciones para poder añadir una nueva pregunta al juego Rutinas
+  ///<br><b>Salida</b><br>
+  ///[true] si los campos obligatorios están completos, [false] en caso contrario
   bool _completedParams() {
     bool correct = true;
     // compruebo que todos los parametros obligatorios están completos
@@ -1055,7 +1069,7 @@ class _EditSentimientoState extends State<EditSentimiento> {
     return correct;
   }
 
-  // Método para cargar las respuestas de la pregunta seleccionada
+  ///Método que nos permite cargar las respuestas de la pregunta actual
   void _loadRespuestas() async {
     List<Situacion> aux = await getSituaciones(widget.preguntaSentimiento.id!);
     for (int i = 0; i < aux.length; i++) {

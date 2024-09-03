@@ -5,9 +5,10 @@ import '../../widgets/ExitDialog.dart';
 import '../../widgets/ImageTextButton.dart';
 import '../main.dart';
 
+///Pantalla explicativa de como jugar al juego Sentimientos
 class AyudaSentimientos extends StatefulWidget {
-  // string que nos indica si la pantalla de origen es 'home' o 'menu'
-  // para dependiendo de eso, mostrar un cuadro de dialogo u otro (exitDialogFromHome o exitDialogFromMenu)
+  ///Variable que nos indica si la pantalla de origen es 'home' o 'menu' para dependiendo de eso,
+  /// mostrar un cuadro de dialogo u otro (exitDialogFromHome o exitDialogFromMenu)
   final String origen;
 
   AyudaSentimientos({required this.origen});
@@ -16,6 +17,8 @@ class AyudaSentimientos extends StatefulWidget {
   _AyudaSentimientosState createState() => _AyudaSentimientosState();
 }
 
+/// Estado asociado a la pantalla [AyudaSentimientos] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _AyudaSentimientosState extends State<AyudaSentimientos> {
   // string que nos indica si la pantalla de origen es 'home' o 'menu'
   // para dependiendo de eso, mostrar un cuadro de dialogo u otro (exitDialogFromHome o exitDialogFromMenu)
@@ -339,7 +342,7 @@ class _AyudaSentimientosState extends State<AyudaSentimientos> {
     );
   }
 
-  // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size;
 
@@ -352,7 +355,7 @@ class _AyudaSentimientosState extends State<AyudaSentimientos> {
     imgVolverHeight = screenSize.height / 32;
   }
 
-  // metodo para crear los botones necesarios en los cuadros de dialogos
+  ///Método encargado de inicializar los botones que tendrán los cuadros de dialogo
   void _createButtonsFromDialogs() {
     // boton para seguir en la pantalla de ayuda
     btnSeguirAyuda = ImageTextButton(
@@ -410,7 +413,7 @@ class _AyudaSentimientosState extends State<AyudaSentimientos> {
     );
   }
 
-  // metodo para crear los cuadro de dialogos
+  ///Método encargado de inicializar los cuadros de dialogo que tendrá la pantalla
   void _createDialogs() {
     // cuadrdo de dialogo para salir de la pantalla de ayuda desde la pantalla principal
     exitDialogFromHome = ExitDialog(

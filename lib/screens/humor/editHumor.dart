@@ -17,6 +17,7 @@ import '../../widgets/ArasaacPersonajeDialog.dart';
 import '../../widgets/ImageTextButton.dart';
 import '../main.dart';
 
+///Pantalla que le permite al terapeuta la edición de una pregunta del juego Humor y sus respuestas
 class EditHumor extends StatefulWidget {
   SituacionIronia situacionIronia;
   Grupo grupo;
@@ -27,6 +28,8 @@ class EditHumor extends StatefulWidget {
   _EditIroniaState createState() => _EditIroniaState();
 }
 
+/// Estado asociado a la pantalla [EditHumor] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _EditIroniaState extends State<EditHumor> {
   late ImageTextButton btnVolver;
 
@@ -656,6 +659,11 @@ class _EditIroniaState extends State<EditHumor> {
     );
   }
 
+  ///Método que nos permite obtener el ancho que se supone que ocuparía una cadena de texto
+  ///<br><b>Parámetros</b><br>
+  ///[text] Cadena de texto de la que queremos obtener el valor de ancho<br>
+  ///[context] El contexto de la aplicación, que proporciona acceso a información
+  ///sobre el entorno en el que se está ejecutando el widget, incluyendo el tamaño de la pantalla
   double getWidthOfText(String text, BuildContext context) {
     final TextSpan span = TextSpan(
       text: text,
@@ -673,7 +681,7 @@ class _EditIroniaState extends State<EditHumor> {
     return tp.width;
   }
 
-  // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
@@ -691,7 +699,7 @@ class _EditIroniaState extends State<EditHumor> {
         getWidthOfText("Imagen*: ", context) + espacioPadding * 2.5;
   }
 
-  // Método para crear los botones necesarios
+  ///Método encargado de inicializar los botones que tendrá la pantalla
   void _createButtons() {
     // boton para dar volver a la pantalla principal de humor
     btnVolver = ImageTextButton(
@@ -779,7 +787,7 @@ class _EditIroniaState extends State<EditHumor> {
     );
   }
 
-  // Metodo para crear los cuadros de dialogo necesarios
+  ///Método encargado de inicializar los cuadros de dialogo que tendrá la pantalla
   void _createDialogs() {
     // cuadro de dialogo para escoger unq imagen de arasaac
     arasaacPersonajeDialog = ArasaacPersonajeDialog(
@@ -940,7 +948,7 @@ class _EditIroniaState extends State<EditHumor> {
     );
   }
 
-  // Método para seleccionar un nuevo personaje desde la galería
+  ///Método que nos permite seleccionar una imagen de nuestra galería para la pregunta, dicha imagen se guarda en la variable [image]
   Future<void> _selectNewPersonajeGallery() async {
     final picker = ImagePicker();
     final imageAux = await picker.pickImage(source: ImageSource.gallery);
@@ -954,7 +962,9 @@ class _EditIroniaState extends State<EditHumor> {
     }
   }
 
-  // Método para comprobar que los parametros obligatorios están completos
+  ///Método que se encarga de comprobar que están rellenados todos los campos y opciones para poder editar una pregunta del juego Humor
+  ///<br><b>Salida</b><br>
+  ///[true] si los campos obligatorios están completos, [false] en caso contrario
   bool _completedParams() {
     bool correct = true;
     if (situacionText.trim().isEmpty) {
@@ -1006,13 +1016,13 @@ class _EditIroniaState extends State<EditHumor> {
     return correct;
   }
 
-  // Método para editar una pregunta y sus acciones
+  ///Método encargado de editar una pregunta y sus respectivas respuestas
   Future<void> _editIronia() async {
     await _editPregunta();
     _editRespuestas();
   }
 
-  // Método para editar una pregunta de la BBDD
+  ///Método encargado de editar una pregunta al juego Humor
   Future<void> _editPregunta() async {
     Database db = await openDatabase('rutinas.db');
     if (!changeGrupo)
@@ -1023,7 +1033,7 @@ class _EditIroniaState extends State<EditHumor> {
           Uint8List.fromList(image), selectedGrupo!.id);
   }
 
-  // Método para editar acciones de la BBDD
+  ///Método encargado de editar las respuestas de la pregunta del juego Humor
   Future<void> _editRespuestas() async {
     Database db = await openDatabase('rutinas.db');
     // elimino las respuestas anteriores
@@ -1052,7 +1062,7 @@ class _EditIroniaState extends State<EditHumor> {
           db, respuestasIncorrectas[i].texto, 0, widget.situacionIronia.id!);
   }
 
-  // Método para obtener la lista de grupos de la BBDD
+  ///Método que nos permite obtener los grupos con los que cuenta la aplicación y almacenarlos en la variable [grupos]
   Future<void> _getGrupos() async {
     try {
       List<Grupo> gruposList = await getGrupos();
@@ -1064,7 +1074,7 @@ class _EditIroniaState extends State<EditHumor> {
     }
   }
 
-  // Método para cargar las respuestas de la pregunta seleccionada
+  ///Método que nos permite cargar las respuestas de la pregunta actual
   Future<void> _loadRespuestas() async {
     List<RespuestaIronia> aux =
         await getRespuestasIronia(widget.situacionIronia.id!);
@@ -1105,8 +1115,11 @@ class _EditIroniaState extends State<EditHumor> {
       }
     });
   }
-}
 
-void _removePregunta(int preguntaId) {
-  removePreguntaIronia(preguntaId);
+  ///Metodo que nos permite eliminar una pregunta del juego Humor a partir de su identificador
+  ///<br><b>Parámetros</b><br>
+  ///[preguntaId] Identificador de la pregunta que queremos eliminar
+  void _removePregunta(int preguntaId) {
+    removePreguntaIronia(preguntaId);
+  }
 }

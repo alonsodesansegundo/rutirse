@@ -5,12 +5,15 @@ import '../../widgets/ImageTextButton.dart';
 import 'addSentimiento.dart';
 import 'allProgressSentimiento.dart';
 
+///Pantalla menú para el terapeuta en el juego Sentimientos
 class MenuTerapeutaSentimientos extends StatefulWidget {
   @override
   _MenuTerapeutaSentimientosState createState() =>
       _MenuTerapeutaSentimientosState();
 }
 
+/// Estado asociado a la pantalla [MenuTerapeutaSentimientos] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _MenuTerapeutaSentimientosState extends State<MenuTerapeutaSentimientos> {
   late double titleSize,
       textSize,
@@ -106,7 +109,7 @@ class _MenuTerapeutaSentimientosState extends State<MenuTerapeutaSentimientos> {
     );
   }
 
-  // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
@@ -119,7 +122,7 @@ class _MenuTerapeutaSentimientosState extends State<MenuTerapeutaSentimientos> {
     btnHeight = screenSize.height / 14;
   }
 
-  // metodo para crear los botones necesarios
+  ///Método encargado de inicializar los botones de esta pantalla
   void _createButtons() {
     // boton para dar la opcion de añadir una nueva ironia
     btnAddSentimiento = ElevatedButton(

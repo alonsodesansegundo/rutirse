@@ -16,11 +16,14 @@ import '../../widgets/ArasaacImageDialog.dart';
 import '../../widgets/ImageTextButton.dart';
 import '../main.dart';
 
+///Pantalla que nos permite añadir una nueva pregunta, con sus correspondientes respuestas al juego Humor
 class AddHumor extends StatefulWidget {
   @override
   _AddHumorState createState() => _AddHumorState();
 }
 
+/// Estado asociado a la pantalla [AddHumor] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _AddHumorState extends State<AddHumor> {
   late double titleSize,
       textSize,
@@ -515,7 +518,7 @@ class _AddHumorState extends State<AddHumor> {
     );
   }
 
-  // Método para obtener la lista de grupos de la BBDD
+  ///Método que nos permite obtener los grupos con los que cuenta la aplicación y almacenarlos en la variable [grupos]
   Future<void> _getGrupos() async {
     try {
       List<Grupo> gruposList = await getGrupos();
@@ -527,6 +530,11 @@ class _AddHumorState extends State<AddHumor> {
     }
   }
 
+  ///Método que nos permite obtener el ancho que se supone que ocuparía una cadena de texto
+  ///<br><b>Parámetros</b><br>
+  ///[text] Cadena de texto de la que queremos obtener el valor de ancho<br>
+  ///[context] El contexto de la aplicación, que proporciona acceso a información
+  ///sobre el entorno en el que se está ejecutando el widget, incluyendo el tamaño de la pantalla
   double getWidthOfText(String text, BuildContext context) {
     final TextSpan span = TextSpan(
       text: text,
@@ -544,7 +552,7 @@ class _AddHumorState extends State<AddHumor> {
     return tp.width;
   }
 
-  // Método para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
@@ -561,7 +569,7 @@ class _AddHumorState extends State<AddHumor> {
         getWidthOfText("Imagen*: ", context) + espacioPadding * 2.5;
   }
 
-  // Método para crear los botones necesarios
+  ///Método encargado de inicializar los botones que tendrá la pantalla
   void _createButtons() {
     // boton para dar volver a la pantalla principal de ironías
     btnVolver = ImageTextButton(
@@ -649,7 +657,7 @@ class _AddHumorState extends State<AddHumor> {
     );
   }
 
-  // Metodo para crear los cuadros de dialogo necesarios
+  ///Método encargado de inicializar los cuadros de dialogo que tendrá la pantalla
   void _createDialogs() {
     // cuadro de dialogo para escoger un personaje de arasaac
     arasaacImageDialog = ArasaacImageDialog(
@@ -771,7 +779,7 @@ class _AddHumorState extends State<AddHumor> {
     );
   }
 
-  // Método para seleccionar un nuevo personaje desde la galería
+  ///Método que nos permite seleccionar una imagen de nuestra galería para la pregunta, dicha imagen se guarda en la variable [image]
   Future<void> _selectNewImageGallery() async {
     final picker = ImagePicker();
     final imageAux = await picker.pickImage(source: ImageSource.gallery);
@@ -785,7 +793,9 @@ class _AddHumorState extends State<AddHumor> {
     }
   }
 
-  // Método para comprobar que los parametros obligatorios están completos
+  ///Método que se encarga de comprobar que están rellenados todos los campos y opciones para poder añadir una nueva pregunta al juego Humor
+  ///<br><b>Salida</b><br>
+  ///[true] si los campos obligatorios están completos, [false] en caso contrario
   bool _completedParams() {
     bool correct = true;
     // compruebo que todos los parametros obligatorios están completos
@@ -846,13 +856,15 @@ class _AddHumorState extends State<AddHumor> {
     return correct;
   }
 
-  // Método para añadir una ironia y sus respuestas
+  ///Método encargado de añadir una pregunta y sus respectivas respuestas
   Future<void> _addIronia() async {
     int ironiaId = await _addPregunta();
     _addRespuestas(ironiaId);
   }
 
-  // Método para añadir una pregunta a la BBDD
+  ///Método encargado de añadir una nueva pregunta al juego Humor
+  ///<br><b>Salida</b><br>
+  ///Identificador de la pregunta que se acaba de añadir
   Future<int> _addPregunta() async {
     int preguntaId;
     Database db = await openDatabase('rutinas.db');
@@ -861,6 +873,9 @@ class _AddHumorState extends State<AddHumor> {
     return preguntaId;
   }
 
+  ///Método encargado de añadir una respuesta al juego Humor
+  ///<br><b>Parámetros</b><br>
+  ///[ironiaId] Identificador de la pregunta a la que corresponde la respuesta que queremos añadir
   Future<void> _addRespuestas(int ironiaId) async {
     Database db = await openDatabase('rutinas.db');
 

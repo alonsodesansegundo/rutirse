@@ -5,11 +5,14 @@ import '../../widgets/ImageTextButton.dart';
 import 'addRutina.dart';
 import 'allProgressRutinas.dart';
 
+///Pantalla menú para el terapeuta en el juego Rutinas
 class MenuTerapeuta extends StatefulWidget {
   @override
   _MenuTerapeutaState createState() => _MenuTerapeutaState();
 }
 
+/// Estado asociado a la pantalla [MenuTerapeuta] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _MenuTerapeutaState extends State<MenuTerapeuta> {
   late double titleSize,
       textSize,
@@ -105,7 +108,7 @@ class _MenuTerapeutaState extends State<MenuTerapeuta> {
     );
   }
 
-  // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
@@ -118,7 +121,7 @@ class _MenuTerapeutaState extends State<MenuTerapeuta> {
     btnHeight = screenSize.height / 14;
   }
 
-  // metodo para crear los botones necesarios
+  ///Método encargado de inicializar los botones de esta pantalla
   void _createButtons() {
     // boton para dar la opcion de añadir una nueva rutina
     btnAddRutina = ElevatedButton(

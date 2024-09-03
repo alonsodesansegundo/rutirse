@@ -20,11 +20,14 @@ import '../main.dart';
 
 Random random = Random(); // para generar numeros aleatorios
 
+///Pantalla de juego del juego Humor
 class JugarHumor extends StatefulWidget {
   @override
   _JugarHumor createState() => _JugarHumor();
 }
 
+/// Estado asociado a la pantalla [JugarHumor] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _JugarHumor extends State<JugarHumor> with WidgetsBindingObserver {
   late FlutterTts flutterTts; // para reproducir audio
 
@@ -272,7 +275,7 @@ class _JugarHumor extends State<JugarHumor> with WidgetsBindingObserver {
     );
   }
 
-  // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size;
 
@@ -289,7 +292,7 @@ class _JugarHumor extends State<JugarHumor> with WidgetsBindingObserver {
     imgVolverHeight = screenSize.height / 32;
   }
 
-  // metodo para crear los botones necesarios en los cuadros de dialogos
+  ///Método encargado de inicializar los botones que tendrán los cuadros de dialogo
   void _createButtonsFromDialogs() {
     // boton para enviar la respuesta
     btnConfirmar = ImageTextButton(
@@ -420,7 +423,7 @@ class _JugarHumor extends State<JugarHumor> with WidgetsBindingObserver {
     );
   }
 
-  // metodo para crear los cuadros de dialogos
+  ///Método encargado de inicializar los cuadros de dialogo que tendrá la pantalla
   void _createDialogs() {
     // cuadro de dialogo para salir del juego o no
     exitDialog = ExitDialog(
@@ -492,7 +495,7 @@ class _JugarHumor extends State<JugarHumor> with WidgetsBindingObserver {
         rightImageTextButton: btnSalir);
   }
 
-  // metodo para cargar todas las preguntas
+  ///Método para cargar todas las preguntas del juego Humor en la variable [situacionIroniaList], desordenarlas y seleccionar una para comenzar [indiceActual]
   Future<void> _cargarPreguntas() async {
     if (!flag) {
       flag = true;
@@ -515,7 +518,7 @@ class _JugarHumor extends State<JugarHumor> with WidgetsBindingObserver {
     }
   }
 
-  // método para cargar las respuestas de la pregunta actual
+  ///Método que se encarga de cargar las respuestas de la pregunta actual en [respuestasActuales]
   Future<void> _cargarRespuestas() async {
     try {
       List<RespuestaIronia> respuestas =
@@ -533,7 +536,9 @@ class _JugarHumor extends State<JugarHumor> with WidgetsBindingObserver {
     }
   }
 
-  // método para reproducir un texto por audio
+  ///Método que permite la reproducción por audio de un texto
+  ///<br><b>Parámetros</b><br>
+  ///[texto] Cadena de texto que queremos reproducir por audio
   Future<void> _speak(String texto) async {
     await flutterTts.setLanguage("es-ES"); // Establecer el idioma a español
     await flutterTts.speak(texto);
@@ -552,6 +557,7 @@ class _JugarHumor extends State<JugarHumor> with WidgetsBindingObserver {
     });
   }
 
+  ///Método que nos permite pausar o parar la reproducción por audio de texto
   Future<void> _stopSpeaking() async {
     if (isSpeaking) {
       await flutterTts.stop();
@@ -561,7 +567,7 @@ class _JugarHumor extends State<JugarHumor> with WidgetsBindingObserver {
     }
   }
 
-  // metodo para guardar el progreso o partida
+  ///Método que nos permite guardar la partida del juego Humor
   void saveProgreso() {
     timeFin = DateTime.now();
     Duration duracion = timeFin.difference(timeInicio);

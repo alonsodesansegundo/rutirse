@@ -6,11 +6,15 @@ import '../../db/obj/preguntaSentimiento.dart';
 import '../../obj/PreguntaSentimientoPaginacion.dart';
 import '../../widgets/ImageTextButton.dart';
 
+///Pantalla que le permite al terapeuta ver todas las preguntas del juego Sentimientos, también se permite la búsqueda a través del texto
+///del enunciado y/o grupo al que pertenece
 class ViewAddedSentimiento extends StatefulWidget {
   @override
   _ViewAddedSentimientoState createState() => _ViewAddedSentimientoState();
 }
 
+/// Estado asociado a la pantalla [ViewAddedSentimiento] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _ViewAddedSentimientoState extends State<ViewAddedSentimiento> {
   late double titleSize,
       textSize,
@@ -504,6 +508,11 @@ class _ViewAddedSentimientoState extends State<ViewAddedSentimiento> {
     );
   }
 
+  ///Método que nos permite obtener el ancho que se supone que ocuparía una cadena de texto
+  ///<br><b>Parámetros</b><br>
+  ///[text] Cadena de texto de la que queremos obtener el valor de ancho<br>
+  ///[context] El contexto de la aplicación, que proporciona acceso a información
+  ///sobre el entorno en el que se está ejecutando el widget, incluyendo el tamaño de la pantalla
   double getWidthOfText(String text, BuildContext context) {
     final TextSpan span = TextSpan(
       text: text,
@@ -521,7 +530,7 @@ class _ViewAddedSentimientoState extends State<ViewAddedSentimiento> {
     return tp.width;
   }
 
-  // Método para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
@@ -548,7 +557,7 @@ class _ViewAddedSentimientoState extends State<ViewAddedSentimiento> {
     espacioCeldas = espacioPadding;
   }
 
-  // Método para crear los botones necesarios
+  ///Método encargado de inicializar los botones que tendrá la pantalla
   void _createButtons() {
     // boton para dar volver a la pantalla principal de sentimientos
     btnVolver = ImageTextButton(
@@ -608,7 +617,7 @@ class _ViewAddedSentimientoState extends State<ViewAddedSentimiento> {
     );
   }
 
-  // Metodo para crear los cuadros de dialogo necesarios
+  ///Método encargado de inicializar los cuadros de dialogo que tendrá la pantalla
   void _createDialogs() {
     removePreguntaOk = AlertDialog(
       title: Text(
@@ -648,7 +657,7 @@ class _ViewAddedSentimientoState extends State<ViewAddedSentimiento> {
     );
   }
 
-  // Método para obtener la lista de grupos de la BBDD
+  ///Método que nos permite obtener los grupos con los que cuenta la aplicación y almacenarlos en la variable [grupos]
   Future<void> _getGrupos() async {
     try {
       List<Grupo> gruposList = await getGrupos();
@@ -660,6 +669,7 @@ class _ViewAddedSentimientoState extends State<ViewAddedSentimiento> {
     }
   }
 
+  ///Método que nos permite cargar de manera paginada las preguntas del juego Sentimientos
   Future<void> _loadPreguntas() async {
     PreguntaSentimientoPaginacion aux = await getPreguntaSentimientoPaginacion(
         paginaActual, preguntasPagina, txtBuscar, selectedGrupo);
@@ -670,6 +680,7 @@ class _ViewAddedSentimientoState extends State<ViewAddedSentimiento> {
     });
   }
 
+  ///Método que nos permite ir a la pagina anterior
   void _previousPage() {
     if (paginaActual > 1) {
       setState(() {
@@ -679,6 +690,7 @@ class _ViewAddedSentimientoState extends State<ViewAddedSentimiento> {
     }
   }
 
+  ///Método que nos permite ir a la pagina siguiente
   void _nextPage() {
     setState(() {
       paginaActual++;
@@ -686,6 +698,9 @@ class _ViewAddedSentimientoState extends State<ViewAddedSentimiento> {
     _loadPreguntas();
   }
 
+  ///Método que nos permite eliminar una pregunta a partir de su identificador
+  ///<br><b>Parámetros</b><br>
+  ///[preguntaId] Identificador de la pregunta que queremos eliminar
   void _removePreguntaSelected(int preguntaId) {
     removePreguntaSentimiento(preguntaId);
   }

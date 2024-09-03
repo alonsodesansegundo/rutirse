@@ -6,12 +6,15 @@ import '../../db/obj/partidaSentimientos.dart';
 import '../../provider/MyProvider.dart';
 import '../../widgets/ImageTextButton.dart';
 
+///Pantalla que le permite a un jugador ver sus partidas en el juego Sentimientos
 class UserProgressSentimientos extends StatefulWidget {
   @override
   _UserProgressSentimientosState createState() =>
       _UserProgressSentimientosState();
 }
 
+/// Estado asociado a la pantalla [UserProgressSentimientos] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _UserProgressSentimientosState extends State<UserProgressSentimientos> {
   late bool loadPartidas, loadData;
 
@@ -291,6 +294,11 @@ class _UserProgressSentimientosState extends State<UserProgressSentimientos> {
     );
   }
 
+  ///Método que nos permite obtener el ancho que se supone que ocuparía una cadena de texto
+  ///<br><b>Parámetros</b><br>
+  ///[text] Cadena de texto de la que queremos obtener el valor de ancho<br>
+  ///[context] El contexto de la aplicación, que proporciona acceso a información
+  ///sobre el entorno en el que se está ejecutando el widget, incluyendo el tamaño de la pantalla
   double getWidthOfText(String text, double fontSize, BuildContext context) {
     final TextSpan span = TextSpan(
       text: text,
@@ -308,6 +316,7 @@ class _UserProgressSentimientosState extends State<UserProgressSentimientos> {
     return tp.width;
   }
 
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size;
 
@@ -341,6 +350,7 @@ class _UserProgressSentimientosState extends State<UserProgressSentimientos> {
         2;
   }
 
+  ///Método encargado de inicializar los botones que tendrá la pantalla
   void _createButtons() {
     btnVolver = ImageTextButton(
       image: Image.asset('assets/img/botones/volver.png', height: imgHeight),
@@ -355,6 +365,7 @@ class _UserProgressSentimientosState extends State<UserProgressSentimientos> {
     );
   }
 
+  ///Método que nos permite cargar las partidas del juego Sentimientos del jugador actual en la variable [partidas]
   Future<void> _cargarPartidas() async {
     if (!loadPartidas) {
       loadPartidas = true;
@@ -373,10 +384,20 @@ class _UserProgressSentimientosState extends State<UserProgressSentimientos> {
     }
   }
 
+  ///Método que nos permite obtener la fecha DD/MM/AAAA de una cadena que es DD/MM/AAAA hh:mm:ss
+  ///<br><b>Parámetros</b><br>
+  ///[fecha] Fecha en formato DD/MM/AAAA hh:mm:ss
+  ///<br><b>Salida</b><br>
+  ///Fecha en formato DD/MM/AAAA
   String _getFecha(String fecha) {
     return fecha.substring(0, 10);
   }
 
+  ///Método que nos permite pasar de segundos a horas, minutos y segundos en total
+  ///<br><b>Parámetros</b><br>
+  ///[duracionSegundos] Tiempo en segundos que queremos transformar
+  ///<br><b>Salida</b><br>
+  ///Cadena de texto resultante de la conversión
   String _getTime(int duracionSegundos) {
     int horas = duracionSegundos ~/ 3600;
     int minutos = (duracionSegundos % 3600) ~/ 60;

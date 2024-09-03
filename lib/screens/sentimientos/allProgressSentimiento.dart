@@ -6,11 +6,15 @@ import '../../db/obj/partidaView.dart';
 import '../../obj/PartidasPaginacion.dart';
 import '../../widgets/ImageTextButton.dart';
 
+///Pantalla que le permite al terapeuta ver las partidas de todos los jugadores en el juego Sentimientos e incluso buscar partidas
+///por nombre de jugador y/o grupo
 class AllProgressSentimiento extends StatefulWidget {
   @override
   _AllProgressSentimientoState createState() => _AllProgressSentimientoState();
 }
 
+/// Estado asociado a la pantalla [AllProgressSentimiento] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _AllProgressSentimientoState extends State<AllProgressSentimiento> {
   late bool loadPartidas, loadData;
 
@@ -404,7 +408,7 @@ class _AllProgressSentimientoState extends State<AllProgressSentimiento> {
                                               ElevatedButton(
                                                 onPressed: () {
                                                   setState(() {
-                                                    _removePartidaRutinas(
+                                                    _removePartidaSentimientos(
                                                         partida.id!);
                                                     _loadProgresos();
                                                   });
@@ -485,6 +489,13 @@ class _AllProgressSentimientoState extends State<AllProgressSentimiento> {
     );
   }
 
+  ///Método que nos permite obtener el ancho que se supone que ocuparía una cadena de texto
+  ///<br><b>Parámetros</b><br>
+  ///[text] Cadena de texto de la que queremos obtener el valor de ancho<br>
+  ///[context] El contexto de la aplicación, que proporciona acceso a información
+  ///sobre el entorno en el que se está ejecutando el widget, incluyendo el tamaño de la pantalla
+  ///<br><b>Salida</b><br>
+  ///Valor double que corresponde al ancho que ocuparía
   double getWidthOfText(String text, BuildContext context) {
     final TextSpan span = TextSpan(
       text: text,
@@ -502,6 +513,7 @@ class _AllProgressSentimientoState extends State<AllProgressSentimiento> {
     return tp.width;
   }
 
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size;
 
@@ -534,6 +546,7 @@ class _AllProgressSentimientoState extends State<AllProgressSentimiento> {
         (48 * 2);
   }
 
+  ///Método encargado de inicializar los botones que tendrá la pantalla
   void _createButtons() {
     btnVolver = ImageTextButton(
       image: Image.asset('assets/img/botones/volver.png', height: imgHeight),
@@ -619,7 +632,7 @@ class _AllProgressSentimientoState extends State<AllProgressSentimiento> {
     );
   }
 
-  // Metodo para crear los cuadros de dialogo necesarios
+  ///Método encargado de inicializar los cuadros de dialogo que tendrá la pantalla
   void _createDialogs() {
     notPartidasSelected = AlertDialog(
       title: Text(
@@ -754,7 +767,7 @@ class _AllProgressSentimientoState extends State<AllProgressSentimiento> {
             ElevatedButton(
               onPressed: () {
                 for (int i = 0; i < partidasToRemove.length; i++)
-                  _removePartidaRutinas(partidasToRemove[i]);
+                  _removePartidaSentimientos(partidasToRemove[i]);
                 flagCheck = [];
                 partidasToRemove = [];
                 setState(() {
@@ -797,10 +810,20 @@ class _AllProgressSentimientoState extends State<AllProgressSentimiento> {
     );
   }
 
+  ///Método que nos permite obtener la fecha DD/MM/AAAA de una cadena que es DD/MM/AAAA hh:mm:ss
+  ///<br><b>Parámetros</b><br>
+  ///[fecha] Fecha en formato DD/MM/AAAA hh:mm:ss
+  ///<br><b>Salida</b><br>
+  ///Fecha en formato DD/MM/AAAA
   String _getFecha(String fecha) {
     return fecha.substring(0, 10);
   }
 
+  ///Método que nos permite pasar de segundos a horas, minutos y segundos en total
+  ///<br><b>Parámetros</b><br>
+  ///[duracionSegundos] Tiempo en segundos que queremos transformar
+  ///<br><b>Salida</b><br>
+  ///Cadena de texto resultante de la conversión
   String _getTime(int duracionSegundos) {
     int horas = duracionSegundos ~/ 3600;
     int minutos = (duracionSegundos % 3600) ~/ 60;
@@ -823,7 +846,7 @@ class _AllProgressSentimientoState extends State<AllProgressSentimiento> {
     return tiempoFormateado;
   }
 
-  // Método para obtener la lista de grupos de la BBDD
+  ///Método que nos permite obtener los grupos con los que cuenta la aplicación y almacenarlos en la variable [grupos]
   Future<void> _getGrupos() async {
     try {
       List<Grupo> gruposList = await getGrupos();
@@ -835,6 +858,8 @@ class _AllProgressSentimientoState extends State<AllProgressSentimiento> {
     }
   }
 
+  ///Método que nos permite obtener las partidas del juego Humor forma paginada, para ello se tienen en cuenta las siguientes variables:
+  ///[paginaActual], [partidasPagina], [txtBuscar] y [selectedGrupo]
   Future<void> _loadProgresos() async {
     PartidasPaginacion aux = await getAllPartidasView(
         paginaActual, partidasPagina, txtBuscar, selectedGrupo, 'Sentimientos');
@@ -845,6 +870,7 @@ class _AllProgressSentimientoState extends State<AllProgressSentimiento> {
     });
   }
 
+  ///Método que nos permite ir a la página anterior
   void _previousPage() {
     if (paginaActual > 1) {
       setState(() {
@@ -854,6 +880,7 @@ class _AllProgressSentimientoState extends State<AllProgressSentimiento> {
     }
   }
 
+  ///Método que nos permite ir a la página siguiente
   void _nextPage() {
     setState(() {
       paginaActual++;
@@ -861,7 +888,10 @@ class _AllProgressSentimientoState extends State<AllProgressSentimiento> {
     _loadProgresos();
   }
 
-  void _removePartidaRutinas(int partidaId) {
+  ///Método que nos permite eliminar una partida del juego Sentimientos a partir de su identificador
+  ///<br><b>Parámetros</b><br>
+  ///[partidaId] Identificador de la partida que queremos eliminar
+  void _removePartidaSentimientos(int partidaId) {
     deletePartidaById(partidaId);
   }
 }

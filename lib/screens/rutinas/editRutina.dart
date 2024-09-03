@@ -18,6 +18,7 @@ import '../../widgets/ElementAccion.dart';
 import '../../widgets/ImageTextButton.dart';
 import '../main.dart';
 
+///Pantalla que le permite al terapeuta la edición de una pregunta del juego Rutinas y sus respuestas
 class EditRutina extends StatefulWidget {
   SituacionRutina situacionRutina;
   Grupo grupo;
@@ -28,6 +29,8 @@ class EditRutina extends StatefulWidget {
   _EditRutinaState createState() => _EditRutinaState();
 }
 
+/// Estado asociado a la pantalla [EditRutina] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _EditRutinaState extends State<EditRutina> {
   late ImageTextButton btnVolver;
 
@@ -512,6 +515,11 @@ class _EditRutinaState extends State<EditRutina> {
     );
   }
 
+  ///Método que nos permite obtener el ancho que se supone que ocuparía una cadena de texto
+  ///<br><b>Parámetros</b><br>
+  ///[text] Cadena de texto de la que queremos obtener el valor de ancho<br>
+  ///[context] El contexto de la aplicación, que proporciona acceso a información
+  ///sobre el entorno en el que se está ejecutando el widget, incluyendo el tamaño de la pantalla
   double getWidthOfText(String text, BuildContext context) {
     final TextSpan span = TextSpan(
       text: text,
@@ -529,7 +537,7 @@ class _EditRutinaState extends State<EditRutina> {
     return tp.width;
   }
 
-  // metodo para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
@@ -547,7 +555,7 @@ class _EditRutinaState extends State<EditRutina> {
         getWidthOfText("(máx. 30 caracteres)", context) + espacioPadding * 1.5;
   }
 
-  // Método para crear los botones necesarios
+  ///Método encargado de inicializar los botones que tendrá la pantalla
   void _createButtons() {
     // boton para dar volver a la pantalla principal de rutinas
     btnVolver = ImageTextButton(
@@ -663,7 +671,7 @@ class _EditRutinaState extends State<EditRutina> {
     );
   }
 
-  // Metodo para crear los cuadros de dialogo necesarios
+  ///Método encargado de inicializar los cuadros de dialogo que tendrá la pantalla
   void _createDialogs() {
     // cuadro de dialogo para escoger un personaje ya existente
     existPersonajeDialog = Dialog(
@@ -888,7 +896,7 @@ class _EditRutinaState extends State<EditRutina> {
     );
   }
 
-  // Método para seleccionar un nuevo personaje desde la galería
+  ///Método que nos permite seleccionar una nueva imagen para el personaje a través de la galería
   Future<void> _selectNewPersonajeGallery() async {
     final picker = ImagePicker();
     final image = await picker.pickImage(source: ImageSource.gallery);
@@ -902,7 +910,7 @@ class _EditRutinaState extends State<EditRutina> {
     }
   }
 
-  // Método para seleccionar una nueva imagen de accion desde la galeria
+  ///Método que nos permite seleccionar una imagen de nuestra galería para la accion [index]
   Future<void> _selectNewActionGallery(int index) async {
     final picker = ImagePicker();
     final image = await picker.pickImage(source: ImageSource.gallery);
@@ -933,8 +941,8 @@ class _EditRutinaState extends State<EditRutina> {
     }
   }
 
-  // Método para seleccionar una nueva imagen de accion desde ARASAAC
-  // Método para seleccionar una nueva imagen de accion desde ARASAAC
+  ///Método que nos permite seleccionar una imagen de un cuadro de dialogo donde se muestran pictogramas
+  ///de ARASAAC y se permite la búsqueda por palabras para la accion [index]
   Future<void> _selectNewActionArasaac(int index) async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
@@ -986,7 +994,7 @@ class _EditRutinaState extends State<EditRutina> {
     }
   }
 
-  // Método para cuando selecciono un personaje ya existente
+  ///Método para seleccionar un personaje existente para la pergunta
   Future<void> _selectExistPersonaje(
       BuildContext context, String imagePath) async {
     ByteData imageData = await rootBundle.load(imagePath);
@@ -998,7 +1006,7 @@ class _EditRutinaState extends State<EditRutina> {
     Navigator.of(context).pop();
   }
 
-  // método para añadir un nuevo ElementAccion
+  ///Método que nos permite añadir un nuevo [ElementAccion] para que haya más acciones en la pregunta
   void _addAccion() {
     setState(() {
       String accionText = 'Acción ' + (acciones.length + 1).toString() + "*";
@@ -1026,7 +1034,7 @@ class _EditRutinaState extends State<EditRutina> {
     });
   }
 
-  // método para eliminar el ultimo ElementAccion
+  ///Método que nos permite eliminar el útlimo [ElementAccion] para que haya menos acciones en la pregunta
   Future<void> _removeAccion() async {
     setState(() {
       accionesToDelete.add(acciones[acciones.length - 1]);
@@ -1034,7 +1042,9 @@ class _EditRutinaState extends State<EditRutina> {
     });
   }
 
-  // Método para comprobar que los parametros obligatorios están completos
+  ///Método que se encarga de comprobar que están rellenados todos los campos y opciones para poder añadir una nueva pregunta al juego Rutinas
+  ///<br><b>Salida</b><br>
+  ///[true] si los campos obligatorios están completos, [false] en caso contrario
   bool _completedParams() {
     bool correct = true;
 
@@ -1061,20 +1071,20 @@ class _EditRutinaState extends State<EditRutina> {
     return correct;
   }
 
-  // Método para editar una pregunta y sus acciones
+  ///Método encargado de editar una pregunta y sus respectivas acciones a ordenar
   Future<void> _editRutina() async {
     _editPregunta();
     _editAcciones();
   }
 
-  // Método para editar una pregunta de la BBDD
+  ///Método encargado de editar una pregunta juego Rutinas
   Future<void> _editPregunta() async {
     Database db = await openDatabase('rutinas.db');
     await updatePregunta(db, widget.situacionRutina.id!, situacionText,
         Uint8List.fromList(personajeImage), selectedGrupo!.id);
   }
 
-  // Método para editar acciones de la BBDD
+  ///Método encargado de editar las respuestas a una pregunta del juego Rutinas
   Future<void> _editAcciones() async {
     Database db = await openDatabase('rutinas.db');
     for (int i = 0; i < acciones.length; i++) {
@@ -1132,7 +1142,7 @@ class _EditRutinaState extends State<EditRutina> {
       deleteAccion(db, accionesToDelete[i].id!);
   }
 
-  // Método para obtener la lista de grupos de la BBDD
+  ///Método que nos permite obtener los grupos con los que cuenta la aplicación y almacenarlos en la variable [grupos]
   Future<void> _getGrupos() async {
     try {
       List<Grupo> gruposList = await getGrupos();
@@ -1144,7 +1154,7 @@ class _EditRutinaState extends State<EditRutina> {
     }
   }
 
-  // Método para cargar las acciones de la pregunta seleccionada
+  ///Método que nos permite cargar las acciones de la pregunta actual
   void _loadAcciones() async {
     List<Accion> aux = await getAcciones(widget.situacionRutina.id!);
 
@@ -1179,11 +1189,18 @@ class _EditRutinaState extends State<EditRutina> {
     this.sizeAccionesInitial = this.acciones.length;
   }
 
+  ///Metodo que nos permite eliminar una pregunta del juego Rutinas a partir de su identificador
+  ///<br><b>Parámetros</b><br>
+  ///[preguntaId] Identificador de la pregunta que queremos eliminar
   void _removePregunta(int preguntaId) {
     removePreguntaRutinas(preguntaId);
   }
 
-  // Método para obtener todos los path de los personajes
+  ///Método que nos permite cargar las rutas de las imagenes de los personajes ya existentes
+  ///<br><b>Parámetros</b><br>
+  ///[folderPath] Ruta en la que se encuentran las imágenes de los personajes
+  ///<br><b>Salida</b><br>
+  ///Lista con las rutas completas de donde se encuentran las imágenes de los personajes
   Future<List<String>> _getExistsPersonajes(String folderPath) async {
     final manifestContent = await rootBundle.loadString('AssetManifest.json');
     final Map<String, dynamic> manifestMap = json.decode(manifestContent);

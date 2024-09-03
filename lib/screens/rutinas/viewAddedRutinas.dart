@@ -6,11 +6,15 @@ import '../../obj/SituacionRutinaPaginacion.dart';
 import '../../widgets/ImageTextButton.dart';
 import 'editRutina.dart';
 
+///Pantalla que le permite al terapeuta ver todas las preguntas del juego Rutinas, también se permite la búsqueda a través del texto
+///del enunciado y/o grupo al que pertenece
 class ViewAddedRutinas extends StatefulWidget {
   @override
   _ViewAddedRutinasState createState() => _ViewAddedRutinasState();
 }
 
+/// Estado asociado a la pantalla [ViewAddedRutinas] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
   late double titleSize,
       textSize,
@@ -505,6 +509,11 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
     );
   }
 
+  ///Método que nos permite obtener el ancho que se supone que ocuparía una cadena de texto
+  ///<br><b>Parámetros</b><br>
+  ///[text] Cadena de texto de la que queremos obtener el valor de ancho<br>
+  ///[context] El contexto de la aplicación, que proporciona acceso a información
+  ///sobre el entorno en el que se está ejecutando el widget, incluyendo el tamaño de la pantalla
   double getWidthOfText(String text, BuildContext context) {
     final TextSpan span = TextSpan(
       text: text,
@@ -522,7 +531,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
     return tp.width;
   }
 
-  // Método para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
@@ -549,7 +558,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
     espacioCeldas = espacioPadding;
   }
 
-  // Método para crear los botones necesarios
+  ///Método encargado de inicializar los botones que tendrá la pantalla
   void _createButtons() {
     // boton para dar volver a la pantalla principal de rutinas
     btnVolver = ImageTextButton(
@@ -609,7 +618,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
     );
   }
 
-  // Metodo para crear los cuadros de dialogo necesarios
+  ///Método encargado de inicializar los cuadros de dialogo que tendrá la pantalla
   void _createDialogs() {
     removePreguntaOk = AlertDialog(
       title: Text(
@@ -649,7 +658,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
     );
   }
 
-  // Método para obtener la lista de grupos de la BBDD
+  ///Método que nos permite obtener los grupos con los que cuenta la aplicación y almacenarlos en la variable [grupos]
   Future<void> _getGrupos() async {
     try {
       List<Grupo> gruposList = await getGrupos();
@@ -661,6 +670,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
     }
   }
 
+  ///Método que nos permite cargar de manera paginada las preguntas del juego Rutinas
   Future<void> _loadPreguntas() async {
     SituacionRutinaPaginacion aux = await getSituacionRutinaPaginacion(
         paginaActual, preguntasPagina, txtBuscar, selectedGrupo);
@@ -671,6 +681,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
     });
   }
 
+  ///Método que nos permite ir a la pagina anterior
   void _previousPage() {
     if (paginaActual > 1) {
       setState(() {
@@ -680,6 +691,7 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
     }
   }
 
+  ///Método que nos permite ir a la pagina siguiente
   void _nextPage() {
     setState(() {
       paginaActual++;
@@ -687,6 +699,9 @@ class _ViewAddedRutinasState extends State<ViewAddedRutinas> {
     _loadPreguntas();
   }
 
+  ///Método que nos permite eliminar una pregunta a partir de su identificador
+  ///<br><b>Parámetros</b><br>
+  ///[preguntaId] Identificador de la pregunta que queremos eliminar
   void _removePreguntaSelected(int preguntaId) {
     removePreguntaRutinas(preguntaId);
   }

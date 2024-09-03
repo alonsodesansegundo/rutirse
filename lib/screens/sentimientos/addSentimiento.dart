@@ -15,11 +15,14 @@ import '../../widgets/ArasaacImageDialog.dart';
 import '../../widgets/ImageTextButton.dart';
 import '../main.dart';
 
+///Pantalla que nos permite añadir una nueva pregunta, con sus correspondientes respuestas al juego Sentimientos
 class AddSentimiento extends StatefulWidget {
   @override
   _AddSentimientoState createState() => _AddSentimientoState();
 }
 
+/// Estado asociado a la pantalla [AddSentimiento] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _AddSentimientoState extends State<AddSentimiento> {
   late double titleSize,
       textSize,
@@ -420,7 +423,7 @@ class _AddSentimientoState extends State<AddSentimiento> {
     );
   }
 
-  // método para añadir un nuevo ElementAccion
+  ///Método que nos permite añadir un nuevo [ElementRespuestaSentimientos] para que haya más respuestas en la pregunta
   void _addRespuesta() {
     setState(() {
       respuestas.add(new ElementRespuestaSentimientos(
@@ -442,14 +445,14 @@ class _AddSentimientoState extends State<AddSentimiento> {
     });
   }
 
-  // método para eliminar el ultimo ElementAccion
+  ///Método que nos permite eliminar el útlimo [ElementRespuestaSentimientos] para que haya menos respuestas en la pregunta
   void _removeRespuesta() {
     setState(() {
       respuestas.removeLast();
     });
   }
 
-  // Método para obtener la lista de grupos de la BBDD
+  ///Método que nos permite obtener los grupos con los que cuenta la aplicación y almacenarlos en la variable [grupos]
   Future<void> _getGrupos() async {
     try {
       List<Grupo> gruposList = await getGrupos();
@@ -461,6 +464,13 @@ class _AddSentimientoState extends State<AddSentimiento> {
     }
   }
 
+  ///Método que nos permite obtener el ancho que se supone que ocuparía una cadena de texto
+  ///<br><b>Parámetros</b><br>
+  ///[text] Cadena de texto de la que queremos obtener el valor de ancho<br>
+  ///[context] El contexto de la aplicación, que proporciona acceso a información
+  ///sobre el entorno en el que se está ejecutando el widget, incluyendo el tamaño de la pantalla
+  ///<br><b>Salida</b><br>
+  ///Valor double que corresponde al ancho que ocuparía
   double getWidthOfText(String text, BuildContext context) {
     final TextSpan span = TextSpan(
       text: text,
@@ -478,7 +488,7 @@ class _AddSentimientoState extends State<AddSentimiento> {
     return tp.width;
   }
 
-  // Método para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
@@ -493,7 +503,7 @@ class _AddSentimientoState extends State<AddSentimiento> {
     imgWidth = screenSize.width / 4.5;
   }
 
-  // Método para crear los botones necesarios
+  ///Método encargado de inicializar los botones que tendrá la pantalla
   void _createButtons() {
     // boton para dar volver a la pantalla principal de ironías
     btnVolver = ImageTextButton(
@@ -581,7 +591,7 @@ class _AddSentimientoState extends State<AddSentimiento> {
     );
   }
 
-  // Metodo para crear los cuadros de dialogo necesarios
+  ///Método encargado de inicializar los cuadros de dialogo que tendrá la pantalla
   void _createDialogs() {
     // cuadro de dialogo para escoger un personaje de arasaac
     arasaacImageDialog = ArasaacImageDialog(
@@ -703,7 +713,7 @@ class _AddSentimientoState extends State<AddSentimiento> {
     );
   }
 
-  // Método para seleccionar un nuevo personaje desde la galería
+  ///Método que nos permite seleccionar una imagen de nuestra galería para la pregunta, dicha imagen se guarda en la variable [image]
   Future<void> _selectNewImageGallery() async {
     final picker = ImagePicker();
     final imageAux = await picker.pickImage(source: ImageSource.gallery);
@@ -717,7 +727,10 @@ class _AddSentimientoState extends State<AddSentimiento> {
     }
   }
 
-  // Método para seleccionar una nueva imagen de respuesta desde ARASAAC
+  ///Mñetodo que nos permite seleccionar una imagen para la respuesta a través de un cuadro de diálogo en el
+  ///que se muestran pictogramas de ARASAAC, permitiendo filtrar la búsqueda por texto
+  ///<br><b>Parámetros</b><br>
+  ///[index] Índice de la respuesta que queremos cambiar la imagen
   Future<void> _selectNewRespuestaArasaac(int index) async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
@@ -766,7 +779,9 @@ class _AddSentimientoState extends State<AddSentimiento> {
     }
   }
 
-  // Método para seleccionar una nueva imagen de respuesta desde la galeria
+  ///Método que nos permite seleccionar una imagen para la respuesta a través de la galería
+  ///<br><b>Parámetros</b><br>
+  ///[index] Índice de la respuesta que queremos cambiar la imagen
   Future<void> _selectNewActionGallery(int index) async {
     final picker = ImagePicker();
     final image = await picker.pickImage(source: ImageSource.gallery);
@@ -794,7 +809,9 @@ class _AddSentimientoState extends State<AddSentimiento> {
     }
   }
 
-  // Método para comprobar que los parametros obligatorios están completos
+  ///Método que se encarga de comprobar que están rellenados todos los campos y opciones para poder añadir una nueva pregunta al juego Sentimientos
+  ///<br><b>Salida</b><br>
+  ///[true] si los campos obligatorios están completos, [false] en caso contrario
   bool _completedParams() {
     bool correct = true;
     // compruebo que todos los parametros obligatorios están completos
@@ -838,6 +855,9 @@ class _AddSentimientoState extends State<AddSentimiento> {
     return correct;
   }
 
+  ///Método encargado de añadir una respuesta al juego Sentimientos
+  ///<br><b>Parámetros</b><br>
+  ///[preguntaId] Identificador de la pregunta a la que corresponde la respuesta que queremos añadir
   Future<void> _addRespuestas(int preguntaId) async {
     Database db = await openDatabase('rutinas.db');
     for (int i = 0; i < respuestas.length; i++) {
@@ -864,13 +884,15 @@ class _AddSentimientoState extends State<AddSentimiento> {
     }
   }
 
-  // Método para añadir una pregunta y sus acciones
+  ///Método encargado de añadir una pregunta y sus respectivas respuestas
   Future<void> _addPreguntaSentimientos() async {
     int preguntaId = await _addPregunta();
     _addRespuestas(preguntaId);
   }
 
-  // Método para añadir una pregunta a la BBDD
+  ///Método encargado de añadir una nueva pregunta al juego Sentimientos
+  ///<br><b>Salida</b><br>
+  ///Identificador de la pregunta que se acaba de añadir
   Future<int> _addPregunta() async {
     int preguntaId;
     Database db = await openDatabase('rutinas.db');

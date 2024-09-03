@@ -18,11 +18,14 @@ import '../../widgets/ElementAccion.dart';
 import '../../widgets/ImageTextButton.dart';
 import '../main.dart';
 
+///Pantalla que nos permite añadir una nueva pregunta, con sus correspondientes respuestas al juego Rutinas
 class AddRutina extends StatefulWidget {
   @override
   _AddRutinaState createState() => _AddRutinaState();
 }
 
+/// Estado asociado a la pantalla [AddRutina] que gestiona la lógica
+/// y la interfaz de usuario de la pantalla
 class _AddRutinaState extends State<AddRutina> {
   late double titleSize,
       textSize,
@@ -418,7 +421,7 @@ class _AddRutinaState extends State<AddRutina> {
     );
   }
 
-  // Método para obtener la lista de grupos de la BBDD
+  ///Método que nos permite obtener los grupos con los que cuenta la aplicación y almacenarlos en la variable [grupos]
   Future<void> _getGrupos() async {
     try {
       List<Grupo> gruposList = await getGrupos();
@@ -430,7 +433,11 @@ class _AddRutinaState extends State<AddRutina> {
     }
   }
 
-  // Método para obtener todos los path de los personajes
+  ///Método que nos permite cargar las rutas de las imagenes de los personajes ya existentes
+  ///<br><b>Parámetros</b><br>
+  ///[folderPath] Ruta en la que se encuentran las imágenes de los personajes
+  ///<br><b>Salida</b><br>
+  ///Lista con las rutas completas de donde se encuentran las imágenes de los personajes
   Future<List<String>> _getExistsPersonajes(String folderPath) async {
     final manifestContent = await rootBundle.loadString('AssetManifest.json');
     final Map<String, dynamic> manifestMap = json.decode(manifestContent);
@@ -446,6 +453,13 @@ class _AddRutinaState extends State<AddRutina> {
     return imagePaths;
   }
 
+  ///Método que nos permite obtener el ancho que se supone que ocuparía una cadena de texto
+  ///<br><b>Parámetros</b><br>
+  ///[text] Cadena de texto de la que queremos obtener el valor de ancho<br>
+  ///[context] El contexto de la aplicación, que proporciona acceso a información
+  ///sobre el entorno en el que se está ejecutando el widget, incluyendo el tamaño de la pantalla
+  ///<br><b>Salida</b><br>
+  ///Valor double que corresponde al ancho que ocuparía
   double getWidthOfText(String text, BuildContext context) {
     final TextSpan span = TextSpan(
       text: text,
@@ -463,7 +477,7 @@ class _AddRutinaState extends State<AddRutina> {
     return tp.width;
   }
 
-  // Método para darle valor a las variables relacionadas con tamaños de fuente, imagenes, etc.
+  ///Método que se utiliza para darle valor a las variables relacionadas con tamaños de fuente, imágenes, etc.
   void _createVariablesSize() {
     Size screenSize = MediaQuery.of(context).size; // tamaño del dispositivo
 
@@ -480,7 +494,7 @@ class _AddRutinaState extends State<AddRutina> {
         getWidthOfText("(máx. 30 caracteres)", context) + espacioPadding * 1.5;
   }
 
-  // Método para crear los botones necesarios
+  ///Método encargado de inicializar los botones que tendrá la pantalla
   void _createButtons() {
     // boton para dar volver a la pantalla principal de rutinas
     btnVolver = ImageTextButton(
@@ -596,7 +610,7 @@ class _AddRutinaState extends State<AddRutina> {
     );
   }
 
-  // Metodo para crear los cuadros de dialogo necesarios
+  ///Método encargado de inicializar los cuadros de dialogo que tendrá la pantalla
   void _createDialogs() {
     // cuadro de dialogo para escoger un personaje ya existente
     existPersonajeDialog = Dialog(
@@ -783,7 +797,7 @@ class _AddRutinaState extends State<AddRutina> {
     );
   }
 
-  // Método para cuando selecciono un personaje ya existente
+  ///Método que nos permite seleccionar un personaje existente para la pregunta, dicha imagen se guarda en la variable [personajeImage]
   Future<void> _selectExistPersonaje(
       BuildContext context, String imagePath) async {
     ByteData imageData = await rootBundle.load(imagePath);
@@ -795,7 +809,7 @@ class _AddRutinaState extends State<AddRutina> {
     Navigator.of(context).pop();
   }
 
-  // Método para seleccionar un nuevo personaje desde la galería
+  ///Método que nos permite seleccionar una imagen de nuestra galería para el personaje de la pregunta, dicha imagen se guarda en la variable [personajeImage]
   Future<void> _selectNewPersonajeGallery() async {
     final picker = ImagePicker();
     final image = await picker.pickImage(source: ImageSource.gallery);
@@ -809,7 +823,9 @@ class _AddRutinaState extends State<AddRutina> {
     }
   }
 
-  // Método para seleccionar una nueva imagen de accion desde la galeria
+  ///Método que nos permite seleccionar una imagen para la accion a través de la galería
+  ///<br><b>Parámetros</b><br>
+  ///[index] Índice de la accion que queremos cambiar la imagen
   Future<void> _selectNewActionGallery(int index) async {
     final picker = ImagePicker();
     final image = await picker.pickImage(source: ImageSource.gallery);
@@ -840,7 +856,10 @@ class _AddRutinaState extends State<AddRutina> {
     }
   }
 
-  // Método para seleccionar una nueva imagen de accion desde ARASAAC
+  ///Método que nos permite seleccionar una imagen para la accion a través de un cuadro de diálogo en el
+  ///que se muestran pictogramas de ARASAAC, permitiendo filtrar la búsqueda por texto
+  ///<br><b>Parámetros</b><br>
+  ///[index] Índice de la accion que queremos cambiar la imagen
   Future<void> _selectNewActionArasaac(int index) async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
@@ -892,7 +911,7 @@ class _AddRutinaState extends State<AddRutina> {
     }
   }
 
-  // método para añadir un nuevo ElementAccion
+  ///Método que nos permite añadir un nuevo [ElementAccion] para que haya más acciones en la pregunta
   void _addAccion() {
     setState(() {
       String accionText = 'Acción ' + (acciones.length + 1).toString() + "*";
@@ -914,14 +933,16 @@ class _AddRutinaState extends State<AddRutina> {
     });
   }
 
-  // método para eliminar el ultimo ElementAccion
+  ///Método que nos permite eliminar el útlimo [ElementAccion] para que haya menos acciones en la pregunta
   void _removeAccion() {
     setState(() {
       acciones.removeLast();
     });
   }
 
-  // Método para comprobar que los parametros obligatorios están completos
+  ///Método que se encarga de comprobar que están rellenados todos los campos y opciones para poder añadir una nueva pregunta al juego Rutinas
+  ///<br><b>Salida</b><br>
+  ///[true] si los campos obligatorios están completos, [false] en caso contrario
   bool _completedParams() {
     bool correct = true;
     // compruebo que todos los parametros obligatorios están completos
@@ -956,13 +977,15 @@ class _AddRutinaState extends State<AddRutina> {
     return correct;
   }
 
-  // Método para añadir una pregunta y sus acciones
+  ///Método encargado de añadir una pregunta y sus respectivas acciones a ordenar
   Future<void> _addRutina() async {
     int preguntaId = await _addPregunta();
     _addAcciones(preguntaId);
   }
 
-  // Método para añadir una pregunta a la BBDD
+  ///Método encargado de añadir una nueva pregunta al juego Rutinas
+  ///<br><b>Salida</b><br>
+  ///Identificador de la pregunta que se acaba de añadir
   Future<int> _addPregunta() async {
     int preguntaId;
     Database db = await openDatabase('rutinas.db');
@@ -976,6 +999,9 @@ class _AddRutinaState extends State<AddRutina> {
     return preguntaId;
   }
 
+  ///Método encargado de añadir una accion al juego Rutinas
+  ///<br><b>Parámetros</b><br>
+  ///[preguntaId] Identificador de la pregunta a la que corresponde la accion que queremos añadir
   Future<void> _addAcciones(int preguntaId) async {
     Database db = await openDatabase('rutinas.db');
     for (int i = 0; i < acciones.length; i++) {
