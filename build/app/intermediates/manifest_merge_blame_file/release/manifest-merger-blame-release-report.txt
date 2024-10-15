@@ -2,30 +2,30 @@
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
 3    package="alonso.lucas.rutinas"
 4    android:versionCode="1"
-5    android:versionName="1.0.0" >
+5    android:versionName="2.0.0" >
 6
 7    <uses-sdk
 8        android:minSdkVersion="21"
-8-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
+8-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="33" />
-9-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
+9-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
 10
 11    <queries>
-11-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:2:5-6:15
+11-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:2:5-6:15
 12        <intent>
-12-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:3:9-5:18
+12-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:3:9-5:18
 13            <action android:name="android.intent.action.TTS_SERVICE" />
-13-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:4:13-72
-13-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:4:21-69
+13-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:4:13-72
+13-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:4:21-69
 14        </intent>
 15    </queries>
 16
 17    <uses-permission android:name="android.permission.INTERNET" />
-17-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:7:5-66
-17-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:7:22-64
+17-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:7:5-66
+17-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:7:22-64
 18    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-18-->[:connectivity_plus] C:\Users\alons\StudioProjects\rutirse\build\connectivity_plus\intermediates\merged_manifest\release\AndroidManifest.xml:7:5-79
-18-->[:connectivity_plus] C:\Users\alons\StudioProjects\rutirse\build\connectivity_plus\intermediates\merged_manifest\release\AndroidManifest.xml:7:22-76
+18-->[:connectivity_plus] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\connectivity_plus\intermediates\merged_manifest\release\AndroidManifest.xml:7:5-79
+18-->[:connectivity_plus] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\connectivity_plus\intermediates\merged_manifest\release\AndroidManifest.xml:7:22-76
 19
 20    <permission
 20-->[androidx.core:core:1.10.1] C:\Users\alons\.gradle\caches\transforms-3\fa7a21ebdd51009596a9ec56dee87118\transformed\core-1.10.1\AndroidManifest.xml:22:5-24:47
@@ -40,31 +40,31 @@
 25
 26    <application
 27        android:name="android.app.Application"
-27-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:10:9-42
+27-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:10:9-42
 28        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 28-->[androidx.core:core:1.10.1] C:\Users\alons\.gradle\caches\transforms-3\fa7a21ebdd51009596a9ec56dee87118\transformed\core-1.10.1\AndroidManifest.xml:28:18-86
 29        android:icon="@drawable/icon"
-29-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:11:9-38
+29-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:11:9-38
 30        android:label="Rutirse" >
-30-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:9:9-32
+30-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:9:9-32
 31        <activity
-31-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:12:9-33:20
+31-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:12:9-33:20
 32            android:name="alonso.lucas.rutinas.MainActivity"
-32-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:13:13-41
+32-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:13:13-41
 33            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-33-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:17:13-163
+33-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:17:13-163
 34            android:exported="true"
-34-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:14:13-36
+34-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:14:13-36
 35            android:hardwareAccelerated="true"
-35-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:18:13-47
+35-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:18:13-47
 36            android:launchMode="singleTop"
-36-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:15:13-43
+36-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:15:13-43
 37            android:screenOrientation="portrait"
-37-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:20:13-49
+37-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:20:13-49
 38            android:theme="@style/LaunchTheme"
-38-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:16:13-47
+38-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:16:13-47
 39            android:windowSoftInputMode="adjustResize" >
-39-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:19:13-55
+39-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:19:13-55
 40
 41            <!--
 42                 Specifies an Android theme to apply to this Activity as soon as
@@ -73,21 +73,21 @@
 45                 to determine the Window background behind the Flutter UI.
 46            -->
 47            <meta-data
-47-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:25:13-28:17
+47-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:25:13-28:17
 48                android:name="io.flutter.embedding.android.NormalTheme"
-48-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:26:15-70
+48-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:26:15-70
 49                android:resource="@style/NormalTheme" />
-49-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:27:15-52
+49-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:27:15-52
 50
 51            <intent-filter>
-51-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:29:13-32:29
+51-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:29:13-32:29
 52                <action android:name="android.intent.action.MAIN" />
-52-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:30:17-68
-52-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:30:25-66
+52-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:30:17-68
+52-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:30:25-66
 53
 54                <category android:name="android.intent.category.LAUNCHER" />
-54-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:31:17-76
-54-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:31:27-74
+54-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:31:17-76
+54-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:31:27-74
 55            </intent-filter>
 56        </activity>
 57        <!--
@@ -95,28 +95,28 @@
 59             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
 60        -->
 61        <meta-data
-61-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:36:9-38:33
+61-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:36:9-38:33
 62            android:name="flutterEmbedding"
-62-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:37:13-44
+62-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:37:13-44
 63            android:value="2" />
-63-->C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:38:13-30
+63-->C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:38:13-30
 64
 65        <provider
-65-->[:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:8:9-16:20
+65-->[:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:8:9-16:20
 66            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
-66-->[:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:9:13-82
+66-->[:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:9:13-82
 67            android:authorities="alonso.lucas.rutinas.flutter.image_provider"
-67-->[:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:10:13-74
+67-->[:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:10:13-74
 68            android:exported="false"
-68-->[:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:11:13-37
+68-->[:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:11:13-37
 69            android:grantUriPermissions="true" >
-69-->[:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:12:13-47
+69-->[:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:12:13-47
 70            <meta-data
-70-->[:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:13:13-15:75
+70-->[:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:13:13-15:75
 71                android:name="android.support.FILE_PROVIDER_PATHS"
-71-->[:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:14:17-67
+71-->[:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:14:17-67
 72                android:resource="@xml/flutter_image_picker_file_paths" />
-72-->[:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:15:17-72
+72-->[:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:15:17-72
 73        </provider>
 74
 75        <uses-library

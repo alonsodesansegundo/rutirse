@@ -3,6 +3,6 @@
 3    package="com.tundralabs.fluttertts" >
 4
 5    <uses-sdk android:minSdkVersion="21" />
-5-->C:\Users\alons\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_tts-3.8.5\android\src\main\AndroidManifest.xml
+5-->C:\Users\alons\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_tts-4.0.2\android\src\main\AndroidManifest.xml
 6
 7</manifest>

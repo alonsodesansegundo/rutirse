@@ -542,7 +542,7 @@ class MyHomePage extends StatelessWidget {
               ),
               SizedBox(height: espacioAlto), // Espacio entre los textos
               Row(
-                children: [btnRutinas, btnIronias, btnAnimo],
+                children: [btnRutinas],
               ),
 
               SizedBox(height: espacioAcercaDe),

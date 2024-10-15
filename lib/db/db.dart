@@ -26,8 +26,42 @@ Future<Database> initializeDB() async {
       insertIronias(database);
       insertSentimientos(database);
     },
-    version: 1,
+    onUpgrade: _onUpgrade, // Manejo de actualización de la base de datos
+    version: 2, // Cambiar la versión a 2
   );
+}
+
+/// Método que maneja la actualización de la base de datos
+Future<void> _onUpgrade(Database database, int oldVersion, int newVersion) async {
+  print("old version --> "+oldVersion.toString());
+  // Si la versión anterior es la primera
+  if (oldVersion < 2) {
+    // Lógica para eliminar la columna 'edades' de la tabla 'grupo'
+    await database.execute('''
+      CREATE TABLE nuevo_grupo (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        nombre TEXT NOT NULL
+      )
+    ''');
+
+    // Copiar datos de la tabla original a la nueva tabla, excluyendo 'edades'
+    await database.execute('''
+      INSERT INTO nuevo_grupo (nombre) VALUES ('Fácil')
+    ''');
+    await database.execute('''
+      INSERT INTO nuevo_grupo (nombre) VALUES ('Medio')
+    ''');
+    await database.execute('''
+      INSERT INTO nuevo_grupo (nombre) VALUES ('Difícil')
+    ''');
+
+
+    // Eliminar la tabla original
+    await database.execute('DROP TABLE grupo');
+
+    // Renombrar la nueva tabla
+    await database.execute('ALTER TABLE nuevo_grupo RENAME TO grupo');
+  }
 }
 
 ///Método para crear la tabla grupo
@@ -37,8 +71,7 @@ void createTableGrupo(Database database) {
   database.execute(
     """CREATE TABLE grupo (
           id INTEGER PRIMARY KEY AUTOINCREMENT, 
-          nombre TEXT NOT NULL,
-          edades TEXT NOT NULL)""",
+          nombre TEXT NOT NULL)""",
   );
 }
 

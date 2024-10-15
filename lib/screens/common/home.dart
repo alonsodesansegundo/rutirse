@@ -197,7 +197,7 @@ class HomeState extends State<Home> {
                                   width: imgWidth,
                                 ),
                                 text: Text(
-                                  grupo.nombre + '\n' + grupo.edades,
+                                  grupo.nombre,
                                   style: TextStyle(
                                     fontFamily: 'ComicNeue',
                                     fontSize: textSize,
@@ -388,6 +388,7 @@ class HomeState extends State<Home> {
       List<Grupo> grupos = await getGrupos();
       setState(() {
         gruposList = grupos;
+        print(gruposList[0].nombre);
       });
     } catch (e) {
       print("Error al obtener la lista de grupos: $e");

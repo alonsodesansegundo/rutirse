@@ -223,10 +223,10 @@ class EditIroniaState extends State<EditHumor> {
                                 selectedGrupo = grupo;
                                 changeGrupo = true;
                                 respuestasIncorrectas = [];
-                                if (selectedGrupo!.nombre == "Infancia")
+                                if (selectedGrupo!.nombre == "Medio")
                                   respuestasIncorrectas.add(new Respuesta(
                                       texto: "", color: Colors.transparent));
-                                if (selectedGrupo!.nombre == "Adolescencia") {
+                                if (selectedGrupo!.nombre == "Difícil") {
                                   respuestasIncorrectas.add(new Respuesta(
                                       texto: "", color: Colors.transparent));
                                   respuestasIncorrectas.add(new Respuesta(
@@ -321,9 +321,9 @@ class EditIroniaState extends State<EditHumor> {
                   ),
                 ),
                 SizedBox(height: espacioAlto),
-                if ((!changeGrupo && widget.grupo.nombre == "Atención T.") ||
+                if ((!changeGrupo && widget.grupo.nombre == "Fácil") ||
                     (selectedGrupo != null &&
-                        selectedGrupo!.nombre == 'Atención T.'))
+                        selectedGrupo!.nombre == 'Fácil'))
                   Container(
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -379,9 +379,9 @@ class EditIroniaState extends State<EditHumor> {
                       ],
                     ),
                   ),
-                if ((!changeGrupo && widget.grupo.nombre != "Atención T.") ||
+                if ((!changeGrupo && widget.grupo.nombre != "Fácil") ||
                     (selectedGrupo != null &&
-                        selectedGrupo!.nombre != 'Atención T.'))
+                        selectedGrupo!.nombre != 'Fácil'))
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.baseline,
                     textBaseline: TextBaseline.alphabetic,
@@ -419,9 +419,9 @@ class EditIroniaState extends State<EditHumor> {
                       SizedBox(
                         height: espacioAlto / 2,
                       ),
-                      if ((!changeGrupo && widget.grupo.nombre == "Infancia") ||
+                      if ((!changeGrupo && widget.grupo.nombre == "Medio") ||
                           (selectedGrupo != null &&
-                              selectedGrupo!.nombre == 'Infancia'))
+                              selectedGrupo!.nombre == 'Medio'))
                         Text(
                           "Respuesta incorrecta*:",
                           style: TextStyle(
@@ -430,9 +430,9 @@ class EditIroniaState extends State<EditHumor> {
                           ),
                         ),
                       if ((!changeGrupo &&
-                              widget.grupo.nombre == "Adolescencia") ||
+                              widget.grupo.nombre == "Difícil") ||
                           (selectedGrupo != null &&
-                              selectedGrupo!.nombre == 'Adolescencia'))
+                              selectedGrupo!.nombre == 'Difícil'))
                         Text(
                           "Respuestas incorrectas*:",
                           style: TextStyle(
@@ -471,9 +471,9 @@ class EditIroniaState extends State<EditHumor> {
                         height: espacioAlto / 2,
                       ),
                       if ((!changeGrupo &&
-                              widget.grupo.nombre == "Adolescencia") ||
+                              widget.grupo.nombre == "Difícil") ||
                           (selectedGrupo != null &&
-                              selectedGrupo!.nombre == 'Adolescencia'))
+                              selectedGrupo!.nombre == 'Difícil'))
                         Column(
                           children: [
                             Container(
@@ -984,7 +984,7 @@ class EditIroniaState extends State<EditHumor> {
       colorBordeImagen = Colors.transparent;
 
     if (selectedGrupo != null &&
-        selectedGrupo!.nombre == "Atención T." &&
+        selectedGrupo!.nombre == "Fácil" &&
         !esIronia &&
         !noEsIronia) {
       correct = false;
@@ -995,7 +995,7 @@ class EditIroniaState extends State<EditHumor> {
       colorCheckbox = Colors.transparent;
 
     if (selectedGrupo != null &&
-        selectedGrupo!.nombre != "Atención T." &&
+        selectedGrupo!.nombre != "Fácil" &&
         correctText.trim().isEmpty) {
       correct = false;
       setState(() {
@@ -1039,8 +1039,8 @@ class EditIroniaState extends State<EditHumor> {
     // elimino las respuestas anteriores
     deleteRespuestasBySituacionIroniaId(db, widget.situacionIronia.id!);
 
-    if ((changeGrupo && selectedGrupo!.nombre == "Atención T.") ||
-        (!changeGrupo && widget.grupo!.nombre == "Atención T.")) {
+    if ((changeGrupo && selectedGrupo!.nombre == "Fácil") ||
+        (!changeGrupo && widget.grupo!.nombre == "Fácil")) {
       int aux, aux2;
       if (esIronia)
         aux = 1;
@@ -1080,27 +1080,19 @@ class EditIroniaState extends State<EditHumor> {
         await getRespuestasIronia(widget.situacionIronia.id!);
 
     setState(() {
-      if (widget.grupo.nombre == "Atención T.") {
-        print("CORRECTO: " +
-            aux[0].correcta.toString() +
-            " TEXTO: " +
-            aux[0].texto);
+      if (widget.grupo.nombre == "Fácil") {
         if (aux[0].correcta == 1) {
           if (aux[0].texto == "Sí, es una broma.") {
-            print("entro1");
             esIronia = true;
           }
           if (aux[0].texto == "No, no es una broma.") {
-            print("entro2");
             noEsIronia = true;
           }
         } else {
           if (aux[0].texto == "Sí, es una broma.") {
-            print("entro3");
             noEsIronia = true;
           }
           if (aux[0].texto == "No, no es una broma.") {
-            print("entro4");
             esIronia = true;
           }
         }

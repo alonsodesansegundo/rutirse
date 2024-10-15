@@ -4,8 +4,8 @@ dev.fluttercommunity.plus.connectivity.connectivity_plus-jetified-annotation-exp
 dev.fluttercommunity.plus.connectivity.connectivity_plus-jetified-window-1.0.0-beta04-3 C:\Users\alons\.gradle\caches\transforms-3\ff74349ffaf987c11b485aba3302db95\transformed\jetified-window-1.0.0-beta04\res
 dev.fluttercommunity.plus.connectivity.connectivity_plus-main-4 C:\Users\alons\AppData\Local\Pub\Cache\hosted\pub.dev\connectivity_plus-5.0.2\android\src\main\res
 dev.fluttercommunity.plus.connectivity.connectivity_plus-release-5 C:\Users\alons\AppData\Local\Pub\Cache\hosted\pub.dev\connectivity_plus-5.0.2\android\src\release\res
-dev.fluttercommunity.plus.connectivity.connectivity_plus-pngs-6 C:\Users\alons\StudioProjects\rutirse\build\connectivity_plus\generated\res\pngs\release
-dev.fluttercommunity.plus.connectivity.connectivity_plus-resValues-7 C:\Users\alons\StudioProjects\rutirse\build\connectivity_plus\generated\res\resValues\release
-dev.fluttercommunity.plus.connectivity.connectivity_plus-mergeReleaseResources-8 C:\Users\alons\StudioProjects\rutirse\build\connectivity_plus\intermediates\incremental\release\mergeReleaseResources\merged.dir
-dev.fluttercommunity.plus.connectivity.connectivity_plus-mergeReleaseResources-9 C:\Users\alons\StudioProjects\rutirse\build\connectivity_plus\intermediates\incremental\release\mergeReleaseResources\stripped.dir
-dev.fluttercommunity.plus.connectivity.connectivity_plus-merged_res-10 C:\Users\alons\StudioProjects\rutirse\build\connectivity_plus\intermediates\merged_res\release
+dev.fluttercommunity.plus.connectivity.connectivity_plus-pngs-6 C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\connectivity_plus\generated\res\pngs\release
+dev.fluttercommunity.plus.connectivity.connectivity_plus-resValues-7 C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\connectivity_plus\generated\res\resValues\release
+dev.fluttercommunity.plus.connectivity.connectivity_plus-mergeReleaseResources-8 C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\connectivity_plus\intermediates\incremental\release\mergeReleaseResources\merged.dir
+dev.fluttercommunity.plus.connectivity.connectivity_plus-mergeReleaseResources-9 C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\connectivity_plus\intermediates\incremental\release\mergeReleaseResources\stripped.dir
+dev.fluttercommunity.plus.connectivity.connectivity_plus-merged_res-10 C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\connectivity_plus\intermediates\merged_res\release

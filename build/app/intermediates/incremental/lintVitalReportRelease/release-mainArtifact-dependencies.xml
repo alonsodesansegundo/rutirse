@@ -1,23 +1,23 @@
 <dependencies>
   <compile
-      roots="__local_aars__:C:\Users\alons\StudioProjects\rutirse\build\app\intermediates\flutter\release\libs.jar:unspecified@jar,C:\Users\alons\StudioProjects\rutirse\android@@:flutter_plugin_android_lifecycle::release,C:\Users\alons\StudioProjects\rutirse\android@@:sqflite::release,C:\Users\alons\StudioProjects\rutirse\android@@:flutter_tts::release,C:\Users\alons\StudioProjects\rutirse\android@@:image_picker_android::release,C:\Users\alons\StudioProjects\rutirse\android@@:connectivity_plus::release,io.flutter:flutter_embedding_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar,androidx.fragment:fragment:1.1.0@aar,androidx.viewpager:viewpager:1.0.0@aar,androidx.loader:loader:1.0.0@aar,androidx.activity:activity:1.7.2@aar,androidx.customview:customview:1.0.0@aar,androidx.lifecycle:lifecycle-livedata-core:2.6.1@aar,androidx.lifecycle:lifecycle-livedata:2.6.1@aar,androidx.lifecycle:lifecycle-viewmodel:2.6.1@aar,androidx.lifecycle:lifecycle-viewmodel:2.6.1@aar,androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1@aar,androidx.core:core-ktx:1.10.1@aar,androidx.core:core:1.10.1@aar,androidx.core:core:1.10.1@aar,androidx.lifecycle:lifecycle-runtime:2.6.1@aar,androidx.lifecycle:lifecycle-common-java8:2.6.1@jar,androidx.lifecycle:lifecycle-common:2.6.1@jar,androidx.window:window-java:1.0.0-beta04@aar,androidx.window:window:1.0.0-beta04@aar,org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4@jar,org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22@jar,io.flutter:armeabi_v7a_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar,io.flutter:arm64_v8a_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar,io.flutter:x86_64_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar,androidx.arch.core:core-runtime:2.2.0@aar,androidx.arch.core:core-common:2.2.0@jar,androidx.versionedparcelable:versionedparcelable:1.1.1@aar,androidx.collection:collection:1.1.0@jar,androidx.savedstate:savedstate:1.2.1@aar,androidx.annotation:annotation-jvm:1.7.1@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22@jar,androidx.annotation:annotation-experimental:1.3.0@aar,org.jetbrains.kotlin:kotlin-stdlib:1.8.22@jar,org.jetbrains.kotlin:kotlin-stdlib-common:1.8.22@jar,org.jetbrains:annotations:13.0@jar,androidx.tracing:tracing:1.0.0@aar">
+      roots="__local_aars__:C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\intermediates\flutter\release\libs.jar:unspecified@jar,C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:flutter_plugin_android_lifecycle::release,C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:sqflite::release,C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:flutter_tts::release,C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:image_picker_android::release,C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:connectivity_plus::release,io.flutter:flutter_embedding_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar,androidx.fragment:fragment:1.1.0@aar,androidx.viewpager:viewpager:1.0.0@aar,androidx.loader:loader:1.0.0@aar,androidx.activity:activity:1.7.2@aar,androidx.customview:customview:1.0.0@aar,androidx.lifecycle:lifecycle-livedata-core:2.6.1@aar,androidx.lifecycle:lifecycle-livedata:2.6.1@aar,androidx.lifecycle:lifecycle-viewmodel:2.6.1@aar,androidx.lifecycle:lifecycle-viewmodel:2.6.1@aar,androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1@aar,androidx.core:core-ktx:1.10.1@aar,androidx.core:core:1.10.1@aar,androidx.core:core:1.10.1@aar,androidx.lifecycle:lifecycle-runtime:2.6.1@aar,androidx.lifecycle:lifecycle-common-java8:2.6.1@jar,androidx.lifecycle:lifecycle-common:2.6.1@jar,androidx.window:window-java:1.0.0-beta04@aar,androidx.window:window:1.0.0-beta04@aar,org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4@jar,org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10@jar,io.flutter:armeabi_v7a_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar,io.flutter:arm64_v8a_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar,io.flutter:x86_64_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar,androidx.arch.core:core-runtime:2.2.0@aar,androidx.arch.core:core-common:2.2.0@jar,androidx.versionedparcelable:versionedparcelable:1.1.1@aar,androidx.collection:collection:1.1.0@jar,androidx.savedstate:savedstate:1.2.1@aar,androidx.annotation:annotation-jvm:1.7.1@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10@jar,androidx.annotation:annotation-experimental:1.3.0@aar,org.jetbrains.kotlin:kotlin-stdlib:1.9.10@jar,org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10@jar,org.jetbrains:annotations:13.0@jar,androidx.tracing:tracing:1.0.0@aar">
     <dependency
-        name="__local_aars__:C:\Users\alons\StudioProjects\rutirse\build\app\intermediates\flutter\release\libs.jar:unspecified@jar"
-        simpleName="__local_aars__:C:\Users\alons\StudioProjects\rutirse\build\app\intermediates\flutter\release\libs.jar"/>
+        name="__local_aars__:C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\intermediates\flutter\release\libs.jar:unspecified@jar"
+        simpleName="__local_aars__:C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\intermediates\flutter\release\libs.jar"/>
     <dependency
-        name="C:\Users\alons\StudioProjects\rutirse\android@@:flutter_plugin_android_lifecycle::release"
+        name="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:flutter_plugin_android_lifecycle::release"
         simpleName="io.flutter.plugins.flutter_plugin_android_lifecycle:flutter_plugin_android_lifecycle"/>
     <dependency
-        name="C:\Users\alons\StudioProjects\rutirse\android@@:sqflite::release"
+        name="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:sqflite::release"
         simpleName="com.tekartik.sqflite:sqflite"/>
     <dependency
-        name="C:\Users\alons\StudioProjects\rutirse\android@@:flutter_tts::release"
+        name="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:flutter_tts::release"
         simpleName="com.tundralabs.fluttertts:flutter_tts"/>
     <dependency
-        name="C:\Users\alons\StudioProjects\rutirse\android@@:image_picker_android::release"
+        name="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:image_picker_android::release"
         simpleName="io.flutter.plugins.imagepicker:image_picker_android"/>
     <dependency
-        name="C:\Users\alons\StudioProjects\rutirse\android@@:connectivity_plus::release"
+        name="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:connectivity_plus::release"
         simpleName="dev.fluttercommunity.plus.connectivity:connectivity_plus"/>
     <dependency
         name="io.flutter:flutter_embedding_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar"
@@ -77,7 +77,7 @@
         name="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4@jar"
         simpleName="org.jetbrains.kotlinx:kotlinx-coroutines-android"/>
     <dependency
-        name="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22@jar"
+        name="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10@jar"
         simpleName="org.jetbrains.kotlin:kotlin-stdlib-jdk8"/>
     <dependency
         name="io.flutter:armeabi_v7a_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar"
@@ -107,16 +107,16 @@
         name="androidx.annotation:annotation-jvm:1.7.1@jar"
         simpleName="androidx.annotation:annotation-jvm"/>
     <dependency
-        name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22@jar"
+        name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10@jar"
         simpleName="org.jetbrains.kotlin:kotlin-stdlib-jdk7"/>
     <dependency
         name="androidx.annotation:annotation-experimental:1.3.0@aar"
         simpleName="androidx.annotation:annotation-experimental"/>
     <dependency
-        name="org.jetbrains.kotlin:kotlin-stdlib:1.8.22@jar"
+        name="org.jetbrains.kotlin:kotlin-stdlib:1.9.10@jar"
         simpleName="org.jetbrains.kotlin:kotlin-stdlib"/>
     <dependency
-        name="org.jetbrains.kotlin:kotlin-stdlib-common:1.8.22@jar"
+        name="org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10@jar"
         simpleName="org.jetbrains.kotlin:kotlin-stdlib-common"/>
     <dependency
         name="org.jetbrains:annotations:13.0@jar"
@@ -126,24 +126,24 @@
         simpleName="androidx.tracing:tracing"/>
   </compile>
   <package
-      roots="__local_aars__:C:\Users\alons\StudioProjects\rutirse\build\app\intermediates\flutter\release\libs.jar:unspecified@jar,C:\Users\alons\StudioProjects\rutirse\android@@:image_picker_android::release,C:\Users\alons\StudioProjects\rutirse\android@@:flutter_plugin_android_lifecycle::release,C:\Users\alons\StudioProjects\rutirse\android@@:sqflite::release,C:\Users\alons\StudioProjects\rutirse\android@@:flutter_tts::release,C:\Users\alons\StudioProjects\rutirse\android@@:connectivity_plus::release,io.flutter:flutter_embedding_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar,androidx.fragment:fragment:1.1.0@aar,androidx.activity:activity:1.7.2@aar,androidx.activity:activity:1.7.2@aar,androidx.window:window-java:1.0.0-beta04@aar,androidx.core:core-ktx:1.10.1@aar,androidx.viewpager:viewpager:1.0.0@aar,androidx.loader:loader:1.0.0@aar,androidx.window:window:1.0.0-beta04@aar,androidx.customview:customview:1.0.0@aar,androidx.core:core:1.10.1@aar,androidx.core:core:1.10.1@aar,androidx.savedstate:savedstate:1.2.1@aar,androidx.lifecycle:lifecycle-livedata:2.6.1@aar,androidx.lifecycle:lifecycle-livedata-core:2.6.1@aar,androidx.lifecycle:lifecycle-common-java8:2.6.1@jar,androidx.lifecycle:lifecycle-common:2.6.1@jar,androidx.lifecycle:lifecycle-viewmodel:2.6.1@aar,androidx.lifecycle:lifecycle-viewmodel:2.6.1@aar,androidx.lifecycle:lifecycle-runtime:2.6.1@aar,androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1@aar,org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4@jar,org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22@jar,io.flutter:armeabi_v7a_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar,io.flutter:arm64_v8a_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar,io.flutter:x86_64_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar,androidx.exifinterface:exifinterface:1.3.6@aar,androidx.profileinstaller:profileinstaller:1.3.0@aar,androidx.startup:startup-runtime:1.1.1@aar,androidx.tracing:tracing:1.0.0@aar,androidx.interpolator:interpolator:1.0.0@aar,androidx.versionedparcelable:versionedparcelable:1.1.1@aar,androidx.collection:collection:1.1.0@jar,androidx.arch.core:core-runtime:2.2.0@aar,androidx.arch.core:core-common:2.2.0@jar,androidx.concurrent:concurrent-futures:1.1.0@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22@jar,androidx.annotation:annotation-jvm:1.7.1@jar,androidx.annotation:annotation-experimental:1.3.0@aar,org.jetbrains.kotlin:kotlin-stdlib:1.8.22@jar,org.jetbrains.kotlin:kotlin-stdlib-common:1.8.22@jar,org.jetbrains:annotations:13.0@jar,com.google.guava:listenablefuture:1.0@jar">
+      roots="__local_aars__:C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\intermediates\flutter\release\libs.jar:unspecified@jar,C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:image_picker_android::release,C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:flutter_plugin_android_lifecycle::release,C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:sqflite::release,C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:flutter_tts::release,C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:connectivity_plus::release,io.flutter:flutter_embedding_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar,androidx.fragment:fragment:1.1.0@aar,androidx.activity:activity:1.7.2@aar,androidx.activity:activity:1.7.2@aar,androidx.window:window-java:1.0.0-beta04@aar,androidx.core:core-ktx:1.10.1@aar,androidx.viewpager:viewpager:1.0.0@aar,androidx.loader:loader:1.0.0@aar,androidx.window:window:1.0.0-beta04@aar,androidx.customview:customview:1.0.0@aar,androidx.core:core:1.10.1@aar,androidx.core:core:1.10.1@aar,androidx.savedstate:savedstate:1.2.1@aar,androidx.lifecycle:lifecycle-livedata:2.6.1@aar,androidx.lifecycle:lifecycle-livedata-core:2.6.1@aar,androidx.lifecycle:lifecycle-common-java8:2.6.1@jar,androidx.lifecycle:lifecycle-common:2.6.1@jar,androidx.lifecycle:lifecycle-viewmodel:2.6.1@aar,androidx.lifecycle:lifecycle-viewmodel:2.6.1@aar,androidx.lifecycle:lifecycle-runtime:2.6.1@aar,androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1@aar,org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4@jar,org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10@jar,io.flutter:armeabi_v7a_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar,io.flutter:arm64_v8a_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar,io.flutter:x86_64_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar,androidx.exifinterface:exifinterface:1.3.7@aar,androidx.profileinstaller:profileinstaller:1.3.0@aar,androidx.startup:startup-runtime:1.1.1@aar,androidx.tracing:tracing:1.0.0@aar,androidx.interpolator:interpolator:1.0.0@aar,androidx.versionedparcelable:versionedparcelable:1.1.1@aar,androidx.collection:collection:1.1.0@jar,androidx.arch.core:core-runtime:2.2.0@aar,androidx.arch.core:core-common:2.2.0@jar,androidx.concurrent:concurrent-futures:1.1.0@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10@jar,androidx.annotation:annotation-jvm:1.7.1@jar,androidx.annotation:annotation-experimental:1.3.0@aar,org.jetbrains.kotlin:kotlin-stdlib:1.9.10@jar,org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10@jar,org.jetbrains:annotations:13.0@jar,com.google.guava:listenablefuture:1.0@jar">
     <dependency
-        name="__local_aars__:C:\Users\alons\StudioProjects\rutirse\build\app\intermediates\flutter\release\libs.jar:unspecified@jar"
-        simpleName="__local_aars__:C:\Users\alons\StudioProjects\rutirse\build\app\intermediates\flutter\release\libs.jar"/>
+        name="__local_aars__:C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\intermediates\flutter\release\libs.jar:unspecified@jar"
+        simpleName="__local_aars__:C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\intermediates\flutter\release\libs.jar"/>
     <dependency
-        name="C:\Users\alons\StudioProjects\rutirse\android@@:image_picker_android::release"
+        name="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:image_picker_android::release"
         simpleName="io.flutter.plugins.imagepicker:image_picker_android"/>
     <dependency
-        name="C:\Users\alons\StudioProjects\rutirse\android@@:flutter_plugin_android_lifecycle::release"
+        name="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:flutter_plugin_android_lifecycle::release"
         simpleName="io.flutter.plugins.flutter_plugin_android_lifecycle:flutter_plugin_android_lifecycle"/>
     <dependency
-        name="C:\Users\alons\StudioProjects\rutirse\android@@:sqflite::release"
+        name="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:sqflite::release"
         simpleName="com.tekartik.sqflite:sqflite"/>
     <dependency
-        name="C:\Users\alons\StudioProjects\rutirse\android@@:flutter_tts::release"
+        name="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:flutter_tts::release"
         simpleName="com.tundralabs.fluttertts:flutter_tts"/>
     <dependency
-        name="C:\Users\alons\StudioProjects\rutirse\android@@:connectivity_plus::release"
+        name="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:connectivity_plus::release"
         simpleName="dev.fluttercommunity.plus.connectivity:connectivity_plus"/>
     <dependency
         name="io.flutter:flutter_embedding_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar"
@@ -206,7 +206,7 @@
         name="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4@jar"
         simpleName="org.jetbrains.kotlinx:kotlinx-coroutines-android"/>
     <dependency
-        name="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22@jar"
+        name="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10@jar"
         simpleName="org.jetbrains.kotlin:kotlin-stdlib-jdk8"/>
     <dependency
         name="io.flutter:armeabi_v7a_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar"
@@ -218,7 +218,7 @@
         name="io.flutter:x86_64_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar"
         simpleName="io.flutter:x86_64_release"/>
     <dependency
-        name="androidx.exifinterface:exifinterface:1.3.6@aar"
+        name="androidx.exifinterface:exifinterface:1.3.7@aar"
         simpleName="androidx.exifinterface:exifinterface"/>
     <dependency
         name="androidx.profileinstaller:profileinstaller:1.3.0@aar"
@@ -248,7 +248,7 @@
         name="androidx.concurrent:concurrent-futures:1.1.0@jar"
         simpleName="androidx.concurrent:concurrent-futures"/>
     <dependency
-        name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22@jar"
+        name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10@jar"
         simpleName="org.jetbrains.kotlin:kotlin-stdlib-jdk7"/>
     <dependency
         name="androidx.annotation:annotation-jvm:1.7.1@jar"
@@ -257,10 +257,10 @@
         name="androidx.annotation:annotation-experimental:1.3.0@aar"
         simpleName="androidx.annotation:annotation-experimental"/>
     <dependency
-        name="org.jetbrains.kotlin:kotlin-stdlib:1.8.22@jar"
+        name="org.jetbrains.kotlin:kotlin-stdlib:1.9.10@jar"
         simpleName="org.jetbrains.kotlin:kotlin-stdlib"/>
     <dependency
-        name="org.jetbrains.kotlin:kotlin-stdlib-common:1.8.22@jar"
+        name="org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10@jar"
         simpleName="org.jetbrains.kotlin:kotlin-stdlib-common"/>
     <dependency
         name="org.jetbrains:annotations:13.0@jar"

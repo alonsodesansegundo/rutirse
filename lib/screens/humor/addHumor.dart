@@ -198,10 +198,10 @@ class AddHumorState extends State<AddHumor> {
                               setState(() {
                                 selectedGrupo = grupo;
                                 respuestasIncorrectas = [];
-                                if (selectedGrupo!.nombre == "Infancia")
+                                if (selectedGrupo!.nombre == "Medio")
                                   respuestasIncorrectas.add(new Respuesta(
                                       texto: "", color: Colors.transparent));
-                                if (selectedGrupo!.nombre == "Adolescencia") {
+                                if (selectedGrupo!.nombre == "Difícil") {
                                   respuestasIncorrectas.add(new Respuesta(
                                       texto: "", color: Colors.transparent));
                                   respuestasIncorrectas.add(new Respuesta(
@@ -296,7 +296,7 @@ class AddHumorState extends State<AddHumor> {
                 ),
                 SizedBox(height: espacioAlto),
                 if (selectedGrupo != null &&
-                    selectedGrupo!.nombre == 'Atención T.')
+                    selectedGrupo!.nombre == 'Fácil')
                   Container(
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -353,7 +353,7 @@ class AddHumorState extends State<AddHumor> {
                     ),
                   ),
                 if (selectedGrupo != null &&
-                    selectedGrupo!.nombre != 'Atención T.')
+                    selectedGrupo!.nombre != 'Fácil')
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.baseline,
                     textBaseline: TextBaseline.alphabetic,
@@ -389,7 +389,7 @@ class AddHumorState extends State<AddHumor> {
                       SizedBox(
                         height: espacioAlto / 2,
                       ),
-                      if (selectedGrupo!.nombre == 'Infancia')
+                      if (selectedGrupo!.nombre == 'Medio')
                         Text(
                           "Respuesta incorrecta*:",
                           style: TextStyle(
@@ -397,7 +397,7 @@ class AddHumorState extends State<AddHumor> {
                             fontSize: textSize,
                           ),
                         ),
-                      if (selectedGrupo!.nombre == 'Adolescencia')
+                      if (selectedGrupo!.nombre == 'Difícil')
                         Text(
                           "Respuestas incorrectas*:",
                           style: TextStyle(
@@ -429,7 +429,7 @@ class AddHumorState extends State<AddHumor> {
                       SizedBox(
                         height: espacioAlto / 2,
                       ),
-                      if (selectedGrupo!.nombre == 'Adolescencia')
+                      if (selectedGrupo!.nombre == 'Difícil')
                         Column(
                           children: [
                             Container(
@@ -824,7 +824,7 @@ class AddHumorState extends State<AddHumor> {
       colorBordeImagen = Colors.transparent;
 
     if (selectedGrupo != null &&
-        selectedGrupo!.nombre == "Atención T." &&
+        selectedGrupo!.nombre == "Fácil" &&
         !esIronia &&
         !noEsIronia) {
       correct = false;
@@ -835,7 +835,7 @@ class AddHumorState extends State<AddHumor> {
       colorCheckbox = Colors.transparent;
 
     if (selectedGrupo != null &&
-        selectedGrupo!.nombre != "Atención T." &&
+        selectedGrupo!.nombre != "Fácil" &&
         correctText.trim().isEmpty) {
       correct = false;
       setState(() {
@@ -879,7 +879,7 @@ class AddHumorState extends State<AddHumor> {
   Future<void> _addRespuestas(int ironiaId) async {
     Database db = await openDatabase('rutinas.db');
 
-    if (selectedGrupo!.nombre == "Atención T.") {
+    if (selectedGrupo!.nombre == "Fácil") {
       int aux, aux2;
       if (esIronia)
         aux = 1;

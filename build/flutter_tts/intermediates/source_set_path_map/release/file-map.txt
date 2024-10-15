@@ -4,10 +4,10 @@ com.tundralabs.fluttertts.flutter_tts-lifecycle-runtime-2.3.1-2 C:\Users\alons\.
 com.tundralabs.fluttertts.flutter_tts-jetified-window-java-1.0.0-beta04-3 C:\Users\alons\.gradle\caches\transforms-3\9a82c42de2236324e71cd2eadc00b5d8\transformed\jetified-window-java-1.0.0-beta04\res
 com.tundralabs.fluttertts.flutter_tts-jetified-annotation-experimental-1.1.0-4 C:\Users\alons\.gradle\caches\transforms-3\d9c09f0825e4eb221236b6e796bf7912\transformed\jetified-annotation-experimental-1.1.0\res
 com.tundralabs.fluttertts.flutter_tts-jetified-window-1.0.0-beta04-5 C:\Users\alons\.gradle\caches\transforms-3\ff74349ffaf987c11b485aba3302db95\transformed\jetified-window-1.0.0-beta04\res
-com.tundralabs.fluttertts.flutter_tts-main-6 C:\Users\alons\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_tts-3.8.5\android\src\main\res
-com.tundralabs.fluttertts.flutter_tts-release-7 C:\Users\alons\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_tts-3.8.5\android\src\release\res
-com.tundralabs.fluttertts.flutter_tts-pngs-8 C:\Users\alons\StudioProjects\rutirse\build\flutter_tts\generated\res\pngs\release
-com.tundralabs.fluttertts.flutter_tts-resValues-9 C:\Users\alons\StudioProjects\rutirse\build\flutter_tts\generated\res\resValues\release
-com.tundralabs.fluttertts.flutter_tts-mergeReleaseResources-10 C:\Users\alons\StudioProjects\rutirse\build\flutter_tts\intermediates\incremental\release\mergeReleaseResources\merged.dir
-com.tundralabs.fluttertts.flutter_tts-mergeReleaseResources-11 C:\Users\alons\StudioProjects\rutirse\build\flutter_tts\intermediates\incremental\release\mergeReleaseResources\stripped.dir
-com.tundralabs.fluttertts.flutter_tts-merged_res-12 C:\Users\alons\StudioProjects\rutirse\build\flutter_tts\intermediates\merged_res\release
+com.tundralabs.fluttertts.flutter_tts-main-6 C:\Users\alons\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_tts-4.0.2\android\src\main\res
+com.tundralabs.fluttertts.flutter_tts-release-7 C:\Users\alons\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_tts-4.0.2\android\src\release\res
+com.tundralabs.fluttertts.flutter_tts-pngs-8 C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\flutter_tts\generated\res\pngs\release
+com.tundralabs.fluttertts.flutter_tts-resValues-9 C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\flutter_tts\generated\res\resValues\release
+com.tundralabs.fluttertts.flutter_tts-mergeReleaseResources-10 C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\flutter_tts\intermediates\incremental\release\mergeReleaseResources\merged.dir
+com.tundralabs.fluttertts.flutter_tts-mergeReleaseResources-11 C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\flutter_tts\intermediates\incremental\release\mergeReleaseResources\stripped.dir
+com.tundralabs.fluttertts.flutter_tts-merged_res-12 C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\flutter_tts\intermediates\merged_res\release

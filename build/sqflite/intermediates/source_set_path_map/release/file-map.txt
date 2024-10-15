@@ -4,8 +4,8 @@ com.tekartik.sqflite-jetified-annotation-experimental-1.1.0-2 C:\Users\alons\.gr
 com.tekartik.sqflite-jetified-window-1.0.0-beta04-3 C:\Users\alons\.gradle\caches\transforms-3\ff74349ffaf987c11b485aba3302db95\transformed\jetified-window-1.0.0-beta04\res
 com.tekartik.sqflite-main-4 C:\Users\alons\AppData\Local\Pub\Cache\hosted\pub.dev\sqflite-2.3.2\android\src\main\res
 com.tekartik.sqflite-release-5 C:\Users\alons\AppData\Local\Pub\Cache\hosted\pub.dev\sqflite-2.3.2\android\src\release\res
-com.tekartik.sqflite-pngs-6 C:\Users\alons\StudioProjects\rutirse\build\sqflite\generated\res\pngs\release
-com.tekartik.sqflite-resValues-7 C:\Users\alons\StudioProjects\rutirse\build\sqflite\generated\res\resValues\release
-com.tekartik.sqflite-mergeReleaseResources-8 C:\Users\alons\StudioProjects\rutirse\build\sqflite\intermediates\incremental\release\mergeReleaseResources\merged.dir
-com.tekartik.sqflite-mergeReleaseResources-9 C:\Users\alons\StudioProjects\rutirse\build\sqflite\intermediates\incremental\release\mergeReleaseResources\stripped.dir
-com.tekartik.sqflite-merged_res-10 C:\Users\alons\StudioProjects\rutirse\build\sqflite\intermediates\merged_res\release
+com.tekartik.sqflite-pngs-6 C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\sqflite\generated\res\pngs\release
+com.tekartik.sqflite-resValues-7 C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\sqflite\generated\res\resValues\release
+com.tekartik.sqflite-mergeReleaseResources-8 C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\sqflite\intermediates\incremental\release\mergeReleaseResources\merged.dir
+com.tekartik.sqflite-mergeReleaseResources-9 C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\sqflite\intermediates\incremental\release\mergeReleaseResources\stripped.dir
+com.tekartik.sqflite-merged_res-10 C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\sqflite\intermediates\merged_res\release

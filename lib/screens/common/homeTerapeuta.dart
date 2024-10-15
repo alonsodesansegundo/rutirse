@@ -117,7 +117,7 @@ class HomeTerapeutaState extends State<HomeTerapeuta> {
               ),
               SizedBox(height: espacioAlto), // Espacio
               Row(
-                children: [btnRutinas, btnIronias, btnAnimo],
+                children: [btnRutinas],
               ),
               SizedBox(height: espacioAlto),
               Text(

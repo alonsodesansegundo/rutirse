@@ -237,7 +237,7 @@ class EditSentimientoState extends State<EditSentimiento> {
                                         respuesta.onPressedArasaac,
                                     showPregunta: respuesta.showPregunta,
                                     flagAdolescencia: (selectedGrupo!.nombre ==
-                                        "Adolescencia"),
+                                        "Difícil"),
                                   );
                                 }).toList();
                               });
@@ -348,8 +348,8 @@ class EditSentimientoState extends State<EditSentimiento> {
                     );
                   },
                 ),
-                if ((changeGrupo && selectedGrupo!.nombre != "Atención T.") ||
-                    (!changeGrupo && defaultGrupo!.nombre != "Atención T."))
+                if ((changeGrupo && selectedGrupo!.nombre != "Fácil") ||
+                    (!changeGrupo && defaultGrupo!.nombre != "Fácil"))
                   Row(
                     children: [
                       ElevatedButton(
@@ -535,8 +535,8 @@ class EditSentimientoState extends State<EditSentimiento> {
           isCorrect: true,
           showPregunta: true,
           flagAdolescencia:
-              (!changeGrupo && defaultGrupo!.nombre == "Adolescencia") ||
-                  (changeGrupo && selectedGrupo!.nombre == "Adolescencia")));
+              (!changeGrupo && defaultGrupo!.nombre == "Difícil") ||
+                  (changeGrupo && selectedGrupo!.nombre == "Difícil")));
     });
   }
 
@@ -572,11 +572,8 @@ class EditSentimientoState extends State<EditSentimiento> {
   Future<void> _editRespuestas() async {
     Database db = await openDatabase('rutinas.db');
     for (int i = 0; i < respuestas.length; i++) {
-      print("probando: " + respuestas[i].respuestaText);
       if (i < this.sizeRespuestasInitial) {
-        if (selectedGrupo!.nombre != "Adolescencia") {
-          print("update: " + respuestas[i].respuestaText);
-
+        if (selectedGrupo!.nombre != "Difícil") {
           await db.update(
             'situacion',
             {
@@ -589,11 +586,6 @@ class EditSentimientoState extends State<EditSentimiento> {
             whereArgs: [respuestas[i].id],
           );
         } else {
-          print("update : " +
-              respuestas[i].id.toString() +
-              " - " +
-              respuestas[i].respuestaText);
-
           await db.update(
             'situacion',
             {
@@ -607,7 +599,7 @@ class EditSentimientoState extends State<EditSentimiento> {
           );
         }
       } else {
-        if (selectedGrupo!.nombre != "Adolescencia") {
+        if (selectedGrupo!.nombre != "Difícil") {
           await db.insert(
             'situacion',
             {
@@ -1058,7 +1050,7 @@ class EditSentimientoState extends State<EditSentimiento> {
     for (int i = 0; i < respuestas.length; i++)
       if (respuestas[i].respuestaImage.isEmpty ||
           (respuestas[i].respuestaText.trim().isEmpty &&
-              selectedGrupo!.nombre != "Adolescencia")) {
+              selectedGrupo!.nombre != "Difícil")) {
         correct = false;
         setState(() {
           respuestas[i].color = Colors.red;
@@ -1090,7 +1082,7 @@ class EditSentimientoState extends State<EditSentimiento> {
         onPressedGaleria: () => _selectNewActionGallery(i),
         onPressedArasaac: () => _selectNewRespuestaArasaac(i),
         showPregunta: (i != 0 && i != 1),
-        flagAdolescencia: (widget.grupo.nombre == "Adolescencia"),
+        flagAdolescencia: (widget.grupo.nombre == "Difícil"),
       );
       setState(() {
         this.respuestas.add(elementRespuestaSentimientos);

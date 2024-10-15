@@ -1,11 +1,11 @@
 <lint-module
     format="1"
-    dir="C:\Users\alons\StudioProjects\rutirse\android\app"
+    dir="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app"
     name=":app"
     type="APP"
     maven="android:app:"
     agpVersion="8.0.0"
-    buildFolder="C:\Users\alons\StudioProjects\rutirse\build\app"
+    buildFolder="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app"
     bootClassPath="C:\Users\alons\AppData\Local\Android\sdk\platforms\android-33\android.jar;C:\Users\alons\AppData\Local\Android\sdk\build-tools\30.0.3\core-lambda-stubs.jar"
     javaSourceLevel="1.8"
     compileTarget="android-33">

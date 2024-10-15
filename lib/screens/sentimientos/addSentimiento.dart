@@ -215,7 +215,7 @@ class AddSentimientoState extends State<AddSentimiento> {
                                         _selectNewRespuestaArasaac(0),
                                     showPregunta: false,
                                     flagAdolescencia: (selectedGrupo!.nombre ==
-                                        "Adolescencia"),
+                                        "Difícil"),
                                   ));
 
                                   respuestas
@@ -236,7 +236,7 @@ class AddSentimientoState extends State<AddSentimiento> {
                                         _selectNewRespuestaArasaac(1),
                                     showPregunta: false,
                                     flagAdolescencia: (selectedGrupo!.nombre ==
-                                        "Adolescencia"),
+                                        "Difícil"),
                                   ));
                                 });
                               });
@@ -352,7 +352,7 @@ class AddSentimientoState extends State<AddSentimiento> {
                   Row(
                     children: [
                       if (selectedGrupo != null &&
-                          selectedGrupo!.nombre != "Atención T.")
+                          selectedGrupo!.nombre != "Fácil")
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
@@ -440,7 +440,7 @@ class AddSentimientoState extends State<AddSentimiento> {
             _selectNewRespuestaArasaac(respuestas.length - 1),
         isCorrect: true,
         showPregunta: true,
-        flagAdolescencia: (selectedGrupo!.nombre == "Adolescencia"),
+        flagAdolescencia: (selectedGrupo!.nombre == "Difícil"),
       ));
     });
   }
@@ -844,7 +844,7 @@ class AddSentimientoState extends State<AddSentimiento> {
     for (int i = 0; i < respuestas.length; i++)
       if (respuestas[i].respuestaImage.isEmpty ||
           (respuestas[i].respuestaText.trim().isEmpty &&
-              selectedGrupo!.nombre != "Adolescencia")) {
+              selectedGrupo!.nombre != "Difícil")) {
         correct = false;
         setState(() {
           respuestas[i].color = Colors.red;
@@ -861,7 +861,7 @@ class AddSentimientoState extends State<AddSentimiento> {
   Future<void> _addRespuestas(int preguntaId) async {
     Database db = await openDatabase('rutinas.db');
     for (int i = 0; i < respuestas.length; i++) {
-      if (selectedGrupo!.nombre != "Adolescencia")
+      if (selectedGrupo!.nombre != "Difícil")
         await db.rawInsert(
           'INSERT INTO situacion (texto, correcta, imagen, preguntaSentimientoId) VALUES (?,?,?,?)',
           [

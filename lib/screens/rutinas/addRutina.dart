@@ -247,7 +247,7 @@ class AddRutinaState extends State<AddRutina> {
                                     accionImage: accion.accionImage,
                                     color: accion.color,
                                     flagAdolescencia:
-                                        selectedGrupo?.nombre == "Adolescencia",
+                                        selectedGrupo?.nombre == "Difícil",
                                   );
                                 }).toList();
                               });
@@ -928,7 +928,7 @@ class AddRutinaState extends State<AddRutina> {
         imgWidth: imgWidth,
         onPressedGaleria: () => _selectNewActionGallery(acciones.length - 1),
         onPressedArasaac: () => _selectNewActionArasaac(acciones.length - 1),
-        flagAdolescencia: selectedGrupo?.nombre == "Adolescencia",
+        flagAdolescencia: selectedGrupo?.nombre == "Difícil",
       ));
     });
   }
@@ -965,7 +965,7 @@ class AddRutinaState extends State<AddRutina> {
     for (int i = 0; i < acciones.length; i++) {
       if (acciones[i].accionImage.isEmpty ||
           (acciones[i].accionText.isEmpty &&
-              selectedGrupo?.nombre != "Adolescencia") ||
+              selectedGrupo?.nombre != "Difícil") ||
           acciones[i].accionText.characters.length > 30) {
         correct = false;
         setState(() {
@@ -1005,7 +1005,7 @@ class AddRutinaState extends State<AddRutina> {
   Future<void> _addAcciones(int preguntaId) async {
     Database db = await openDatabase('rutinas.db');
     for (int i = 0; i < acciones.length; i++) {
-      if (selectedGrupo!.nombre != "Adolescencia")
+      if (selectedGrupo!.nombre != "Difícil")
         await insertAccion(db, acciones[i].accionText, i,
             Uint8List.fromList(acciones[i].accionImage), preguntaId);
       else

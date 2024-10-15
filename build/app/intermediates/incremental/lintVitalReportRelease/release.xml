@@ -4,10 +4,10 @@
     minSdkVersion="21"
     targetSdkVersion="33"
     shrinking="true"
-    mergedManifest="C:\Users\alons\StudioProjects\rutirse\build\app\intermediates\merged_manifest\release\AndroidManifest.xml"
-    manifestMergeReport="C:\Users\alons\StudioProjects\rutirse\build\app\outputs\logs\manifest-merger-release-report.txt"
-    proguardFiles="C:\Users\alons\StudioProjects\rutirse\build\app\intermediates\default_proguard_files\global\proguard-android.txt-8.0.0;C:\software\flutter\packages\flutter_tools\gradle\flutter_proguard_rules.pro;proguard-rules.pro"
-    partialResultsDir="C:\Users\alons\StudioProjects\rutirse\build\app\intermediates\lint_vital_partial_results\release\out">
+    mergedManifest="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\intermediates\merged_manifest\release\AndroidManifest.xml"
+    manifestMergeReport="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\outputs\logs\manifest-merger-release-report.txt"
+    proguardFiles="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\intermediates\default_proguard_files\global\proguard-android.txt-8.0.0;C:\software\flutter\packages\flutter_tools\gradle\flutter_proguard_rules.pro;proguard-rules.pro"
+    partialResultsDir="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\intermediates\lint_vital_partial_results\release\out">
   <buildFeatures
       namespacing="REQUIRED"/>
   <sourceProviders>
@@ -27,10 +27,10 @@
         value="android.app.Application" />
   </manifestPlaceholders>
   <mainArtifact
-      classOutputs="C:\Users\alons\StudioProjects\rutirse\build\app\intermediates\javac\release\classes;C:\Users\alons\StudioProjects\rutirse\build\app\tmp\kotlin-classes\release;C:\Users\alons\StudioProjects\rutirse\build\app\kotlinToolingMetadata;C:\Users\alons\StudioProjects\rutirse\build\app\intermediates\compile_and_runtime_not_namespaced_r_class_jar\release\R.jar"
+      classOutputs="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\intermediates\javac\release\classes;C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\tmp\kotlin-classes\release;C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\kotlinToolingMetadata;C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\intermediates\compile_and_runtime_not_namespaced_r_class_jar\release\R.jar"
       applicationId="alonso.lucas.rutinas"
-      generatedSourceFolders="C:\Users\alons\StudioProjects\rutirse\build\app\generated\ap_generated_sources\release\out"
-      generatedResourceFolders="C:\Users\alons\StudioProjects\rutirse\build\app\generated\res\resValues\release"
+      generatedSourceFolders="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\generated\ap_generated_sources\release\out"
+      generatedResourceFolders="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\generated\res\resValues\release"
       desugaredMethodsFiles="C:\Users\alons\.gradle\caches\transforms-3\978b08ed8de0824239c27a2d1f62635d\transformed\D8BackportedDesugaredMethods.txt">
   </mainArtifact>
 </variant>

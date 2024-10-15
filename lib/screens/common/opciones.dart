@@ -254,7 +254,7 @@ class OpcionesState extends State<Opciones> {
                                 width: imgBtnWidth,
                               ),
                               text: Text(
-                                grupo.nombre + '\n' + grupo.edades,
+                                grupo.nombre,
                                 style: TextStyle(
                                   fontFamily: 'ComicNeue',
                                   fontSize: textSize,

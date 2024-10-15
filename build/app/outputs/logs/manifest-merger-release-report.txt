@@ -1,8 +1,8 @@
 -- Merging decision tree log ---
 application
-INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:8:5-39:19
-MERGED from [:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:7:5-17:19
-MERGED from [:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:7:5-17:19
+INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:8:5-39:19
+MERGED from [:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:7:5-17:19
+MERGED from [:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:7:5-17:19
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\alons\.gradle\caches\transforms-3\ff74349ffaf987c11b485aba3302db95\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:24:5-31:19
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\alons\.gradle\caches\transforms-3\ff74349ffaf987c11b485aba3302db95\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:24:5-31:19
 MERGED from [androidx.core:core:1.10.1] C:\Users\alons\.gradle\caches\transforms-3\fa7a21ebdd51009596a9ec56dee87118\transformed\core-1.10.1\AndroidManifest.xml:28:5-89
@@ -16,22 +16,22 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\al
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.10.1] C:\Users\alons\.gradle\caches\transforms-3\fa7a21ebdd51009596a9ec56dee87118\transformed\core-1.10.1\AndroidManifest.xml:28:18-86
 	android:label
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:9:9-32
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:9:9-32
 	android:icon
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:11:9-38
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:11:9-38
 	android:name
-		INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:10:9-42
+		INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:10:9-42
 manifest
-ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
-INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
-INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
-INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
-MERGED from [:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-19:12
-MERGED from [:flutter_plugin_android_lifecycle] C:\Users\alons\StudioProjects\rutirse\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-7:12
-MERGED from [:sqflite] C:\Users\alons\StudioProjects\rutirse\build\sqflite\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-7:12
-MERGED from [:flutter_tts] C:\Users\alons\StudioProjects\rutirse\build\flutter_tts\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-7:12
-MERGED from [:connectivity_plus] C:\Users\alons\StudioProjects\rutirse\build\connectivity_plus\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-9:12
+ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
+INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
+INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
+INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
+MERGED from [:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-19:12
+MERGED from [:flutter_plugin_android_lifecycle] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-7:12
+MERGED from [:sqflite] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\sqflite\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-7:12
+MERGED from [:flutter_tts] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\flutter_tts\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-7:12
+MERGED from [:connectivity_plus] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\connectivity_plus\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\alons\.gradle\caches\transforms-3\847bbf93f06d4f6d0d177cb4d7f4afb5\transformed\fragment-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.activity:activity:1.7.2] C:\Users\alons\.gradle\caches\transforms-3\35402a64e0ff577c92938c7dff8a0883\transformed\jetified-activity-1.7.2\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\alons\.gradle\caches\transforms-3\9a82c42de2236324e71cd2eadc00b5d8\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:17:1-23:12
@@ -47,7 +47,7 @@ MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.6.1] C:\Users\alons\.g
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.6.1] C:\Users\alons\.gradle\caches\transforms-3\6e93d365a267b44cb3e202af91114ca2\transformed\lifecycle-viewmodel-2.6.1\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.6.1] C:\Users\alons\.gradle\caches\transforms-3\67224aac32c260a02b5df47b181321d2\transformed\lifecycle-runtime-2.6.1\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1] C:\Users\alons\.gradle\caches\transforms-3\efd618fed8cb31fffaa03d38d9db0318\transformed\jetified-lifecycle-viewmodel-savedstate-2.6.1\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.exifinterface:exifinterface:1.3.6] C:\Users\alons\.gradle\caches\transforms-3\70c4af98fd33177a915166887c129c34\transformed\exifinterface-1.3.6\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.exifinterface:exifinterface:1.3.7] C:\Users\alons\.gradle\caches\transforms-3\3af0b04589e60d9f19dccce8c3da2338\transformed\exifinterface-1.3.7\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\alons\.gradle\caches\transforms-3\73f072b76eb67299c6d22374190f2cb3\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:17:1-55:12
 MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\alons\.gradle\caches\transforms-3\cd315023df42a3aeca92d7d7cb3bb9c3\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:17:1-33:12
 MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\alons\.gradle\caches\transforms-3\860f4e47dd6bd813cf55f53730b4f379\transformed\jetified-tracing-1.0.0\AndroidManifest.xml:17:1-24:12
@@ -55,49 +55,49 @@ MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\alons\.gradle\ca
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\alons\.gradle\caches\transforms-3\a5b6eccba6ee6c315417ad3cecd55f4a\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\alons\.gradle\caches\transforms-3\6ded6790417d222222603215e3f8142a\transformed\core-runtime-2.2.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\alons\.gradle\caches\transforms-3\adc1c7638a57a1b16c11f5030b54349d\transformed\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:17:1-22:12
-INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
-INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
-INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
+INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
+INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
+INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
 	package
-		INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
-		INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
+		INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
-		INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
+		INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
 	android:versionCode
-		INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
-		INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:1:1-40:12
+		INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:1:11-69
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:1:11-69
 queries
-ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:2:5-6:15
+ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:2:5-6:15
 intent#action:name:android.intent.action.TTS_SERVICE
-ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:3:9-5:18
+ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:3:9-5:18
 action#android.intent.action.TTS_SERVICE
-ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:4:13-72
+ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:4:13-72
 	android:name
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:4:21-69
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:4:21-69
 uses-permission#android.permission.INTERNET
-ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:7:5-66
+ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:7:5-66
 	android:name
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:7:22-64
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:7:22-64
 uses-sdk
-INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
-INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
-MERGED from [:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
-MERGED from [:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
-MERGED from [:flutter_plugin_android_lifecycle] C:\Users\alons\StudioProjects\rutirse\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
-MERGED from [:flutter_plugin_android_lifecycle] C:\Users\alons\StudioProjects\rutirse\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
-MERGED from [:sqflite] C:\Users\alons\StudioProjects\rutirse\build\sqflite\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
-MERGED from [:sqflite] C:\Users\alons\StudioProjects\rutirse\build\sqflite\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
-MERGED from [:flutter_tts] C:\Users\alons\StudioProjects\rutirse\build\flutter_tts\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
-MERGED from [:flutter_tts] C:\Users\alons\StudioProjects\rutirse\build\flutter_tts\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
-MERGED from [:connectivity_plus] C:\Users\alons\StudioProjects\rutirse\build\connectivity_plus\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
-MERGED from [:connectivity_plus] C:\Users\alons\StudioProjects\rutirse\build\connectivity_plus\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
+INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
+MERGED from [:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_plugin_android_lifecycle] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_plugin_android_lifecycle] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\sqflite\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\sqflite\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_tts] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\flutter_tts\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_tts] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\flutter_tts\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:connectivity_plus] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\connectivity_plus\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:connectivity_plus] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\connectivity_plus\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\alons\.gradle\caches\transforms-3\847bbf93f06d4f6d0d177cb4d7f4afb5\transformed\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\alons\.gradle\caches\transforms-3\847bbf93f06d4f6d0d177cb4d7f4afb5\transformed\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.activity:activity:1.7.2] C:\Users\alons\.gradle\caches\transforms-3\35402a64e0ff577c92938c7dff8a0883\transformed\jetified-activity-1.7.2\AndroidManifest.xml:20:5-44
@@ -128,8 +128,8 @@ MERGED from [androidx.lifecycle:lifecycle-runtime:2.6.1] C:\Users\alons\.gradle\
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.6.1] C:\Users\alons\.gradle\caches\transforms-3\67224aac32c260a02b5df47b181321d2\transformed\lifecycle-runtime-2.6.1\AndroidManifest.xml:5:5-44
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1] C:\Users\alons\.gradle\caches\transforms-3\efd618fed8cb31fffaa03d38d9db0318\transformed\jetified-lifecycle-viewmodel-savedstate-2.6.1\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1] C:\Users\alons\.gradle\caches\transforms-3\efd618fed8cb31fffaa03d38d9db0318\transformed\jetified-lifecycle-viewmodel-savedstate-2.6.1\AndroidManifest.xml:20:5-44
-MERGED from [androidx.exifinterface:exifinterface:1.3.6] C:\Users\alons\.gradle\caches\transforms-3\70c4af98fd33177a915166887c129c34\transformed\exifinterface-1.3.6\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.exifinterface:exifinterface:1.3.6] C:\Users\alons\.gradle\caches\transforms-3\70c4af98fd33177a915166887c129c34\transformed\exifinterface-1.3.6\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.exifinterface:exifinterface:1.3.7] C:\Users\alons\.gradle\caches\transforms-3\3af0b04589e60d9f19dccce8c3da2338\transformed\exifinterface-1.3.7\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.exifinterface:exifinterface:1.3.7] C:\Users\alons\.gradle\caches\transforms-3\3af0b04589e60d9f19dccce8c3da2338\transformed\exifinterface-1.3.7\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\alons\.gradle\caches\transforms-3\73f072b76eb67299c6d22374190f2cb3\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:21:5-44
 MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\alons\.gradle\caches\transforms-3\73f072b76eb67299c6d22374190f2cb3\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:21:5-44
 MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\alons\.gradle\caches\transforms-3\cd315023df42a3aeca92d7d7cb3bb9c3\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:21:5-23:41
@@ -144,76 +144,76 @@ MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\alons\.gradle\cache
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\alons\.gradle\caches\transforms-3\6ded6790417d222222603215e3f8142a\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\alons\.gradle\caches\transforms-3\adc1c7638a57a1b16c11f5030b54349d\transformed\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\alons\.gradle\caches\transforms-3\adc1c7638a57a1b16c11f5030b54349d\transformed\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
-INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
-INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml
 activity#alonso.lucas.rutinas.MainActivity
-ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:12:9-33:20
+ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:12:9-33:20
 	android:screenOrientation
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:20:13-49
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:20:13-49
 	android:launchMode
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:15:13-43
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:15:13-43
 	android:hardwareAccelerated
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:18:13-47
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:18:13-47
 	android:windowSoftInputMode
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:19:13-55
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:19:13-55
 	android:exported
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:14:13-36
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:14:13-36
 	android:configChanges
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:17:13-163
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:17:13-163
 	android:theme
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:16:13-47
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:16:13-47
 	android:name
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:13:13-41
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:13:13-41
 meta-data#io.flutter.embedding.android.NormalTheme
-ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:25:13-28:17
+ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:25:13-28:17
 	android:resource
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:27:15-52
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:27:15-52
 	android:name
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:26:15-70
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:26:15-70
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:29:13-32:29
+ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:29:13-32:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:30:17-68
+ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:30:17-68
 	android:name
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:30:25-66
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:30:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:31:17-76
+ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:31:17-76
 	android:name
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:31:27-74
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:31:27-74
 meta-data#flutterEmbedding
-ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:36:9-38:33
+ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:36:9-38:33
 	android:value
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:38:13-30
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:38:13-30
 	android:name
-		ADDED from C:\Users\alons\StudioProjects\rutirse\android\app\src\main\AndroidManifest.xml:37:13-44
+		ADDED from C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android\app\src\main\AndroidManifest.xml:37:13-44
 provider#io.flutter.plugins.imagepicker.ImagePickerFileProvider
-ADDED from [:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:8:9-16:20
+ADDED from [:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:8:9-16:20
 	android:grantUriPermissions
-		ADDED from [:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:12:13-47
+		ADDED from [:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:12:13-47
 	android:authorities
-		ADDED from [:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:10:13-74
+		ADDED from [:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:10:13-74
 	android:exported
-		ADDED from [:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:11:13-37
+		ADDED from [:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:11:13-37
 	android:name
-		ADDED from [:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:9:13-82
+		ADDED from [:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:9:13-82
 meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from [:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:13:13-15:75
+ADDED from [:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:13:13-15:75
 	android:resource
-		ADDED from [:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:15:17-72
+		ADDED from [:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:15:17-72
 	android:name
-		ADDED from [:image_picker_android] C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:14:17-67
+		ADDED from [:image_picker_android] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:14:17-67
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from [:connectivity_plus] C:\Users\alons\StudioProjects\rutirse\build\connectivity_plus\intermediates\merged_manifest\release\AndroidManifest.xml:7:5-79
+ADDED from [:connectivity_plus] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\connectivity_plus\intermediates\merged_manifest\release\AndroidManifest.xml:7:5-79
 	android:name
-		ADDED from [:connectivity_plus] C:\Users\alons\StudioProjects\rutirse\build\connectivity_plus\intermediates\merged_manifest\release\AndroidManifest.xml:7:22-76
+		ADDED from [:connectivity_plus] C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\connectivity_plus\intermediates\merged_manifest\release\AndroidManifest.xml:7:22-76
 uses-library#androidx.window.extensions
 ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\alons\.gradle\caches\transforms-3\ff74349ffaf987c11b485aba3302db95\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
 	android:required

@@ -244,7 +244,7 @@ class EditRutinaState extends State<EditRutina> {
                                     accionImage: accion.accionImage,
                                     color: accion.color,
                                     flagAdolescencia:
-                                        selectedGrupo!.nombre == "Adolescencia",
+                                        selectedGrupo!.nombre == "Difícil",
                                   );
                                 }).toList();
                               });
@@ -1013,9 +1013,9 @@ class EditRutinaState extends State<EditRutina> {
 
       bool flag;
       if (!changeGrupo)
-        flag = defaultGrupo.nombre == "Adolescencia";
+        flag = defaultGrupo.nombre == "Difícil";
       else
-        flag = selectedGrupo!.nombre == "Adolescencia";
+        flag = selectedGrupo!.nombre == "Difícil";
 
       acciones.add(ElementAccion(
         text1: accionText,
@@ -1059,7 +1059,7 @@ class EditRutinaState extends State<EditRutina> {
     for (int i = 0; i < acciones.length; i++) {
       if (acciones[i].accionImage.isEmpty ||
           (acciones[i].accionText.isEmpty &&
-              selectedGrupo?.nombre != "Adolescencia") ||
+              selectedGrupo?.nombre != "Difícil") ||
           acciones[i].accionText.characters.length > 30) {
         correct = false;
         setState(() {
@@ -1089,7 +1089,7 @@ class EditRutinaState extends State<EditRutina> {
     Database db = await openDatabase('rutinas.db');
     for (int i = 0; i < acciones.length; i++) {
       if (i < this.sizeAccionesInitial) {
-        if (selectedGrupo!.nombre != "Adolescencia") {
+        if (selectedGrupo!.nombre != "Difícil") {
           await db.update(
             'accion',
             {
@@ -1115,7 +1115,7 @@ class EditRutinaState extends State<EditRutina> {
           );
         }
       } else {
-        if (selectedGrupo!.nombre != "Adolescencia") {
+        if (selectedGrupo!.nombre != "Difícil") {
           await db.insert(
             'accion',
             {
@@ -1179,7 +1179,7 @@ class EditRutinaState extends State<EditRutina> {
         onPressedGaleria: () => _selectNewActionGallery(i),
         onPressedArasaac: () => _selectNewActionArasaac(i),
         accionText: aux[i].texto,
-        flagAdolescencia: widget.grupo.nombre == "Adolescencia",
+        flagAdolescencia: widget.grupo.nombre == "Difícil",
         accionImage: aux[i].imagen!.toList(),
       );
       setState(() {

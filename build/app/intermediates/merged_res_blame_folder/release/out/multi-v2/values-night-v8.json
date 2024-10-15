@@ -4,7 +4,7 @@
             "outputFile": "alonso.lucas.rutinas.app-mergeReleaseResources-19:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\alons\\StudioProjects\\rutirse\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "C:\\Users\\alons\\Desktop\\LUKAS\\PROYECTOS\\rutirse\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

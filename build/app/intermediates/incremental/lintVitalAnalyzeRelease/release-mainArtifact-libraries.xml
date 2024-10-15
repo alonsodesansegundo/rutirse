@@ -1,13 +1,13 @@
 <libraries>
   <library
-      name="__local_aars__:C:\Users\alons\StudioProjects\rutirse\build\app\intermediates\flutter\release\libs.jar:unspecified@jar"
-      jars="C:\Users\alons\StudioProjects\rutirse\build\app\intermediates\flutter\release\libs.jar"
-      resolved="__local_aars__:C:\Users\alons\StudioProjects\rutirse\build\app\intermediates\flutter\release\libs.jar:unspecified"/>
+      name="__local_aars__:C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\intermediates\flutter\release\libs.jar:unspecified@jar"
+      jars="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\intermediates\flutter\release\libs.jar"
+      resolved="__local_aars__:C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\app\intermediates\flutter\release\libs.jar:unspecified"/>
   <library
-      name="C:\Users\alons\StudioProjects\rutirse\android@@:flutter_plugin_android_lifecycle::release"
-      jars="C:\Users\alons\StudioProjects\rutirse\build\flutter_plugin_android_lifecycle\.transforms\fea4da086cda1d0d4c15f2144b1d699f\transformed\out\jars\classes.jar;C:\Users\alons\StudioProjects\rutirse\build\flutter_plugin_android_lifecycle\.transforms\fea4da086cda1d0d4c15f2144b1d699f\transformed\out\jars\libs\R.jar"
+      name="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:flutter_plugin_android_lifecycle::release"
+      jars="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\flutter_plugin_android_lifecycle\.transforms\c490b46c31777052ae42222dda5e50f3\transformed\out\jars\classes.jar;C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\flutter_plugin_android_lifecycle\.transforms\c490b46c31777052ae42222dda5e50f3\transformed\out\jars\libs\R.jar"
       resolved="io.flutter.plugins.flutter_plugin_android_lifecycle:flutter_plugin_android_lifecycle:unspecified"
-      folder="C:\Users\alons\StudioProjects\rutirse\build\flutter_plugin_android_lifecycle\.transforms\fea4da086cda1d0d4c15f2144b1d699f\transformed\out"
+      folder="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\flutter_plugin_android_lifecycle\.transforms\c490b46c31777052ae42222dda5e50f3\transformed\out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -17,10 +17,10 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
-      name="C:\Users\alons\StudioProjects\rutirse\android@@:sqflite::release"
-      jars="C:\Users\alons\StudioProjects\rutirse\build\sqflite\.transforms\464efd3e30222cb0edce52846d3bd5e8\transformed\out\jars\classes.jar;C:\Users\alons\StudioProjects\rutirse\build\sqflite\.transforms\464efd3e30222cb0edce52846d3bd5e8\transformed\out\jars\libs\R.jar"
+      name="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:sqflite::release"
+      jars="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\sqflite\.transforms\8ad3698d997893c91818c35a1cf2c3ef\transformed\out\jars\classes.jar;C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\sqflite\.transforms\8ad3698d997893c91818c35a1cf2c3ef\transformed\out\jars\libs\R.jar"
       resolved="com.tekartik.sqflite:sqflite:unspecified"
-      folder="C:\Users\alons\StudioProjects\rutirse\build\sqflite\.transforms\464efd3e30222cb0edce52846d3bd5e8\transformed\out"
+      folder="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\sqflite\.transforms\8ad3698d997893c91818c35a1cf2c3ef\transformed\out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -30,10 +30,10 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
-      name="C:\Users\alons\StudioProjects\rutirse\android@@:flutter_tts::release"
-      jars="C:\Users\alons\StudioProjects\rutirse\build\flutter_tts\.transforms\6e58b8024669d95b3be223f88ff74396\transformed\out\jars\classes.jar;C:\Users\alons\StudioProjects\rutirse\build\flutter_tts\.transforms\6e58b8024669d95b3be223f88ff74396\transformed\out\jars\libs\R.jar"
+      name="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:flutter_tts::release"
+      jars="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\flutter_tts\.transforms\06a350be3e35ea5f6f4b30f741b1bd6b\transformed\out\jars\classes.jar;C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\flutter_tts\.transforms\06a350be3e35ea5f6f4b30f741b1bd6b\transformed\out\jars\libs\R.jar"
       resolved="com.tundralabs.fluttertts:flutter_tts:unspecified"
-      folder="C:\Users\alons\StudioProjects\rutirse\build\flutter_tts\.transforms\6e58b8024669d95b3be223f88ff74396\transformed\out"
+      folder="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\flutter_tts\.transforms\06a350be3e35ea5f6f4b30f741b1bd6b\transformed\out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -43,10 +43,10 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
-      name="C:\Users\alons\StudioProjects\rutirse\android@@:image_picker_android::release"
-      jars="C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\.transforms\d207ea27b593073e0e03c9eebdd066db\transformed\out\jars\classes.jar;C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\.transforms\d207ea27b593073e0e03c9eebdd066db\transformed\out\jars\libs\R.jar"
+      name="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:image_picker_android::release"
+      jars="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\.transforms\0dda4b75d370cf8f877137c7960637c3\transformed\out\jars\classes.jar;C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\.transforms\0dda4b75d370cf8f877137c7960637c3\transformed\out\jars\libs\R.jar"
       resolved="io.flutter.plugins.imagepicker:image_picker_android:unspecified"
-      folder="C:\Users\alons\StudioProjects\rutirse\build\image_picker_android\.transforms\d207ea27b593073e0e03c9eebdd066db\transformed\out"
+      folder="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\image_picker_android\.transforms\0dda4b75d370cf8f877137c7960637c3\transformed\out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -56,10 +56,10 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
-      name="C:\Users\alons\StudioProjects\rutirse\android@@:connectivity_plus::release"
-      jars="C:\Users\alons\StudioProjects\rutirse\build\connectivity_plus\.transforms\4328fe472119178f5f09d28429d77690\transformed\out\jars\classes.jar;C:\Users\alons\StudioProjects\rutirse\build\connectivity_plus\.transforms\4328fe472119178f5f09d28429d77690\transformed\out\jars\libs\R.jar"
+      name="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\android@@:connectivity_plus::release"
+      jars="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\connectivity_plus\.transforms\64267d89471951118e1614b35f86cffc\transformed\out\jars\classes.jar;C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\connectivity_plus\.transforms\64267d89471951118e1614b35f86cffc\transformed\out\jars\libs\R.jar"
       resolved="dev.fluttercommunity.plus.connectivity:connectivity_plus:unspecified"
-      folder="C:\Users\alons\StudioProjects\rutirse\build\connectivity_plus\.transforms\4328fe472119178f5f09d28429d77690\transformed\out"
+      folder="C:\Users\alons\Desktop\LUKAS\PROYECTOS\rutirse\build\connectivity_plus\.transforms\64267d89471951118e1614b35f86cffc\transformed\out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -271,9 +271,9 @@
       jars="C:\Users\alons\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-android\1.6.4\f955fc8b2ad196e2f4429598440e15f7492eeb2b\kotlinx-coroutines-android-1.6.4.jar"
       resolved="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"/>
   <library
-      name="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22@jar"
-      jars="C:\Users\alons\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk8\1.8.22\b25c86d47d6b962b9cf0f8c3f320c8a10eea3dd1\kotlin-stdlib-jdk8-1.8.22.jar"
-      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22"/>
+      name="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10@jar"
+      jars="C:\Users\alons\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk8\1.9.10\c7510d64a83411a649c76f2778304ddf71d7437b\kotlin-stdlib-jdk8-1.9.10.jar"
+      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10"/>
   <library
       name="io.flutter:armeabi_v7a_release:1.0.0-767d8c75e898091b925519803830fc2721658d07@jar"
       jars="C:\Users\alons\.gradle\caches\modules-2\files-2.1\io.flutter\armeabi_v7a_release\1.0.0-767d8c75e898091b925519803830fc2721658d07\e34a3863488b762b96f7c1cedf24a49fda79eb80\armeabi_v7a_release-1.0.0-767d8c75e898091b925519803830fc2721658d07.jar"
@@ -338,9 +338,9 @@
       jars="C:\Users\alons\.gradle\caches\modules-2\files-2.1\androidx.annotation\annotation-jvm\1.7.1\920472d40adcdef5e18708976b3e314f9a636fcd\annotation-jvm-1.7.1.jar"
       resolved="androidx.annotation:annotation-jvm:1.7.1"/>
   <library
-      name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22@jar"
-      jars="C:\Users\alons\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk7\1.8.22\4dabb8248310d833bb6a8b516024a91fd3d275c\kotlin-stdlib-jdk7-1.8.22.jar"
-      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22"/>
+      name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10@jar"
+      jars="C:\Users\alons\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk7\1.9.10\bc5bfc2690338defd5195b05c57562f2194eeb10\kotlin-stdlib-jdk7-1.9.10.jar"
+      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10"/>
   <library
       name="androidx.annotation:annotation-experimental:1.3.0@aar"
       jars="C:\Users\alons\.gradle\caches\transforms-3\adc1c7638a57a1b16c11f5030b54349d\transformed\jetified-annotation-experimental-1.3.0\jars\classes.jar"
@@ -355,13 +355,13 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
-      name="org.jetbrains.kotlin:kotlin-stdlib:1.8.22@jar"
-      jars="C:\Users\alons\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib\1.8.22\636bf8b320e7627482771bbac9ed7246773c02bd\kotlin-stdlib-1.8.22.jar"
-      resolved="org.jetbrains.kotlin:kotlin-stdlib:1.8.22"/>
+      name="org.jetbrains.kotlin:kotlin-stdlib:1.9.10@jar"
+      jars="C:\Users\alons\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib\1.9.10\72812e8a368917ab5c0a5081b56915ffdfec93b7\kotlin-stdlib-1.9.10.jar"
+      resolved="org.jetbrains.kotlin:kotlin-stdlib:1.9.10"/>
   <library
-      name="org.jetbrains.kotlin:kotlin-stdlib-common:1.8.22@jar"
-      jars="C:\Users\alons\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-common\1.8.22\1a8e3601703ae14bb58757ea6b2d8e8e5935a586\kotlin-stdlib-common-1.8.22.jar"
-      resolved="org.jetbrains.kotlin:kotlin-stdlib-common:1.8.22"/>
+      name="org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10@jar"
+      jars="C:\Users\alons\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-common\1.9.10\dafaf2c27f27c09220cee312df10917d9a5d97ce\kotlin-stdlib-common-1.9.10.jar"
+      resolved="org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10"/>
   <library
       name="org.jetbrains:annotations:13.0@jar"
       jars="C:\Users\alons\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\13.0\919f0dfe192fb4e063e7dacadee7f8bb9a2672a9\annotations-13.0.jar"
@@ -380,10 +380,10 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
-      name="androidx.exifinterface:exifinterface:1.3.6@aar"
-      jars="C:\Users\alons\.gradle\caches\transforms-3\70c4af98fd33177a915166887c129c34\transformed\exifinterface-1.3.6\jars\classes.jar"
-      resolved="androidx.exifinterface:exifinterface:1.3.6"
-      folder="C:\Users\alons\.gradle\caches\transforms-3\70c4af98fd33177a915166887c129c34\transformed\exifinterface-1.3.6"
+      name="androidx.exifinterface:exifinterface:1.3.7@aar"
+      jars="C:\Users\alons\.gradle\caches\transforms-3\3af0b04589e60d9f19dccce8c3da2338\transformed\exifinterface-1.3.7\jars\classes.jar"
+      resolved="androidx.exifinterface:exifinterface:1.3.7"
+      folder="C:\Users\alons\.gradle\caches\transforms-3\3af0b04589e60d9f19dccce8c3da2338\transformed\exifinterface-1.3.7"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"

@@ -6,20 +6,18 @@ import '../db.dart';
 class Grupo {
   final int id;
   final String nombre;
-  final String edades;
 
   ///Constructor de la clase Grupo
-  Grupo({required this.id, required this.nombre, required this.edades});
+  Grupo({required this.id, required this.nombre});
 
   ///Crea una instancia de Grupo a partir de un mapa de datos, dicho mapa debe contener: id, nombre y edades
   Grupo.gruposFromMap(Map<String, dynamic> item)
       : id = item["id"],
-        nombre = item["nombre"],
-        edades = item["edades"];
+        nombre = item["nombre"];
 
   ///Convierte una instancia de Grupo a un mapa de datos
   Map<String, Object> gruposToMap() {
-    return {'id': id, 'nombre': nombre, 'edades': edades};
+    return {'id': id, 'nombre': nombre};
   }
 
   ///Sobreescritura del método equals
@@ -29,18 +27,17 @@ class Grupo {
 
     return other is Grupo &&
         other.id == id &&
-        other.nombre == nombre &&
-        other.edades == edades;
+        other.nombre == nombre;
   }
 
   ///Sobreescritura del método hashCode
   @override
-  int get hashCode => id.hashCode ^ nombre.hashCode ^ edades.hashCode;
+  int get hashCode => id.hashCode ^ nombre.hashCode;
 
   ///Sobreescritura del método toString
   @override
   String toString() {
-    return 'Grupo {id: $id, name: $nombre, edades: $edades}';
+    return 'Grupo {id: $id, name: $nombre}';
   }
 }
 
@@ -88,10 +85,10 @@ Future<Grupo> getGrupoById(int groupId, [Database? db]) async {
 void insertGrupos(Database database) async {
   await database.transaction((txn) async {
     txn.rawInsert(
-        "INSERT INTO grupo (nombre, edades) VALUES ('Atención T.','4 - 7 años')");
+        "INSERT INTO grupo (nombre) VALUES ('Fácil')");
     txn.rawInsert(
-        "INSERT INTO grupo (nombre, edades) VALUES ('Infancia','8 - 11 años')");
+        "INSERT INTO grupo (nombre) VALUES ('Medio')");
     txn.rawInsert(
-        "INSERT INTO grupo (nombre, edades) VALUES ('Adolescencia','12 - 17 años')");
+        "INSERT INTO grupo (nombre) VALUES ('Difícil')");
   });
 }
