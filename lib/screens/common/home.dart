@@ -120,17 +120,6 @@ class HomeState extends State<Home> {
                   ],
                 ),
                 SizedBox(height: espacioAlto), // Espacio entre los textos
-                // Explicación pantalla
-                Text(
-                  'Antes de empezar, ¿puedes decirnos tu nombre y a qué grupo perteneces? '
-                  'Esto nos va a ayudar a seguir tu progreso. '
-                  '¡Muchas gracias!',
-                  style: TextStyle(
-                    fontFamily: 'ComicNeue',
-                    fontSize: textSize,
-                  ),
-                ),
-                SizedBox(height: espacioAlto), // Espacio entre los textos
                 // Fila para el nombre
                 Row(
                   children: [
@@ -164,7 +153,7 @@ class HomeState extends State<Home> {
                 Row(
                   children: [
                     Text(
-                      'Grupo:',
+                      'Nivel:',
                       style: TextStyle(
                         fontFamily: 'ComicNeue',
                         fontSize: textSize,
@@ -218,7 +207,7 @@ class HomeState extends State<Home> {
                         }).toList()
                       : [Center(child: Text('No hay grupos disponibles'))],
                 ),
-                SizedBox(height: espacioAlto * 2),
+                SizedBox(height: espacioAlto * 5),
                 Text(
                   '¿Qué quieres hacer?',
                   style: TextStyle(

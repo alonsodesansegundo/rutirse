@@ -170,7 +170,7 @@ class ViewAddedRutinasState extends State<ViewAddedRutinas> {
                       ),
                       child: DropdownButton<Grupo>(
                         hint: Text(
-                          'Grupo',
+                          'Nivel',
                           style: TextStyle(
                             fontFamily: 'ComicNeue',
                             fontSize: textSize * 0.75,
@@ -180,7 +180,7 @@ class ViewAddedRutinasState extends State<ViewAddedRutinas> {
                         items: [
                           DropdownMenuItem(
                             child: Text(
-                              'Grupo',
+                              'Nivel',
                               style: TextStyle(
                                 fontFamily: 'ComicNeue',
                                 fontSize: textSize * 0.75,
@@ -202,7 +202,7 @@ class ViewAddedRutinasState extends State<ViewAddedRutinas> {
                         ],
                         onChanged: (Grupo? grupo) {
                           setState(() {
-                            if (grupo?.nombre == 'Grupo')
+                            if (grupo?.nombre == 'Nivel')
                               selectedGrupoAux = null;
                             else
                               selectedGrupoAux = grupo;
@@ -220,7 +220,7 @@ class ViewAddedRutinasState extends State<ViewAddedRutinas> {
                     Container(
                       width: grupoWidth,
                       child: Text(
-                        'Grupo',
+                        'Nivel',
                         style: TextStyle(
                           fontFamily: 'ComicNeue',
                           fontSize: columnText,

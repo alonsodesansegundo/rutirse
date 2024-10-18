@@ -10393,9 +10393,6 @@ kotlinx.coroutines.internal.AtomicKt:
 kotlinx.coroutines.internal.AtomicOp:
     public final java.lang.Object getConsensus()
     public final boolean isDecided()
-kotlinx.coroutines.internal.ClassValueCtorCache$cache$1:
-    public synthetic bridge java.lang.Object computeValue(java.lang.Class)
-    protected kotlin.jvm.functions.Function1 computeValue(java.lang.Class)
 kotlinx.coroutines.internal.ConcurrentKt:
     public static synthetic void ReentrantLock$annotations()
     public static final java.util.Set identitySet(int)

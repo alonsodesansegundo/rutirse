@@ -279,6 +279,6 @@ Future<void> updatePregunta(Database database, int id, String enunciado,
 ///[database] Objeto Database sobre la cual se ejecutan las insercciones
 void insertRutinas(Database database) {
   insertPreguntaRutinaInitialDataAtencionT(database);
-  insertPreguntaRutinaInitialDataInfancia(database);
+  //insertPreguntaRutinaInitialDataInfancia(database);
   insertPreguntaRutinaInitialDataAdolescencia(database);
 }

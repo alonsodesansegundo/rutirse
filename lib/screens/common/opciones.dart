@@ -221,7 +221,7 @@ class OpcionesState extends State<Opciones> {
               Row(
                 children: [
                   Text(
-                    'Grupo:',
+                    'Nivel:',
                     style: TextStyle(
                       fontFamily: 'ComicNeue',
                       fontSize: textSize,

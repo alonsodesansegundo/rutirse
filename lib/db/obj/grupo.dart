@@ -85,10 +85,8 @@ Future<Grupo> getGrupoById(int groupId, [Database? db]) async {
 void insertGrupos(Database database) async {
   await database.transaction((txn) async {
     txn.rawInsert(
-        "INSERT INTO grupo (nombre) VALUES ('Fácil')");
+        "INSERT INTO grupo (nombre) VALUES ('Nivel 1')");
     txn.rawInsert(
-        "INSERT INTO grupo (nombre) VALUES ('Medio')");
-    txn.rawInsert(
-        "INSERT INTO grupo (nombre) VALUES ('Difícil')");
+        "INSERT INTO grupo (nombre) VALUES ('Nivel 2')");
   });
 }

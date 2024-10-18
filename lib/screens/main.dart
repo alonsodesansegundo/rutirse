@@ -512,7 +512,7 @@ class MyHomePage extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    'Juegos de Habilidad Social',
+                    'Juego para trabajar las rutinas.',
                     style: TextStyle(
                       fontFamily: 'ComicNeue',
                       fontSize: titleSize / 2,
@@ -521,42 +521,15 @@ class MyHomePage extends StatelessWidget {
                 ],
               ),
               SizedBox(height: espacioAlto), // Espacio entre los textos
-              // Explicación pantalla
-              Text(
-                '¡Hola! A continuación puedes elegir entre varios juegos. '
-                'Con ellos queremos ayudarte a mejorar en diferentes situaciones '
-                'que puedes encontrarte en tu día a día.\n'
-                '¡Esperamos que disfrutes con esta experiencia!',
-                style: TextStyle(
-                  fontFamily: 'ComicNeue',
-                  fontSize: textSize,
-                ),
+              Column(
+                children: [
+                  btnRutinas,
+                  SizedBox(height: espacioAlto*3),
+                  btnTerapeuta,
+                  SizedBox(height: espacioAlto*3),
+                  btnInfo
+                ],
               ),
-              SizedBox(height: espacioAlto), // Espacio entre los textos
-              Text(
-                '¿A qué te apetece jugar?',
-                style: TextStyle(
-                  fontFamily: 'ComicNeue',
-                  fontSize: textSize,
-                ),
-              ),
-              SizedBox(height: espacioAlto), // Espacio entre los textos
-              Row(
-                children: [btnRutinas],
-              ),
-
-              SizedBox(height: espacioAcercaDe),
-              Text(
-                'Otras opciones:',
-                style: TextStyle(
-                  fontFamily: 'ComicNeue',
-                  fontSize: textSize,
-                ),
-              ),
-              SizedBox(height: espacioAlto),
-              Row(
-                children: [btnTerapeuta, btnInfo],
-              )
             ],
           ),
         ),

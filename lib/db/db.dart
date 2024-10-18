@@ -23,11 +23,11 @@ Future<Database> initializeDB() async {
       insertDefaultPassword(database);
       insertGrupos(database);
       insertRutinas(database);
-      insertIronias(database);
-      insertSentimientos(database);
+      //insertIronias(database);
+      //insertSentimientos(database);
     },
     onUpgrade: _onUpgrade, // Manejo de actualización de la base de datos
-    version: 2, // Cambiar la versión a 2
+    version: 3, // Cambiar la versión a 3
   );
 }
 
@@ -61,6 +61,25 @@ Future<void> _onUpgrade(Database database, int oldVersion, int newVersion) async
 
     // Renombrar la nueva tabla
     await database.execute('ALTER TABLE nuevo_grupo RENAME TO grupo');
+  }
+
+  if (oldVersion < 3) {
+    // Elimino el grupo o nivel 2 (intermedio)
+    await database.execute('''
+      DELETE FROM grupo WHERE id = 2
+    ''');
+
+    await database.execute('''
+      DELETE FROM situacionRutina WHERE grupoId = 2
+    ''');
+
+    // Actualizo el nombre de los niveles
+    await database.execute('''
+      UPDATE grupo SET nombre = 'Nivel 1' WHERE id = 1;
+    ''');
+    await database.execute('''
+      UPDATE grupo SET nombre = 'Nivel 2' WHERE id = 3;
+    ''');
   }
 }
 

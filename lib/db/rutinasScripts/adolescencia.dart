@@ -14,7 +14,7 @@ String pathPersonaje = 'assets/img/personajes/';
 ///<br><b>Parámetros</b><br>
 ///[database] Objeto Database sobre la cual se ejecutan las insercciones
 void insertPreguntaRutinaInitialDataAdolescencia(Database database) async {
-  int grupoAdolescencia = 3;
+  int grupoAdolescencia = 2;
 
   // LAVAR DIENTES
   int id_P1 = await insertSituacionRutinaInitialData(
